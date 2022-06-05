@@ -1,0 +1,22 @@
+{
+  "name": "jiumu",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:web": "pnpm run -C packages/web dev",
+    "dev:pc": "pnpm run -C packages/pc dev",
+    "dev:mobile": "pnpm run -C packages/mobile dev"
+  },
+  "dependencies": {
+    "vue": "^3.2.25"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9",
+    "vue-tsc": "^0.34.7"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

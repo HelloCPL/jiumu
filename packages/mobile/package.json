@@ -1,0 +1,13 @@
+{
+  "name": "@jiumu/mobile",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "sass": "^1.52.2"
+  }
+}
