@@ -18,14 +18,14 @@
   + `--save-dev, -D` 添加到 `devDependencies`
   + `--save-optional, -O` 添加到 `optionalDependencies`
   + `--global, -g` 全局安装
-  如 `npm add -P vue`
+  + 如 `npm add -P vue`
 
 - `pnpm update, up` 更新依赖包
   + `pnpm up` 更新 `package.json` 指定范围的所有依赖项 
   + `pnpm up --latest` 升级所有依赖项（忽略 `package.json` 指定范围） 
   + `pnpm up vue@xx` 将 vue 升级到指定版本 
   + `pnpm up @babel/**` 更新 @babel 下的所有依赖项 
-  如 `npm up -P vue@3.x`
+  + 如 `npm up -P vue@3.x`
 
 - `pnpm remove, rm, uninstall, un` 移除依赖
   + `--save-prod, -P` 仅从 `dependencies` 删除
