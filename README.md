@@ -39,11 +39,11 @@
 
 - `-w, --workspace-root` 指定全局安装
   + 如 `pnpm add vue -w`
-      `pnpm remove vue -w`
+  + `pnpm remove vue -w`
 
 - `--filter <package_name>` 指定子包安装
   + 如 `pnpm add lodash-es --filter @jiumu/pc`
-      `pnpm remove lodash-es --filter @jiumu/pc`
+  + `pnpm remove lodash-es --filter @jiumu/pc`
 
 - `pnpm run` 运行 `scripts` 下配置的命令
   + 如 `pnpm run dev` 运行 dev 命令
