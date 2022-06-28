@@ -12,5 +12,8 @@ export default defineConfig({
     ]
   },
   // 配置插件
-  plugins: [vue()]
+  plugins: [vue()],
+  server: {
+    port: 8001
+  }
 })

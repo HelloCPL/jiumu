@@ -50,3 +50,8 @@
 
 - `pnpm create` 通过模板创建一个项目
   + 如 `pnpm create vite my-vue` 创建一个名叫 my-vue 的项目
+
+#### 问题
+
+- `vue` 提示错误，`defineProps defineEmits` 等提示错误，可以安装 `volar` 插件
+

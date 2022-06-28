@@ -1,13 +1,24 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <!-- <img alt="Vue logo" src="./assets/logo.png" />
+  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
+  <span>你好</span>
+  <span>{{ msg }}</span>
+  <button @click="handleClicke">按钮</button>
 </template>
+
+<script setup lang="ts">
+import {ref} from 'vue'
+const msg = ref<string>('哈哈')
+// msg.value
+type Props = {
+  title: string
+}
+defineProps<Props>()
+
+const handleClicke = () => {
+  msg.value = '123'
+}
+</script>
 
 <style>
 #app {

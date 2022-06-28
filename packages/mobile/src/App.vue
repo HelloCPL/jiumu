@@ -14,7 +14,7 @@
 
 <style lang="scss" scoped>
 @import '@/assets/style/test.scss';
-// .box {
-//   color: red;
-// }
+.box {
+  color: red;
+}
 </style>
