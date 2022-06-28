@@ -1,13 +1,15 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
-  <span>你好</span>
-  <span>{{ msg }}</span>
-  <button @click="handleClicke">按钮</button>
+  <div class="box">
+    <span>你好</span>
+    <span>{{ msg }}</span>
+    <button @click="handleClicke">按钮</button>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
+import { ref } from 'vue'
 const msg = ref<string>('哈哈')
 // msg.value
 type Props = {
