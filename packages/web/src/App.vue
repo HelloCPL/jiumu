@@ -1,14 +1,17 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div>{{ count }}</div>
+  <div>{{ a }}</div>
 </template>
 
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue';
-import { ref } from 'vue';
-const count = ref<string>('');
+import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+let a = 123
+const count = ref<string>('')
 </script>
 
 <style>

@@ -5,6 +5,4 @@ pnpm-lock.yaml
 ./*/*.md
 .eslintrc.js
 .prettierrc.js
-./*/*.d.ts
-./*/*.d.js
-*/test
+test

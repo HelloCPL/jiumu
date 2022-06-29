@@ -900,6 +900,78 @@ const handleTitle = () => {
 
 > 自定义指令
 
+指令写成对象时，有如下指令生命钩子；如果写成函数简写形式，则只会在 `mounted` 和 `updated` 钩子执行
+
+`created` 元素初始化时
+
+`beforeMount` 渲染前
+
+`mounted` 元素插入父级`dom` 后
+
+`beforeUpdate` 元素更新前
+
+`updated` 元素更新后
+
+`beforeUnmount` 元素移除前
+
+`unmounted` 指令移除后
+
+```
+<template>
+  <div v-move:params="{title: '你好'}" v-move2>
+  	<header>标题</header>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import {Directive, DirectiveBinding} from "vue"
+  type Dir = {
+    title: string
+  }
+  const vMove: Directive = {
+    created(el) {},
+    beforeMount() {},    
+    mounted(el: HTMLDivElement, dir: DirectiveBinding<Dir>, vnode) {
+      // el.innerHTML = dir.value.title
+    },
+    beforeUpdate() {},
+    updated() {}
+    beforeUnmount() {},
+    unmounted() {}
+
+  }
+  
+  // 指令简写 只在mounted updated 执行，如移动指令
+const vMove2: Directive<any, void> = (
+  el: HTMLElement,
+  binding: DirectiveBinding
+) => {
+  const mEl: HTMLElement = el.firstElementChild as HTMLElement
+  const mousedown = (e: MouseEvent) => {
+    const X = e.clientX - el.offsetLeft
+    const Y = e.clientY - el.offsetTop
+    const move = (e: MouseEvent) => {
+      el.style.left = e.clientX - X + 'px'
+      el.style.top = e.clientY - Y + 'px'
+    }
+    document.addEventListener('mousemove', move)
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', move)
+    })
+  }
+  mEl.addEventListener('mousedown', mousedown)
+}
+</script>
+```
+
+
+
+> 自定义hooks
+
+即将公共代码逻辑单独抽离成单独的文件，用于功能复用或代码分离，代替`vue2 mixins`
+
+优秀的hooks插件库 `VueUse` 
+
 
 
 

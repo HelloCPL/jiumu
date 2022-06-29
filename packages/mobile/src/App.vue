@@ -5,7 +5,9 @@
 -->
 
 <template>
-  <div class="box aa">mobile 移动端</div>
+  <div class="box aa">
+    mobile 移动端
+  </div>
 </template>
 
 <script setup lang="ts">

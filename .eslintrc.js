@@ -10,23 +10,27 @@ module.exports = defineConfig({
   },
   // use your own parser
   parser: 'vue-eslint-parser',
+  parserOptions: {
+    parser: '@typescript-eslint/parser'
+    // ecmaVersion: 2020,
+    // sourceType: 'module',
+    // ecmaFeatures: {
+    //   jsx: true
+    // },
+    // project: ['./tsconfig.json']
+  },
   extends: [
     'plugin:markdown/recommended',
     'plugin:jsonc/recommended-with-jsonc',
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended'
   ],
-
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true
-    },
-    project: ['./tsconfig.json']
-  },
-
+  overrides: [
+    {
+      files: ['*.json', '*.json5', '*.jsonc'],
+      parser: 'jsonc-eslint-parser',
+    }
+  ],
   rules: {
     // ts
     '@typescript-eslint/ban-ts-ignore': 'off',
@@ -41,10 +45,19 @@ module.exports = defineConfig({
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unused-vars': ['warn'],
     'vue/custom-event-name-casing': 'off',
+    'vue/html-closing-bracket-newline': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/html-self-closing': 'off',
+    'vue/mustache-interpolation-spacing': 'off',
+    'vue/multi-word-component-names': 'warn',
+    'vue/v-bind-style': 'off',
+    'vue/v-on-style': 'off',
+    'vue/v-slot-style': 'off',
     'no-use-before-define': 'off',
     'no-unused-vars': ['warn'],
     'space-before-function-paren': 'off',
-    quotes: ['error', 'single'],
+    quotes: ['warn', 'single'],
     'comma-dangle': ['error', 'never'],
     semi: ['error', 'never'],
     'max-len': ['error', 120]

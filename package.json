@@ -1,28 +1,35 @@
 {
-  "name": "jiumu",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev:web": "pnpm run -C packages/web dev",
-    "dev:pc": "pnpm run -C packages/pc dev",
-    "dev:mobile": "pnpm run -C packages/mobile dev"
-  },
-  "dependencies": {
-    "vue": "^3.2.37"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.30.0",
-    "@typescript-eslint/parser": "^5.30.0",
-    "@vitejs/plugin-vue": "^2.3.3",
-    "eslint": "^8.18.0",
-    "eslint-define-config": "^1.5.1",
-    "eslint-plugin-vue": "^9.1.1",
-    "typescript": "^4.7.4",
-    "unplugin-vue-define-options": "^0.6.1",
-    "vite": "^2.9.9",
-    "vue-tsc": "^0.38.2"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "jiumu",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev:web": "pnpm run -C packages/web dev",
+        "dev:pc": "pnpm run -C packages/pc dev",
+        "dev:mobile": "pnpm run -C packages/mobile dev",
+        "lint": "eslint packages --ext .vue,.js,.ts,.jsx,.tsx --ignore-path .eslintignore"
+    },
+    "dependencies": {
+        "vue": "^3.2.37"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.30.0",
+        "@typescript-eslint/parser": "^5.30.0",
+        "@vitejs/plugin-vue": "^2.3.3",
+        "eslint": "^8.18.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-define-config": "^1.5.1",
+        "eslint-plugin-jsonc": "^2.3.0",
+        "eslint-plugin-markdown": "^2.2.1",
+        "eslint-plugin-prettier": "^4.1.0",
+        "eslint-plugin-vue": "^9.1.1",
+        "jsonc-eslint-parser": "^2.1.0",
+        "typescript": "^4.7.4",
+        "unplugin-vue-define-options": "^0.6.1",
+        "vite": "^2.9.9",
+        "vue-eslint-parser": "^9.0.3",
+        "vue-tsc": "^0.38.2"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }
