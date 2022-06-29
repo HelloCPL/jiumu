@@ -974,6 +974,211 @@ const vMove2: Directive<any, void> = (
 
 
 
+> vue3 全局变量或函数
+
+```
+
+declare module '@vue/runtime-core' {
+  export interface ComponentCustomProperties {
+    $url: number,
+    $bus: () => void
+  }
+}
+app.config.globalProperties.$url = 123
+app.config.globalProperties.$bus = () => {}
+```
+
+
+
+> 编写vue3插件（js组件）
+
+```
+<!-- loading.vue ->
+<template>
+  <div v-if="isShow">loading...</div>
+</template>
+<script setup lang="ts">
+import {ref} from "vue"
+const isShow = ref<boolean>(false)
+const show = () => {
+  isShow.value = true
+}
+const hide = () => {
+  isShow.value = false
+}
+defineExpose({
+  isShow,
+  show,
+  hide
+})
+</script>
+
+<!-- loading.ts ->
+import {App, createVNode, VNode, render} from 'vue'
+import Loading from './loading.vue'
+export default {
+  install(app: App) {
+    // 1 首先需要转成虚拟dom
+    const vnode: VNode = createVNode(Loading)
+    // 2 再转成真实dom
+    render(vnode, document.body)
+    // 3 挂载到全局
+    app.config.globalProperties.$loading = {
+      show: vnode.component?.exposed?.show,
+      hide: vnode.component?.exposed?.hide
+    }
+    // 1-3 步骤是挂载一个全局loading，也可以直接注册成组件
+    app.component('Loading', Loading)
+  }
+}
+
+<!-- 在main.js使用 ->
+import Loading from '../loading.ts'
+app.use(Loading)
+```
+
+
+
+> vue3 UI库
+
+`element-plus` 具体使用看其官方文档
+
+`ant-design-vue` 具体使用看其官方文档
+
+
+
+> scoped 和样式穿透
+
+`scoped` 原理，通过`dom` 结构和在`css` 上加上唯一的标识`data-v-hash` 方式保证唯一（由`postcss` 转译实现）
+
+`scoped` 三条渲染原则，1 给`html` 的`dom` 节点加一个唯一`data` 属性 2 在每句`css` 选择器末尾加上当前组件的`data` 属性 3 如果组件内部包含其他组件，只会给其他组件的最外层标签加上当前组件的`data` 属性
+
+`:deep()` 样式穿透，做了兼容
+
+```
+<style scoped lang="scss">
+.box {
+  :deep(.el-input__inner) {
+    background: red;
+  }
+}
+</style>
+```
+
+
+
+> vue3 css style完整新特性
+
+插槽选择器，插槽里的样式默认是在父级组件中的，如果想在插槽组件中直接修改样式可以使用 `:slotted()`
+
+```
+<!-- A 组件 -->
+<template>
+  <div>
+    我是插槽
+    <slot></slot>
+  </div>
+</template>
+<style scoped>
+::slotted(.xx) {
+  color: red;
+}
+</style>
+
+<!-- 使用 -->
+<template>
+  <A>
+    <span class="xx">内容</span>
+  </A>
+</template>
+<script setup lang="ts">
+import A from './A.vue'
+</script>
+```
+
+全局选择器，`style` 标签不加`scoped` 即可；使用`:global()` 定义样式
+
+```
+<!-- style 不加scoped -->
+<style>
+.box {
+  color: red
+}
+</style>
+
+<!-- 或者使用 :global -->
+<style scoped>
+:global(.box) {
+  color: red
+}
+</style>
+```
+
+动态`css` ，直接在`style` 中使用`v-bind()` 接收变量；或者使用`style module` ，常用于`tsx jsx`
+
+```
+<script setup lang="ts">
+  import {ref} from "vue"
+  const color = ref('red')
+  const style = ref({
+    background: 'red'
+  })
+</script>
+<style scoped>
+.box {
+  color: v-bind(color)
+  background: v-bind('style.background')
+}
+</style>
+
+<!-- module  ->
+<template>
+  <div :class="$style.box2">哈哈</div>
+  <div :class="[$style.box1, $style.box2]">哈哈</div>
+</template>
+<style module>
+.box2 {
+  background: red;
+}
+</style>
+
+<!-- module 命名 ->
+<template>
+  <div :class="my.box2">哈哈</div>
+</template>
+<style module="my">
+.box2 {
+  background: red;
+}
+</style>
+```
+
+
+
+> tailwind.css
+
+`tailwind css` 由`js` 编写的`css` 框架，基于`postCss` 解析
+
+`postCss` 处理`tailwind css` 流程
+
+​	将`css` 解析成抽象语法树`AST树` 
+
+​	读取插件配置生成新的抽象语法树
+
+​	将`AST树` 进行系列数据转换
+
+​	清除操作后留下的数据痕迹
+
+​	将处理完毕的`AST树` 重新转换成字符串
+
+使用看官方文档
+
+`vs code` 提示插件 `Tailwind CSS IntelliSense` 
+
+
+
+> Event Loop 和 nextTick 
+
 
 
 
