@@ -8,8 +8,7 @@
         "dev:mobile": "pnpm run -C packages/mobile dev",
         "lint": "eslint packages --ext .vue,.js,.ts,.jsx,.tsx --ignore-path .eslintignore --fix",
         "lint-staged": "lint-staged",
-        "prepare": "husky install",
-        "commit": "git-cz"
+        "prepare": "husky install"
     },
     "dependencies": {
         "vue": "^3.2.37"
