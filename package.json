@@ -41,7 +41,7 @@
         "extends": "@commitlint/config-conventional"
     },
     "lint-staged": {
-        "packages/**/*.{vue,js,ts,jsx,tsx}": "eslint --fix"
+        "*.{vue,js,ts,jsx,tsx}": "eslint --fix"
     },
     "keywords": [],
     "author": "",
