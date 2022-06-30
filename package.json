@@ -37,9 +37,6 @@
         "vue-eslint-parser": "^9.0.3",
         "vue-tsc": "^0.38.2"
     },
-    "commitlint": {
-        "extends": "@commitlint/config-conventional"
-    },
     "lint-staged": {
         "*.{vue,js,ts,jsx,tsx}": [
             "eslint  --fix",
