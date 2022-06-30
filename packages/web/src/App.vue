@@ -10,7 +10,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from './components/HelloWorld.vue'
 import { ref } from 'vue'
-let a = 123
+let a = '123'
 const count = ref<string>('')
 </script>
 
