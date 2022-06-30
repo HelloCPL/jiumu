@@ -9,7 +9,7 @@
         "lint": "eslint packages --ext .vue,.js,.ts,.jsx,.tsx --ignore-path .eslintignore --fix",
         "lint-staged": "lint-staged",
         "prepare": "husky install",
-        "commit": "pnpm dlx git-cz"
+        "commit": "git-cz"
     },
     "dependencies": {
         "vue": "^3.2.37"
