@@ -6,6 +6,7 @@
     <span>{{ msg }}</span>
     <span>{{ aaa }}</span>
     <span>{{ ddd }}</span>
+    <span>{{ ee }}</span>
     <button @click="handleClicke">按钮</button>
   </div>
 </template>
@@ -21,6 +22,8 @@ defineProps<Props>()
 const aaa = '123'
 
 const ddd = '123'
+const ee = '123'
+// const ff = '123';
 // const cc = '123';
 
 const handleClicke = () => {
