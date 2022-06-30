@@ -5,7 +5,7 @@
     <span>你好</span>
     <span>{{ msg }}</span>
     <span>{{ aaa }}</span>
-    <span>{{ ccc }}</span>
+    <span>{{ ddd }}</span>
     <button @click="handleClicke">按钮</button>
   </div>
 </template>
@@ -19,7 +19,7 @@ type Props = {
 }
 defineProps<Props>()
 const aaa = '123'
-const ccc = '123'
+const ddd = '123'
 
 
 const handleClicke = () => {
