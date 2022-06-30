@@ -8,7 +8,8 @@
         "dev:mobile": "pnpm run -C packages/mobile dev",
         "lint": "eslint packages --ext .vue,.js,.ts,.jsx,.tsx --ignore-path .eslintignore --fix",
         "lint-staged": "lint-staged",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "commit": "pnpm dlx git-cz"
     },
     "dependencies": {
         "vue": "^3.2.37"
@@ -19,6 +20,7 @@
         "@typescript-eslint/eslint-plugin": "^5.30.0",
         "@typescript-eslint/parser": "^5.30.0",
         "@vitejs/plugin-vue": "^2.3.3",
+        "cz-conventional-changelog": "^3.3.0",
         "eslint": "^8.18.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-define-config": "^1.5.1",
@@ -34,6 +36,11 @@
         "vite": "^2.9.9",
         "vue-eslint-parser": "^9.0.3",
         "vue-tsc": "^0.38.2"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     },
     "lint-staged": {
         "packages/**/*.{vue,js,ts,jsx,tsx}": [
