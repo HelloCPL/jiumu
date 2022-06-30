@@ -2,7 +2,7 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
   <div class="box">
-    <span>你好</span>
+    <span>你好11</span>
     <span>{{ msg }}</span>
     <span>{{ aaa }}</span>
     <span>{{ ddd }}</span>
@@ -20,7 +20,7 @@ type Props = {
 defineProps<Props>()
 const aaa = '123'
 const ddd = '123'
-const aa = "123";
+const aa = '123'
 
 const handleClicke = () => {
   msg.value = '1123'
