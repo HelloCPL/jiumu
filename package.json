@@ -14,8 +14,8 @@
         "vue": "^3.2.37"
     },
     "devDependencies": {
-        "@commitlint/cli": "^17.0.3",
-        "@commitlint/config-conventional": "^17.0.3",
+        "@commitlint/cli": "16.2.3",
+        "@commitlint/config-conventional": "16.2.1",
         "@typescript-eslint/eslint-plugin": "^5.30.0",
         "@typescript-eslint/parser": "^5.30.0",
         "@vitejs/plugin-vue": "^2.3.3",
@@ -27,9 +27,9 @@
         "eslint-plugin-markdown": "^2.2.1",
         "eslint-plugin-prettier": "^4.1.0",
         "eslint-plugin-vue": "^9.1.1",
-        "husky": "^8.0.1",
+        "husky": "7.0.4",
         "jsonc-eslint-parser": "^2.1.0",
-        "lint-staged": "^13.0.3",
+        "lint-staged": "12.3.8",
         "typescript": "^4.7.4",
         "unplugin-vue-define-options": "^0.6.1",
         "vite": "^2.9.9",
@@ -40,7 +40,10 @@
         "extends": "@commitlint/config-conventional"
     },
     "lint-staged": {
-        "*.{vue,js,ts,jsx,tsx}": "eslint --fix"
+        "*.{vue,js,ts,jsx,tsx}": [
+            "eslint  --fix",
+            "prettier --write"
+        ]
     },
     "keywords": [],
     "author": "",
