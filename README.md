@@ -20,9 +20,18 @@
 
 - 指定某个项目安装，如只为`pc`项目安装依赖  `pnpm add lodash --filter @jiumu/pc -D`
 
+## 代码自动格式
+
+- 本项目只对`packages/**` 目录下的文件做格式化校验（包括提交）
+
+- 自动格式化，在`git commit` 时会自动校验代码格式，格式规则参考 `.eslintrc.js`
+
+- 手动查看代码格式规范 `pnpm run lint`
 
 ## 项目说明
 - 该项目主要为樛木 `PC管理端` `PC web端` `移动端` 三端项目，各项目详细说明请看相关的 `README.md`
+
+
 
 - 使用 pnpm 管理
 

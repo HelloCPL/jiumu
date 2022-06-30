@@ -1,11 +1,11 @@
 node_modules
 public
 dist
-# test
+test
 ./**/node_modules
 ./**/public
 ./**/dist
-# ./**/test
+./**/test
 
 *.md
 *.d.ts
