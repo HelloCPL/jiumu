@@ -1,6 +1,6 @@
 ## 初始化
 
-- 安装依赖 `pnpm init`
+- 安装依赖 `pnpm i`
 
 - 初始化提交规则（仅第一次需要） `pnpm dlx husky install`
 
