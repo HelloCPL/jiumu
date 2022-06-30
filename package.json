@@ -37,15 +37,11 @@
         "vue-eslint-parser": "^9.0.3",
         "vue-tsc": "^0.38.2"
     },
-    "config": {
-        "commitizen": {
-            "path": "./node_modules/cz-conventional-changelog"
-        }
+    "commitlint": {
+        "extends": "@commitlint/config-conventional"
     },
     "lint-staged": {
-        "packages/**/*.{vue,js,ts,jsx,tsx}": [
-            "eslint --fix"
-        ]
+        "packages/**/*.{vue,js,ts,jsx,tsx}": "eslint --fix"
     },
     "keywords": [],
     "author": "",

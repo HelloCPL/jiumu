@@ -4,6 +4,8 @@
   <div class="box">
     <span>你好</span>
     <span>{{ msg }}</span>
+    <span>{{ aaa }}</span>
+    <span>{{ bbb }}</span>
     <button @click="handleClicke">按钮</button>
   </div>
 </template>
