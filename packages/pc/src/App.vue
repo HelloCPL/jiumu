@@ -16,6 +16,7 @@ type Props = {
   title: string
 }
 defineProps<Props>()
+const aaa = '123'
 
 
 const handleClicke = () => {

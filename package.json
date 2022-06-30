@@ -44,8 +44,7 @@
     },
     "lint-staged": {
         "packages/**/*.{vue,js,ts,jsx,tsx}": [
-            "eslint --fix",
-            "prettier --write"
+            "eslint --fix"
         ]
     },
     "keywords": [],
