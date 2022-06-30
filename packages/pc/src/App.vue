@@ -17,8 +17,9 @@ type Props = {
 }
 defineProps<Props>()
 
+
 const handleClicke = () => {
-  msg.value = '123'
+  msg.value = '1123'
 }
 </script>
 
