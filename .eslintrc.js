@@ -12,12 +12,6 @@ module.exports = defineConfig({
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser'
-    // ecmaVersion: 2020,
-    // sourceType: 'module',
-    // ecmaFeatures: {
-    //   jsx: true
-    // },
-    // project: ['./tsconfig.json']
   },
   extends: [
     'plugin:markdown/recommended',
@@ -29,6 +23,12 @@ module.exports = defineConfig({
     {
       files: ['*.json', '*.json5', '*.jsonc'],
       parser: 'jsonc-eslint-parser',
+    },
+    {
+      files: ['*.d.ts'],
+      rules: {
+        'import/no-duplicates': 'off',
+      },
     }
   ],
   rules: {
@@ -44,6 +44,7 @@ module.exports = defineConfig({
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unused-vars': ['warn'],
+    // vue3
     'vue/custom-event-name-casing': 'off',
     'vue/html-closing-bracket-newline': 'off',
     'vue/max-attributes-per-line': 'off',
@@ -54,12 +55,16 @@ module.exports = defineConfig({
     'vue/v-bind-style': 'off',
     'vue/v-on-style': 'off',
     'vue/v-slot-style': 'off',
-    'no-use-before-define': 'off',
-    'no-unused-vars': ['warn'],
+    // other
     'space-before-function-paren': 'off',
-    quotes: ['warn', 'single'],
-    'comma-dangle': ['error', 'never'],
-    semi: ['error', 'never'],
-    'max-len': ['error', 120]
+    'no-console': 'off',
+    'no-debugger': 'warn',
+    'no-use-before-define': 'warn',
+    'no-unused-vars': ['warn'],
+    'quotes': ['warn', 'single'],
+    'comma-dangle': ['warn', 'never'],
+    'semi': ['warn', 'never'],
+    'max-len': ['warn', 120],
+    'indent': ['warn', 2]
   }
 })
