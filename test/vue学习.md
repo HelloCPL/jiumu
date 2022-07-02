@@ -1179,6 +1179,82 @@ import A from './A.vue'
 
 > Event Loop 和 nextTick 
 
+同步任务，代码从上到下按顺序执行
+
+异步任务
+
+​	宏任务 `script` 整体代码 => `setTimeout` => `setInterval` => `UI` 交互事件 => `postMessage` => `Ajax` 
+
+​	微任务 `Promise then catch finally` => `MutationObserver` => `process.nextTick` （`Node.js` 环境）
+
+运行机制，所有同步任务在主进程执行（即执行栈），除主线程外还存在一个`任务队列` ，异步任务执行队列中先执行宏任务，然后清空当次宏任务中的所有微任务，然后进行下一个`tick` 一直循环直至所有任务完成
+
+`微任务` => `dom渲染` => `宏任务` ，因此在微任务中不要写过多的渲染，会造成阻塞
+
+`nextTick` 就是创建一个异步任务，因此需要等到所有同步任务执行完成后才执行
+
+```
+<script setup lang="ts">
+async function P() {
+  console.log('Y')
+  await Promise.resolve()
+  console.log('X')
+}
+setTimeout(() => {
+  console.log(1)
+  Promise.resolve().then(() => {
+    console.log(2)
+  })
+}, 0)
+setTimeout(() => {
+  console.log(3)
+  Promise.resolve().then(() => {
+    console.log(4)
+  })
+}, 0)
+Promise.resolve().then(() => {
+  console.log(5)
+})
+P()
+console.log(0)
+// Y 0 5 X 1 2 3 4
+</script>
+```
+
+注意：`await` 及其以下代码属于微任务
+
+`nextTick` 原理
+
+```
+<template>
+  <div>
+    <input type="text" v-model="message" />
+    <div ref="div">{{message}}</div>
+    <button @click="change">change</button>
+  </div>
+</template>
+<script setup lang="ts">
+import {ref, nextTick} from 'vue'
+const message = ref<string>('哈哈')
+const div = ref<HTMLElement>()
+const change = () => {
+  message.value = '大哈哈'
+  console.log(div.value?.innerText) // 输出 哈哈，因为message.value更改值后页面还未渲染（即渲染是一个异步任务），这个时候就打印div.value?.innerText得到的自然是上一次的innerText
+}
+// 解决上面问题
+const change1 = async () => {
+  message.value = '大哈哈'
+  await nextTick()
+  console.log(div.value?.innerText) // 输出 大哈哈
+  // 补充：
+  // message.value 触发过程，1 执行 watch 回调 {flash: 'pre'} 队列，即dom更新前 2 根据id排序队列，保证父组件总是在子组件前面先创建，如果父组件更新期间卸载了组件就可以跳过 3 执行 watch 回调 {flash: 'post'} 队列，即dom更新后
+  // nextTick 总会返回一个微任务（Promise）
+}
+</script>
+```
+
+
+
 
 
 

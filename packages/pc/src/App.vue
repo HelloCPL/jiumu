@@ -1,43 +1,25 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
-  <div class="box">
-    <span>你好11</span>
-    <span>{{ msg }}</span>
-    <span>{{ aaa }}</span>
-    <span>{{ ddd }}</span>
-    <span>{{ ee }}</span>
-    <button @click="handleClicke">按钮</button>
+  <div>
+    你好
+    {{ Test.name }}
+    {{ Test.newName }}
+    {{ Test.user }}
+    <button @click="change">change</button>
+    {{ Test2.fav }}
+    {{ Test2.newFav }}
+    {{ Test2.name }}
+    <button @click="change2">change2</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const msg = ref<string>('哈哈')
-// msg.value
-type Props = {
-  title: string
+import { useTestStore, useTestStore2 } from './store'
+const Test = useTestStore()
+const Test2 = useTestStore2()
+const change = () => {
+  Test.setCurrent()
 }
-defineProps<Props>()
-const aaa = '123'
-
-const ddd = '123'
-const ee = '123'
-// const ff = '123';
-// const cc = '123';
-
-const handleClicke = () => {
-  msg.value = '1123'
+const change2 = () => {
+  Test2.setFav()
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

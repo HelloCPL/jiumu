@@ -4,4 +4,5 @@ module.exports = {
   semi: false, // 行尾是否使用分号，默认 true
   singleQuote: true, // 字符串是否使用单引号，默认为 false
   quoteProps: 'as-needed', // 是否给对象的属性要加上引号，默认为 as-needed
+  trailingComma: 'none' // 不加逗号
 }

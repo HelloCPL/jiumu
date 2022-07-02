@@ -36,7 +36,7 @@
     "noImplicitAny": true,
     // Generate .d.ts files from TypeScript and JavaScript files in your project.
     "declaration": true,
-    // Specify type package names to be included without being referenced in a source file. 即使用 vue3 setup 语法糖类型校验插件
+    // Specify type package names to be included without being referenced in a source file.  vue3 setup 语法糖使用 defineOptions
     "types": ["unplugin-vue-define-options"],
     // Enable constraints that allow a TypeScript project to be used with project references.
     "composite": true,

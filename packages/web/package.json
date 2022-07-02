@@ -1,10 +1,11 @@
 {
-  "name": "@jiumu/web",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
-  }
+    "name": "@jiumu/web",
+    "private": true,
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "vite",
+        "test": "vite build --mode test",
+        "build": "vite build --mode prod",
+        "preview": "vite preview"
+    }
 }

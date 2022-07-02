@@ -5,18 +5,20 @@
 -->
 
 <template>
-  <div class="box aa">
-    mobile 移动端
+  <div>
+    <input v-model="message" type="text" />
+    <div ref="div">{{ message }}</div>
+    <button @click="change">change</button>
   </div>
 </template>
 
 <script setup lang="ts">
-// const aa = 123;
-</script>
-
-<style lang="scss" scoped>
-@import '@/assets/style/test.scss';
-.box {
-  color: red;
+import { nextTick, ref } from 'vue'
+const message = ref<string>('哈哈')
+const div = ref<HTMLElement>()
+const change = async () => {
+  message.value = '大哈哈'
+  await nextTick()
+  console.log(div.value?.innerText)
 }
-</style>
+</script>
