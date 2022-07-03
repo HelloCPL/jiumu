@@ -4,7 +4,7 @@ import { StoreNames } from './store-name'
 export const useTestStore2: StoreDefinition = defineStore(StoreNames.TEST2, {
   state: () => {
     return {
-      fav: '喜欢',
+      fav: ['hah', 1, NaN, false, null, true, undefined, { a: 123 }],
       name: 'xxx'
     }
   },
@@ -12,9 +12,19 @@ export const useTestStore2: StoreDefinition = defineStore(StoreNames.TEST2, {
     newFav: (state) => state.fav + 'new' // 推荐
   },
   actions: {
-    setFav() {
-      this.fav = '好喜欢'
+    setFav(a) {
+      if (a > 5) {
+        // this.fav = false
+        this.name = { ss: 123 }
+      } else {
+        this.fav.push(a)
+        this.name = 'xxx' + a
+      }
     }
+  },
+  storage: {
+    enabled: true,
+    encrypt: true
   }
 })
 

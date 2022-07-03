@@ -2,6 +2,9 @@
     "name": "jiumu",
     "version": "1.0.0",
     "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
         "web:dev": "pnpm run -C packages/web dev",
         "web:test": "pnpm run -C packages/web test",
@@ -20,6 +23,8 @@
         "prepare": "husky install"
     },
     "dependencies": {
+        "@jiumu/utils": "workspace:^1.0.0",
+        "crypto-js": "^4.1.1",
         "lodash-es": "^4.17.21",
         "pinia": "^2.0.14",
         "vue": "^3.2.37"
@@ -27,6 +32,7 @@
     "devDependencies": {
         "@commitlint/cli": "16.2.3",
         "@commitlint/config-conventional": "16.2.1",
+        "@types/crypto-js": "^4.1.1",
         "@types/lodash-es": "^4.17.6",
         "@typescript-eslint/eslint-plugin": "^5.30.0",
         "@typescript-eslint/parser": "^5.30.0",

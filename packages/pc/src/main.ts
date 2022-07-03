@@ -1,12 +1,13 @@
 import { createApp, App } from 'vue'
 import { createPinia, Pinia } from 'pinia'
 import AppComponent from './App.vue'
-import { usePiniaPlugin } from './hooks/use-pinia-storage'
+import { usePiniaStoragePlugin } from '@jiumu/utils'
+
 const app: App = createApp(AppComponent)
 
-const store: Pinia = createPinia()
-store.use(usePiniaPlugin())
+const pinia: Pinia = createPinia()
+pinia.use(usePiniaStoragePlugin)
 
-app.use(store)
+app.use(pinia)
 
 app.mount('#app')

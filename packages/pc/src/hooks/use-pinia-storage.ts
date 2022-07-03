@@ -16,9 +16,9 @@ export const usePiniaPlugin = (option?: Options) => {
     const { store } = ctx
     // 订阅 即pinia数据改变时会监听到
     store.$subscribe(() => {
-      console.log('store1', store)
+      // console.log('store1', store)
     })
-    console.log('store2', store)
+    // console.log('store2', store)
   }
 }
 

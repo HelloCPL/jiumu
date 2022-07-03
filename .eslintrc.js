@@ -59,7 +59,7 @@ module.exports = defineConfig({
     'space-before-function-paren': 'off',
     'no-console': 'off',
     'no-debugger': 'warn',
-    'no-use-before-define': 'error',
+    'no-use-before-define': 'off',
     'no-unused-vars': ['error'],
     'quotes': ['warn', 'single'],
     'comma-dangle': ['warn', 'never'],

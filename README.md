@@ -43,6 +43,13 @@
 
 - 手动查看代码格式规范 `pnpm run lint`
 
+## 工作区间文件相互依赖
+
+- `packages` 项目相互依赖，如 `packages/pc` 项目需要引入 `packages/utils` 的方法
+
+  + 把 `packages/utils` 当做普通插件下载 `pnpm add @jiumu/utils -w`
+  + 直接在 `packages/pc` 项目引入使用即可 `import { xxx } from '@jiumu/utils`
+
 ## 项目说明
 - 该项目主要为樛木 `PC管理端` `PC web端` `移动端` 三端项目，各项目详细说明请看相关的 `README.md`
 

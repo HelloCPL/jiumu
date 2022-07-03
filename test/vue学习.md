@@ -1255,6 +1255,20 @@ const change1 = async () => {
 
 
 
+> 响应式原理
+
+副作用函数，指当调用函数时，除了返回值以外还对主调用函数产生附加的影响
+
+`proxy`  一个对象操作拦截器，
+
+`vue` 响应式原理简单可以归纳为，在初始阶段通过组件初始化方法形成对应的proxy对象，形成一个具有渲染dom的副作用函数`effect` ；在`get` 依赖收集阶段，利用`stack` 方法通过proxy对象收集具有渲染的`effect` 副作用函数的依赖`deps` 集合；在`set` 派发更新阶段，利用`trigger` 方法通过proxy对象找到相关依赖集合进行调度派发。
+
+
+
+> pinia 状态管理
+
+特点：支持`ts` ；轻量化；去除`mutations` ，只有`state` 、`getters` 、`actions` ；`actions` 支持同步和异步；扁平化，只有`store` 概念，每个`store` 都是独立的；`store` 自动添加；支持`vue3` `vue2` 等
+
 
 
 
