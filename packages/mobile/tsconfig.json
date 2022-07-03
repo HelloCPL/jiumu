@@ -1,4 +1,7 @@
 {
+  "extends": "../../tsconfig.json",
+  // Specifies a list of type declarations to be included in auto type acquisition. Ex. ["jquery", "lodash"]
+  "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

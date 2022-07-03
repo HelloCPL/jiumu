@@ -60,7 +60,6 @@ module.exports = defineConfig({
     'no-console': 'off',
     'no-debugger': 'warn',
     'no-use-before-define': 'off',
-    'no-unused-vars': ['error'],
     'quotes': ['warn', 'single'],
     'comma-dangle': ['warn', 'never'],
     'semi': ['warn', 'never'],
