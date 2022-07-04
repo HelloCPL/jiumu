@@ -9,7 +9,7 @@ export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
     }
   },
   actions: {
-    setToken(params: LoginOptions) {
+    setToken(params: DataToken) {
       this.token = params.token
       this.tokenRefresh = params.tokenRefresh
     }

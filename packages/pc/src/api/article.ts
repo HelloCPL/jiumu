@@ -6,7 +6,9 @@
 
 import { get } from '@/utils/api-methods'
 
-export const getArticleList = async (params: ArticleListParams = {}): Promise<DataOptions<ArticleOptions> | void> => {
-  const res = await get('/pc/article/get/list', params).catch((err) => err)
-  if (res.code === 200) return res
+export const getArticleList = async (params: ParamsAriticleList = {}): Promise<DataOptions<DataAriticle>> => {
+  return await get('/pc/article/get/list', params, {
+    isloading: true,
+    showErrorMessage: true
+  }).catch((err) => err)
 }

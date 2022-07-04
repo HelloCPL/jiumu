@@ -1,9 +1,9 @@
-interface LoginParams {
+interface ParamsLogin {
   phone: string
   password: string
 }
 
-interface LoginOptions {
+interface DataToken {
   token: string
   tokenRefresh: string
 }

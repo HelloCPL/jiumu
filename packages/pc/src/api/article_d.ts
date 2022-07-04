@@ -4,37 +4,37 @@
  * @update 2022-07-04 01:07:21
  */
 
-interface ArticleListParams {
+interface ParamsAriticleList {
   pageNo?: number
   pageSize?: number
   keyword?: string
   type?: string
 }
 
-interface ArticleOptions extends BaseOptions {
+interface DataAriticle extends DataBase {
   id: string
   title: string
-  coverImg?: BaseFileOption | null
+  coverImg?: DataBaseFile | null
   type: string
   typeLabel: string
-  classify: BaseClassifyOptions[]
-  isDraft: BaseTypeOptions
-  isSecret: BaseTypeOptions
-  isTop: BaseTypeOptions
+  classify: DataBaseClassify[]
+  isDraft: '0' | '1'
+  isSecret: '0' | '1'
+  isTop: '0' | '1'
   sort: number
   createUser: string
   createUserName: string
-  isLike: BaseTypeOptions
+  isLike: '0' | '1'
   likeCount: number
-  isCollection: BaseTypeOptions
+  isCollection: '0' | '1'
   collectionCount: number
-  isSelf: BaseTypeOptions
+  isSelf: '0' | '1'
   commentCount: number
 }
 
-interface ArticleInfoOptions extends ArticleOptions {
+interface DataAritlcleInfo extends DataAriticle {
   content: string
   contentType: string
   contentTypeLabel: string
-  attachment: BaseFileOption[]
+  attachment: DataBaseFile[]
 }
