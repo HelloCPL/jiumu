@@ -5,6 +5,7 @@
     {{ Test.user }}
     <button @click="change">change</button>
     <button @click="change2">change2</button>
+    <router-view></router-view>
   </div>
 </template>
 

@@ -8,16 +8,20 @@
   <div>
     home
     <button @click="click">按钮</button>
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-
+import { useKeepAliveStore } from '@/store/keep-alive'
+const ss = useKeepAliveStore()
+ss.handleKeepAlive(123)
 const router = useRouter()
 const click = () => {
   router.push({
-    path: '/test',
+    // path: '/role/a',
+    name: 'User',
     query: { a: 123 },
     params: { b: 'abc' }
   })
