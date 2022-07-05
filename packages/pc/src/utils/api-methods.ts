@@ -4,7 +4,7 @@
  * @update 2022-07-03 22:34:36
  */
 
-import service from './api-interceptors'
+import service from '@/hooks/use-axios-instance'
 import QS from 'qs'
 import { AxiosRequestConfig } from 'axios'
 

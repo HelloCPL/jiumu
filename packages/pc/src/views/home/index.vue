@@ -5,7 +5,21 @@
 -->
 
 <template>
-  <div>home</div>
+  <div>
+    home
+    <button @click="click">按钮</button>
+  </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const click = () => {
+  router.push({
+    path: '/test',
+    query: { a: 123 },
+    params: { b: 'abc' }
+  })
+}
+</script>

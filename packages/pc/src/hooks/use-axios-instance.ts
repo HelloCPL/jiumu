@@ -4,7 +4,7 @@
  * @update 2022-07-03 15:55:45
  */
 
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { toPath } from '@jiumu/utils'
 import { useUserStore } from '@/store'
 import { Code } from '@/enumerations'
@@ -13,7 +13,7 @@ import { updateToken } from '@/api/user'
 const { VITE_TIME_OUT, VITE_API_URL } = import.meta.env
 
 // 创建axios实例
-const service = axios.create({
+const service: AxiosInstance = axios.create({
   timeout: VITE_TIME_OUT,
   timeoutErrorMessage: '请求超时了',
   headers: {
