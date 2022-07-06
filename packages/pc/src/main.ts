@@ -7,6 +7,7 @@ import 'tailwindcss/tailwind.css'
 import './utils/init-element-plus'
 import 'element-plus/dist/index.css'
 import './style/index.css'
+import './style/d.scss'
 
 const app: App = createApp(AppComponent)
 

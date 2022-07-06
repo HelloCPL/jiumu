@@ -9,5 +9,5 @@ useCustomRouter()
 </script>
 
 <style lang="scss">
-@import '@/style/d.scss';
+// @import '@/style/d.scss';
 </style>
