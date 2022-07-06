@@ -6,7 +6,6 @@
 
 <template>
   <div>角色页面</div>
-  <router-view></router-view>
 </template>
 
 <script lang="ts" setup></script>

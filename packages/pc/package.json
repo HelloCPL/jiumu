@@ -7,5 +7,12 @@
         "test": "vite build --mode test",
         "build": "vite build --mode prod",
         "preview": "vite preview"
+    },
+    "dependencies": {
+        "element-plus": "^2.2.8"
+    },
+    "devDependencies": {
+        "unplugin-auto-import": "^0.9.2",
+        "unplugin-vue-components": "^0.21.1"
     }
 }

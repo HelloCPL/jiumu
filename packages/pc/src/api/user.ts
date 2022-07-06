@@ -8,10 +8,7 @@ import { post } from '@/utils/api-methods'
 
 // 登录接口
 export const login = async (params: ParamsLogin): Promise<DataOptions<DataToken>> => {
-  return await post('/pc/user/login', params, {
-    isloading: true,
-    showErrorMessage: true
-  }).catch((err) => err)
+  return await post('/pc/user/login', params).catch((err) => err)
 }
 
 // 更新token

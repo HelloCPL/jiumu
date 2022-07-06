@@ -6,10 +6,12 @@
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { toPath } from '@jiumu/utils'
-import { useUserStore } from '@/store'
+import { useUserStore, useClearStore } from '@/store'
 import { Code } from '@/enumerations'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
+import router from '@/router'
+import { ElLoading, ElMessage } from 'element-plus'
 const { VITE_TIME_OUT, VITE_API_URL } = import.meta.env
 
 // 创建axios实例
@@ -27,20 +29,20 @@ let requireCount = 0
 const showLoading = (isloading?: boolean) => {
   if (requireCount === 0 && !loading && isloading) {
     console.log('拼命加载中，请稍后...', requireCount)
-    // loading = ElLoading.service({
-    //   text: '拼命加载中，请稍后...',
-    //   background: 'rgba(0, 0, 0, 0.7)',
-    //   spinner: 'el-icon-loading'
-    // })
-    // loading = true
+    loading = ElLoading.service({
+      text: '拼命加载中，请稍后...',
+      background: 'rgba(0, 0, 0, 0.3)',
+      spinner: 'el-icon-loading',
+      fullscreen: true,
+      body: true
+    })
   }
   requireCount++
 }
 const hideLoading = () => {
   requireCount--
   if (requireCount === 0 && loading) {
-    // loading.close()
-    // loading = false
+    loading.close()
     console.log('已取消加载效果...', requireCount)
   }
 }
@@ -87,7 +89,14 @@ service.interceptors.response.use(
         return Promise.resolve(data)
       } else if (data.code === Code.authLogin) {
         // token 过期需要重新登录 清空数据后跳转到登录页
-        // ...
+        const store = useClearStore()
+        store.clear()
+        router.replace({
+          path: '/login',
+          query: {
+            redirect: location.pathname + location.search
+          }
+        })
         return Promise.resolve(data)
       } else if (data.code === Code.authRefresh && !configHeaders['retransmission']) {
         // token 重新刷新
@@ -117,11 +126,10 @@ function _handleError(data: any, showErrorMessage?: boolean, message?: string | 
     } else msg = '请求发生错误'
     if (message && typeof message === 'string') msg
     if (isArray(message)) message = message.join(',')
-    console.log('请求错误提示了', msg)
-    // ElMessage({
-    //   type: 'error',
-    //   message: <string>message || '请求发生错误'
-    // })
+    ElMessage({
+      type: 'error',
+      message: <string>message || '请求发生错误'
+    })
   }
   console.error(data)
   return Promise.reject(data)

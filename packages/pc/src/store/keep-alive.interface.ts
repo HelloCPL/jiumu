@@ -1,8 +1,8 @@
 import { LocationQuery, RouteMeta, RouteParams, RouteRecordName } from 'vue-router'
 
 export interface KeepAliveState {
-  include: KeepAliveOption[]
-  exclude: KeepAliveOption[]
+  includes: KeepAliveOption[]
+  excludes: KeepAliveOption[]
   max: number
 }
 

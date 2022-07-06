@@ -2,5 +2,6 @@
 export const enum StoreNames {
   TEST = 'TEST',
   USER = 'User',
-  kEEP_ALIVE = 'KeepAlive'
+  KEEP_ALIVE = 'KeepAlive',
+  CLEAR = 'Clear'
 }

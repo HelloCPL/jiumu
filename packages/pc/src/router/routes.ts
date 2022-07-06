@@ -1,53 +1,16 @@
 import { toPath } from '@jiumu/utils'
 import { RouteRecordName, RouteRecordRaw } from 'vue-router'
+import homeChildrenRoutes from './modules/home-children'
+import primaryRoutes from './modules/primary'
 
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
     component: () => import(/* webpackChunkName: "Home" */ '@/views/home/index.vue'),
-    children: [
-      {
-        path: 'user',
-        name: 'User',
-        component: () => import(/* webpackChunkName: "User" */ '@/views/home/user/index.vue')
-      },
-      {
-        path: '/role',
-        name: 'Role',
-        component: () => import(/* webpackChunkName: "Role" */ '@/views/home/role/index.vue'),
-        children: [
-          {
-            path: '/role/a',
-            name: 'Rolea',
-            component: () => import(/* webpackChunkName: "Login" */ '@/views/login/index.vue')
-          },
-          {
-            path: '/role/aa',
-            name: 'Roleaa',
-            component: () => import(/* webpackChunkName: "Login" */ '@/views/login/index.vue')
-          }
-        ]
-      }
-    ]
+    children: homeChildrenRoutes
   },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "Login" */ '@/views/login/index.vue')
-  },
-  {
-    path: '/test',
-    name: 'Test',
-    component: () => import(/* webpackChunkName: "Test" */ '@/views/test/index.vue'),
-    children: [
-      {
-        path: '/test/a',
-        name: 'Testa',
-        component: () => import(/* webpackChunkName: "Login" */ '@/views/login/index.vue')
-      }
-    ]
-  }
+  ...primaryRoutes
 ]
 
 export interface HomeRouteRecord {

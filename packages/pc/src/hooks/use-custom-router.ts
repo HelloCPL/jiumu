@@ -1,4 +1,4 @@
-import { useRouter, Router, RouteLocationRaw, RouteLocationNamedRaw } from 'vue-router'
+import { useRouter, Router, RouteLocationRaw } from 'vue-router'
 
 // 给push replace 方法扩展属性 仅在home子路由添加
 export const useCustomRouter = () => {
@@ -15,7 +15,8 @@ export const useCustomRouter = () => {
       }
     } else {
       _to = { ...to }
-      if ((_to as RouteLocationNamedRaw).name) {
+      // @ts-ignore
+      if (_to.name) {
         // @ts-ignore
         _to.params = _to.params || {}
         // @ts-ignore
@@ -39,7 +40,8 @@ export const useCustomRouter = () => {
       }
     } else {
       _to = { ...to }
-      if ((_to as RouteLocationNamedRaw).name) {
+      // @ts-ignore
+      if (_to.name) {
         // @ts-ignore
         _to.params = _to.params || {}
         // @ts-ignore
@@ -52,21 +54,3 @@ export const useCustomRouter = () => {
     return _replace.call(this, _to)
   }
 }
-
-// 查找目标路由是否在home范围
-// function _findInHomeRoutes(to: RouteLocationRaw, routes: HomeRouteRecord[]): boolean {
-//   let flag: boolean = false
-//   routes.find((item) => {
-//     let bool: boolean = false
-//     if (typeof to === 'string') bool = to === item.path
-//     else {
-//       // @ts-ignore
-//       bool = to.name === item.name || to.path === item.path
-//     }
-//     if (bool) {
-//       flag = true
-//       return flag
-//     }
-//   })
-//   return flag
-// }

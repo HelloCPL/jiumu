@@ -1,9 +1,10 @@
 /**
  * @author chen
- * @description 文章相关接口
+ * @description 文章相关接口类型
  * @update 2022-07-04 01:07:21
  */
 
+// 获取所有文章列表接口类型
 interface ParamsAriticleList {
   pageNo?: number
   pageSize?: number
@@ -11,6 +12,7 @@ interface ParamsAriticleList {
   type?: string
 }
 
+// 文章数据接口类型
 interface DataAriticle extends DataBase {
   id: string
   title: string
@@ -32,6 +34,7 @@ interface DataAriticle extends DataBase {
   commentCount: number
 }
 
+// 文章详情数据接口类型
 interface DataAritlcleInfo extends DataAriticle {
   content: string
   contentType: string

@@ -7,23 +7,22 @@
 <template>
   <div>
     home
-    <button @click="click">按钮</button>
+    <button class="text-red-500" @click="click">按钮</button>
+    <span class="text-red-500 text-lg">哈哈哈</span>
     <router-view></router-view>
+    <ElButton type="primary">安安</ElButton>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import { useKeepAliveStore } from '@/store/keep-alive'
-const ss = useKeepAliveStore()
-ss.handleKeepAlive(123)
 const router = useRouter()
 const click = () => {
   router.push({
     // path: '/role/a',
-    name: 'User',
+    name: 'Role',
     query: { a: 123 },
-    params: { b: 'abc' }
+    params: { b: 123 }
   })
 }
 </script>

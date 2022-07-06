@@ -1,7 +1,6 @@
 import { Router, RouteLocationNormalized } from 'vue-router'
-import { useKeepAliveStore } from '@/store/keep-alive'
+import { useKeepAliveStore } from '@/store'
 import { KeepAliveOption } from '@/store/keep-alive.interface'
-import { getHomeRoutes, HomeRouteRecord } from '@/router/routes'
 
 /**
  * 路由 afterEach 拦截
@@ -14,12 +13,12 @@ export const afterEach = (router: Router) => {
     else if (to.query.metaTitle) to.meta.title = <string>to.query.metaTitle
 
     // home 子页面缓存
-    const homeRoutes = getHomeRoutes()
-    const flag = _findInHomeRoutes(to, homeRoutes)
-    if (flag) {
-      const store = useKeepAliveStore()
-      store.handleKeepAlive(_getKParams(to), _getKParams(from))
-    }
+    const store = useKeepAliveStore()
+    if (to.params.hasOwnProperty('keepAliveTo')) to.meta.keepAlive = to.params.keepAliveTo === '1'
+    else if (to.query.hasOwnProperty('keepAliveTo')) to.meta.keepAlive = to.query.keepAliveTo === '1'
+    if (to.params.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.params.keepAliveFrom === '1'
+    else if (to.query.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.query.keepAliveFrom === '1'
+    store.handleKeepAlive(_getKParams(to), _getKParams(from))
   })
 }
 
@@ -33,16 +32,4 @@ function _getKParams(params: RouteLocationNormalized): KeepAliveOption {
     params: params.params,
     query: params.query
   }
-}
-
-// 查找是否在home路由页面
-function _findInHomeRoutes(to: RouteLocationNormalized, homeRoutes: HomeRouteRecord[]): boolean {
-  let flag = false
-  homeRoutes.find((item) => {
-    if (to.name === item.name || to.path === item.path) {
-      flag = true
-      return flag
-    }
-  })
-  return flag
 }

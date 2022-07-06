@@ -6,9 +6,7 @@
 
 import { get } from '@/utils/api-methods'
 
+// 获取所有文章列表
 export const getArticleList = async (params: ParamsAriticleList = {}): Promise<DataOptions<DataAriticle>> => {
-  return await get('/pc/article/get/list', params, {
-    isloading: true,
-    showErrorMessage: true
-  }).catch((err) => err)
+  return await get('/pc/article/get/list', params).catch((err) => err)
 }

@@ -3,6 +3,8 @@ import { createPinia, Pinia } from 'pinia'
 import AppComponent from './App.vue'
 import { usePiniaStoragePlugin } from '@jiumu/utils'
 import router from './router'
+import 'tailwindcss/tailwind.css'
+import './utils/init-element-plus'
 
 const app: App = createApp(AppComponent)
 
