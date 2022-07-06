@@ -5,6 +5,8 @@ import { usePiniaStoragePlugin } from '@jiumu/utils'
 import router from './router'
 import 'tailwindcss/tailwind.css'
 import './utils/init-element-plus'
+import 'element-plus/dist/index.css'
+import './style/index.css'
 
 const app: App = createApp(AppComponent)
 

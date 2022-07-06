@@ -64,7 +64,7 @@ module.exports = defineConfig({
     'quotes': ['warn', 'single'],
     'comma-dangle': ['warn', 'never'],
     'semi': ['warn', 'never'],
-    'max-len': ['warn', 120],
+    'max-len': ['warn', 100],
     'indent': ['warn', 2]
   }
 })

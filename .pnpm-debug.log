@@ -1,0 +1,1097 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 5,
+    "total": 5,
+    "workspacePrefix": "D:\\文件\\个人工作区\\jiumu"
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@jiumu/mobile",
+      "private": true,
+      "version": "0.0.0",
+      "scripts": {
+        "dev": "vite",
+        "test": "vite build --mode test",
+        "build": "vite build --mode prod",
+        "preview": "vite preview"
+      },
+      "dependencies": {
+        "sass": "^1.53.0"
+      }
+    },
+    "prefix": "D:\\文件\\个人工作区\\jiumu\\packages\\mobile"
+  },
+  "2 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@jiumu/pc",
+      "private": true,
+      "version": "0.0.0",
+      "scripts": {
+        "dev": "vite",
+        "test": "vite build --mode test",
+        "build": "vite build --mode prod",
+        "preview": "vite preview"
+      },
+      "dependencies": {
+        "element-plus": "^2.2.8"
+      },
+      "devDependencies": {
+        "unplugin-auto-import": "^0.9.2",
+        "unplugin-vue-components": "^0.21.1"
+      }
+    },
+    "prefix": "D:\\文件\\个人工作区\\jiumu\\packages\\pc"
+  },
+  "3 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@jiumu/utils",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC"
+    },
+    "prefix": "D:\\文件\\个人工作区\\jiumu\\packages\\utils"
+  },
+  "4 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@jiumu/web",
+      "private": true,
+      "version": "1.0.0",
+      "scripts": {
+        "dev": "vite",
+        "test": "vite build --mode test",
+        "build": "vite build --mode prod",
+        "preview": "vite preview"
+      }
+    },
+    "prefix": "D:\\文件\\个人工作区\\jiumu\\packages\\web"
+  },
+  "5 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "jiumu",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": [
+        "packages/*"
+      ],
+      "scripts": {
+        "web:dev": "pnpm run -C packages/web dev",
+        "web:test": "pnpm run -C packages/web test",
+        "web:build": "pnpm run -C packages/web build",
+        "web:preview": "pnpm run -C packages/web preview",
+        "pc:dev": "pnpm run -C packages/pc dev",
+        "pc:test": "pnpm run -C packages/pc test",
+        "pc:build": "pnpm run -C packages/pc build",
+        "pc:preview": "pnpm run -C packages/pc preview",
+        "mobile:dev": "pnpm run -C packages/mobile dev",
+        "mobile:test": "pnpm run -C packages/mobile test",
+        "mobile:build": "pnpm run -C packages/mobile build",
+        "mobile:preview": "pnpm run -C packages/mobile preview",
+        "lint": "eslint packages --ext .vue,.js,.ts,.jsx,.tsx --ignore-path .eslintignore --fix",
+        "lint-staged": "lint-staged",
+        "prepare": "husky install"
+      },
+      "dependencies": {
+        "@jiumu/utils": "workspace:^1.0.0",
+        "axios": "^0.27.2",
+        "crypto-js": "^4.1.1",
+        "lodash-es": "^4.17.21",
+        "pinia": "^2.0.14",
+        "postcss-import": "^14.1.0",
+        "qs": "^6.11.0",
+        "vue": "^3.2.37",
+        "vue-router": "4"
+      },
+      "devDependencies": {
+        "@commitlint/cli": "16.2.3",
+        "@commitlint/config-conventional": "16.2.1",
+        "@types/crypto-js": "^4.1.1",
+        "@types/lodash-es": "^4.17.6",
+        "@types/qs": "^6.9.7",
+        "@typescript-eslint/eslint-plugin": "^5.30.0",
+        "@typescript-eslint/parser": "^5.30.0",
+        "@vitejs/plugin-vue": "^2.3.3",
+        "@vitejs/plugin-vue-jsx": "^1.3.10",
+        "autoprefixer": "^10.4.7",
+        "cz-conventional-changelog": "^3.3.0",
+        "eslint": "^8.18.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-define-config": "^1.5.1",
+        "eslint-plugin-jsonc": "^2.3.0",
+        "eslint-plugin-markdown": "^2.2.1",
+        "eslint-plugin-prettier": "^4.1.0",
+        "eslint-plugin-vue": "^9.1.1",
+        "husky": "7.0.4",
+        "jsonc-eslint-parser": "^2.1.0",
+        "lint-staged": "12.3.8",
+        "postcss": "^8.4.14",
+        "prettier": "2.6.2",
+        "tailwindcss": "^3.1.4",
+        "typescript": "^4.7.4",
+        "unplugin-vue-define-options": "^0.6.1",
+        "vite": "^2.9.9",
+        "vue-eslint-parser": "^9.0.3",
+        "vue-tsc": "^0.38.2"
+      },
+      "lint-staged": {
+        "packages/**/*.{vue,js,ts,jsx,tsx}": [
+          "eslint  --fix",
+          "prettier --write"
+        ]
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC"
+    },
+    "prefix": "D:\\文件\\个人工作区\\jiumu"
+  },
+  "6 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "D:\\.pnpm-store\\v3",
+    "virtualStoreDir": "D:\\文件\\个人工作区\\jiumu\\node_modules\\.pnpm"
+  },
+  "7 debug pnpm:stage": {
+    "prefix": "D:\\文件\\个人工作区\\jiumu",
+    "stage": "resolution_started"
+  },
+  "8 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/sass/1.53.0",
+    "wanted": {
+      "dependentId": "packages/mobile",
+      "name": "sass",
+      "rawSpec": "^1.53.0"
+    }
+  },
+  "9 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@commitlint/cli/16.2.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@commitlint/cli",
+      "rawSpec": "16.2.3"
+    }
+  },
+  "10 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@commitlint/config-conventional/16.2.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@commitlint/config-conventional",
+      "rawSpec": "16.2.1"
+    }
+  },
+  "11 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@types/crypto-js/4.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/crypto-js",
+      "rawSpec": "^4.1.1"
+    }
+  },
+  "12 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@types/lodash-es/4.17.6",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/lodash-es",
+      "rawSpec": "^4.17.6"
+    }
+  },
+  "13 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/@types/qs/6.9.7",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/qs",
+      "rawSpec": "^6.9.7"
+    }
+  },
+  "14 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@typescript-eslint/eslint-plugin/5.30.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/eslint-plugin",
+      "rawSpec": "^5.30.0"
+    }
+  },
+  "15 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@typescript-eslint/parser/5.30.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/parser",
+      "rawSpec": "^5.30.0"
+    }
+  },
+  "16 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@vitejs/plugin-vue/2.3.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vitejs/plugin-vue",
+      "rawSpec": "^2.3.3"
+    }
+  },
+  "17 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/@vitejs/plugin-vue-jsx/1.3.10",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vitejs/plugin-vue-jsx",
+      "rawSpec": "^1.3.10"
+    }
+  },
+  "18 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/cz-conventional-changelog/3.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "cz-conventional-changelog",
+      "rawSpec": "^3.3.0"
+    }
+  },
+  "19 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/eslint/8.18.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint",
+      "rawSpec": "^8.18.0"
+    }
+  },
+  "20 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/eslint-config-prettier/8.5.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-config-prettier",
+      "rawSpec": "^8.5.0"
+    }
+  },
+  "21 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/eslint-define-config/1.5.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-define-config",
+      "rawSpec": "^1.5.1"
+    }
+  },
+  "22 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/eslint-plugin-jsonc/2.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-jsonc",
+      "rawSpec": "^2.3.0"
+    }
+  },
+  "23 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/eslint-plugin-markdown/2.2.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-markdown",
+      "rawSpec": "^2.2.1"
+    }
+  },
+  "24 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/eslint-plugin-prettier/4.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-prettier",
+      "rawSpec": "^4.1.0"
+    }
+  },
+  "25 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/eslint-plugin-vue/9.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-vue",
+      "rawSpec": "^9.1.1"
+    }
+  },
+  "26 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/husky/7.0.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "husky",
+      "rawSpec": "7.0.4"
+    }
+  },
+  "27 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/jsonc-eslint-parser/2.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "jsonc-eslint-parser",
+      "rawSpec": "^2.1.0"
+    }
+  },
+  "28 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/lint-staged/12.3.8",
+    "wanted": {
+      "dependentId": ".",
+      "name": "lint-staged",
+      "rawSpec": "12.3.8"
+    }
+  },
+  "29 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/prettier/2.6.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "prettier",
+      "rawSpec": "2.6.2"
+    }
+  },
+  "30 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/typescript/4.7.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "typescript",
+      "rawSpec": "^4.7.4"
+    }
+  },
+  "31 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/unplugin-vue-define-options/0.6.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "unplugin-vue-define-options",
+      "rawSpec": "^0.6.1"
+    }
+  },
+  "32 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/vite/2.9.9",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite",
+      "rawSpec": "^2.9.9"
+    }
+  },
+  "33 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/vue-eslint-parser/9.0.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-eslint-parser",
+      "rawSpec": "^9.0.3"
+    }
+  },
+  "34 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/vue-tsc/0.38.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-tsc",
+      "rawSpec": "^0.38.2"
+    }
+  },
+  "35 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/axios/0.27.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "axios",
+      "rawSpec": "^0.27.2"
+    }
+  },
+  "36 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/crypto-js/4.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "crypto-js",
+      "rawSpec": "^4.1.1"
+    }
+  },
+  "37 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/lodash-es/4.17.21",
+    "wanted": {
+      "dependentId": ".",
+      "name": "lodash-es",
+      "rawSpec": "^4.17.21"
+    }
+  },
+  "38 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/pinia/2.0.14",
+    "wanted": {
+      "dependentId": ".",
+      "name": "pinia",
+      "rawSpec": "^2.0.14"
+    }
+  },
+  "39 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/qs/6.11.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "qs",
+      "rawSpec": "^6.11.0"
+    }
+  },
+  "40 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/vue/3.2.37",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue",
+      "rawSpec": "^3.2.37"
+    }
+  },
+  "41 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/vue-router/4.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-router",
+      "rawSpec": "4"
+    }
+  },
+  "42 debug pnpm:_dependency_resolved": {
+    "resolution": "link:packages/utils",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@jiumu/utils",
+      "rawSpec": "workspace:^1.0.0"
+    }
+  },
+  "43 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/sass/1.53.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "44 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/sass/1.53.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "45 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/chokidar/3.5.3",
+    "wanted": {
+      "dependentId": "/sass/1.53.0",
+      "name": "chokidar",
+      "rawSpec": ">=3.0.0 <4.0.0"
+    }
+  },
+  "46 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/immutable/4.1.0",
+    "wanted": {
+      "dependentId": "/sass/1.53.0",
+      "name": "immutable",
+      "rawSpec": "^4.0.0"
+    }
+  },
+  "47 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/source-map-js/1.0.2",
+    "wanted": {
+      "dependentId": "/sass/1.53.0",
+      "name": "source-map-js",
+      "rawSpec": ">=0.6.2 <2.0.0"
+    }
+  },
+  "48 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@commitlint/cli/16.2.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "49 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@commitlint/cli/16.2.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "50 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@commitlint/config-conventional/16.2.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "51 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@commitlint/config-conventional/16.2.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "52 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@types/crypto-js/4.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "53 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@types/crypto-js/4.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "54 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@types/lodash-es/4.17.6",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "55 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@types/lodash-es/4.17.6",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "56 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/@types/qs/6.9.7",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "57 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/@types/qs/6.9.7",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "58 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@typescript-eslint/eslint-plugin/5.30.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "59 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@typescript-eslint/eslint-plugin/5.30.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "60 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@typescript-eslint/parser/5.30.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "61 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@typescript-eslint/parser/5.30.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "62 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@vitejs/plugin-vue/2.3.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "63 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@vitejs/plugin-vue/2.3.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "64 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@vitejs/plugin-vue-jsx/1.3.10",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "65 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/@vitejs/plugin-vue-jsx/1.3.10",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "66 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-config-prettier/8.5.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "67 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-config-prettier/8.5.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "68 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint/8.18.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "69 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint/8.18.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "70 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/cz-conventional-changelog/3.3.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "71 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/cz-conventional-changelog/3.3.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "72 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-define-config/1.5.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "73 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-define-config/1.5.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "74 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-plugin-jsonc/2.3.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "75 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-plugin-jsonc/2.3.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "76 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/eslint-plugin-markdown/2.2.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "77 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/eslint-plugin-markdown/2.2.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "78 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-plugin-prettier/4.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "79 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-plugin-prettier/4.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "80 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/husky/7.0.4",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "81 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/husky/7.0.4",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "82 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-plugin-vue/9.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "83 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/eslint-plugin-vue/9.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "84 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/lint-staged/12.3.8",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "85 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/lint-staged/12.3.8",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "86 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/jsonc-eslint-parser/2.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "87 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/jsonc-eslint-parser/2.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "88 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/prettier/2.6.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "89 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/prettier/2.6.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "90 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/typescript/4.7.4",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "91 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/typescript/4.7.4",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "92 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/unplugin-vue-define-options/0.6.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "93 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/unplugin-vue-define-options/0.6.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "94 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue-eslint-parser/9.0.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "95 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue-eslint-parser/9.0.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "96 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vite/2.9.9",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "97 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vite/2.9.9",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "98 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue-tsc/0.38.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "99 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue-tsc/0.38.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "100 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/axios/0.27.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "101 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/axios/0.27.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "102 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/crypto-js/4.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "103 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/crypto-js/4.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "104 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/pinia/2.0.14",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "105 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/pinia/2.0.14",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "106 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/lodash-es/4.17.21",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "107 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/lodash-es/4.17.21",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "108 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/qs/6.11.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "109 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/qs/6.11.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "110 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue/3.2.37",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "111 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue/3.2.37",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "112 warn pnpm:package-requester": {
+    "message": "Refetching D:\\.pnpm-store\\v3\\r.cnpmjs.org+vue-router@4.1.1 to store. It was either modified or had no integrity checksums",
+    "prefix": "D:\\文件\\个人工作区\\jiumu"
+  },
+  "113 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/chokidar/3.5.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "114 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/chokidar/3.5.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "115 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/immutable/4.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "116 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/immutable/4.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "117 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/source-map-js/1.0.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "118 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/source-map-js/1.0.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "119 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/anymatch/3.1.2",
+    "wanted": {
+      "dependentId": "/chokidar/3.5.3",
+      "name": "anymatch",
+      "rawSpec": "~3.1.2"
+    }
+  },
+  "120 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/braces/3.0.2",
+    "wanted": {
+      "dependentId": "/chokidar/3.5.3",
+      "name": "braces",
+      "rawSpec": "~3.0.2"
+    }
+  },
+  "121 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/glob-parent/5.1.2",
+    "wanted": {
+      "dependentId": "/chokidar/3.5.3",
+      "name": "glob-parent",
+      "rawSpec": "~5.1.2"
+    }
+  },
+  "122 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/is-binary-path/2.1.0",
+    "wanted": {
+      "dependentId": "/chokidar/3.5.3",
+      "name": "is-binary-path",
+      "rawSpec": "~2.1.0"
+    }
+  },
+  "123 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/is-glob/4.0.3",
+    "wanted": {
+      "dependentId": "/chokidar/3.5.3",
+      "name": "is-glob",
+      "rawSpec": "~4.0.1"
+    }
+  },
+  "124 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/normalize-path/3.0.0",
+    "wanted": {
+      "dependentId": "/chokidar/3.5.3",
+      "name": "normalize-path",
+      "rawSpec": "~3.0.0"
+    }
+  },
+  "125 debug pnpm:_dependency_resolved": {
+    "resolution": "r2.cnpmjs.org/readdirp/3.6.0",
+    "wanted": {
+      "dependentId": "/chokidar/3.5.3",
+      "name": "readdirp",
+      "rawSpec": "~3.6.0"
+    }
+  },
+  "126 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/glob-parent/5.1.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "127 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/glob-parent/5.1.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "128 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/braces/3.0.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "129 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/braces/3.0.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "130 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/anymatch/3.1.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "131 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/anymatch/3.1.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "132 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/is-glob/4.0.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "133 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/is-glob/4.0.3",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "134 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/normalize-path/3.0.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "135 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/normalize-path/3.0.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "136 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/readdirp/3.6.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "137 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/readdirp/3.6.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "138 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/is-binary-path/2.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "found_in_store"
+  },
+  "139 debug pnpm:progress": {
+    "packageId": "r2.cnpmjs.org/is-binary-path/2.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "140 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "r.cnpmjs.org/vue-router/4.1.1",
+    "size": 197231,
+    "status": "started"
+  },
+  "141 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue-router/4.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "142 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/vue-router/4.1.1",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "fetched"
+  },
+  "143 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/postcss-import/14.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "postcss-import",
+      "rawSpec": "^14.1.0"
+    }
+  },
+  "144 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/postcss-import/14.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "145 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "r.cnpmjs.org/postcss-import/14.1.0",
+    "size": 8451,
+    "status": "started"
+  },
+  "146 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/postcss-import/14.1.0",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "fetched"
+  },
+  "147 debug pnpm:request-retry": {
+    "attempt": 1,
+    "error": {
+      "type": "system",
+      "errno": "ERR_SOCKET_TIMEOUT",
+      "code": "ERR_SOCKET_TIMEOUT"
+    },
+    "maxRetries": 2,
+    "method": "GET",
+    "timeout": 10000,
+    "url": "http://r.cnpmjs.org/unplugin-auto-import"
+  },
+  "148 debug pnpm:request-retry": {
+    "attempt": 1,
+    "error": {
+      "type": "system",
+      "errno": "ERR_SOCKET_TIMEOUT",
+      "code": "ERR_SOCKET_TIMEOUT"
+    },
+    "maxRetries": 2,
+    "method": "GET",
+    "timeout": 10000,
+    "url": "http://r.cnpmjs.org/element-plus"
+  },
+  "149 debug pnpm:_dependency_resolved": {
+    "resolution": "r.cnpmjs.org/unplugin-auto-import/0.9.2",
+    "wanted": {
+      "dependentId": "packages/pc",
+      "name": "unplugin-auto-import",
+      "rawSpec": "^0.9.2"
+    }
+  },
+  "150 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/unplugin-auto-import/0.9.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "resolved"
+  },
+  "151 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "r.cnpmjs.org/unplugin-auto-import/0.9.2",
+    "size": 16728,
+    "status": "started"
+  },
+  "152 debug pnpm:progress": {
+    "packageId": "r.cnpmjs.org/unplugin-auto-import/0.9.2",
+    "requester": "D:\\文件\\个人工作区\\jiumu",
+    "status": "fetched"
+  },
+  "153 debug pnpm:request-retry": {
+    "attempt": 1,
+    "error": {
+      "type": "system",
+      "errno": "ERR_SOCKET_TIMEOUT",
+      "code": "ERR_SOCKET_TIMEOUT"
+    },
+    "maxRetries": 2,
+    "method": "GET",
+    "timeout": 10000,
+    "url": "https://r.cnpmjs.org/tailwindcss"
+  },
+  "154 debug pnpm:request-retry": {
+    "attempt": 2,
+    "error": {
+      "type": "system",
+      "errno": "ETIMEDOUT",
+      "code": "ETIMEDOUT",
+      "erroredSysCall": "connect"
+    },
+    "maxRetries": 2,
+    "method": "GET",
+    "timeout": 60000,
+    "url": "https://r.cnpmjs.org/tailwindcss"
+  },
+  "155 debug pnpm:request-retry": {
+    "attempt": 1,
+    "error": {
+      "type": "system",
+      "errno": "ERR_SOCKET_TIMEOUT",
+      "code": "ERR_SOCKET_TIMEOUT"
+    },
+    "maxRetries": 2,
+    "method": "GET",
+    "timeout": 10000,
+    "url": "https://r.cnpmjs.org/element-plus"
+  },
+  "156 error pnpm": {
+    "code": "ERR_PNPM_META_FETCH_FAIL",
+    "attempts": 1,
+    "spec": {
+      "fetchSpec": ">=3.1.4 <4.0.0-0",
+      "name": "tailwindcss",
+      "type": "range"
+    },
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "GET http://r.cnpmjs.org/tailwindcss: request to https://r.cnpmjs.org/tailwindcss failed, reason: connect ETIMEDOUT 203.80.126.213:443",
+      "code": "ERR_PNPM_META_FETCH_FAIL",
+      "stack": "pnpm: GET http://r.cnpmjs.org/tailwindcss: request to https://r.cnpmjs.org/tailwindcss failed, reason: connect ETIMEDOUT 203.80.126.213:443\n    at RetryOperation._fn (D:\\dev\\nvm\\v16.13.0\\node_modules\\pnpm\\dist\\pnpm.cjs:85455:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)"
+    }
+  }
+}
