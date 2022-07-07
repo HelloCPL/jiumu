@@ -9,14 +9,14 @@ import { StoreNames } from './store-name'
 import { useKeepAliveStore } from './keep-alive'
 import { useUserStore } from './user'
 
-export const useClearStore: StoreDefinition = defineStore(StoreNames.CLEAR, {
+export const useResetStore: StoreDefinition = defineStore(StoreNames.RESET, {
   actions: {
     // 清除所有公共状态数据
-    clear() {
+    reset() {
       const keepAliveStore = useKeepAliveStore()
       const userStore = useUserStore()
-      keepAliveStore.clear()
-      userStore.clear()
+      keepAliveStore.reset()
+      userStore.reset()
     }
   }
 })

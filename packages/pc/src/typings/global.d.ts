@@ -4,6 +4,11 @@ interface ObjectAny {
   [x:string]: any
 }
 
+interface KeyValue<T = string, U = any> extends ObjectAny {
+  key: T,
+  value: U
+}
+
 // 数据接口返回类型
 interface DataResponse {
   message: string | string[]

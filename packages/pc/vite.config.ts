@@ -42,13 +42,13 @@ export default defineConfig(({ mode }) => {
         //   rewrite: (path) => path.replace(/^\/jiumu-koa2-ts-test/g, '')
         // }
       }
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@use "sass:math"; @import "./src/style/d.scss";'
-        }
-      }
     }
+    // css: {
+    //   preprocessorOptions: {
+    //     scss: {
+    //       // additionalData: '@use "sass:math"; @import "./src/style/d.scss";'
+    //     }
+    //   }
+    // }
   }
 })

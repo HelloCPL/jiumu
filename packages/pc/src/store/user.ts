@@ -33,7 +33,7 @@ export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
     }
   },
   actions: {
-    clear() {
+    reset() {
       this.token = ''
       this.tokenRefresh = ''
       this.userInfo = {}

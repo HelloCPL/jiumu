@@ -18,8 +18,10 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
     }
   },
   getters: {
-    include: (state: KeepAliveState) => state.includes.filter((item) => item && item.name).map((item) => item.name),
-    exclude: (state: KeepAliveState) => state.excludes.filter((item) => item && item.name).map((item) => item.name)
+    include: (state: KeepAliveState) =>
+      state.includes.filter((item) => item && item.name).map((item) => item.name),
+    exclude: (state: KeepAliveState) =>
+      state.excludes.filter((item) => item && item.name).map((item) => item.name)
   },
   actions: {
     // 缓存入栈
@@ -67,7 +69,7 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
     },
 
     // 清空缓存集合
-    clear() {
+    reset() {
       this.includes = []
       this.excludes = []
     },
@@ -81,7 +83,10 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
         // to from 都属于home
         if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
           this._push(to)
-        } else if (from.params.__routerType === 'replace' || from.query.__routerType === 'replace') {
+        } else if (
+          from.params.__routerType === 'replace' ||
+          from.query.__routerType === 'replace'
+        ) {
           this._push(to)
           this._pop(from)
         } else {

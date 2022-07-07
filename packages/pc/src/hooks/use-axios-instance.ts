@@ -6,7 +6,7 @@
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { toPath } from '@jiumu/utils'
-import { useUserStore, useClearStore } from '@/store'
+import { useUserStore, useResetStore } from '@/store'
 import { Code } from '@/enumerations'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
@@ -89,8 +89,8 @@ service.interceptors.response.use(
         return Promise.resolve(data)
       } else if (data.code === Code.authLogin) {
         // token 过期需要重新登录 清空数据后跳转到登录页
-        const store = useClearStore()
-        store.clear()
+        const store = useResetStore()
+        store.reset()
         router.replace({
           path: '/login',
           query: {
@@ -117,7 +117,11 @@ service.interceptors.response.use(
 )
 
 // 处理详情错误
-function _handleError(data: any, showErrorMessage?: boolean, message?: string | string[]): Promise<any> {
+function _handleError(
+  data: any,
+  showErrorMessage?: boolean,
+  message?: string | string[]
+): Promise<any> {
   if (showErrorMessage) {
     let msg: string
     if (message) {
