@@ -1,4 +1,10 @@
-import { colors, neutralColors } from './color-light'
+import { colors } from './color-light'
+import { ThemeValue } from '@/enumerations'
+
+const toggleTheme = (theme: ThemeValue): void => {
+  document.documentElement.classList.add('dark')
+  document.documentElement.style.setProperty('--theme-blue', 'green')
+}
 
 export const getTailwindColors = (): ObjectAny => {
   const cols: ObjectAny = {}

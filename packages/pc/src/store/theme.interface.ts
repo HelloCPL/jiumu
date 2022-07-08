@@ -4,5 +4,5 @@ export interface ThemeState {
   theme: ThemeValue
   fontSize: FontSizeValue
   fontFamily: FontFamilyValue
-  colors: KeyValue<string, KeyValue<number | string, string>[]>[]
+  colors: KeyValue<string, string>[]
 }

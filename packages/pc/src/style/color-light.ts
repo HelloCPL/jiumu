@@ -2,6 +2,8 @@
  * 明亮主题颜色
  */
 
+import { ColorsFile } from './color.interface'
+
 /**
  * 主题颜色变量 主要用于定义主题色 会直接注入到tailwindcss colors 变量中
  * primary success warning danger info 对标element-plus
@@ -13,7 +15,7 @@
  * 500 为该色系的主要色系
  * 600 为该色系的深色系
  */
-export const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
+const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'info',
     value: [
@@ -41,7 +43,7 @@ export const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
     desc: '蓝色'
   },
   {
-    key: 'green',
+    key: 'success',
     value: [
       { key: 50, value: '#f0f9eb' },
       { key: 100, value: '#e1f3d8' },
@@ -71,9 +73,9 @@ export const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
     value: [
       { key: 50, value: '#fef0f0' },
       { key: 100, value: '#fde2e2' },
-      { key: 200, value: '#cd3d3' },
-      { key: 300, value: '#ab6b6' },
-      { key: 400, value: '#89898' },
+      { key: 200, value: '#fcd3d3' },
+      { key: 300, value: '#fab6b6' },
+      { key: 400, value: '#f89898' },
       { key: 500, value: '#F56C6C', desc: '错误类 error/danger' },
       { key: 600, value: '#c45656' }
     ],
@@ -93,125 +95,146 @@ export const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
 /**
  * 中性色用于文本、背景和边框颜色 不会注入colors 而是作为新的功能类注册
  */
-export const neutralColors: KeyValue<string, string>[] = [
+const neutralColors: KeyValue<string, string>[] = [
   {
     key: 'text-default',
+    alias: 'text',
     value: '#303133',
-    desc: '默认文本颜色'
+    desc: '默认文本颜色 Primary Text'
   },
   {
     key: 'text-light',
     value: '#606266',
-    desc: '提示文本颜色'
+    desc: '提示文本颜色 Regular Text'
   },
   {
     key: 'text-lighter',
     value: '#909399',
-    desc: '注释文本颜色'
+    desc: '注释文本颜色 Secondary Text'
   },
   {
     key: 'text-placeholder',
     value: '#A8ABB2',
-    desc: '输入框未输入状态文本'
+    desc: '输入框未输入状态文本 Placeholder Text'
   },
   {
     key: 'text-disabled',
     value: '#C0C4CC',
-    desc: '禁用状态文本颜色'
+    desc: '禁用状态文本颜色 Disabled Text'
   },
   {
     key: 'border-darker',
     value: '#CDD0D6',
-    desc: '二级深色边框颜色'
+    desc: '二级深色边框颜色 Darker Border'
   },
   {
     key: 'border-dark',
     value: '#D4D7DE',
-    desc: '一级深色边框颜色'
+    desc: '一级深色边框颜色 Dark Border'
   },
   {
     key: 'border-default',
+    alias: 'border',
     value: '#DCDFE6',
-    desc: '默认边框颜色'
+    desc: '默认边框颜色 Base Border'
   },
   {
     key: 'border-light',
     value: '#E4E7ED',
-    desc: '一级浅色边框颜色'
+    desc: '一级浅色边框颜色 Light Border'
   },
   {
     key: 'border-lighter',
     value: '#EBEEF5',
-    desc: '二级浅色边框颜色'
+    desc: '二级浅色边框颜色 Lighter Border'
   },
   {
     key: 'border-light-extra',
     value: '#F2F6FC',
-    desc: '特别浅色的边框颜色'
+    desc: '特别浅色的边框颜色 Extra-light Border'
   },
   {
     key: 'fill-darker',
     value: '#E6E8EB',
-    desc: '二级深色填充颜色'
+    desc: '二级深色填充颜色 Darker Fill'
   },
   {
     key: 'fill-dark',
     value: '#EBEDF0',
-    desc: '一级深色填充颜色'
+    desc: '一级深色填充颜色 Dark Fill'
   },
   {
     key: 'fill-default',
+    alias: 'fill',
     value: '#F0F2F5',
-    desc: '默认填充颜色'
+    desc: '默认填充颜色 Base Fill'
   },
   {
     key: 'fill-light',
     value: '#F5F7FA',
-    desc: '一级浅色填充颜色'
+    desc: '一级浅色填充颜色 Light Fill'
   },
   {
     key: 'fill-lighter',
     value: '#FAFAFA',
-    desc: '一级浅色填充颜色'
+    desc: '一级浅色填充颜色 Lighter Fill'
   },
   {
     key: 'fill-light-extra',
-    value: '#303133',
-    desc: '特别浅色的填充颜色'
+    value: '#FAFCFF',
+    desc: '特别浅色的填充颜色 Extra-light Fill'
   },
   {
     key: 'fill-blank',
     value: '#ffffff',
-    desc: '空白填充颜色'
+    desc: '空白填充颜色 Blank Fill'
   },
   {
     key: 'bg-default',
+    alias: 'bg',
     value: '#F2F3F5',
-    desc: '默认背景颜色'
+    desc: '默认背景颜色 Page Background'
   },
   {
     key: 'bg-white',
-    value: '#303133',
-    desc: '白色背景颜色'
+    value: '#FFFFFF',
+    desc: '白色背景颜色 Base Background'
   },
   {
     key: 'bg-overlay',
     value: '#ffffff',
-    desc: '弹窗页面颜色'
+    desc: '弹窗页面颜色 Overlay Background'
   },
   {
     key: 'overlay-default',
+    alias: 'overlay',
     value: 'rgba(0, 0, 0, .8)',
-    desc: '默认遮罩层颜色'
+    desc: '默认黑色遮罩层颜色'
   },
   {
     key: 'overlay-light',
     value: 'rgba(0, 0, 0, .7)',
-    desc: '一级浅色遮罩层颜色'
+    desc: '一级浅的黑色遮罩层颜色'
   },
   {
     key: 'overlay-lighter',
     value: 'rgba(0, 0, 0, .5)',
-    desc: '一级浅色遮罩层颜色'
+    desc: '二级浅的黑色遮罩层颜色'
+  },
+  {
+    key: 'mask-default',
+    alias: 'mask',
+    value: 'rgba(0, 0, 0, .9)',
+    desc: '白色遮罩层颜色'
+  },
+  {
+    key: 'mask-light-extra',
+    value: 'rgba(0, 0, 0, .3)',
+    desc: '特别浅的白色遮罩层颜色'
   }
 ]
+
+export default {
+  colors,
+  neutralColors
+} as ColorsFile

@@ -32,13 +32,14 @@ export type ThemeType = keyof typeof Theme
  * 字体大小
  */
 export enum FontSize {
-  '小' = 12,
+  '特小' = 12,
+  '小' = 13,
   '常规' = 14,
   '大' = 16,
-  '超大' = 18
+  '特大' = 18
 }
 
-export type FontSizeValue = 12 | 14 | 16 | 18
+export type FontSizeValue = 12 | 13 | 14 | 16 | 18
 export type FontSizeType = keyof typeof FontSize
 
 /**
