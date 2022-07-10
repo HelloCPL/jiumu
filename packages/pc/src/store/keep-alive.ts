@@ -6,7 +6,7 @@
 
 import { defineStore, StoreDefinition } from 'pinia'
 import { StoreNames } from './store-name'
-import { KeepAliveState, KeepAliveOption } from './keep-alive.interface'
+import { KeepAliveState, KeepAliveOption } from './keep-alive.b'
 import { getHomeRoutes, HomeRouteRecord } from '@/router/routes'
 
 export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_ALIVE, {

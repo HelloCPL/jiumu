@@ -46,7 +46,8 @@ export function decrypt(str: string, keyStr?: string, ivStr?: string): string {
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.ZeroPadding
     }).toString(CryptoJS.enc.Utf8)
-    return _formatStr(descyptStr)
+    // return _formatStr(descyptStr)
+    return descyptStr
   } catch (e) {
     return ''
   }

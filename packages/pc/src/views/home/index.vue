@@ -5,20 +5,32 @@
 -->
 
 <template>
-  <div class="tw-bg">
-    home
-    <!-- <button @click="click">按钮</button> -->
-    <div class="tw-text-primary">一段文本内容</div>
-    <div class="tw-bg-white tw-text-warning tw-border-default tw-border-solid tw-border">
-      一段文本内容
+  <div class="w-full h-screen bg">
+    <!-- 头部 -->
+    <Header></Header>
+    <div class="w-full flex wrapper">
+      <!-- 左侧导航 -->
+      <Sidebar></Sidebar>
+      <div class="h-full flex-1 shrink-0">
+        <!-- 中间导航栏 -->
+        <Navigator></Navigator>
+        <div class="w-full h-full p-4 content">
+          <Content></Content>
+        </div>
+      </div>
     </div>
-    <div class="tw-text-placeholder">一段文本内容</div>
-    <div class="tw-text-success">一段文本内容</div>
-    <el-button class="tw-border">那你</el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
+import Header from './components/Header.vue'
+import Sidebar from './components/Sidebar.vue'
+import Navigator from './components/Navigator.vue'
+import Content from './components/Content.vue'
+
+defineOptions({
+  name: 'Home'
+})
 // import { useRouter } from 'vue-router'
 // const router = useRouter()
 // const click = () => {
@@ -31,4 +43,12 @@
 // }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrapper {
+  height: calc(100% - 55px);
+
+  .content {
+    height: calc(100% - 38px);
+  }
+}
+</style>

@@ -4,13 +4,32 @@
 
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  prefix: 'tw-',
+  // prefix: 'tw-',
   theme: {
     colors: {
-      white: 'var(--jm-color-white)',
-      black: 'var(--jm-color-black)',
       transparent: 'var(--jm-color-transparent)',
+      white: {
+        1: 'var(--jm-color-white-1)',
+        2: 'var(--jm-color-white-2)',
+        4: 'var(--jm-color-white-4)',
+        6: 'var(--jm-color-white-6)',
+        8: 'var(--jm-color-white-8)',
+        DEFAULT: 'var(--jm-color-white)'
+      },
+      black: {
+        1: 'var(--jm-color-black-1)',
+        2: 'var(--jm-color-black-2)',
+        4: 'var(--jm-color-black-4)',
+        6: 'var(--jm-color-black-6)',
+        8: 'var(--jm-color-black-8)',
+        DEFAULT: 'var(--jm-color-black)'
+      },
       primary: {
+        1: 'var(--jm-color-primary-1)',
+        2: 'var(--jm-color-primary-2)',
+        4: 'var(--jm-color-primary-4)',
+        6: 'var(--jm-color-primary-6)',
+        8: 'var(--jm-color-primary-8)',
         50: 'var(--jm-color-primary-50)',
         100: 'var(--jm-color-primary-100)',
         200: 'var(--jm-color-primary-200)',
@@ -21,6 +40,11 @@ module.exports = {
         DEFAULT: 'var(--jm-color-primary)'
       },
       success: {
+        1: 'var(--jm-color-success-1)',
+        2: 'var(--jm-color-success-2)',
+        4: 'var(--jm-color-success-4)',
+        6: 'var(--jm-color-success-6)',
+        8: 'var(--jm-color-success-8)',
         50: 'var(--jm-color-success-50)',
         100: 'var(--jm-color-success-100)',
         200: 'var(--jm-color-success-200)',
@@ -31,6 +55,11 @@ module.exports = {
         DEFAULT: 'var(--jm-color-success)'
       },
       warning: {
+        1: 'var(--jm-color-warning-1)',
+        2: 'var(--jm-color-warning-2)',
+        4: 'var(--jm-color-warning-4)',
+        6: 'var(--jm-color-warning-6)',
+        8: 'var(--jm-color-warning-8)',
         50: 'var(--jm-color-warning-50)',
         100: 'var(--jm-color-warning-100)',
         200: 'var(--jm-color-warning-200)',
@@ -41,6 +70,11 @@ module.exports = {
         DEFAULT: 'var(--jm-color-warning)'
       },
       danger: {
+        1: 'var(--jm-color-danger-1)',
+        2: 'var(--jm-color-danger-2)',
+        4: 'var(--jm-color-danger-4)',
+        6: 'var(--jm-color-danger-6)',
+        8: 'var(--jm-color-danger-8)',
         50: 'var(--jm-color-danger-50)',
         100: 'var(--jm-color-danger-100)',
         200: 'var(--jm-color-danger-200)',
@@ -51,6 +85,11 @@ module.exports = {
         DEFAULT: 'var(--jm-color-danger)'
       },
       info: {
+        1: 'var(--jm-color-info-1)',
+        2: 'var(--jm-color-info-2)',
+        4: 'var(--jm-color-info-4)',
+        6: 'var(--jm-color-info-6)',
+        8: 'var(--jm-color-info-8)',
         50: 'var(--jm-color-info-50)',
         100: 'var(--jm-color-info-100)',
         200: 'var(--jm-color-info-200)',

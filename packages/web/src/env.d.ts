@@ -3,7 +3,7 @@
 interface ImportMetaEnv {
   readonly VITE_DIR: string
   readonly VITE_MODE: string
-  readonly VITE_PUBLIC_DIR: string
+  readonly VITE_PUBLIC_PATH: string
   readonly VITE_API_URL: string
   readonly VITE_STATIC_URL: string
   readonly VITE_TIME_OUT: number

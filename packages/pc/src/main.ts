@@ -6,12 +6,16 @@ import router from './router'
 // css 处理
 import './style/css/reset.scss'
 import './style/css/root.scss'
-import './style/init-element-plus'
+// import './style/init-element-plus'
+import 'element-plus/dist/index.css'
 import './style/css/element-root.scss'
 import './style/css/tailwind.css'
 import './style/css/index.scss'
+import { defineGlobal } from './utils/vue-global'
 
 const app: App = createApp(AppComponent)
+
+defineGlobal(app)
 
 const pinia: Pinia = createPinia()
 pinia.use(usePiniaStoragePlugin)

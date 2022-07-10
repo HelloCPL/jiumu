@@ -3,83 +3,83 @@
 @tailwind utilities;
 
 @layer utilities {
-  .tw-text, .tw-text-default {
+  .text, .text-default {
     color: var(--jm-color-text)
-  },
-  .tw-text-light {
+  }
+  .text-light {
     color: var(--jm-color-text-light)
   }
-  .tw-text-lighter {
+  .text-lighter {
     color: var(--jm-color-text-lighter)
   }
-  .tw-text-placeholder {
+  .text-placeholder {
     color: var(--jm-color-text-placeholder)
   }
-  .tw-text-disabled {
+  .text-disabled {
     color: var(--jm-color-text-disabled)
   }
-  .tw-border-darker {
+  .border-darker {
     border-color: var(--jm-color-border-darker)
   }
-  .tw-border-dark {
+  .border-dark {
     border-color: var(--jm-color-border-dark)
   }
-  /* .tw-border,  */
-  .tw-border-default {
+  .border {
+    border-width: 1px;
+    border-style: solid;
+  }
+  .border-default {
     border-color: var(--jm-color-border)
   }
-  .tw-border-light {
+  .border-light {
     border-color: var(--jm-color-border-light)
   }
-  .tw-border-lighter {
+  .border-lighter {
     border-color: var(--jm-color-border-lighter)
   }
-  .tw-border-light-extra {
+  .border-light-extra {
     border-color: var(--jm-color-border-light-extra)
   }
-  .tw-fill-darker {
+  .fill-darker {
     background-color: var(--jm-color-fill-darker)
   }
-  .tw-fill-dark {
+  .fill-dark {
     background-color: var(--jm-color-fill-dark)
   }
-  .tw-fill, .tw-fill-default {
+  .fill, .fill-default {
     background-color: var(--jm-color-fill)
   }
-  .tw-fill-light {
+  .fill-light {
     background-color: var(--jm-color-fill-light)
   }
-  .tw-fill-lighter {
+  .fill-lighter {
     background-color: var(--jm-color-fill-lighter)
   }
-  .tw-fill-light-extra {
+  .fill-light-extra {
     background-color: var(--jm-color-fill-light-extra)
   }
-  .tw-fill-blank {
+  .fill-blank {
     background-color: var(--jm-color-fill-blank)
   }
-  .tw-bg, .tw-bg-default {
+  .bg, .bg-default {
     background-color: var(--jm-color-bg)
   }
-  .tw-bg-white {
-    background-color: var(--jm-color-bg-white)
-  }
-  .tw-bg-overlay {
+  .bg-overlay {
     background-color: var(--jm-color-bg-overlay)
   }
-  .tw-overlay, .tw-overlay-default {
+  .overlay, .overlay-default {
     background-color: var(--jm-color-overlay)
   }
-  .tw-overlay-light {
+  .overlay-light {
     background-color: var(--jm-color-overlay-light)
   }
-  .tw-overlay-lighter {
+  .overlay-lighter {
     background-color: var(--jm-color-overlay-lighter)
   }
-  .tw-mask, .tw-mask-default {
+  .mask, .mask-default {
     background-color: var(--jm-color-mask-light)
   }
-  .tw-mask-light-extra {
+  .mask-light-extra {
     background-color: var(--jm-color-mask-light-extra)
   }
 }

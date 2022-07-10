@@ -56,6 +56,8 @@ module.exports = defineConfig({
     'vue/v-bind-style': 'off',
     'vue/v-on-style': 'off',
     'vue/v-slot-style': 'off',
+    'vue/attributes-order': 'off',
+    'vue/multi-word-component-names': 'off',
     // other
     'space-before-function-paren': 'off',
     'no-console': 'off',

@@ -12,12 +12,12 @@ const keepAliveStore = useKeepAliveStore()
 
 ### `Store` 公共状态类型说明
 
-- 文件类型声明命名 `*.interface.ts`
+- 文件类型声明命名 `*.b.ts`
 
 - 接口类型以模块形式导出，使用按需导入，如
 
 ```
 // any file
-import { KeepAliveOption } from '@/store/keep-alive.interface'
+import { KeepAliveOption } from '@/store/keep-alive.b'
 const obj: KeepAliveOption = { ... }
 ```

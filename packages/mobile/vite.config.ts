@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src')
       }
     },
-    publicDir: env.VITE_PUBLIC_DIR,
+    // publicDir: env.VITE_PUBLIC_PATH,
     server: {
       port: 8002,
       proxy: {

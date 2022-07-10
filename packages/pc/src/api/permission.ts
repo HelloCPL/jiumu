@@ -7,5 +7,5 @@ import { get } from '@/utils/api-methods'
 
 // 获取我的权限列表
 export const getPermissionListAllSelf = async (): Promise<DataOptions<DataPermission>> => {
-  return await get('/pc/permission/get/all/self').catch((err) => err)
+  return await get('/pc/permission/get/all/self', { pageSize: 1000 }).catch((err) => err)
 }

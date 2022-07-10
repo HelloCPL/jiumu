@@ -4,6 +4,42 @@
 
 body,
 html {
-  background-color: var(--jm-color-bg);
   font-size: var(--jm-font-size);
+  font-family: var(--jm-font-family);
+  min-width: 768px;
+}
+
+.g-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// 滚动条样式
+.g-scroll-y,
+.g-scroll-y-0 {
+  overflow-y: auto !important;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 3px;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background: var(--jm-color-primary-4);
+  }
+
+  &:hover::-webkit-scrollbar-track {
+    background: var(--jm-color-primary-1);
+  }
+}
+
+.g-scroll-y {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
 }

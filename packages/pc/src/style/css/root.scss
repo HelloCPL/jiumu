@@ -3,97 +3,111 @@
   -default 为该色系的主题色 可省略
 */
 
-:root {
-  // 基本色
-  --jm-color-white: #ffffff;
-  --jm-color-black: #000000;
-  --jm-color-transparent: transparent;
-  // 主题色
-  --jm-color-primary-50: #ecf5ff;
-  --jm-color-primary-100: #d9ecff;
-  --jm-color-primary-200: #c6e2ff;
-  --jm-color-primary-300: #a0cfff;
-  --jm-color-primary-400: #79bbff;
-  --jm-color-primary-500: #409eff;
-  --jm-color-primary-600: #337ecc;
-  --jm-color-primary: var(--jm-color-primary-500);
-  --jm-color-primary-default: var(--jm-color-primary);
-  --jm-color-success-50: #f0f9eb;
-  --jm-color-success-100: #e1f3d8;
-  --jm-color-success-200: #d1edc4;
-  --jm-color-success-300: #b3e19d;
-  --jm-color-success-400: #95d475;
-  --jm-color-success-500: #67c23a;
-  --jm-color-success-600: #529b2e;
-  --jm-color-success: var(--jm-color-success-500);
-  --jm-color-success-default: var(--jm-color-success);
-  --jm-color-warning-50: #fdf6ec;
-  --jm-color-warning-100: #faecd8;
-  --jm-color-warning-200: #f8e3c5;
-  --jm-color-warning-300: #f3d19e;
-  --jm-color-warning-400: #eebe77;
-  --jm-color-warning-500: #e6a23c;
-  --jm-color-warning-600: #b88230;
-  --jm-color-warning: var(--jm-color-warning-500);
-  --jm-color-warning-default: var(--jm-color-warning);
-  --jm-color-danger-50: #fef0f0;
-  --jm-color-danger-100: #fde2e2;
-  --jm-color-danger-200: #fcd3d3;
-  --jm-color-danger-300: #fab6b6;
-  --jm-color-danger-400: #f89898;
-  --jm-color-danger-500: #f56c6c;
-  --jm-color-danger-600: #c45656;
-  --jm-color-danger: var(--jm-color-danger-500);
-  --jm-color-danger-default: var(--jm-color-danger);
-  --jm-color-info-50: #f4f4f5;
-  --jm-color-info-100: #e9e9eb;
-  --jm-color-info-200: #dedfe0;
-  --jm-color-info-300: #c8c9cc;
-  --jm-color-info-400: #b1b3b8;
-  --jm-color-info-500: #909399;
-  --jm-color-info-600: #73767a;
-  --jm-color-info: var(--jm-color-info-500);
-  --jm-color-info-default: var(--jm-color-info);
-  // 中性色 用于文本 背景 边框颜色
-  --jm-color-text: #303133;
-  --jm-color-text-default: var(--jm-color-text);
-  --jm-color-text-light: #606266;
-  --jm-color-text-lighter: #909399;
-  --jm-color-text-placeholder: #a8abb2;
-  --jm-color-text-disabled: #c0c4cc;
-  --jm-color-border-darker: #cdd0d6;
-  --jm-color-border-dark: #d4d7de;
-  --jm-color-border: #dcdfe6;
-  --jm-color-border-default: var(--jm-color-border);
-  --jm-color-border-light: #e4e7ed;
-  --jm-color-border-lighter: #ebeef5;
-  --jm-color-border-light-extra: #f2f6fc;
-  --jm-color-fill-darker: #e6e8eb;
-  --jm-color-fill-dark: #ebedf0;
-  --jm-color-fill: #f0f2f5;
-  --jm-color-fill-default: var(--jm-color-fill);
-  --jm-color-fill-light: #f5f7fa;
-  --jm-color-fill-lighter: #fafafa;
-  --jm-color-fill-light-extra: #fafcff;
-  --jm-color-fill-blank: #ffffff;
-  --jm-color-bg: #f2f3f5;
-  --jm-color-bg-default: var(--jm-color-bg);
-  --jm-color-bg-white: #ffffff;
-  --jm-color-bg-overlay: #ffffff;
-  --jm-color-overlay: rgba(0, 0, 0, 0.8);
-  --jm-color-overlay-default: var(--jm-color-overlay);
-  --jm-color-overlay-light: rgba(0, 0, 0, 0.7);
-  --jm-color-overlay-lighter: rgba(0, 0, 0, 0.5);
-  --jm-color-mask: rgba(255, 255, 255, 0.9);
-  --jm-color-mask-default: var(--jm-color-mask);
-  --jm-color-mask-light-extra: rgba(255, 255, 255, 0.3);
+// :root {
+//   // 基本色
+//   --jm-color-white: #ffffff;
+//   --jm-color-black: #000000;
+//   --jm-color-transparent: transparent;
+//   // 主题色
+//   --jm-color-primary-50: #ecf5ff;
+//   --jm-color-primary-100: #d9ecff;
+//   --jm-color-primary-200: #c6e2ff;
+//   --jm-color-primary-300: #a0cfff;
+//   --jm-color-primary-400: #79bbff;
+//   --jm-color-primary-500: #409eff;
+//   --jm-color-primary-600: #337ecc;
+//   --jm-color-primary: var(--jm-color-primary-500);
+//   --jm-color-primary-default: var(--jm-color-primary);
+//   --jm-color-success-50: #f0f9eb;
+//   --jm-color-success-100: #e1f3d8;
+//   --jm-color-success-200: #d1edc4;
+//   --jm-color-success-300: #b3e19d;
+//   --jm-color-success-400: #95d475;
+//   --jm-color-success-500: #67c23a;
+//   --jm-color-success-600: #529b2e;
+//   --jm-color-success: var(--jm-color-success-500);
+//   --jm-color-success-default: var(--jm-color-success);
+//   --jm-color-warning-50: #fdf6ec;
+//   --jm-color-warning-100: #faecd8;
+//   --jm-color-warning-200: #f8e3c5;
+//   --jm-color-warning-300: #f3d19e;
+//   --jm-color-warning-400: #eebe77;
+//   --jm-color-warning-500: #e6a23c;
+//   --jm-color-warning-600: #b88230;
+//   --jm-color-warning: var(--jm-color-warning-500);
+//   --jm-color-warning-default: var(--jm-color-warning);
+//   --jm-color-danger-50: #fef0f0;
+//   --jm-color-danger-100: #fde2e2;
+//   --jm-color-danger-200: #fcd3d3;
+//   --jm-color-danger-300: #fab6b6;
+//   --jm-color-danger-400: #f89898;
+//   --jm-color-danger-500: #f56c6c;
+//   --jm-color-danger-600: #c45656;
+//   --jm-color-danger: var(--jm-color-danger-500);
+//   --jm-color-danger-default: var(--jm-color-danger);
+//   --jm-color-info-50: #f4f4f5;
+//   --jm-color-info-100: #e9e9eb;
+//   --jm-color-info-200: #dedfe0;
+//   --jm-color-info-300: #c8c9cc;
+//   --jm-color-info-400: #b1b3b8;
+//   --jm-color-info-500: #909399;
+//   --jm-color-info-600: #73767a;
+//   --jm-color-info: var(--jm-color-info-500);
+//   --jm-color-info-default: var(--jm-color-info);
+//   // 中性色 用于文本 背景 边框颜色
+//   --jm-color-text: #303133;
+//   --jm-color-text-default: var(--jm-color-text);
+//   --jm-color-text-light: #606266;
+//   --jm-color-text-lighter: #909399;
+//   --jm-color-text-placeholder: #a8abb2;
+//   --jm-color-text-disabled: #c0c4cc;
+//   --jm-color-border-darker: #cdd0d6;
+//   --jm-color-border-dark: #d4d7de;
+//   --jm-color-border: #dcdfe6;
+//   --jm-color-border-default: var(--jm-color-border);
+//   --jm-color-border-light: #e4e7ed;
+//   --jm-color-border-lighter: #ebeef5;
+//   --jm-color-border-light-extra: #f2f6fc;
+//   --jm-color-fill-darker: #e6e8eb;
+//   --jm-color-fill-dark: #ebedf0;
+//   --jm-color-fill: #f0f2f5;
+//   --jm-color-fill-default: var(--jm-color-fill);
+//   --jm-color-fill-light: #f5f7fa;
+//   --jm-color-fill-lighter: #fafafa;
+//   --jm-color-fill-light-extra: #fafcff;
+//   --jm-color-fill-blank: #ffffff;
+//   --jm-color-bg: #f2f3f5;
+//   --jm-color-bg-default: var(--jm-color-bg);
+//   --jm-color-bg-white: #ffffff;
+//   --jm-color-bg-overlay: #ffffff;
+//   --jm-color-overlay: rgba(0, 0, 0, 0.8);
+//   --jm-color-overlay-default: var(--jm-color-overlay);
+//   --jm-color-overlay-light: rgba(0, 0, 0, 0.7);
+//   --jm-color-overlay-lighter: rgba(0, 0, 0, 0.5);
+//   --jm-color-mask: rgba(255, 255, 255, 0.9);
+//   --jm-color-mask-default: var(--jm-color-mask);
+//   --jm-color-mask-light-extra: rgba(255, 255, 255, 0.3);
 
-  // 字体大小
-  --jm-font-size-large-extra: 20px;
-  --jm-font-size-large: 18px;
-  --jm-font-size-medium: 16px;
-  --jm-font-size: 14px;
-  --jm-font-size-default: var(--jm-font-size);
-  --jm-font-size-small: 13px;
-  --jm-font-size-small-extra: 12px;
+//   // 字体大小
+//   --jm-font-size-large-extra: 20px;
+//   --jm-font-size-large: 18px;
+//   --jm-font-size-medium: 16px;
+//   --jm-font-size: 14px;
+//   --jm-font-size-default: var(--jm-font-size);
+//   --jm-font-size-small: 13px;
+//   --jm-font-size-small-extra: 12px;
+
+//   // 字体类型
+//   --jm-font-family: 'PingFang';
+// }
+
+@font-face {
+  font-family: 'Traditional';
+  // src: url('../../assets/fonts/traditional.ttf');
+  src: url('../../assets/fonts/song_traditional.TTF');
+}
+
+@font-face {
+  font-family: 'PingFang';
+  src: url('../../assets/fonts/pingfang_simplify.ttf');
 }

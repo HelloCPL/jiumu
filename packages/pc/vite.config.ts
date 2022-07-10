@@ -5,50 +5,81 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+
 const path = require('path')
+const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  const { VITE_MODE } = env
   return {
     plugins: [
       Vue(),
       DefineOptions(),
       VueJsx(),
       AutoImport({
-        resolvers: [ElementPlusResolver()]
+        imports: ['vue'],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            prefix: 'Icon'
+          })
+        ],
+        dts: path.resolve(pathSrc, 'auto-imports.d.ts')
       }),
       Components({
-        resolvers: [ElementPlusResolver()]
+        resolvers: [
+          IconsResolver({
+            enabledCollections: ['ep']
+          }),
+          ElementPlusResolver()
+        ],
+        dts: path.resolve(pathSrc, 'components.d.ts')
+      }),
+      Icons({
+        autoInstall: true
       })
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src')
+        '@': pathSrc
       }
     },
-    publicDir: env.VITE_PUBLIC_DIR,
+    // publicDir: env.VITE_PUBLIC_PATH,
     server: {
       port: 8002,
       proxy: {
-        '/jiumu-koa2-ts-test/pc/': {
-          target: 'https://www.jiumublog.cn/',
-          changeOrigin: true
+        // '/jiumu-koa2-ts-test/': {
+        //   target: 'https://www.jiumublog.cn/',
+        //   changeOrigin: true
+        // },
+        // 使用本地服务
+        '/jiumu-koa2-ts-test/': {
+          target: 'http://localhost:3030/',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/jiumu-koa2-ts-test/g, '')
+        },
+        // '/jiumu-static-test/': {
+        //   target: 'https://www.jiumublog.cn/',
+        //   changeOrigin: true
+        // },
+        // 使用本地服务
+        '/jiumu-static-test/': {
+          target: 'http://127.0.0.1:8080/',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/jiumu-static-test/g, '')
         }
-        // // 使用本地服务
-        // '/jiumu-koa2-ts-test/pc/': {
-        //   target: 'http://localhost:3030/',
-        //   changeOrigin: true,
-        //   rewrite: (path) => path.replace(/^\/jiumu-koa2-ts-test/g, '')
-        // }
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "./src/style/css/env.${VITE_MODE}.scss";`
+        }
       }
     }
-    // css: {
-    //   preprocessorOptions: {
-    //     scss: {
-    //       // additionalData: '@use "sass:math"; @import "./src/style/d.scss";'
-    //     }
-    //   }
-    // }
   }
 })

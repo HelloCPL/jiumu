@@ -44,15 +44,14 @@ export type FontSizeType = keyof typeof FontSize
 
 /**
  * 字体类型
+ * 默认 PingFang 简体 可选 宋 繁体
  */
 export enum FontFamily {
-  '平方' = 'PingFang',
-  '雅黑' = 'YaHei',
-  '宋体' = 'Song',
+  '简体' = 'PingFang',
   '繁体' = 'Traditional'
 }
 
-export type FontFamilyValue = 'PingFang' | 'YaHei' | 'Song' | 'Traditional'
+export type FontFamilyValue = 'PingFang' | 'Traditional'
 export type FontFamilyType = keyof typeof FontFamily
 
 // 根据枚举的值查找对应的key
