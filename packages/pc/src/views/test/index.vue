@@ -1,38 +1,69 @@
 <template>
   <div class="box">
-    <el-button @click="click('PingFang')">安安PingFang</el-button>
-    <el-button @click="click('Traditional')">Traditional</el-button>
-    <p class="tw-text-xs">你哈</p>
-    <p class="tw-text-sm">你哈</p>
-    <p class="tw-text-base">你哈</p>
-    <p class="tw-text-lg">你哈</p>
-    <p class="tw-text-xl">你哈</p>
-    <p class="tw-text-2xl">你哈</p>
-    <p class="tw-text-3xl">会打瞌睡罚款哈款到发货家得福安徽科技的发哈好地方卡大豪科技发挥的发卡机哈加卡迪夫按键电话费卡好地方卡好地方加厚的发行剪短发我也返回哦啊粉红微风哦穷安全哦甲方登录注册你按地方你是典型的</p>
-    <p class="tw-text-4xl">你哈</p>
-    <!-- <img :src="$STATIC_URL + 'pc/tags.png'" alt=""> -->
+    <p class="p1">你好啊 Hello World 1</p>
+    <p class="p2">你好啊 Hello World 2</p>
+    <p class="p3">你好啊 Hello World 3</p>
+    <p class="p4">你好啊 Hello World 4</p>
+    <p class="p5">你好啊 Hello World 5</p>
+    <p class="p6">你好啊 Hello World 6</p>
+    <p class="p7">你好啊 Hello World 7</p>
+    <p class="p8">你好啊 Hello World 8</p>
+    <p class="p9">你好啊 Hello World 9</p>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/store'
-const store = useThemeStore()
-store.toggleTheme('light')
-setTimeout(() => {
-  // const a = store.getRootColor('--jm-color-primary-50')
-  // console.log('aaaa', a)
-
-
-})
-
-const click = (n: string) => {
-  store.toggleFontFamily(n)
-}
 
 </script>
 
 <style lang="scss" scoped>
-  .box {
-    // background: url('#{$STATIC_URL}/pc/tags.png');
-  }
+// 18222c 141414 90
+// 1d3043 141414 80
+// 213d5b 141414 70
+// 2a598a 141414 50
+// #3375b9 141414 30
+// 409EFF
+// 66b1ff white 20
+.p1 {
+  color: mix( #ffffff,  #409EFF, 10%);
+}
+.p2 {
+  color: mix( #ffffff,  #409EFF, 20%);
+}
+.p3 {
+  color: mix( #ffffff,  #409EFF, 30%);
+}
+.p4 {
+  color: mix( #ffffff,  #409EFF, 40%);
+}
+.p5 {
+  color: mix( #ffffff,  #409EFF, 50%);
+}
+.p6 {
+  color: mix( #ffffff,  #409EFF, 60%);
+}
+.p7 {
+  color: mix( #ffffff,  #409EFF, 70%);
+}
+.p8 {
+  color: mix( #ffffff,  #409EFF, 80%);
+}
+.p9 {
+  color: mix( #ffffff,  #409EFF, 90%);
+}
+
+  // .box {
+  //   // color: mix( #ffffff,  #409eff, 90%)
+  //   // color: mix( #ffffff,  #409eff, 80%)
+  //   // color: mix( #ffffff,  #409eff, 70%)
+  //   // color: mix( #ffffff,  #409eff, 60%)
+  //   // color: mix( #ffffff,  #409eff, 50%)
+
+  //   // color: mix( #ffffff,  #409eff, 60%)
+  //   // color: mix( #ffffff,  #409eff, 70%)
+  //   // color: mix( #ffffff,  #409eff, 80%)
+  //   // color: mix( #ffffff,  #409eff, 90%)
+  //   color: mix( #000000,  #409eff, 50%)
+  // }
 </style>

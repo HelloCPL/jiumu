@@ -85,9 +85,7 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
         // 先修改主题色
         colorsFile.colors?.forEach((item) => {
           item.value.forEach((list) => {
-            let key = ''
-            if (item.key !== 'base') key += `${item.key}-${list.key}`
-            else key += list.key
+            const key = `${item.key}-${list.key}`
             document?.documentElement.style.setProperty(`--jm-color-${key}`, list.value)
             colors.push({ key: `--jm-color-${key}`, value: list.value })
             if (list.rgb) {

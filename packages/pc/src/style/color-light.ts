@@ -45,13 +45,13 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'primary',
     value: [
-      { key: 50, value: '#ecf5ff', rgb: '236, 245, 255' },
-      { key: 100, value: '#d9ecff', rgb: '217, 236, 255' },
-      { key: 200, value: '#c6e2ff', rgb: '198, 226, 255' },
-      { key: 300, value: '#a0cfff', rgb: '160, 207, 255' },
-      { key: 400, value: '#79BBFF', rgb: '121, 187, 255' },
+      { key: 50, value: '#ecf5ff', rgb: '236, 245, 255' }, // white 90
+      { key: 100, value: '#d9ecff', rgb: '217, 236, 255' }, // white 80
+      { key: 200, value: '#c6e2ff', rgb: '198, 226, 255' }, // white 70
+      { key: 300, value: '#a0cfff', rgb: '160, 207, 255' }, // white 50
+      { key: 400, value: '#79BBFF', rgb: '121, 187, 255' }, // white 30
       { key: 500, value: '#409EFF', rgb: '64, 158, 255', default: true, desc: '主题颜色 primary' },
-      { key: 600, value: '#337ECC', rgb: '51 126 204' },
+      { key: 600, value: '#337ECC', rgb: '51 126 204' }, // black 20
       { key: 8, value: 'rgba(64, 158, 255, 0.8)' },
       { key: 6, value: 'rgba(64, 158, 255, 0.6)' },
       { key: 4, value: 'rgba(64, 158, 255, 0.4)' },
@@ -154,9 +154,14 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
     ],
     desc: '黑色 作为特殊的主题颜色'
   },
+  // 基础颜色不可变 主要兼容element-plus主题 其中黑 白 请用上方颜色
   {
-    key: 'base',
-    value: [{ key: 'transparent', value: 'transparent' }],
+    key: 'basic',
+    value: [
+      { key: 'black', value: '#000000' },
+      { key: 'white', value: '#ffffff' },
+      { key: 'transparent', value: 'transparent' }
+    ],
     desc: '黑 白 透明'
   }
 ]

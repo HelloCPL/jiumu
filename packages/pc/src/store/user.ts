@@ -16,8 +16,8 @@ import { getTagAllSelf } from '@/api/tag'
 export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
   state: (): UserState => {
     return {
-      token: '',
-      tokenRefresh: '',
+      token: '123',
+      tokenRefresh: '123',
       userInfo: null,
       roles: [],
       permissions: [],

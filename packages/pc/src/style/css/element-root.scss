@@ -4,8 +4,8 @@
 @import './root.scss';
 :root {
   // 主题色变量
-  --el-color-white: var(--jm-color-white);
-  --el-color-black: var(--jm-color-black);
+  --el-color-white: var(--jm-color-basic-white);
+  --el-color-black: var(--jm-color--basic-black);
   --el-color-primary: var(--jm-color-primary);
   --el-color-primary-light-3: var(--jm-color-primary-400);
   --el-color-primary-light-5: var(--jm-color-primary-300);

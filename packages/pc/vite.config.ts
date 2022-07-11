@@ -15,6 +15,9 @@ const pathSrc = path.resolve(__dirname, 'src')
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const { VITE_MODE } = env
+  console.log('env', env)
+  console.log('VITE_MODE', VITE_MODE)
+
   return {
     plugins: [
       Vue(),
