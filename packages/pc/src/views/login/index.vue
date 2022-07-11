@@ -7,7 +7,7 @@
 <template>
   <div class="relative w-full h-full">
     <img
-      class="absolute min-w-full h-full object-cover opacity-90 select-none g-center bg-img"
+      class="absolute min-w-full h-full object-cover opacity-90 select-none g-center"
       :src="$STATIC_URL + 'pc/images/login_bg.jpg'"
       alt=""
     />
@@ -40,6 +40,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ElButton } from 'element-plus'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import { useIndex } from './hooks/use-index'
@@ -48,9 +49,6 @@ const { loginShow, registerShow, toggleShow } = useIndex()
 </script>
 
 <style lang="scss" scoped>
-.bg-img {
-  z-index: -1;
-}
 .login-wrapper {
   width: 540px;
   height: 320px;

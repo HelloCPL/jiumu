@@ -1,7 +1,7 @@
 /**
  * element-plus css root变量 用本项目的变量覆盖
 */
-@import './root.scss';
+
 :root {
   // 主题色变量
   --el-color-white: var(--jm-color-basic-white);
@@ -69,6 +69,7 @@
   --el-fill-color-extra-light: var(--jm-color-fill-light-extra);
   --el-fill-color-dark: var(--jm-color-fill-dark);
   --el-fill-color-darker: var(--jm-color-fill-darker);
+  --el-fill-color-blank: var(--jm-color-fill-blank);
   --el-overlay-color: var(--jm-color-overlay);
   --el-overlay-color-light: var(--jm-color-overlay-light);
   --el-overlay-color-lighter: var(--jm-color-overlay-lighter);

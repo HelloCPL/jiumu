@@ -1,0 +1,10 @@
+/**
+ * element-plus 部分样式重置 放在 html 上提高权重
+*/
+
+
+html {
+  .el-menu {
+    border-right: 0;
+  }
+}

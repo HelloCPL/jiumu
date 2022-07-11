@@ -54,15 +54,15 @@ export function decrypt(str: string, keyStr?: string, ivStr?: string): string {
 }
 
 // 将多余空格去除
-function _formatStr(str: string): string {
-  if (!str) return ''
-  const strArr = str.split('')
-  let targetStr = ''
-  for (let i = 0, len = strArr.length; i < len; i++) {
-    const item = strArr[i].trim()
-    if (item && item != '\x00' && item != '\x02') {
-      targetStr += item
-    }
-  }
-  return targetStr
-}
+// function _formatStr(str: string): string {
+//   if (!str) return ''
+//   const strArr = str.split('')
+//   let targetStr = ''
+//   for (let i = 0, len = strArr.length; i < len; i++) {
+//     const item = strArr[i].trim()
+//     if (item && item != '\x00' && item != '\x02') {
+//       targetStr += item
+//     }
+//   }
+//   return targetStr
+// }

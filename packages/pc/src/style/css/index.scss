@@ -1,11 +1,15 @@
 /**
  * 在此文件定义一些全局类
 */
+@import './tailwind.css';
+@import './element-reset.scss';
 
 body,
 html {
   font-size: var(--jm-font-size);
   font-family: var(--jm-font-family);
+  background-color: var(--jm-color-bg);
+  color: var(--jm-color-text);
   min-width: 768px;
 }
 
@@ -42,4 +46,26 @@ html {
   &::-webkit-scrollbar {
     width: 6px;
   }
+}
+
+// 1-2行显示，多出部分以省略号...显示
+.g-line {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.g-line-1 {
+  @extend .g-line;
+  /* autoprefixer: on */
+  -webkit-line-clamp: 1;
+}
+
+.g-line-2 {
+  @extend .g-line;
+  /* autoprefixer: on */
+  -webkit-line-clamp: 2;
 }

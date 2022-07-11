@@ -41,24 +41,24 @@ export const beforeEach = (router: Router) => {
   )
 }
 
-function _hasPermission(codes: string[], permissions: DataPermission[]): boolean {
-  let flag = true
-  const _find = (code: string) => {
-    let flag = false
-    permissions.find((item) => {
-      if (item.code === code) {
-        flag = true
-        return true
-      }
-    })
-    return flag
-  }
-  codes.find((code) => {
-    flag = _find(code)
-    if (!flag) {
-      return true
-    }
-  })
+// function _hasPermission(codes: string[], permissions: DataPermission[]): boolean {
+//   let flag = true
+//   const _find = (code: string) => {
+//     let flag = false
+//     permissions.find((item) => {
+//       if (item.code === code) {
+//         flag = true
+//         return true
+//       }
+//     })
+//     return flag
+//   }
+//   codes.find((code) => {
+//     flag = _find(code)
+//     if (!flag) {
+//       return true
+//     }
+//   })
 
-  return flag
-}
+//   return flag
+// }

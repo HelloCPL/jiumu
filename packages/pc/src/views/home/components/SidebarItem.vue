@@ -8,26 +8,27 @@
   <template v-for="item in data">
     <ElSubMenu v-if="item.children?.length" :key="item.id" :index="item.code">
       <template #title>
-        <span>{{ item.label }}</span>
+        <span class="g-line-1">{{ item.label }}</span>
       </template>
       <sidebar-item :data="item.children"></sidebar-item>
     </ElSubMenu>
     <ElMenuItem :index="item.code" :key="item.id" v-else>
-      {{ item.label }}
+      <span>{{ item.label }}</span>
     </ElMenuItem>
   </template>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+import { ElSubMenu, ElMenuItem } from 'element-plus'
+
 defineOptions({
   name: 'SidebarItem'
 })
 
-interface Props {
+type Props = {
   data: DataMenu[]
 }
-
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   data: () => []
 })
 </script>

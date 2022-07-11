@@ -13,6 +13,7 @@ module.exports = defineConfig({
   parserOptions: {
     parser: '@typescript-eslint/parser'
   },
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: [
     'plugin:markdown/recommended',
     'plugin:jsonc/recommended-with-jsonc',
@@ -30,6 +31,21 @@ module.exports = defineConfig({
         'import/no-duplicates': 'off',
       },
     }
+    //  {
+    //   files: ['*.vue'],
+    //   parser: 'vue-eslint-parser',
+    //   parserOptions: {
+    //     parser: '@typescript-eslint/parser',
+    //     extraFileExtensions: ['.vue'],
+    //     ecmaVersion: 'latest',
+    //     ecmaFeatures: {
+    //       jsx: true,
+    //     },
+    //   },
+    //   rules: {
+    //     'no-undef': 'off',
+    //   },
+    // }
   ],
   rules: {
     // ts

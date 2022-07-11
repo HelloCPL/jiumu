@@ -23,13 +23,13 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'info',
     value: [
-      { key: 50, value: '#202121', rgb: '32 33 33' },
-      { key: 100, value: '#2d2d2f', rgb: '#2d2d2f' },
-      { key: 200, value: '#393a3c', rgb: '57 58 60' },
-      { key: 300, value: '#525457', rgb: '82 84 87' },
-      { key: 400, value: '#6b6d71', rgb: '107 109 113' },
+      { key: 50, value: '#202121', rgb: '32, 33, 33' },
+      { key: 100, value: '#2d2d2f', rgb: '45, 45, 47' },
+      { key: 200, value: '#393a3c', rgb: '57, 58, 60' },
+      { key: 300, value: '#525457', rgb: '82, 84, 87' },
+      { key: 400, value: '#6b6d71', rgb: '107, 109, 113' },
       { key: 500, value: '#909399', rgb: '144, 147, 153', default: true, desc: '提示类 info' },
-      { key: 600, value: '#a6a9ad', rgb: '166 169 173' },
+      { key: 600, value: '#a6a9ad', rgb: '166, 169, 173' },
       { key: 8, value: 'rgba(144, 147, 153, 0.8)' },
       { key: 6, value: 'rgba(144, 147, 153, 0.6)' },
       { key: 4, value: 'rgba(144, 147, 153, 0.4)' },
@@ -41,13 +41,13 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'primary',
     value: [
-      { key: 50, value: '#18222c', rgb: '24 34 44' }, // 141414 90
-      { key: 100, value: '#1d3043', rgb: '29 48 67' }, // 141414 80
-      { key: 200, value: '#213d5d', rgb: '33 61 93' }, // 141414 70
-      { key: 300, value: '#2a598a', rgb: '42 89 138' }, // 141414 50
-      { key: 400, value: '#3375b9', rgb: '51 117 185' }, // 141414 30
+      { key: 50, value: '#18222c', rgb: '24, 34, 44' }, // 141414 90
+      { key: 100, value: '#1d3043', rgb: '29, 48, 67' }, // 141414 80
+      { key: 200, value: '#213d5d', rgb: '33, 61, 93' }, // 141414 70
+      { key: 300, value: '#2a598a', rgb: '42, 89, 138' }, // 141414 50
+      { key: 400, value: '#3375b9', rgb: '51, 117, 185' }, // 141414 30
       { key: 500, value: '#409EFF', rgb: '64, 158, 255', default: true, desc: '主题颜色 primary' },
-      { key: 600, value: '#66b1ff', rgb: '102 177 255' }, // white 20
+      { key: 600, value: '#66b1ff', rgb: '102, 177, 255' }, // white 20
       { key: 8, value: 'rgba(64, 158, 255, 0.8)' },
       { key: 6, value: 'rgba(64, 158, 255, 0.6)' },
       { key: 4, value: 'rgba(64, 158, 255, 0.4)' },
@@ -59,13 +59,13 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'success',
     value: [
-      { key: 50, value: '#1c2518', rgb: '28 37 24' },
-      { key: 100, value: '#25371c', rgb: '#25371c' },
-      { key: 200, value: '#2d481f', rgb: '45 72 31' },
-      { key: 300, value: '#b3e19d', rgb: '179 225 157' },
-      { key: 400, value: '#4e8e2f', rgb: '78 142 47' },
+      { key: 50, value: '#1c2518', rgb: '28, 37, 24' },
+      { key: 100, value: '#25371c', rgb: '37, 55, 28' },
+      { key: 200, value: '#2d481f', rgb: '45, 72, 31' },
+      { key: 300, value: '#b3e19d', rgb: '179, 225, 157' },
+      { key: 400, value: '#4e8e2f', rgb: '78, 142, 47' },
       { key: 500, value: '#67C23A', rgb: '103, 194, 58', default: true, desc: '成功类 success' },
-      { key: 600, value: '#85ce61', rgb: '133 206 97' },
+      { key: 600, value: '#85ce61', rgb: '133, 206, 97' },
       { key: 8, value: 'rgba(103, 194, 58, 0.8)' },
       { key: 6, value: 'rgba(103, 194, 58, 0.6)' },
       { key: 4, value: 'rgba(103, 194, 58, 0.4)' },
@@ -77,13 +77,13 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'warning',
     value: [
-      { key: 50, value: '#292218', rgb: '253, 246, 236' },
-      { key: 100, value: '#3e301c', rgb: '250, 236, 216' },
-      { key: 200, value: '#533f20', rgb: '248, 227, 197' },
-      { key: 300, value: '#f3d19e', rgb: '243, 209, 158' },
-      { key: 400, value: '#eebe77', rgb: '238, 190, 119' },
+      { key: 50, value: '#292218', rgb: '41, 34, 24' },
+      { key: 100, value: '#3e301c', rgb: '62, 48, 28' },
+      { key: 200, value: '#533f20', rgb: '83, 63, 32' },
+      { key: 300, value: '#7d5b28', rgb: '125, 91, 40' },
+      { key: 400, value: '#a77730', rgb: '167, 119, 48' },
       { key: 500, value: '#E6A23C', rgb: '230, 162, 60', default: true, desc: '警告类 warning' },
-      { key: 600, value: '#b88230', rgb: '184, 130, 48' },
+      { key: 600, value: '#ebb563', rgb: '235, 181, 99' },
       { key: 8, value: 'rgba(230, 162, 60, 0.8)' },
       { key: 4, value: 'rgba(230, 162, 60, 0.6)' },
       { key: 5, value: 'rgba(230, 162, 60, 0.4)' },
@@ -95,11 +95,11 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'danger',
     value: [
-      { key: 50, value: '#fef0f0', rgb: '254, 240, 240' },
-      { key: 100, value: '#fde2e2', rgb: '253, 226, 226' },
-      { key: 200, value: '#fcd3d3', rgb: '252, 211, 211' },
-      { key: 300, value: '#fab6b6', rgb: '250, 182, 182' },
-      { key: 400, value: '#f89898', rgb: '248, 152, 152' },
+      { key: 50, value: '#2b1d1d', rgb: '43 29 29' },
+      { key: 100, value: '#412626', rgb: '65 38 38' },
+      { key: 200, value: '#582e2e', rgb: '88 46 46' },
+      { key: 300, value: '#854040', rgb: '133 64 64' },
+      { key: 400, value: '#b25252', rgb: '178 82 82' },
       {
         key: 500,
         value: '#F56C6C',
@@ -107,7 +107,7 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
         default: true,
         desc: '错误类 error/danger'
       },
-      { key: 600, value: '#c45656', rgb: '196, 86, 86' },
+      { key: 600, value: '#f78989', rgb: '247, 137, 137' },
       { key: 8, value: 'rgba(245, 108, 108, 0.8)' },
       { key: 6, value: 'rgba(245, 108, 108, 0.6)' },
       { key: 4, value: 'rgba(245, 108, 108, 0.4)' },
@@ -119,15 +119,15 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'white',
     value: [
-      { key: 1, value: 'rgba(255,255,255,0.1)' },
-      { key: 2, value: 'rgba(255,255,255,0.2)' },
-      { key: 4, value: 'rgba(255,255,255,0.4)' },
-      { key: 6, value: 'rgba(255,255,255,0.6)' },
-      { key: 8, value: 'rgba(255,255,255,0.8)' },
+      { key: 1, value: 'rgba(20, 20, 20,0.1)' },
+      { key: 2, value: 'rgba(20, 20, 20,0.2)' },
+      { key: 4, value: 'rgba(20, 20, 20,0.4)' },
+      { key: 6, value: 'rgba(20, 20, 20,0.6)' },
+      { key: 8, value: 'rgba(20, 20, 20,0.8)' },
       {
         key: 500,
-        value: 'rgba(255,255,255,1)',
-        rgb: '255, 255, 255',
+        value: 'rgba(20, 20, 20,1)',
+        rgb: '20, 20, 20',
         default: true
       }
     ],
@@ -136,15 +136,15 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
   {
     key: 'black',
     value: [
-      { key: 1, value: 'rgba(0,0,0,0.1)' },
-      { key: 2, value: 'rgba(0,0,0,0.2)' },
-      { key: 4, value: 'rgba(0,0,0,0.4)' },
-      { key: 6, value: 'rgba(0,0,0,0.6)' },
-      { key: 8, value: 'rgba(0,0,0,0.8)' },
+      { key: 1, value: 'rgba(250, 252, 255,0.1)' },
+      { key: 2, value: 'rgba(250, 252, 255,0.2)' },
+      { key: 4, value: 'rgba(250, 252, 255,0.4)' },
+      { key: 6, value: 'rgba(250, 252, 255,0.6)' },
+      { key: 8, value: 'rgba(250, 252, 255,0.8)' },
       {
         key: 500,
-        value: 'rgba(0,0,0,1)',
-        rgb: '0, 0, 0',
+        value: 'rgba(250, 252, 255,1)',
+        rgb: '250, 252, 255',
         default: true
       }
     ],
@@ -172,128 +172,128 @@ const neutralColors: KeyValue<string, string>[] = [
   {
     key: 'text-default',
     alias: 'text',
-    value: '#303133',
-    rgb: '48, 49, 51',
+    value: '#E5EAF3',
+    rgb: '229, 234, 243',
     desc: '默认文本颜色 Primary Text'
   },
   {
     key: 'text-light',
-    value: '#606266',
-    rgb: '96, 98, 102',
+    value: '#CFD3DC',
+    rgb: '207, 211, 220',
     desc: '提示文本颜色 Regular Text'
   },
   {
     key: 'text-lighter',
-    value: '#909399',
-    rgb: '144, 147, 153',
+    value: '#A3A6AD',
+    rgb: '163, 166, 173',
     desc: '注释文本颜色 Secondary Text'
   },
   {
     key: 'text-placeholder',
-    value: '#A8ABB2',
-    rgb: '168, 171, 178',
+    value: '#8D9095',
+    rgb: '141, 144, 149',
     desc: '输入框未输入状态文本 Placeholder Text'
   },
   {
     key: 'text-disabled',
-    value: '#C0C4CC',
-    rgb: '192, 196, 204',
+    value: '#6C6E72',
+    rgb: '108, 110, 114',
     desc: '禁用状态文本颜色 Disabled Text'
   },
   {
     key: 'border-darker',
-    value: '#CDD0D6',
-    rgb: '205, 208, 214',
+    value: '#636466',
+    rgb: '99, 100, 102',
     desc: '二级深色边框颜色 Darker Border'
   },
   {
     key: 'border-dark',
-    value: '#D4D7DE',
-    rgb: '212, 215, 222',
+    value: '#58585B',
+    rgb: '88, 88, 91',
     desc: '一级深色边框颜色 Dark Border'
   },
   {
     key: 'border-default',
     alias: 'border',
-    value: '#DCDFE6',
-    rgb: '220, 223, 230',
+    value: '#4C4D4F',
+    rgb: '76, 77, 79',
     desc: '默认边框颜色 Base Border'
   },
   {
     key: 'border-light',
-    value: '#E4E7ED',
-    rgb: '228, 231, 237',
+    value: '#414243',
+    rgb: '65, 66, 67',
     desc: '一级浅色边框颜色 Light Border'
   },
   {
     key: 'border-lighter',
-    value: '#EBEEF5',
-    rgb: '235, 238, 245',
+    value: '#363637',
+    rgb: '54, 54, 55',
     desc: '二级浅色边框颜色 Lighter Border'
   },
   {
     key: 'border-light-extra',
-    value: '#F2F6FC',
-    rgb: '242, 246, 252',
+    value: '#2B2B2C',
+    rgb: '43, 43, 44',
     desc: '特别浅色的边框颜色 Extra-light Border'
   },
   {
     key: 'fill-darker',
-    value: '#E6E8EB',
-    rgb: '230, 232, 235',
+    value: '#424243',
+    rgb: '66, 66, 67',
     desc: '二级深色填充颜色 Darker Fill'
   },
   {
     key: 'fill-dark',
-    value: '#EBEDF0',
-    rgb: '235, 237, 240',
+    value: '#39393A',
+    rgb: '57, 57, 58',
     desc: '一级深色填充颜色 Dark Fill'
   },
   {
     key: 'fill-default',
     alias: 'fill',
-    value: '#F0F2F5',
-    rgb: '240, 242, 245',
+    value: '#303030',
+    rgb: '48, 48, 48',
     desc: '默认填充颜色 Base Fill'
   },
   {
     key: 'fill-light',
-    value: '#F5F7FA',
-    rgb: '245, 247, 250',
+    value: '#262727',
+    rgb: '38, 39, 39',
     desc: '一级浅色填充颜色 Light Fill'
   },
   {
     key: 'fill-lighter',
-    value: '#FAFAFA',
-    rgb: '250, 250, 250',
+    value: '#1D1D1D',
+    rgb: '29, 29, 29',
     desc: '一级浅色填充颜色 Lighter Fill'
   },
   {
     key: 'fill-light-extra',
-    value: '#FAFCFF',
-    rgb: '250, 252, 255',
+    value: '#191919',
+    rgb: '25, 25, 25',
     desc: '特别浅色的填充颜色 Extra-light Fill'
   },
   {
     key: 'fill-blank',
-    value: '#ffffff',
+    value: 'transparent',
     desc: '空白填充颜色 Blank Fill'
   },
   {
     key: 'bg-default',
     alias: 'bg',
-    value: '#F2F3F5',
-    rgb: '242, 243, 245',
+    value: '#0a0a0a',
+    rgb: '10, 10, 10',
     desc: '默认背景颜色 Page Background'
   },
   {
     key: 'bg-white',
-    value: '#FFFFFF',
+    value: '#141414',
     desc: '白色背景颜色 Base Background'
   },
   {
     key: 'bg-overlay',
-    value: '#ffffff',
+    value: '#1d1e1f',
     desc: '弹窗页面颜色 Overlay Background'
   },
   {
@@ -315,12 +315,12 @@ const neutralColors: KeyValue<string, string>[] = [
   {
     key: 'mask-default',
     alias: 'mask',
-    value: 'rgba(255, 255, 255, .9)',
+    value: 'rgba(0, 0, 0, .8)',
     desc: '白色遮罩层颜色'
   },
   {
     key: 'mask-light-extra',
-    value: 'rgba(255, 255, 255, .3)',
+    value: 'rgba(0, 0, 0, .3)',
     desc: '特别浅的白色遮罩层颜色'
   }
 ]

@@ -5,24 +5,28 @@
 -->
 
 <template>
-  <div class="h-full bg-white shadow-md overflow-hidden relative pb-8 sidebar">
+  <div
+    class="h-full bg-white shadow-md overflow-hidden relative pb-8 sidebar"
+    :style="{ width: isCollapse ? '64px' : '230px' }"
+  >
     <div class="h-full g-scroll-y-0">
-      <ElMenu :default-active="active" @open="open" @close="close">
+      <ElMenu :collapse="isCollapse" :default-active="active" @open="open" @close="close">
         <SidebarItem :data="userStore.menus"></SidebarItem>
       </ElMenu>
     </div>
     <div
-      class="w-full h-8 absolute left-0 bottom-0 bg-white border-t border-r border-default border-solid shadow flex items-center justify-center cursor-pointer"
+      class="w-full h-8 absolute left-0 bottom-0 bg-white border-t border-default border-solid shadow flex items-center justify-center cursor-pointer"
     >
-      <el-icon :size="size" :color="color">
+      <ElIcon :size="size" :color="color">
         <ArrowLeftBold />
-      </el-icon>
-      <span class="pl-1 text-sm text-lighter">收起</span>
+      </ElIcon>
+      <span class="pl-1 text-sm text-lighter" @click="switchCollapse">收起</span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ElMenu, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue'
 import { ref } from 'vue'
@@ -34,6 +38,11 @@ const active = ref<string>('string')
 const themeStore = useThemeStore()
 const size = ref<number>(themeStore.getRootFontSize('--jm-font-size-14'))
 const color = ref<string>(themeStore.getRootColor('--jm-color-primary-6'))
+
+const isCollapse = ref<boolean>(false)
+const switchCollapse = () => {
+  isCollapse.value = !isCollapse.value
+}
 
 const open = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)

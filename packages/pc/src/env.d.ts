@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import { defineComponent } from 'vue'
 
 interface ImportMetaEnv {
   readonly VITE_DIR: string
@@ -16,8 +17,13 @@ interface ImportMeta {
 declare module '*.vue' {
   import { DefineComponent } from 'vue'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
-  
+
   const component: DefineComponent<{}, {}, any>
   // const component: ReturnType<typeof DefineComponent>;
   export default component
+}
+
+declare global {
+  // 解决 pnpm 子项目不能提示问题
+  const defineOptions: typeof defineComponent
 }

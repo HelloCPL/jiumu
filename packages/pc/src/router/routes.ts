@@ -35,8 +35,13 @@ export const getHomeRoutes = (): HomeRouteRecord[] => {
   return homeRoutes
 }
 
-function _addRouteRecord(route: RouteRecordRaw, homeRoutes: HomeRouteRecord[], parent?: RouteRecordRaw) {
-  const path = parent && !route.path.startsWith('/') ? toPath(parent.path, route.path) : toPath(route.path)
+function _addRouteRecord(
+  route: RouteRecordRaw,
+  homeRoutes: HomeRouteRecord[],
+  parent?: RouteRecordRaw
+) {
+  const path =
+    parent && !route.path.startsWith('/') ? toPath(parent.path, route.path) : toPath(route.path)
   homeRoutes.push({
     path,
     name: route.name

@@ -6,7 +6,7 @@
 
 <template>
   <div class="h-full w-full p-8">
-    <El-form :model="form" :rules="rules" ref="formRef">
+    <ElForm :model="form" :rules="rules" ref="formRef">
       <ElFormItem prop="phone" class="mt-8">
         <ElInput v-model="form.phone" placeholder="请输入账号"></ElInput>
       </ElFormItem>
@@ -23,12 +23,12 @@
       <ElFormItem class="mt-10">
         <ElButton type="primary" round class="w-full" @click="submit(formRef)">注册</ElButton>
       </ElFormItem>
-    </El-form>
+    </ElForm>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { FormInstance } from 'element-plus'
+import { ElForm, ElFormItem, ElInput, ElButton, FormInstance } from 'element-plus'
 import { useRegister } from '../hooks/use-register'
 import { register } from '../../../api/user'
 import { useUserStore } from '../../../store'
@@ -53,9 +53,11 @@ const submit = (el: FormInstance | undefined) => {
         tokenRefresh: data.tokenRefresh
       })
       // 获取用户信息
-      await store.getUser()
+      store.getUser()
       const redirect = <string>route.query.redirect || '/'
-      router.replace({ path: redirect })
+      router.replace({
+        path: redirect
+      })
     }
   })
 }

@@ -11,6 +11,7 @@
       <span class="pl-2 text-lg text-white-8">管理系统平台</span>
     </div>
     <div class="flex items-center">
+      <ElSwitch v-model="isLight" @change="change" class="mr-4" />
       <span class="mr-4 cursor-pointer">设置</span>
       <span class="mr-4 cursor-pointer">陈一支</span>
       <ElImage class="w-8 rounded-full cursor-pointer" :src="avatar" :preview-src-list="[avatar]">
@@ -20,10 +21,18 @@
 </template>
 
 <script lang="ts" setup>
+import { ElSwitch, ElImage } from 'element-plus'
 import { ref, getCurrentInstance } from 'vue'
+import { useThemeStore } from '../../../store'
+
+const store = useThemeStore()
+const isLight = ref<boolean>(store.theme === 'light')
+const change = (b: boolean) => {
+  store.toggleTheme(b ? 'light' : 'drak')
+}
 
 const instance = getCurrentInstance()?.appContext.config.globalProperties
-const avatar = ref(instance.$STATIC_URL + 'pc/images/avatar1.png')
+const avatar = ref(instance?.$STATIC_URL + 'pc/images/avatar1.png')
 </script>
 
 <style lang="scss" scoped>
