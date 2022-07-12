@@ -1,5 +1,5 @@
 import { Router, RouteLocationNormalized } from 'vue-router'
-import { useKeepAliveStore } from '@/store'
+import { useKeepAliveStore, useNavigationsStore } from '@/store'
 import { KeepAliveOption } from '@/store/keep-alive.b'
 
 /**
@@ -12,16 +12,19 @@ export const afterEach = (router: Router) => {
     if (to.params.metaTitle) to.meta.title = <string>to.params.metaTitle
     else if (to.query.metaTitle) to.meta.title = <string>to.query.metaTitle
 
-    // home 子页面缓存
-    const store = useKeepAliveStore()
+    // 处理缓存参数
     if (to.params.hasOwnProperty('keepAliveTo')) to.meta.keepAlive = to.params.keepAliveTo === '1'
-    else if (to.query.hasOwnProperty('keepAliveTo'))
-      to.meta.keepAlive = to.query.keepAliveTo === '1'
-    if (to.params.hasOwnProperty('keepAliveFrom'))
-      from.meta.keepAlive = to.params.keepAliveFrom === '1'
-    else if (to.query.hasOwnProperty('keepAliveFrom'))
-      from.meta.keepAlive = to.query.keepAliveFrom === '1'
-    store.handleKeepAlive(_getKParams(to), _getKParams(from))
+    else if (to.query.hasOwnProperty('keepAliveTo')) to.meta.keepAlive = to.query.keepAliveTo === '1'
+    if (to.params.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.params.keepAliveFrom === '1'
+    else if (to.query.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.query.keepAliveFrom === '1'
+
+    // home 子页面缓存
+    const keepAliveStore = useKeepAliveStore()
+    keepAliveStore.handleKeepAlive(_getKParams(to), _getKParams(from))
+
+    // 处理 home 子页面导航栏
+    const navigationsStore = useNavigationsStore()
+    navigationsStore.handleNavigations(_getKParams(to), _getKParams(from))
   })
 }
 

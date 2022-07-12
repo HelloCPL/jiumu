@@ -10,6 +10,18 @@ import { StoreNames } from './store-name'
 import { ThemeState } from './theme.b'
 import { kebabCase } from 'lodash-es'
 import { ColorsFile } from '@/style/color.b'
+import { storage } from '@jiumu/utils'
+
+// 字体大小集合
+const fontSizeList: KeyValue<string, number>[] = [
+  { key: '--jm-font-size-large-extra', value: 20 },
+  { key: '--jm-font-size-large', value: 18 },
+  { key: '--jm-font-size-medium', value: 16 },
+  { key: '--jm-font-size', value: 14 },
+  { key: '--jm-font-size-default', value: 14 },
+  { key: '--jm-font-size-small', value: 13 },
+  { key: '--jm-font-size-small-extra', value: 12 }
+]
 
 export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
   state: (): ThemeState => {
@@ -17,21 +29,20 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
       theme: 'light',
       fontSize: 14,
       fontFamily: 'PingFang', // 默认 PingFang 简体 可选 宋 繁体
-      colors: [], // 主题颜色变量集合 [{ key: '--jm-color-primary-500', value: '#409EFF' }, ...]
-      fontSizeList: [
-        // 字体大小集合
-        { key: '--jm-font-size-large-extra', value: 20 },
-        { key: '--jm-font-size-large', value: 18 },
-        { key: '--jm-font-size-medium', value: 16 },
-        { key: '--jm-font-size', value: 14 },
-        { key: '--jm-font-size-default', value: 14 },
-        { key: '--jm-font-size-small', value: 13 },
-        { key: '--jm-font-size-small-extra', value: 12 }
-      ]
+      colors: [] // 主题颜色变量集合 [{ key: '--jm-color-primary-500', value: '#409EFF' }, ...]
     }
   },
   actions: {
-    reset() {}, // 不做数据清除
+    reset() {
+      this.theme = 'light'
+      this.fontSize = 14
+      this.fontFamily = 'PingFang'
+      // 清除缓存
+      storage.removeItem(StoreNames.THEME, {
+        type: 'local',
+        prefix: 'pinia'
+      })
+    }, // 不做数据清除
 
     /**
      * 修改字体类型
@@ -47,7 +58,7 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
      */
     async toggleFontSize(font: FontSizeValue) {
       font = font || this.fontSize
-      this.fontSizeList.forEach((item) => {
+      fontSizeList.forEach((item) => {
         const value = font - 14 + item.value + 'px'
         document?.documentElement.style.setProperty(item.key, value)
       })
@@ -60,7 +71,7 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
      */
     getRootFontSize(key: string): number {
       let value = 14
-      this.fontSizeList.find((item) => {
+      fontSizeList.find((item) => {
         if (item.key === key) {
           value = item.value
           return true
@@ -127,6 +138,7 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
   },
   storage: {
     enabled: true,
-    type: 'local'
+    type: 'local',
+    keys: ['theme', 'fontSize', 'fontFamily']
   }
 })

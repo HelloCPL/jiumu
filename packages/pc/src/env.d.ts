@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   readonly VITE_API_URL: string
   readonly VITE_STATIC_URL: string
   readonly VITE_TIME_OUT: number
+  readonly VITE_HOME_EXPIRE: number
 }
 
 interface ImportMeta {

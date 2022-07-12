@@ -8,6 +8,7 @@ import { defineStore, StoreDefinition } from 'pinia'
 import { StoreNames } from './store-name'
 import { KeepAliveState, KeepAliveOption } from './keep-alive.b'
 import { getHomeRoutes, HomeRouteRecord } from '@/router/routes'
+import { storage } from '@jiumu/utils'
 
 export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_ALIVE, {
   state: (): KeepAliveState => {
@@ -72,6 +73,11 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
     reset() {
       this.includes = []
       this.excludes = []
+      // 清除缓存
+      storage.removeItem(StoreNames.KEEP_ALIVE, {
+        type: 'session',
+        prefix: 'pinia'
+      })
     },
 
     // 缓存处理逻辑 只缓存home 子页面缓存
@@ -83,10 +89,7 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
         // to from 都属于home
         if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
           this._push(to)
-        } else if (
-          from.params.__routerType === 'replace' ||
-          from.query.__routerType === 'replace'
-        ) {
+        } else if (to.params.__routerType === 'replace' || to.query.__routerType === 'replace') {
           this._push(to)
           this._pop(from)
         } else {
@@ -102,24 +105,26 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
         const flag =
           to.params.__routerType === 'push' ||
           to.query.__routerType === 'push' ||
-          from.params.__routerType === 'replace' ||
-          from.query.__routerType === 'replace'
+          to.params.__routerType === 'replace' ||
+          to.query.__routerType === 'replace'
         if (flag) this._push(to)
         // 单独处理 meta.keepAlive 参数
         if (to.meta.keepAlive === true) this._push(to)
         else if (to.meta.keepAlive === false) this._pop(to)
       } else if (flagFrom) {
         // 仅 from 属于home
-        const flag = to.params.__routerType !== 'push' && to.query.__routerType !== 'push'
+        const flag = !(to.params.__routerType === 'push' || to.query.__routerType === 'push')
         if (flag) this._pop(from)
         // 单独处理 meta.keepAlive 参数
-        if (from.meta.keepAlive === true) this._push(from)
-        else if (from.meta.keepAlive === false) this._pop(from)
+        if (to.meta.keepAlive === true) this._push(from)
+        else if (to.meta.keepAlive === false) this._pop(from)
       }
     }
   },
   storage: {
-    enabled: true
+    type: 'session',
+    enabled: true,
+    expire: import.meta.env.VITE_HOME_EXPIRE
   }
 })
 

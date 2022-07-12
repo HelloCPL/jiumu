@@ -8,6 +8,7 @@ import { defineStore, StoreDefinition } from 'pinia'
 import { StoreNames } from './store-name'
 import { useKeepAliveStore } from './keep-alive'
 import { useUserStore } from './user'
+import { useNavigationsStore } from './navigations'
 
 export const useResetStore: StoreDefinition = defineStore(StoreNames.RESET, {
   actions: {
@@ -15,8 +16,10 @@ export const useResetStore: StoreDefinition = defineStore(StoreNames.RESET, {
     reset() {
       const keepAliveStore = useKeepAliveStore()
       const userStore = useUserStore()
+      const navigationsStore = useNavigationsStore()
       keepAliveStore.reset()
       userStore.reset()
+      navigationsStore.reset()
     }
   }
 })

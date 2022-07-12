@@ -8,14 +8,15 @@
   <div class="w-full bg-primary-600 flex justify-between items-center pl-2 pr-5 text-white header">
     <div class="flex items-center">
       <img :src="$STATIC_URL + 'pc/images/jiumu.png'" class="w-10" alt="" />
-      <span class="pl-2 text-lg text-white-8">管理系统平台</span>
+      <span class="pl-2 text-lg text-white-8">
+        管理系统平台{{ VITE_MODE === 'prod' ? '' : '（测试环境）' }}
+      </span>
     </div>
     <div class="flex items-center">
       <ElSwitch v-model="isLight" @change="change" class="mr-4" />
       <span class="mr-4 cursor-pointer">设置</span>
       <span class="mr-4 cursor-pointer">陈一支</span>
-      <ElImage class="w-8 rounded-full cursor-pointer" :src="avatar" :preview-src-list="[avatar]">
-      </ElImage>
+      <ElImage class="w-8 rounded-full cursor-pointer" :src="avatar" :preview-src-list="[avatar]"> </ElImage>
     </div>
   </div>
 </template>
@@ -25,9 +26,11 @@ import { ElSwitch, ElImage } from 'element-plus'
 import { ref, getCurrentInstance } from 'vue'
 import { useThemeStore } from '../../../store'
 
+const { VITE_MODE } = import.meta.env
+
 const store = useThemeStore()
 const isLight = ref<boolean>(store.theme === 'light')
-const change = (b: boolean) => {
+const change = (b: boolean | string | number) => {
   store.toggleTheme(b ? 'light' : 'drak')
 }
 

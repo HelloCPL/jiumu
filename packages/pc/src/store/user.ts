@@ -69,7 +69,7 @@ export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
     enabled: true,
     type: 'local',
     encrypt: true,
-    expire: 60 * 60 * 2,
+    expire: import.meta.env.VITE_HOME_EXPIRE,
     keys: ['token', 'tokenRefresh', 'menus']
   }
 })

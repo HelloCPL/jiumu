@@ -5,5 +5,4 @@ export interface ThemeState {
   fontSize: FontSizeValue
   fontFamily: FontFamilyValue
   colors: KeyValue<string, string>[]
-  fontSizeList: KeyValue<string, number>[]
 }

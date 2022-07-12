@@ -32,19 +32,23 @@ import { ElMenu, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue'
 import { ref } from 'vue'
-import { useUserStore, useThemeStore } from '../../../store'
+import { useUserStore, useThemeStore, useNavigationsStore } from '../../../store'
+import { NavigationState } from '../../../store/navigations.b'
+import { storeToRefs } from 'pinia'
 
 const userStore = useUserStore()
-const active = ref<string>('MySource')
+const navigationsStore = useNavigationsStore()
+const { isCollapse, routerName } = storeToRefs<NavigationState>(navigationsStore)
+
+const active = ref<string>(<string>routerName.value)
+const switchCollapse = () => {
+  isCollapse.value = !isCollapse.value
+}
 
 const themeStore = useThemeStore()
 const size = ref<number>(themeStore.getRootFontSize('--jm-font-size-14'))
 const color = ref<string>(themeStore.getRootColor('--jm-color-primary-6'))
 
-const isCollapse = ref<boolean>(false)
-const switchCollapse = () => {
-  isCollapse.value = !isCollapse.value
-}
 const select = (key: string, keyPath: string[]) => {
   console.log('select', key, keyPath)
 }
