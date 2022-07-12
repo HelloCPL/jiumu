@@ -69,7 +69,7 @@ export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
     enabled: true,
     type: 'local',
     encrypt: true,
-    expire: 60 * 60 * 24,
-    keys: ['token', 'tokenRefresh']
+    expire: 60 * 60 * 2,
+    keys: ['token', 'tokenRefresh', 'menus']
   }
 })

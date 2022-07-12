@@ -5,15 +5,17 @@
 -->
 
 <template>
-  <template v-for="item in data">
+  <template v-for="(item, index) in data">
     <ElSubMenu v-if="item.children?.length" :key="item.id" :index="item.code">
       <template #title>
-        <span class="g-line-1">{{ item.label }}</span>
+        <template v-if="collapse && item.label.length > 2"> {{ item.label.substring(0, 2) }}... </template>
+        <template v-else>{{ item.label }}</template>
       </template>
-      <sidebar-item :data="item.children"></sidebar-item>
+      <sidebar-item :data="item.children" :collapse="false"></sidebar-item>
     </ElSubMenu>
-    <ElMenuItem :index="item.code" :key="item.id" v-else>
-      <span>{{ item.label }}</span>
+    <ElMenuItem :index="item.code" :key="item.id + index" v-else>
+      <template v-if="collapse && item.label.length > 2"> {{ item.label.substring(0, 2) }}... </template>
+      <template v-else>{{ item.label }}</template>
     </ElMenuItem>
   </template>
 </template>
@@ -27,7 +29,9 @@ defineOptions({
 
 type Props = {
   data: DataMenu[]
+  collapse: boolean
 }
+
 withDefaults(defineProps<Props>(), {
   data: () => []
 })
