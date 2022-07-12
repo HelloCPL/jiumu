@@ -11,9 +11,9 @@
       <div class="absolute bottom-0 left-0 h-full flex flex-nowrap">
         <!-- 每一项 -->
         <div
-          class="h-full pl-3 pr-5 flex-shrink-0 flex flex-nowrap items-center justify-center relative cursor-pointer nav-item"
+          class="h-full pl-2 pr-5 flex-shrink-0 flex flex-nowrap items-center justify-center relative cursor-pointer nav-item"
           :class="{ 'nav-item-active': item.name === navStore.routerName, 'nav-item-first': index === 0 }"
-          :title="item.meta.title"
+          :title="item.meta.title.length > 4 ? item.meta.title : ''"
           v-for="(item, index) in navStore.navigations"
           :key="item.name"
         >
