@@ -1,0 +1,27 @@
+.naviagtor {
+  .nav-item {
+    width: 120px;
+    border-right: 1px solid var(--jm-color-border-lighter);
+
+    .nav-item-icon {
+      display: none;
+    }
+
+    &:hover {
+      background: var(--jm-color-bg);
+
+      .nav-item-icon {
+        display: block;
+      }
+    }
+  }
+
+  .nav-item-first {
+    border-left: 1px solid var(--jm-color-border-lighter);
+  }
+
+  .nav-item-active {
+    border-top: 3px solid var(--jm-color-primary-6);
+    background: var(--jm-color-bg);
+  }
+}

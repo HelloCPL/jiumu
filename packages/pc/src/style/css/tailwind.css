@@ -18,6 +18,21 @@
   .text-disabled {
     color: var(--jm-color-text-disabled)
   }
+  .border-1 {
+    border: 1px solid var(--jm-color-border);
+  }
+  .border-t-1 {
+    border-top: 1px solid var(--jm-color-border);
+  }
+  .border-r-1 {
+    border-right: 1px solid var(--jm-color-border);
+  }
+  .border-b-1 {
+    border-bottom: 1px solid var(--jm-color-border);
+  }
+  .border-l-1 {
+    border-left: 1px solid var(--jm-color-border);
+  }
   .border-darker {
     border-color: var(--jm-color-border-darker)
   }
@@ -26,7 +41,7 @@
   }
   .border {
     border-width: 1px;
-    border-style: solid;
+    border-color: var(--jm-color-border)
   }
   .border-default {
     border-color: var(--jm-color-border)

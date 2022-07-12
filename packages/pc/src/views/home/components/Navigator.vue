@@ -5,13 +5,43 @@
 -->
 
 <template>
-  <div class="w-full bg-white shadow-sm px-5 pt-2 naviagtor">一堆数据</div>
+  <div class="w-full h-10 bg-white px-5 overflow-hidden pt-2 naviagtor">
+    <div class="w-full h-full relative">
+      <!-- 导航栏容器 -->
+      <div class="absolute bottom-0 left-0 h-full flex flex-nowrap">
+        <!-- 每一项 -->
+        <div
+          class="h-full pl-3 pr-5 flex-shrink-0 flex flex-nowrap items-center justify-center relative cursor-pointer nav-item"
+          :class="{ 'nav-item-active': item.name === navStore.routerName, 'nav-item-first': index === 0 }"
+          :title="item.meta.title"
+          v-for="(item, index) in navStore.navigations"
+          :key="item.name"
+        >
+          <span class="select-none max-w-full g-line-1">{{ item.meta.title }}</span>
+          <ElIcon
+            color="var(--jm-color-border-darker)"
+            :size="themeStore.fontSize + 2"
+            class="right-1 g-center-y z-30 nav-item-icon"
+          >
+            <CircleCloseFilled />
+          </ElIcon>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ElIcon } from 'element-plus'
+import { CircleCloseFilled } from '@element-plus/icons-vue'
+import { useThemeStore, useNavigationsStore } from '../../../store'
+import { ref } from 'vue'
+
+const themeStore = useThemeStore()
+
+const navStore = useNavigationsStore()
+</script>
 
 <style lang="scss" scoped>
-.naviagtor {
-  height: 38px;
-}
+@import './Navigator.scss';
 </style>

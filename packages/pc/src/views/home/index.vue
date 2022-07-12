@@ -11,10 +11,10 @@
     <div class="w-full flex wrapper">
       <!-- 左侧导航 -->
       <Sidebar></Sidebar>
-      <div class="h-full flex-1 shrink-0">
+      <div class="h-full flex-1 shrink-0 flex flex-col">
         <!-- 中间导航栏 -->
         <Navigator></Navigator>
-        <div class="w-full h-full p-4 content">
+        <div class="w-full py-4 px-5 flex-1 flex-shrink-0">
           <Content></Content>
         </div>
       </div>
@@ -46,9 +46,5 @@ defineOptions({
 <style lang="scss" scoped>
 .wrapper {
   height: calc(100% - 55px);
-
-  .content {
-    height: calc(100% - 38px);
-  }
 }
 </style>

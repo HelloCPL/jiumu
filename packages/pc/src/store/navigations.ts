@@ -41,7 +41,7 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
             }
           })
           if (i2 !== -1) {
-            this.navigations.splice(i2, 0, to)
+            this.navigations.splice(i2 + 1, 0, to)
             return
           }
         }

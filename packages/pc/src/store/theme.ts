@@ -66,18 +66,12 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
     },
 
     /**
-     * 根据 root key 值获取当前字体大小对应的 fontSize 常用于echarts等js定义的字体大小
-     * getRootFontSize('--jm-font-size') // 14px
+     * 根据 当前字体大小获取适配的大小 常用于echarts等js定义的字体大小
+     * getRootFontSize(14) // 14
+     * 建议用 this.fontSze 做基量 如 this.fontSize + 2
      */
-    getRootFontSize(key: string): number {
-      let value = 14
-      fontSizeList.find((item) => {
-        if (item.key === key) {
-          value = item.value
-          return true
-        }
-      })
-      return value + this.fontSize - 14
+    getRootFontSize(size: number): number {
+      return size + this.fontSize - 14
     },
 
     /**

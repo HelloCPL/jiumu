@@ -13,6 +13,9 @@
       </span>
     </div>
     <div class="flex items-center">
+      <ElSelect v-model="fontSize" class="m-2" placeholder="Select" size="small" @change="changeSelect">
+        <ElOption v-for="item in fontSizes" :key="item.value" :label="item.key" :value="item.value" />
+      </ElSelect>
       <ElSwitch v-model="isLight" @change="change" class="mr-4" />
       <span class="mr-4 cursor-pointer">设置</span>
       <span class="mr-4 cursor-pointer">陈一支</span>
@@ -22,16 +25,31 @@
 </template>
 
 <script lang="ts" setup>
-import { ElSwitch, ElImage } from 'element-plus'
+import { ElSwitch, ElImage, ElSelect, ElOption } from 'element-plus'
 import { ref, getCurrentInstance } from 'vue'
 import { useThemeStore } from '../../../store'
 
 const { VITE_MODE } = import.meta.env
 
 const store = useThemeStore()
+
+// 主题
 const isLight = ref<boolean>(store.theme === 'light')
 const change = (b: boolean | string | number) => {
   store.toggleTheme(b ? 'light' : 'drak')
+}
+
+// 字体大小
+const fontSize = ref<number>(store.fontSize)
+const fontSizes = [
+  { key: '特小', value: 12 },
+  { key: '小', value: 13 },
+  { key: '常规', value: 14 },
+  { key: '大', value: 16 },
+  { key: '特大', value: 18 }
+]
+const changeSelect = (val: number) => {
+  store.toggleFontSize(val)
 }
 
 const instance = getCurrentInstance()?.appContext.config.globalProperties

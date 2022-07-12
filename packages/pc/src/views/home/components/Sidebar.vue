@@ -6,12 +6,12 @@
 
 <template>
   <div
-    class="h-full bg-white shadow-md overflow-hidden relative pb-8 duration-300 sidebar-container"
+    class="h-full bg-white shadow-md overflow-hidden relative pb-8 duration-500 sidebar-container"
     :class="{ 'sidebar-container-active': isCollapse }"
-    :style="{ width: isCollapse ? '64px' : '230px' }"
+    :style="{ width: isCollapse ? '64px' : '220px' }"
   >
     <div class="h-full g-scroll-y-0">
-      <ElMenu :collapse="isCollapse" :default-active="active" @select="select" @open="open" @close="close">
+      <ElMenu :collapse="isCollapse" :default-active="routerName" @select="select">
         <SidebarItem :data="userStore.menus" :collapse="isCollapse"></SidebarItem>
       </ElMenu>
     </div>
@@ -19,10 +19,15 @@
       class="w-full h-8 absolute left-0 bottom-0 bg-white border-t border-default border-solid shadow flex items-center justify-center cursor-pointer"
       @click="switchCollapse"
     >
-      <ElIcon :size="size" :color="color">
+      <ElIcon
+        :size="12"
+        color="var(--jm-color-primary-6)"
+        :class="{ 'rotate-180': isCollapse }"
+        class="duration-300"
+      >
         <ArrowLeftBold />
       </ElIcon>
-      <span class="pl-1 text-sm text-lighter">收起</span>
+      <span class="pl-1 text-sm text-lighter">{{ isCollapse ? '展开' : '收起' }}</span>
     </div>
   </div>
 </template>
@@ -31,33 +36,32 @@
 import { ElMenu, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue'
-import { ref } from 'vue'
-import { useUserStore, useThemeStore, useNavigationsStore } from '../../../store'
-import { NavigationState } from '../../../store/navigations.b'
+import { useUserStore, useNavigationsStore } from '../../../store'
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const userStore = useUserStore()
 const navigationsStore = useNavigationsStore()
-const { isCollapse, routerName } = storeToRefs<NavigationState>(navigationsStore)
+const { isCollapse, routerName } = storeToRefs(navigationsStore)
 
-const active = ref<string>(<string>routerName.value)
+// 切换展开收起
 const switchCollapse = () => {
   isCollapse.value = !isCollapse.value
 }
 
-const themeStore = useThemeStore()
-const size = ref<number>(themeStore.getRootFontSize('--jm-font-size-14'))
-const color = ref<string>(themeStore.getRootColor('--jm-color-primary-6'))
-
 const select = (key: string, keyPath: string[]) => {
-  console.log('select', key, keyPath)
+  routerPush(keyPath[keyPath.length - 1])
 }
-const open = (key: string, keyPath: string[]) => {
-  console.log('open', key, keyPath)
+
+// 跳转
+const routerPush = (name: string) => {
+  name = name || (userStore.menus.length ? userStore.menus[0].code : '/')
+  router.push({ name })
 }
-const close = (key: string, keyPath: string[]) => {
-  console.log('close', key, keyPath)
-}
+
+// 首次进来跳转上次的路由
+routerPush(routerName.value)
 </script>
 
 <style lang="scss">
@@ -66,6 +70,10 @@ const close = (key: string, keyPath: string[]) => {
   .el-menu-item.is-active {
     background: var(--jm-color-primary-50);
   }
+}
+
+.el-popper .el-menu--vertical .el-menu-item.is-active {
+  background: var(--jm-color-primary-50);
 }
 
 .sidebar-container-active {

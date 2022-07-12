@@ -13,11 +13,29 @@ html {
   min-width: 768px;
 }
 
-.g-center {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+// 提高权重
+html {
+  .g-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .g-center-x {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .g-center-y {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
+
+
 
 // 滚动条样式
 .g-scroll-y,
