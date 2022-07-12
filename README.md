@@ -1,3 +1,9 @@
+
+## 项目说明
+- 该项目主要为樛木 `PC管理端` `PC web端` `移动端` 三端项目，各项目详细说明请看相关的 `README.md`
+
+- 使用 pnpm 管理，未安装 `pnpm` 需要全局安装 `npm i pnpm -g`
+
 ## 初始化
 
 - 安装依赖 `pnpm i`
@@ -6,21 +12,21 @@
 
 ## 运行
 
-- `web` 项目运行
+- `web` 项目运行（待开发）
 
   + 开发环境 `pnpm run web:dev`
   + 测试环境 `pnpm run web:test`
   + 生产环境 `pnpm run web:build`
   + 预览打包 `pnpm run web:preview`
 
-- `pc` 项目运行
+- `pc` 项目运行（开发中）
 
   + 开发环境 `pnpm run pc:dev`
   + 测试环境 `pnpm run pc:test`
   + 生产环境 `pnpm run pc:build`
   + 预览打包 `pnpm run pc:preview`
 
-- `mobile` 项目运行
+- `mobile` 项目运行（待开发）
 
   + 开发环境 `pnpm run mobile:dev`
   + 测试环境 `pnpm run mobile:test`
@@ -49,12 +55,6 @@
 
   + 把 `packages/utils` 当做普通插件下载 `pnpm add @jiumu/utils -w`
   + 直接在 `packages/pc` 项目引入使用即可 `import { xxx } from '@jiumu/utils`
-
-## 项目说明
-- 该项目主要为樛木 `PC管理端` `PC web端` `移动端` 三端项目，各项目详细说明请看相关的 `README.md`
-
-
-- 使用 pnpm 管理
 
 ### pnpm 命令常用说明
 

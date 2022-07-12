@@ -1,15 +1,15 @@
 <!--
-  @describe: 用户页面
+  @describe: 菜单管理页面
   @author: cpl
-  @create: 2022-07-04 17:20:19
+  @create: 2022-07-12 14:54:30
 -->
 
 <template>
-  <div>User</div>
+  <div>Menu</div>
 </template>
 
 <script lang="ts" setup>
 defineOptions({
-  name: 'User'
+  name: 'Menu'
 })
 </script>

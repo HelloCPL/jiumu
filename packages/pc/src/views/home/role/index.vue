@@ -5,7 +5,11 @@
 -->
 
 <template>
-  <div>角色页面</div>
+  <div>Role</div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineOptions({
+  name: 'Role'
+})
+</script>
