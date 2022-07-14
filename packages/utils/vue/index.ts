@@ -1,2 +1,2 @@
 export * from './use-pinia-storage-plugin'
-export * from './use-mousewheel'
+export * from './use-div-mousewheel'
