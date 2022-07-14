@@ -16,12 +16,14 @@
           :title="item.meta.title.length > 4 ? item.meta.title : ''"
           v-for="(item, index) in navStore.navigations"
           :key="item.name"
+          @click="clickItem(item)"
         >
           <span class="select-none max-w-full g-line-1">{{ item.meta.title }}</span>
           <ElIcon
             color="var(--jm-color-border-darker)"
             :size="themeStore.fontSize + 2"
             class="right-1 g-center-y z-30 nav-item-icon"
+            @click.stop="clickClose(item)"
           >
             <CircleCloseFilled />
           </ElIcon>
@@ -34,12 +36,13 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus'
 import { CircleCloseFilled } from '@element-plus/icons-vue'
-import { useThemeStore, useNavigationsStore } from '../../../store'
+import { useThemeStore } from '../../../store'
+import { useNavigator } from './use-navigator'
 import { ref } from 'vue'
 
 const themeStore = useThemeStore()
 
-const navStore = useNavigationsStore()
+const { navStore, clickItem, clickClose } = useNavigator()
 </script>
 
 <style lang="scss" scoped>

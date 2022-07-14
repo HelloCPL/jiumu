@@ -10,6 +10,7 @@ import { getHomeRoutes, HomeRouteRecord } from '@/router/routes'
 import { NavigationState } from './navigations.b'
 import { KeepAliveOption } from './keep-alive.b'
 import { storage } from '@jiumu/utils'
+import { useKeepAliveStore } from './keep-alive'
 
 export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIGATIONS, {
   state: (): NavigationState => {
@@ -59,6 +60,9 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
         }
       })
       if (i1 !== -1) this.navigations.splice(i1, 1)
+      // 清除缓存
+      const keepAliveStore = useKeepAliveStore()
+      keepAliveStore._pop(to)
     },
 
     // 清空缓存集合
@@ -78,33 +82,40 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
       const homeRoutes = getHomeRoutes()
       const flagTo = _findInHomeRoutes(to, homeRoutes)
       const flagFrom = _findInHomeRoutes(from, homeRoutes)
-      if (flagTo && flagFrom) {
-        // to from 都属于home
+      if (flagTo) {
         if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
           this._push(to, <string>this.routerName)
-        } else if (to.params.__routerType === 'replace' || to.query.__routerType === 'replace') {
-          this._push(to, <string>this.routerName)
-          this._pop(from)
-        } else {
-          this._pop(from)
+          this.oldRouterName = this.routerName
+          this.routerName = to.name
         }
-        this.oldRouterName = this.routerName
-        this.routerName = to.name
-      } else if (flagTo) {
-        // 仅 to 属于home
-        const flag =
-          to.params.__routerType === 'push' ||
-          to.query.__routerType === 'push' ||
-          to.params.__routerType === 'replace' ||
-          to.query.__routerType === 'replace'
-        if (flag) this._push(to, <string>this.routerName)
-        this.oldRouterName = this.routerName
-        this.routerName = to.name
-      } else if (flagFrom) {
-        // 仅 from 属于home
-        const flag = !(to.params.__routerType === 'push' || to.query.__routerType === 'push')
-        if (flag) this._pop(from)
       }
+      // if (flagTo && flagFrom) {
+      //   // to from 都属于home
+      //   if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
+      //     this._push(to, <string>this.routerName)
+      //   } else if (to.params.__routerType === 'replace' || to.query.__routerType === 'replace') {
+      //     this._push(to, <string>this.routerName)
+      //     this._pop(from)
+      //   } else {
+      //     this._pop(from)
+      //   }
+      //   this.oldRouterName = this.routerName
+      //   this.routerName = to.name
+      // } else if (flagTo) {
+      //   // 仅 to 属于home
+      //   const flag =
+      //     to.params.__routerType === 'push' ||
+      //     to.query.__routerType === 'push' ||
+      //     to.params.__routerType === 'replace' ||
+      //     to.query.__routerType === 'replace'
+      //   if (flag) this._push(to, <string>this.routerName)
+      //   this.oldRouterName = this.routerName
+      //   this.routerName = to.name
+      // } else if (flagFrom) {
+      //   // 仅 from 属于home
+      //   const flag = !(to.params.__routerType === 'push' || to.query.__routerType === 'push')
+      //   if (flag) this._pop(from)
+      // }
     }
   },
   storage: {

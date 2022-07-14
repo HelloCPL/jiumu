@@ -40,7 +40,7 @@ const showLoading = (isloading?: boolean) => {
   requireCount++
 }
 const hideLoading = () => {
-  requireCount--
+  --requireCount
   if (requireCount === 0 && loading) {
     loading.close()
     console.log('已取消加载效果...', requireCount)
@@ -117,11 +117,7 @@ service.interceptors.response.use(
 )
 
 // 处理详情错误
-function _handleError(
-  data: any,
-  showErrorMessage?: boolean,
-  message?: string | string[]
-): Promise<any> {
+function _handleError(data: any, showErrorMessage?: boolean, message?: string | string[]): Promise<any> {
   if (showErrorMessage) {
     let msg: string
     if (message) {
