@@ -39,15 +39,19 @@ import SidebarItem from './SidebarItem.vue'
 import { useUserStore, useNavigationsStore } from '../../../store'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import { onMounted, onUnmounted } from 'vue'
 
 const router = useRouter()
 const userStore = useUserStore()
 const navigationsStore = useNavigationsStore()
 const { isCollapse, routerName } = storeToRefs(navigationsStore)
+// 记录打开状态
+let _isCollapse = isCollapse.value
 
 // 切换展开收起
 const switchCollapse = () => {
   isCollapse.value = !isCollapse.value
+  _isCollapse = isCollapse.value
 }
 
 const select = (key: string, keyPath: string[]) => {
@@ -62,6 +66,19 @@ const routerPush = (name: string) => {
 
 // 首次进来跳转上次的路由
 routerPush(routerName.value)
+
+const setCollapse = () => {
+  const w = document.documentElement.clientWidth || window.innerWidth
+  if (w < 768) isCollapse.value = true
+  else isCollapse.value = _isCollapse
+}
+// 监听窗口变化
+onMounted(() => {
+  window.addEventListener('resize', setCollapse)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', setCollapse)
+})
 </script>
 
 <style lang="scss">

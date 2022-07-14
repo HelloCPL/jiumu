@@ -18,10 +18,6 @@ export const afterEach = (router: Router) => {
     if (to.params.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.params.keepAliveFrom === '1'
     else if (to.query.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.query.keepAliveFrom === '1'
 
-    // home 子页面缓存
-    const keepAliveStore = useKeepAliveStore()
-    keepAliveStore.handleKeepAlive(_getKParams(to), _getKParams(from))
-
     // 处理 home 子页面导航栏
     const navigationsStore = useNavigationsStore()
     navigationsStore.handleNavigations(_getKParams(to), _getKParams(from))

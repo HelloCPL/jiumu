@@ -6,7 +6,7 @@
 
 import { defineStore, StoreDefinition } from 'pinia'
 import { StoreNames } from './store-name'
-import { getHomeRoutes, HomeRouteRecord } from '@/router/routes'
+import { isHomeRoutes } from '@/router/routes'
 import { NavigationState } from './navigations.b'
 import { KeepAliveOption } from './keep-alive.b'
 import { storage } from '@jiumu/utils'
@@ -17,8 +17,19 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
     return {
       navigations: [], // 导航栏集合
       routerName: '', // 当前home子页面路由名称
-      oldRouterName: '', // 上一个home页面路由名称
       isCollapse: false // 左侧栏是否展开
+    }
+  },
+  getters: {
+    routerNameIndex(state: NavigationState): number {
+      let i = 0
+      state.navigations.find((item, index) => {
+        if (item.name === state.routerName) {
+          i = index
+          return true
+        }
+      })
+      return i
     }
   },
   actions: {
@@ -69,7 +80,6 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
     reset() {
       this.navigations = []
       this.routerName = ''
-      this.oldRouterName = ''
       // 清除缓存
       storage.removeItem(StoreNames.NAVIGATIONS, {
         type: 'session',
@@ -79,43 +89,21 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
 
     // 导航栏存储处理
     handleNavigations(to: KeepAliveOption, from: KeepAliveOption) {
-      const homeRoutes = getHomeRoutes()
-      const flagTo = _findInHomeRoutes(to, homeRoutes)
-      const flagFrom = _findInHomeRoutes(from, homeRoutes)
-      if (flagTo) {
-        if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
-          this._push(to, <string>this.routerName)
-          this.oldRouterName = this.routerName
-          this.routerName = to.name
+      // 加入缓存
+      const keepAliveStore = useKeepAliveStore()
+      const flagTo = isHomeRoutes(to.name)
+      const flagFrom = isHomeRoutes(from.name)
+
+      keepAliveStore.handleKeepAlive(to, from)
+      if (flagFrom) {
+        if (!(to.params.__routerType === 'push' || to.query.__routerType === 'push')) {
+          this._pop(from)
         }
       }
-      // if (flagTo && flagFrom) {
-      //   // to from 都属于home
-      //   if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
-      //     this._push(to, <string>this.routerName)
-      //   } else if (to.params.__routerType === 'replace' || to.query.__routerType === 'replace') {
-      //     this._push(to, <string>this.routerName)
-      //     this._pop(from)
-      //   } else {
-      //     this._pop(from)
-      //   }
-      //   this.oldRouterName = this.routerName
-      //   this.routerName = to.name
-      // } else if (flagTo) {
-      //   // 仅 to 属于home
-      //   const flag =
-      //     to.params.__routerType === 'push' ||
-      //     to.query.__routerType === 'push' ||
-      //     to.params.__routerType === 'replace' ||
-      //     to.query.__routerType === 'replace'
-      //   if (flag) this._push(to, <string>this.routerName)
-      //   this.oldRouterName = this.routerName
-      //   this.routerName = to.name
-      // } else if (flagFrom) {
-      //   // 仅 from 属于home
-      //   const flag = !(to.params.__routerType === 'push' || to.query.__routerType === 'push')
-      //   if (flag) this._pop(from)
-      // }
+      if (flagTo) {
+        this.routerName = to.name
+        this._push(to, <string>this.routerName)
+      }
     }
   },
   storage: {
@@ -124,15 +112,3 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
     expire: import.meta.env.VITE_HOME_EXPIRE
   }
 })
-
-// 查找是否在home路由页面
-function _findInHomeRoutes(to: KeepAliveOption, homeRoutes: HomeRouteRecord[]): boolean {
-  let flag = false
-  homeRoutes.find((item) => {
-    if (to.name === item.name || to.path === item.path) {
-      flag = true
-      return flag
-    }
-  })
-  return flag
-}

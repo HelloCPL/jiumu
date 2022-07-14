@@ -4,6 +4,5 @@ import { RouteRecordName } from 'vue-router'
 export interface NavigationState {
   navigations: KeepAliveOption[]
   routerName: RouteRecordName | null | undefined
-  oldRouterName: RouteRecordName | null | undefined
   isCollapse: boolean
 }

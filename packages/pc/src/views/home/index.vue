@@ -27,20 +27,15 @@ import Header from './components/Header.vue'
 import Sidebar from './components/Sidebar.vue'
 import Navigator from './components/Navigator.vue'
 import Content from './components/Content.vue'
+import { useUserStore } from '@/store'
 
 defineOptions({
   name: 'Home'
 })
-// import { useRouter } from 'vue-router'
-// const router = useRouter()
-// const click = () => {
-//   router.push({
-//     // path: '/role/a',
-//     name: 'Role',
-//     query: { a: 123 },
-//     params: { b: 123 }
-//   })
-// }
+
+// 初始化用户信息
+const userStore = useUserStore()
+if (userStore.token && !userStore) userStore.getUser()
 </script>
 
 <style lang="scss" scoped>

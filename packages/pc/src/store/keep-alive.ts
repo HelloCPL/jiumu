@@ -7,7 +7,7 @@
 import { defineStore, StoreDefinition } from 'pinia'
 import { StoreNames } from './store-name'
 import { KeepAliveState, KeepAliveOption } from './keep-alive.b'
-import { getHomeRoutes, HomeRouteRecord } from '@/router/routes'
+import { isHomeRoutes } from '@/router/routes'
 import { storage } from '@jiumu/utils'
 
 export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_ALIVE, {
@@ -82,9 +82,8 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
 
     // 缓存处理逻辑 只缓存home 子页面缓存
     handleKeepAlive(to: KeepAliveOption, from: KeepAliveOption) {
-      const homeRoutes = getHomeRoutes()
-      const flagTo = _findInHomeRoutes(to, homeRoutes)
-      const flagFrom = _findInHomeRoutes(from, homeRoutes)
+      const flagTo = isHomeRoutes(to.name)
+      const flagFrom = isHomeRoutes(from.name)
       if (flagTo && flagFrom) {
         // to from 都属于home
         if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
@@ -127,15 +126,3 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
     expire: import.meta.env.VITE_HOME_EXPIRE
   }
 })
-
-// 查找是否在home路由页面
-function _findInHomeRoutes(to: KeepAliveOption, homeRoutes: HomeRouteRecord[]): boolean {
-  let flag = false
-  homeRoutes.find((item) => {
-    if (to.name === item.name || to.path === item.path) {
-      flag = true
-      return flag
-    }
-  })
-  return flag
-}

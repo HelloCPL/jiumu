@@ -23,8 +23,8 @@
 <script setup lang="ts">
 import { ElForm, ElFormItem, ElInput, ElButton, FormInstance } from 'element-plus'
 import { useLogin } from '../hooks/use-login'
-import { login } from '../../../api/user'
-import { useUserStore } from '../../../store'
+import { login } from '@/api/user'
+import { useUserStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 
 const { formRef, form, rules, submitValid } = useLogin()

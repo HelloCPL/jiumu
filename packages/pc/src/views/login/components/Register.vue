@@ -14,11 +14,7 @@
         <ElInput v-model="form.password" type="password" placeholder="请输入密码"></ElInput>
       </ElFormItem>
       <ElFormItem prop="confirmPassword">
-        <ElInput
-          v-model="form.confirmPassword"
-          type="password"
-          placeholder="请再次输入密码"
-        ></ElInput>
+        <ElInput v-model="form.confirmPassword" type="password" placeholder="请再次输入密码"></ElInput>
       </ElFormItem>
       <ElFormItem class="mt-10">
         <ElButton type="primary" round class="w-full" @click="submit(formRef)">注册</ElButton>
@@ -30,8 +26,8 @@
 <script lang="ts" setup>
 import { ElForm, ElFormItem, ElInput, ElButton, FormInstance } from 'element-plus'
 import { useRegister } from '../hooks/use-register'
-import { register } from '../../../api/user'
-import { useUserStore } from '../../../store'
+import { register } from '@/api/user'
+import { useUserStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 
 const { formRef, form, rules, submitValid } = useRegister()

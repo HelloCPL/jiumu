@@ -35,13 +35,8 @@ export const getHomeRoutes = (): HomeRouteRecord[] => {
   return homeRoutes
 }
 
-function _addRouteRecord(
-  route: RouteRecordRaw,
-  homeRoutes: HomeRouteRecord[],
-  parent?: RouteRecordRaw
-) {
-  const path =
-    parent && !route.path.startsWith('/') ? toPath(parent.path, route.path) : toPath(route.path)
+function _addRouteRecord(route: RouteRecordRaw, homeRoutes: HomeRouteRecord[], parent?: RouteRecordRaw) {
+  const path = parent && !route.path.startsWith('/') ? toPath(parent.path, route.path) : toPath(route.path)
   homeRoutes.push({
     path,
     name: route.name
@@ -51,4 +46,22 @@ function _addRouteRecord(
       _addRouteRecord(child, homeRoutes, route)
     })
   }
+}
+
+/**
+ * 判断某个路由是否属于 home 子路由
+ */
+let _homeRoutes: HomeRouteRecord[] = []
+export const isHomeRoutes = (name: any): boolean => {
+  if (!_homeRoutes.length) {
+    _homeRoutes = getHomeRoutes()
+  }
+  let flag = false
+  _homeRoutes.find((item) => {
+    if (item.name === name || item.path === name) {
+      flag = true
+      return flag
+    }
+  })
+  return flag
 }
