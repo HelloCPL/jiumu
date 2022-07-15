@@ -27,7 +27,7 @@
 <script lang="ts" setup>
 import { ElSwitch, ElImage, ElSelect, ElOption } from 'element-plus'
 import { ref, getCurrentInstance } from 'vue'
-import { useThemeStore } from '../../../store'
+import { useThemeStore } from '@/store'
 
 const { VITE_MODE } = import.meta.env
 

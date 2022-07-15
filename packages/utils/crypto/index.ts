@@ -5,7 +5,7 @@
  */
 
 import CryptoJS from 'crypto-js'
-import { createSecret } from '../../config/secret'
+import { createSecret } from '../../../config/secret'
 
 /**
  * crypto-js 加密方法

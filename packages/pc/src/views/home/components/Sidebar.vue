@@ -36,7 +36,7 @@
 import { ElMenu, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue'
-import { useUserStore, useNavigationsStore } from '../../../store'
+import { useUserStore, useNavigationsStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { onMounted, onUnmounted } from 'vue'

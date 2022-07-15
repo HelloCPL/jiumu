@@ -2,14 +2,14 @@
  * 监听鼠标在某个div中滚动
  * 向下滚动为负数 向上滚动为正数
  */
-import { nextTick, onMounted, onUnmounted } from 'vue'
+import { Ref, nextTick, onMounted, onUnmounted } from 'vue'
 
 type Callback = (t: number) => void
 
-export const useDivMousewheel = (box: any, cb: Callback) => {
+export const onMousewheel = (box: Ref<HTMLElement | undefined>, cb: Callback) => {
   const mousewheel = (e: any) => {
     nextTick(() => {
-      if (!box) return
+      if (!box.value) return
       const { clientWidth, clientHeight } = box.value
       const left = getElLeft(box.value)
       const top = getElTop(box.value)
@@ -41,7 +41,7 @@ export const useDivMousewheel = (box: any, cb: Callback) => {
   })
 }
 
-function addEvent(fn): void {
+function addEvent(fn: any): void {
   // @ts-ignore
   if (window.onmousewheel === null) {
     window.addEventListener('mousewheel', fn)
@@ -50,7 +50,7 @@ function addEvent(fn): void {
   }
 }
 
-function removeEvent(fn): void {
+function removeEvent(fn: any): void {
   // @ts-ignore
   if (window.onmousewheel === null) {
     window.removeEventListener('mousewheel', fn)

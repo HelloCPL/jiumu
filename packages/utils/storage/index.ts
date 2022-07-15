@@ -5,7 +5,7 @@
  */
 import { isRef, isProxy, toRaw } from 'vue'
 import { isObject, isNaN, isNull, isUndefined, isBoolean, isNumber } from 'lodash-es'
-import { decrypt, encrypt } from './crypto'
+import { decrypt, encrypt } from '../crypto'
 
 export interface StorageOption {
   type?: 'local' | 'session' // 缓存类型 默认 local

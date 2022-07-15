@@ -49,6 +49,10 @@
 
 - 手动查看代码格式规范 `pnpm run lint`
 
+- 文件命名：组件、公共hooks(package/utils/* 目录下的hooks)文件使用小驼峰命名法，其他文件使用横杆命名法
+
+- 代码命名：`css` 使用横杆命名法，常量使用大写字母，其他使用小驼峰命名法
+
 ## 工作区间文件相互依赖
 
 - `packages` 项目相互依赖，如 `packages/pc` 项目需要引入 `packages/utils` 的方法

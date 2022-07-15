@@ -1,4 +1,4 @@
-import { useNavigationsStore } from '../../../store'
+import { useNavigationsStore } from '@/store'
 import { ref, nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { KeepAliveOption } from '@/store/keep-alive.b'

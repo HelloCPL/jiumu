@@ -4,7 +4,7 @@
  * @update 2022-07-02 19:19:08
  */
 import { PiniaPluginContext } from 'pinia'
-import { StorageOption, storage } from '../storage'
+import { StorageOption, storage } from '../../storage'
 
 type Store = PiniaPluginContext['store']
 type PartialState = Partial<Store['$state']> // 指定state中key值

@@ -60,16 +60,16 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus'
 import { CircleCloseFilled, ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
-import { useThemeStore } from '../../../store'
+import { useThemeStore } from '@/store'
 import { useNavigator } from './use-navigator'
-import { useDivMousewheel } from '@jiumu/utils'
+import { onMousewheel } from '@jiumu/utils'
 
 const themeStore = useThemeStore()
 
 const { left, maxWidth, refContainer, refWrapper, navStore, clickItem, clickClose, changeLeft } =
   useNavigator()
 
-useDivMousewheel(refContainer, (i) => {
+onMousewheel(refContainer, (i) => {
   changeLeft(i * 30)
 })
 </script>
