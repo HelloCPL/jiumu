@@ -58,6 +58,8 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
           }
         }
         this.navigations.push(to)
+      } else {
+        this.navigations.splice(i1, 1, to)
       }
     },
 
@@ -74,6 +76,11 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
       // 清除缓存
       const keepAliveStore = useKeepAliveStore()
       keepAliveStore._pop(to)
+    },
+
+    // 寻找某一项导航栏
+    _find(name: string): KeepAliveOption | undefined {
+      return this.navigations.find((item) => item.name === name)
     },
 
     // 清空缓存集合

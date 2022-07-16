@@ -24,4 +24,9 @@
     border-top: 3px solid var(--jm-color-primary-6);
     background: var(--jm-color-bg);
   }
+
+  .nav-item-drag {
+    background: var(--jm-color-primary-50);
+    border-left: 2px solid var(--jm-color-primary-100);
+  }
 }

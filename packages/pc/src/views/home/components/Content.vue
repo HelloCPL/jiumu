@@ -6,8 +6,15 @@
 
 <template>
   <div class="w-full h-full bg-white">
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive :include="store.include" :exclude="store.exclude">
+        <component :is="Component"></component>
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useKeepAliveStore } from '@/store'
+const store = useKeepAliveStore()
+</script>

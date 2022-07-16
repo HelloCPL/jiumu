@@ -27,7 +27,7 @@ export const getHomeRoutes = (): HomeRouteRecord[] => {
   routes.find((item) => {
     if (item.name === 'Home' && Array.isArray(item.children)) {
       item.children.forEach((list) => {
-        _addRouteRecord(list, homeRoutes)
+        if (list.name !== 'Refresh') _addRouteRecord(list, homeRoutes)
       })
       return true
     }

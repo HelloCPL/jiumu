@@ -2,19 +2,32 @@
  * 监听是否在某个div内点击
  * 用于指定div内某个子div是否显示
  */
-import { ref, Ref, watch, nextTick } from 'vue'
+import { isArray } from 'lodash-es'
+import { ref, Ref, watch, nextTick, isRef } from 'vue'
+import { MaybeElementRef } from '../use-div'
+import { isArray } from 'lodash-es'
 
 // 监听是否在某个div内点击
-export const onClickOutside = (box: Ref<HTMLElement | undefined>, time: number = 50) => {
+export const onClickOutside = (box: MaybeElementRef, time: number = 50) => {
   // 指定div内某个子div是否显示
   const isShow = ref<boolean>(false)
   let timeId: any = null
   // 点击判断
   const _clickoutside = (e: MouseEvent) => {
     nextTick(() => {
-      if (!box.value) return
+      let el: HTMLElement
+      if (isRef(box)) el = <HTMLElement>box.value
+      else {
+        const _box: any = document.querySelector(<string>box)
+        if (isArray(_box)) el = _box[0]
+        else if (_box) el = _box
+      }
+      if (!el) {
+        isShow.value = false
+        return
+      }
       // @ts-ignore
-      if (box.value.contains(e.target)) {
+      if (el.contains(e.target)) {
         if (timeId) clearTimeout(timeId)
         isShow.value = true
       } else {
@@ -39,7 +52,7 @@ export const onClickOutside = (box: Ref<HTMLElement | undefined>, time: number =
 }
 
 // 监听是否在某个输入框内聚焦或某个div内点击
-export const onClickOutsideInput = (box: Ref<HTMLElement | undefined>, time: number = 50) => {
+export const onClickOutsideInput = (box: MaybeElementRef, time: number = 50) => {
   // 指定div内某个子div是否显示
   const isShow = ref<boolean>(false)
   let _isFocus: boolean = false
@@ -53,9 +66,20 @@ export const onClickOutsideInput = (box: Ref<HTMLElement | undefined>, time: num
   // 点击判断
   const _clickoutside = (e: MouseEvent) => {
     nextTick(() => {
-      if (!box.value) return
+      let el: HTMLElement
+      if (isRef(box)) el = <HTMLElement>box.value
+      else {
+        const _box: any = document.querySelector(<string>box)
+        if (isArray(_box)) el = _box[0]
+        else if (_box) el = _box
+      }
+      if (!el) {
+        isShow.value = false
+        _isFocus = false
+        return
+      }
       // @ts-ignore
-      if (box.value.contains(e.target) || _isFocus) {
+      if (el.contains(e.target) || _isFocus) {
         if (timeId) clearTimeout(timeId)
         isShow.value = true
       } else {

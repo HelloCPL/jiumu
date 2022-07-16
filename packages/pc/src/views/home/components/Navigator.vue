@@ -12,15 +12,25 @@
         class="absolute bottom-0 left-0 h-full flex flex-nowrap duration-200"
         :style="{ left: left + 'px' }"
         ref="refWrapper"
+        @drop="drop"
+        @dragover="dragover"
       >
         <!-- 每一项 -->
         <div
           class="h-full pl-2 pr-5 flex-shrink-0 flex flex-nowrap items-center justify-center relative cursor-pointer nav-item"
-          :class="{ 'nav-item-active': item.name === navStore.routerName, 'nav-item-first': index === 0 }"
+          :class="{
+            'nav-item-active': item.name === navStore.routerName,
+            'nav-item-first': index === 0,
+            'nav-item-drag': index === dragIndex
+          }"
           :title="item.meta?.title.length > 4 ? item.meta.title : ''"
           v-for="(item, index) in navStore.navigations"
           :key="item.name"
+          :draggable="draggable"
+          @dragstart="dragstart($event, index)"
+          @dragend="dragend"
           @click="clickItem(item)"
+          @click.prevent.right="clickItemRight($event, item, index)"
         >
           <span class="select-none max-w-full g-line-1">{{ item.meta?.title }}</span>
           <ElIcon
@@ -35,6 +45,13 @@
         </div>
       </div>
     </div>
+    <!-- 右击显示框 -->
+    <NavigatorRight
+      :options="rightOptions"
+      :index="rightBoxIndex"
+      v-if="isShow"
+      @change="handleChangeRight"
+    ></NavigatorRight>
     <!-- 左右两侧按钮 -->
     <span
       class="bg-white absolute left-0 top-0 h-full w-5 flex items-center justify-center cursor-pointer z-40"
@@ -60,18 +77,38 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus'
 import { CircleCloseFilled, ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
+import NavigatorRight from './NavigatorRight.vue'
 import { useThemeStore } from '@/store'
-import { useNavigator } from './use-navigator'
+import { useNavigator, useNavigatorDrag } from './use-navigator'
 import { onMousewheel } from '@jiumu/utils'
 
 const themeStore = useThemeStore()
 
-const { left, maxWidth, refContainer, refWrapper, navStore, clickItem, clickClose, changeLeft } =
-  useNavigator()
+// 导航栏处理
+const {
+  left,
+  maxWidth,
+  refContainer,
+  refWrapper,
+  navStore,
+  clickItem,
+  clickClose,
+  changeLeft,
 
+  rightBoxIndex,
+  rightOptions,
+  isShow,
+  clickItemRight,
+  handleChangeRight
+} = useNavigator()
+
+// 导航栏鼠标滚轮处理
 onMousewheel(refContainer, (i) => {
+  isShow.value = false
   changeLeft(i * 30)
 })
+
+const { dragIndex, draggable, dragstart, dragend, drop, dragover } = useNavigatorDrag()
 </script>
 
 <style lang="scss" scoped>

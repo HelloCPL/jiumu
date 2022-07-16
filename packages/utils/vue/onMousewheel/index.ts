@@ -2,20 +2,27 @@
  * 监听鼠标在某个div中滚动
  * 向下滚动为负数 向上滚动为正数
  */
-import { Ref, nextTick, onMounted, onUnmounted } from 'vue'
+import { isRef, nextTick, onMounted, onUnmounted } from 'vue'
+import { MaybeElementRef, getElementClient } from '../use-div'
+import { isArray } from 'lodash-es'
 
 type Callback = (t: number) => void
 
-export const onMousewheel = (box: Ref<HTMLElement | undefined>, cb: Callback) => {
+export const onMousewheel = (box: MaybeElementRef, cb: Callback) => {
   const mousewheel = (e: any) => {
     nextTick(() => {
-      if (!box.value) return
-      const { clientWidth, clientHeight } = box.value
-      const left = getElLeft(box.value)
-      const top = getElTop(box.value)
+      let el: HTMLElement
+      if (isRef(box)) el = <HTMLElement>box.value
+      else {
+        const _box: any = document.querySelector(<string>box)
+        if (isArray(_box)) el = _box[0]
+        else if (_box) el = _box
+      }
+      if (!el) return
+      const { clientWidth, clientHeight } = el
+      const { x, y } = getElementClient(el)
       const { clientX, clientY } = e
-      const flag =
-        clientX >= left && clientX <= left + clientWidth && clientY >= top && clientY <= top + clientHeight
+      const flag = clientX >= x && clientX <= x + clientWidth && clientY >= y && clientY <= y + clientHeight
 
       if (flag) {
         // -1 向下滚动 1 向上滚动
@@ -57,26 +64,4 @@ function removeEvent(fn: any): void {
   } else {
     window.addEventListener('DOMMouseScroll', fn)
   }
-}
-
-// 获取节点距离页面左侧距离
-function getElLeft(el: HTMLElement): number {
-  let left = el.offsetLeft
-  let current: HTMLElement | null = <HTMLElement>el.offsetParent
-  while (current) {
-    left += current.offsetLeft
-    current = <HTMLElement>current.offsetParent
-  }
-  return left
-}
-
-// 获取节点距离页面上方距离
-function getElTop(el: HTMLElement): number {
-  let top = el.offsetTop
-  let current: HTMLElement | null = <HTMLElement>el.offsetParent
-  while (current) {
-    top += current.offsetTop
-    current = <HTMLElement>current.offsetParent
-  }
-  return top
 }

@@ -5,11 +5,17 @@
 -->
 
 <template>
-  <div>Role</div>
+  <div>Role {{ count }}</div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 defineOptions({
   name: 'Role'
 })
+
+const count = ref<number>(1)
+setTimeout(() => {
+  count.value = 111
+}, 3000)
 </script>

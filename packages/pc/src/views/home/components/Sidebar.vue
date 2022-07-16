@@ -6,7 +6,7 @@
 
 <template>
   <div
-    class="h-full bg-white shadow-md overflow-hidden relative pb-8 duration-500 sidebar-container"
+    class="h-full bg-white select-none shadow-md overflow-hidden relative pb-8 duration-500 sidebar-container"
     :class="{ 'sidebar-container-active': isCollapse }"
     :style="{ width: isCollapse ? '64px' : '220px' }"
   >
@@ -38,8 +38,9 @@ import { ArrowLeftBold } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue'
 import { useUserStore, useNavigationsStore } from '@/store'
 import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { onMounted, onUnmounted } from 'vue'
+import { isHomeRoutes } from '@/router/routes'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -61,11 +62,21 @@ const select = (key: string, keyPath: string[]) => {
 // 跳转
 const routerPush = (name: string) => {
   name = name || (userStore.menus.length ? userStore.menus[0].code : '/')
-  router.push({ name })
+  const item = navigationsStore._find(name)
+  if (item) {
+    router.push({
+      name,
+      params: { ...item.params },
+      query: { ...item.query }
+    })
+  } else router.push({ name })
 }
 
-// 首次进来跳转上次的路由
-routerPush(routerName.value)
+// 首次进来跳转路由
+const route = useRoute()
+if (!isHomeRoutes(route.name)) {
+  routerPush(routerName.value)
+}
 
 const setCollapse = () => {
   const w = document.documentElement.clientWidth || window.innerWidth

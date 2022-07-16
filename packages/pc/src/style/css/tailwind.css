@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+@layer components {
   .text, .text-default {
     color: var(--jm-color-text)
   }

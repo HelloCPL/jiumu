@@ -5,7 +5,9 @@
 -->
 
 <template>
-  <div class="w-full bg-primary-600 flex justify-between items-center pl-2 pr-5 text-white header">
+  <div
+    class="w-full bg-primary-600 flex justify-between items-center pl-2 pr-5 text-white select-none header"
+  >
     <div class="flex items-center">
       <img :src="$STATIC_URL + 'pc/images/jiumu.png'" class="w-10" alt="" />
       <span class="pl-2 text-lg text-white-8">
