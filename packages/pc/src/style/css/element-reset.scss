@@ -7,4 +7,17 @@ html {
   .el-menu {
     border-right: 0;
   }
+
+  .el-button {
+    height: 30px;
+  }
+
+  .el-button--small {
+    height: 24px;
+  }
+
+  .el-button--large {
+    height: 36px;
+  }
+
 }
