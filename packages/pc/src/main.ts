@@ -9,11 +9,12 @@ import 'element-plus/dist/index.css'
 import './style/css/element-root.scss'
 import './style/css/index.scss'
 
-import { defineGlobal } from './utils/vue-global'
+import { defineGlobal, defineDirective } from './utils/vue-global'
 
 const app: App = createApp(AppComponent)
 
 defineGlobal(app)
+defineDirective(app)
 
 const pinia: Pinia = createPinia()
 pinia.use(usePiniaStoragePlugin)

@@ -21,7 +21,11 @@ export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
       tokenRefresh: '',
       userInfo: null,
       roles: [],
-      permissions: [],
+      permissions: [
+        { id: 'xx', code: 'box1', label: '1', sort: 1, createTime: '', terminal: '' },
+        { id: 'xxx', code: 'box2', label: '2', sort: 1, createTime: '', terminal: '' },
+        { id: 'xxx', code: 'box3', label: '3', sort: 1, createTime: '', terminal: '' }
+      ],
       menus: [],
       tags: []
     }

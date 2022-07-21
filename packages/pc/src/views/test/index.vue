@@ -1,71 +1,43 @@
 <template>
   <div class="box">
-    nihao
-    <button @click="open">按钮</button>
-    <Dialog title="大标题" v-if="show" :draggable="true"  @close="close" @confirm="confirm">
-    你好
-
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    <p>邯郸市三等奖</p>
-    </Dialog>
+    <FilterBox @click="handleClick">
+      <ElFormItem label="哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+      <ElFormItem label="哈哈哈哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+      <ElFormItem label="哈哈哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+      <ElFormItem label="哈哈哈哈哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+      <ElFormItem label="哈哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+      <ElFormItem label="哈哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+      <ElFormItem label="哈哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+      <ElFormItem label="哈哈哈">
+        <ElInput></ElInput>
+      </ElFormItem>
+    </FilterBox>
   </div>
 </template>
 
 <script setup lang="ts">
-import Dialog from '@/components/Dialog/index.vue'
+import FilterBox from '@/components/FilterBox/index.vue'
+import { ElForm, ElFormItem, ElInput} from 'element-plus'
 import {ref} from 'vue'
-const show = ref(false)
 
-const close = () => {
-  console.log('关闭了');
-  show.value = false
-}
-const open = () => {
-  console.log(111, show.value);
-  show.value = !show.value
+const handleClick = (item) => {
+  console.log(item);
 }
 
-const confirm = () => {
-  console.log('confirm');
-  show.value = false
-
-}
 </script>
 
 <style lang="scss" scoped>
