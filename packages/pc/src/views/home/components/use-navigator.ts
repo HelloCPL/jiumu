@@ -186,7 +186,7 @@ export const useNavigator = () => {
 }
 
 /**
- * 导航栏右击和拖拽处理
+ * 导航栏拖拽处理
  */
 export const useNavigatorDrag = () => {
   const navStore = useNavigationsStore()

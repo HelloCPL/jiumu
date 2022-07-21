@@ -27,6 +27,7 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
   actions: {
     // 缓存入栈
     _push(to: KeepAliveOption) {
+      if (!to) return
       // include入栈
       let i1 = -1
       this.includes.find((item, index) => {
@@ -50,6 +51,7 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
     // 缓存出栈
     _pop(to: KeepAliveOption) {
       // include出栈
+      if (!to) return
       let i1 = -1
       this.includes.find((item, index) => {
         if (item.name === to.name && item.path === to.path) {

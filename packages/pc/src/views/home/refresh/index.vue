@@ -14,7 +14,7 @@ const keepAliveStore = useKeepAliveStore()
 const navStore = useNavigationsStore()
 onMounted(() => {
   const __name = <string>route.params.__name
-  const item = navStore._find(name)
+  const item = navStore._find(__name)
   keepAliveStore._pop(item)
   ctx.$forceUpdate()
   if (__name && item) {

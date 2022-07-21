@@ -35,6 +35,7 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
   actions: {
     // 导航栏入栈
     _push(to: KeepAliveOption, routerName?: string) {
+      if (!to) return
       let i1 = -1
       this.navigations.find((item, index) => {
         if (item.name === to.name && item.path === to.path) {
@@ -65,6 +66,7 @@ export const useNavigationsStore: StoreDefinition = defineStore(StoreNames.NAVIG
 
     // 导航栏出栈
     _pop(to: KeepAliveOption) {
+      if (!to) return
       let i1 = -1
       this.navigations.find((item, index) => {
         if (item.name === to.name && item.path === to.path) {
