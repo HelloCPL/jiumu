@@ -1,8 +1,12 @@
 <template>
-  <router-view></router-view>
+  <ElConfigProvider :locale="zhCn">
+    <router-view></router-view>
+  </ElConfigProvider>
 </template>
 
 <script lang="ts" setup>
+import { ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import { useCustomRouter } from '@/hooks/use-custom-router'
 import { useThemeStore } from '@/store'
 

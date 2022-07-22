@@ -1,0 +1,95 @@
+.pagination-container {
+  .el-pagination {
+    color: var(--jm-color-text-lighter);
+  }
+
+  // 左右按钮及数字按钮
+  .el-pagination button,
+  .el-pagination .btn-next,
+  .el-pager li {
+    border: 1px solid var(--jm-color-border-light);
+    margin-right: 4px;
+    height: 30px;
+    line-height: 30px;
+    min-width: 30px;
+  }
+
+  .el-pagination button {
+    padding: 0 5px;
+  }
+
+  .el-pager + button.btn-next[type='button'] {
+    margin-right: 4px;
+  }
+
+  .el-pager li.is-active {
+    background-color: var(--jm-color-primary);
+    border-color: var(--jm-color-primary);
+    color: var(--jm-color-white);
+  }
+
+  // 页数按钮
+  .el-pagination__sizes {
+    margin-right: 4px;
+  }
+
+  .el-input__wrapper {
+    padding: 0 4px;
+    box-sizing: border-box;
+  }
+
+  .el-input__inner {
+    height: 30px;
+    line-height: 30px;
+    color: var(--jm-color-text-lighter);
+  }
+
+  .el-pagination .el-select .el-input {
+    width: 100px;
+    line-height: 30px;
+    border-radius: 2px;
+  }
+
+  // 页数跳转
+  .el-pagination__jump {
+    margin-left: 6px;
+    margin-right: 4px;
+    color: var(--jm-color-text-lighter);
+  }
+
+  .el-pagination__editor.el-input .el-input__inner,
+  .el-pagination__editor {
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .el-pagination__editor {
+    margin: 0 4px;
+    min-width: 50px;
+  }
+
+  // 总数
+  .el-pagination__total {
+    margin-right: 0;
+    margin-left: 6px;
+    color: var(--jm-color-text-lighter);
+  }
+
+  // 小尺寸类型时
+  .el-pagination--small .btn-prev,
+  .el-pagination--small .btn-next,
+  .el-pagination--small .el-pager li {
+    height: 24px;
+    line-height: 24px;
+    min-width: 24px;
+  }
+
+  .el-pagination .el-select .el-input--small {
+    width: 86px;
+  }
+
+  .el-pagination--small .el-pagination__editor {
+    min-width: 45px;
+    width: 45px;
+  }
+}
