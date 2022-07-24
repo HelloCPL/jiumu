@@ -1,5 +1,5 @@
 import { Router, RouteLocationNormalized } from 'vue-router'
-import { useKeepAliveStore, useNavigationsStore } from '@/store'
+import { useNavigationsStore } from '@/store'
 import { KeepAliveOption } from '@/store/keep-alive.b'
 
 /**

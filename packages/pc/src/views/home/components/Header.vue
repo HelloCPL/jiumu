@@ -20,7 +20,7 @@
       </ElSelect>
       <ElSwitch v-model="isLight" @change="change" class="mr-4" />
       <span class="mr-4 cursor-pointer">设置</span>
-      <span class="mr-4 cursor-pointer">陈一支</span>
+      <span class="mr-4 cursor-pointer" @click="$emit('showUserInfo')">陈一支</span>
       <ElImage class="w-8 rounded-full cursor-pointer" :src="avatar" :preview-src-list="[avatar]"> </ElImage>
     </div>
   </div>
@@ -56,6 +56,8 @@ const changeSelect = (val: number) => {
 
 const instance = getCurrentInstance()?.appContext.config.globalProperties
 const avatar = ref(instance?.$STATIC_URL + 'pc/images/avatar1.png')
+
+defineEmits(['showUserInfo'])
 </script>
 
 <style lang="scss" scoped>

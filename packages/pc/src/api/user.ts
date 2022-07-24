@@ -34,3 +34,25 @@ export const register = async (params: ParamsLogin): Promise<DataOptions<DataTok
 export const getUserSelf = async (): Promise<DataOptions<DataUserInfo>> => {
   return await post('/pc/user/get/self').catch((err) => err)
 }
+
+/**
+ * 获取用户登录记录列表
+ */
+export const getLoginInfoList = async (params: ParamsLoginInfo): Promise<DataOptions<DataLoginInfo[]>> => {
+  return await post('/pc/login/info/get/list', params).catch((err) => err)
+}
+
+// 修改密码
+export const updatePasswordSelf = async (params: ParamsUpdatePassword): Promise<DataOptions> => {
+  return await post('/pc/user/update/password/self', params).catch((err) => err)
+}
+
+// 退出登录
+export const exitUser = async (): Promise<DataOptions> => {
+  return await post('/pc/user/exit').catch((err) => err)
+}
+
+// 修改本用户信息
+export const updateUserBaseSelf = async (params: ParamsUpdateUserBaseSelf): Promise<DataOptions<null>> => {
+  return await post('/pc/user/update/base/self', params).catch((err) => err)
+}

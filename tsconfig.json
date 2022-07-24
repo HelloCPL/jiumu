@@ -47,7 +47,7 @@
       "unplugin-vue-define-options"
     ],
     // Enable constraints that allow a TypeScript project to be used with project references.
-    "composite": true,
+    // "composite": true,
     // Enable experimental support for TC39 stage 2 draft decorators.
     "experimentalDecorators": true
   },

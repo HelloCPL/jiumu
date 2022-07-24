@@ -11,7 +11,7 @@ import { Code } from '@/enumerations'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
 import router from '@/router'
-import { ElLoading, ElMessage } from 'element-plus'
+import { Message, Loading } from '@/utils/interaction'
 const { VITE_TIME_OUT, VITE_API_URL } = import.meta.env
 
 // 创建axios实例
@@ -28,14 +28,7 @@ let loading: any
 let requireCount = 0
 const showLoading = (isloading?: boolean) => {
   if (requireCount === 0 && !loading && isloading) {
-    console.log('拼命加载中，请稍后...', requireCount)
-    loading = ElLoading.service({
-      text: '拼命加载中，请稍后...',
-      background: 'rgba(0, 0, 0, 0.3)',
-      spinner: 'el-icon-loading',
-      fullscreen: true,
-      body: true
-    })
+    loading = Loading()
   }
   requireCount++
 }
@@ -43,7 +36,6 @@ const hideLoading = () => {
   --requireCount
   if (requireCount === 0 && loading) {
     loading.close()
-    console.log('已取消加载效果...', requireCount)
   }
 }
 
@@ -126,7 +118,7 @@ function _handleError(data: any, showErrorMessage?: boolean, message?: string | 
     } else msg = '请求发生错误'
     if (message && typeof message === 'string') msg
     if (isArray(message)) message = message.join(',')
-    ElMessage({
+    Message({
       type: 'error',
       message: <string>message || '请求发生错误'
     })

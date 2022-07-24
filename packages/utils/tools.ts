@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 /**
  * 返回格式后的路径
  * 如 member/list 或 member/list/ ==> /member/list
@@ -17,4 +19,16 @@ export function toPath(...arg: string[]): string {
     return path
   }
   return arg.map((item) => getPath(item)).join('')
+}
+
+/**
+ * 格式化时间
+ */
+export const formatDate = (date: any, format = 'YYYY-MM-DD HH:mm:ss'): any => {
+  if (!date) return ''
+  try {
+    return dayjs(date).format(format)
+  } catch (e) {
+    return ''
+  }
 }

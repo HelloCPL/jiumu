@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full h-10 bg-white px-5 overflow-hidden pt-2 relative naviagtor">
+  <div class="w-full h-10 flex-shrink-0 bg-white px-5 overflow-hidden pt-2 relative naviagtor">
     <div class="w-full h-full relative" ref="refContainer">
       <!-- 导航栏容器 -->
       <div

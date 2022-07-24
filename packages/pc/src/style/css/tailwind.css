@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 预设全局样式类 */
+@layer base {
+  .g-container {
+    @apply flex;
+    @apply flex-col;
+    @apply h-full;
+    @apply max-h-full;
+    /* @apply flex-shrink-0; */
+    flex-shrink:1;
+  }
+}
+
 @layer components {
   .text, .text-default {
     color: var(--jm-color-text)

@@ -18,7 +18,7 @@
     padding: 0 5px;
   }
 
-  .el-pager + button.btn-next[type='button'] {
+  .el-pager+button.btn-next[type='button'] {
     margin-right: 4px;
   }
 
@@ -26,6 +26,10 @@
     background-color: var(--jm-color-primary);
     border-color: var(--jm-color-primary);
     color: var(--jm-color-white);
+  }
+
+  .el-pager li.is-active+li {
+    border-left: 1px solid var(--jm-color-border-light);
   }
 
   // 页数按钮

@@ -39,9 +39,11 @@ type PropsList = {
   text?: boolean
   disabled?: boolean
 }
+
 type Props = {
   list: PropsList[]
 }
+
 withDefaults(defineProps<Props>(), {
   list: () => [{ name: '新增', key: 'add', type: 'primary' }]
 })

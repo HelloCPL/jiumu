@@ -7,7 +7,7 @@
 <template>
   <div class="w-full h-screen bg">
     <!-- 头部 -->
-    <Header></Header>
+    <Header @show-user-info="showUserInfo"></Header>
     <div class="w-full flex wrapper">
       <!-- 左侧导航 -->
       <Sidebar></Sidebar>
@@ -19,6 +19,9 @@
         </div>
       </div>
     </div>
+
+    <!-- 用户信息 -->
+    <UserInfo @close="isShowUserInfo = false" v-if="isShowUserInfo"></UserInfo>
   </div>
 </template>
 
@@ -27,7 +30,9 @@ import Header from './components/Header.vue'
 import Sidebar from './components/Sidebar.vue'
 import Navigator from './components/Navigator.vue'
 import Content from './components/Content.vue'
+import UserInfo from '../components/UserInfo/index.vue'
 import { useUserStore } from '@/store'
+import { ref } from 'vue'
 
 defineOptions({
   name: 'Home'
@@ -35,7 +40,12 @@ defineOptions({
 
 // 初始化用户信息
 const userStore = useUserStore()
-if (userStore.token && !userStore) userStore.getUser()
+if (userStore.token && !userStore.userInfo) userStore.getUser()
+
+const isShowUserInfo = ref<boolean>(false)
+const showUserInfo = () => {
+  if (userStore.userInfo) isShowUserInfo.value = true
+}
 </script>
 
 <style lang="scss" scoped>
