@@ -3,9 +3,8 @@
  * 用于指定div内某个子div是否显示
  */
 import { isArray } from 'lodash-es'
-import { ref, Ref, watch, nextTick, isRef } from 'vue'
+import { ref, watch, nextTick, isRef } from 'vue'
 import { MaybeElementRef } from '../use-div'
-import { isArray } from 'lodash-es'
 
 // 监听是否在某个div内点击
 export const onClickOutside = (box: MaybeElementRef, time: number = 50) => {

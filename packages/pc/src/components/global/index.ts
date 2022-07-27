@@ -16,7 +16,7 @@ Object.entries(requireComp).forEach(([k, v]) => {
 })
 
 export const useGlobalComponents = (app: App) => {
-  for (let key in Comp) {
+  for (const key in Comp) {
     app.component(key, Comp[key])
   }
 }

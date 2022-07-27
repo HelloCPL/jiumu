@@ -5,8 +5,15 @@
 -->
 
 <template>
-  <ElInput type="number" :min="min" :max="max" :step="step" :model-value="modelValue"
-    @update:modelValue="handleUpdate" @blur="handleBlur"></ElInput>
+  <ElInput
+    type="number"
+    :min="min"
+    :max="max"
+    :step="step"
+    :model-value="modelValue"
+    @update:modelValue="handleUpdate"
+    @blur="handleBlur"
+  ></ElInput>
 </template>
 
 <script lang="ts" setup>
@@ -21,7 +28,7 @@ const handleUpdate = (val) => {
     emit('update:modelValue', val)
     return
   }
-  if (val * 10 % 10 !== 0 && !props.isFloat) return
+  if ((val * 10) % 10 !== 0 && !props.isFloat) return
   if (val < props.min) val = props.min
   if (val > props.max) val = props.max
   emit('update:modelValue', val)
@@ -30,8 +37,6 @@ const handleUpdate = (val) => {
 const handleBlur = (e) => {
   if (e.target.valueAsNumber === NaN || e.target.valueAsNumber < props.min)
     emit('update:modelValue', props.min)
-  else if (e.target.valueAsNumber > props.max)
-    emit('update:modelValue', props.max)
+  else if (e.target.valueAsNumber > props.max) emit('update:modelValue', props.max)
 }
-
 </script>

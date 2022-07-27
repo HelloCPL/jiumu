@@ -6,11 +6,22 @@
 
 <template>
   <div class="w-full px-4 py-3 flex justify-end border-b-1 pagination-container">
-    <ElPagination v-bind="$attrs" :hide-on-single-page="false" :current-page="pageNo"
-      :page-size="pageSize" :background="false" :total="total" :layout="layout"
-      :page-sizes="pageSizes" @update:current-page="handlePageNo" @update:page-size="handlePageSize"
-      @size-change="$emit('change')" @current-change="$emit('change')" @prev-click="$emit('change')"
-      @next-click="$emit('change')" />
+    <ElPagination
+      v-bind="$attrs"
+      :hide-on-single-page="false"
+      :current-page="pageNo"
+      :page-size="pageSize"
+      :background="false"
+      :total="total"
+      :layout="layout"
+      :page-sizes="pageSizes"
+      @update:current-page="handlePageNo"
+      @update:page-size="handlePageSize"
+      @size-change="$emit('change')"
+      @current-change="$emit('change')"
+      @prev-click="$emit('change')"
+      @next-click="$emit('change')"
+    />
   </div>
 </template>
 
@@ -30,7 +41,6 @@ const handlePageSize = (size: any) => {
 }
 
 defineProps(paginationProps)
-
 </script>
 
 <style lang="scss">

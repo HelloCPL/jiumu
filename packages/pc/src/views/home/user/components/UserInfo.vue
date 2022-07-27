@@ -51,7 +51,12 @@
           注册时间：{{ userInfo.createTime }} 注册终端：{{ userInfo.terminal }}
         </div>
       </ElCol>
-      <ElImage :src="userInfo.avatar.filePath" class="top-3 right-3 w-16 h-16 object-cover cursor-pointer rounded-sm img-avatar" :preview-src-list="[userInfo.avatar.filePath]" v-if="userInfo.avatar"></ElImage>
+      <ElImage
+        :src="userInfo.avatar.filePath"
+        class="top-3 right-3 w-16 h-16 object-cover cursor-pointer rounded-sm img-avatar"
+        :preview-src-list="[userInfo.avatar.filePath]"
+        v-if="userInfo.avatar"
+      ></ElImage>
     </ElRow>
     <ElRow class="pt-3" v-if="roles.length">
       <ElCol :span="4" class="text-lg">角色信息</ElCol>
@@ -86,7 +91,8 @@ import { getTagByUserId } from '@/api/user-tag'
 const props = defineProps({
   id: {
     type: String,
-    require: true
+    require: true,
+    default: ''
   }
 })
 

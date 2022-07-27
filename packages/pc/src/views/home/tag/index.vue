@@ -36,8 +36,9 @@
             size="small"
             @click="handleDelete(row)"
             v-if="!(row.children && row.children.length)"
-            >删除</ElButton
           >
+            删除
+          </ElButton>
           <ElButton type="primary" text size="small" v-if="row.parentCode === '8888'">用户关联</ElButton>
         </template>
       </ElTableColumn>
@@ -46,7 +47,7 @@
     <!-- 标签新增或编辑 -->
     <TagAdd
       :id="state.id"
-      :parentCode="state.parentCode"
+      :parent-code="state.parentCode"
       :options="data"
       v-if="state.show"
       @close="state.show = false"
@@ -60,7 +61,7 @@
 <script lang="ts" setup>
 import FilterButton from '@/components/FilterButton/index.vue'
 import Table from '@/components/Table/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { ElTableColumn, ElButton } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import TagAdd from './components/TagAdd.vue'
 import TagInfo from './components/TagInfo.vue'

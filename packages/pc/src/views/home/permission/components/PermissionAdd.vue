@@ -29,7 +29,6 @@
       <ElButton @click="$emit('close')">取消</ElButton>
       <ElButton type="primary" @click="confirm">保存</ElButton>
     </template>
-
   </Dialog>
 </template>
 
@@ -44,15 +43,7 @@ type Props = {
   id?: string
 }
 const props = defineProps<Props>()
-const {
-  title,
-  formRef,
-  form,
-  rules,
-  confirm
-} = usePermissionAdd(props, emit)
-
+const { title, formRef, form, rules, confirm } = usePermissionAdd(props, emit)
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

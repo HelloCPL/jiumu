@@ -40,7 +40,7 @@ export const findChildrenFirst = (arr: any[] = [], key = 'code') => {
   let target = ''
   const _find = (arr: any[], key) => {
     const item = arr[0]
-    console.log('item', item);
+    console.log('item', item)
     if (item) {
       if (item.children && item.children.length) {
         _find(item.children, key)

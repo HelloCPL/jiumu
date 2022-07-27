@@ -20,8 +20,7 @@
       <ElTableColumn prop="sort" label="排序" width="60" />
       <ElTableColumn label="code" min-width="150">
         <template #default="{ row }">
-          <span class="cursor-pointer hover:text-primary"
-            @click="handleShowInfo(row)">{{row.code}}</span>
+          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn label="权限" min-width="120">
@@ -43,16 +42,17 @@
     </Table>
     <!-- 分页 -->
 
-    <Pagination v-model:pageNo="pageNo" v-model:pageSize="pageSize" :total="total"
-      @change="getDataList"></Pagination>
+    <Pagination
+      v-model:pageNo="pageNo"
+      v-model:pageSize="pageSize"
+      :total="total"
+      @change="getDataList"
+    ></Pagination>
     <!-- 权限新增或编辑 -->
-    <PermissionAdd :id="state.id" v-if="state.show" @close="state.show = false"
-      @confirm="handleConfirm">
+    <PermissionAdd :id="state.id" v-if="state.show" @close="state.show = false" @confirm="handleConfirm">
     </PermissionAdd>
     <!-- 权限信息 -->
-    <PermissionInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false">
-    </PermissionInfo>
-
+    <PermissionInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"> </PermissionInfo>
   </div>
 </template>
 
@@ -70,24 +70,10 @@ defineOptions({
   name: 'Permission'
 })
 
-const {
-  keyword,
-  btnList,
-  pageNo,
-  pageSize,
-  total,
-  data,
-  getDataList
-} = useIndex()
+const { keyword, btnList, pageNo, pageSize, total, data, getDataList } = useIndex()
 
 // 控制新增/编辑等逻辑
-const {
-  state,
-  handleBtn,
-  handleShowInfo,
-  handleEdit,
-  handleDelete,
-  handleConfirm
-} = useIndexInfo({ getDataList })
-
+const { state, handleBtn, handleShowInfo, handleEdit, handleDelete, handleConfirm } = useIndexInfo({
+  getDataList
+})
 </script>

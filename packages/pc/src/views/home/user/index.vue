@@ -63,7 +63,6 @@
 
     <!-- 角色信息 -->
     <UserInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></UserInfo>
-
   </div>
 </template>
 
@@ -83,5 +82,5 @@ defineOptions({
 const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 
 // 控制查看等逻辑
-const { state, handleShowInfo } = useIndexInfo({ getDataList })
+const { state, handleShowInfo } = useIndexInfo()
 </script>

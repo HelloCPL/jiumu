@@ -15,12 +15,16 @@
         <ElInput type="text" placeholder="请输入菜单" v-model="form.label"></ElInput>
       </ElFormItem>
       <ElFormItem label="父级菜单" prop="parentCode" class="g-w-320">
-        <ElCascader :options="options" :props="_props" clearable placeholder="请选择父级"
-          v-model="form.parentCode"></ElCascader>
+        <ElCascader
+          :options="options"
+          :props="_props"
+          clearable
+          placeholder="请选择父级"
+          v-model="form.parentCode"
+        ></ElCascader>
       </ElFormItem>
       <ElFormItem label="排序" prop="sort" class="g-w-320">
-        <InputNumber placeholder="请输入排序" v-model="form.sort">
-        </InputNumber>
+        <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>
       </ElFormItem>
       <ElFormItem label="备注" prop="remarks">
         <ElInput type="textarea" placeholder="请输入备注" v-model="form.remarks"></ElInput>
@@ -30,7 +34,6 @@
       <ElButton @click="$emit('close')">取消</ElButton>
       <ElButton type="primary" @click="confirm">保存</ElButton>
     </template>
-
   </Dialog>
 </template>
 
@@ -44,27 +47,25 @@ import { PropsType } from 'vue'
 const emit = defineEmits(['close', 'confirm'])
 
 const props = defineProps({
-  id: String,
-  parentCode: String,
+  id: {
+    type: String,
+    default: ''
+  },
+  parentCode: {
+    type: String,
+    default: ''
+  },
   options: {
     type: Array as PropsType<DataMenu[]>,
     default: () => []
   }
 })
-const {
-  title,
-  formRef,
-  form,
-  rules,
-  confirm
-} = useMenuAdd(props, emit)
+const { title, formRef, form, rules, confirm } = useMenuAdd(props, emit)
 
 const _props = {
   expandTrigger: 'hover',
   checkStrictly: true,
   emitPath: false,
-  value: 'code',
+  value: 'code'
 }
-
 </script>
-

@@ -42,7 +42,8 @@ import { ElRow, ElCol } from 'element-plus'
 const props = defineProps({
   id: {
     type: String,
-    require: true
+    require: true,
+    default: ''
   }
 })
 
@@ -55,8 +56,6 @@ const _getOne = async (id: string) => {
   }
 }
 _getOne(props.id)
-
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

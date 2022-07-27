@@ -12,7 +12,7 @@
         :height="Math.floor(height)"
         :data="data"
         stripe
-        :rowKey="rowKey"
+        :row-key="rowKey"
         @select-all="selectAll"
         @select="select"
         @selection-change="selectionChange"

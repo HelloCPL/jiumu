@@ -5,9 +5,18 @@
 -->
 
 <template>
-  <ElDialog v-model="isShow" append-to-body destroy-on-close custom-class="dialog-wrapper"
-    :draggable="draggable" :width="width" :open-delay="50" :close-on-click-modal="false"
-    :close-on-press-escape="false" @close="$emit('close')">
+  <ElDialog
+    v-model="isShow"
+    append-to-body
+    destroy-on-close
+    custom-class="dialog-wrapper"
+    :draggable="draggable"
+    :width="width"
+    :open-delay="50"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    @close="$emit('close')"
+  >
     <template #header v-if="showHeader">
       <div class="w-full h-6 text-lg g-line-1">{{ title }}</div>
     </template>
@@ -44,7 +53,6 @@ const handleCancel = () => {
 }
 
 defineProps(dialogProps)
-
 </script>
 
 <style lang="scss">

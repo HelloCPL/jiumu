@@ -12,6 +12,7 @@ const bool = storage.getItem('bool') // true
 const str = storage.getItem('str') // 'abc'
 const arr = storage.getItem('arr') // [123, 'abc']
 const obj = storage.getItem('obj') // { a: 123 }
+console.log(num, bool, str, arr, obj)
 // 移除某个指定的缓存
 storage.removeItem('num')
 // 清除所有缓存

@@ -6,8 +6,15 @@
 
 <template>
   <Dialog title="修改密码" width="500px" top="30vh" @close="$emit('close')" @confirm="confirm">
-    <ElForm :model="form" :rules="rules" ref="formRef" label-position="right" :label-width="80"
-      class="mt-4 mx-auto g-w-320" @submit.native.prevent>
+    <ElForm
+      :model="form"
+      :rules="rules"
+      ref="formRef"
+      label-position="right"
+      :label-width="80"
+      class="mt-4 mx-auto g-w-320"
+      @submit.native.prevent
+    >
       <ElFormItem prop="password" label="原始密码">
         <ElInput v-model="form.password" type="password" placeholder="请输入原始密码"></ElInput>
       </ElFormItem>
@@ -83,5 +90,4 @@ const confirm = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

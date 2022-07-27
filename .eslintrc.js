@@ -74,6 +74,12 @@ module.exports = defineConfig({
     'vue/v-slot-style': 'off',
     'vue/attributes-order': 'off',
     'vue/multi-word-component-names': 'off',
+    'vue/prefer-import-from-vue': 'off',
+    'vue/no-deprecated-v-on-native-modifier': 'off',
+    'vue/no-unused-vars': 'warn',
+    'vue/v-on-event-hyphenation': 'off',
+    'vue/no-v-html': 'off',
+    'vue/no-template-shadow': 'off',
     // other
     'space-before-function-paren': 'off',
     'no-console': 'off',
@@ -82,7 +88,7 @@ module.exports = defineConfig({
     'quotes': ['warn', 'single'],
     'comma-dangle': ['warn', 'never'],
     'semi': ['warn', 'never'],
-    'max-len': ['warn', 110],
+    'max-len': ['off', 110],
     'indent': ['warn', 2]
   }
 })

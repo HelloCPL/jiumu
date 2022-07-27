@@ -41,7 +41,7 @@ export const useIndex = () => {
 }
 
 // 处理用户查看等逻辑
-export const useIndexInfo = ({ getDataList }: ObjectAny) => {
+export const useIndexInfo = () => {
   const state = reactive({
     showInfo: false,
     id: ''

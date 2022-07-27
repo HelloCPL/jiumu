@@ -29,7 +29,7 @@ export const useIndex = (props: any, emit: any) => {
   }
   const judgeAll = () => {
     let flag = true
-    for (let key in _all) {
+    for (const key in _all) {
       if (!_all[key]) {
         flag = false
         break
