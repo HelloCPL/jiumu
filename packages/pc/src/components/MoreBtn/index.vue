@@ -19,11 +19,9 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus'
 import { CaretBottom } from '@element-plus/icons-vue'
+import { moreBtnProps } from './type'
 
-type Props = {
-  show: boolean
-}
-defineProps<Props>()
+defineProps(moreBtnProps)
 
 defineEmits(['click'])
 </script>

@@ -50,23 +50,28 @@ export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
       this.token = params.token
       this.tokenRefresh = params.tokenRefresh
     },
-    // 统一获取 用户信息 用户角色 用户权限 用户拥有菜单 用户特殊标签
-    getUser() {
-      getUserSelf().then((res) => {
-        if (res.code === 200) this.userInfo = res.data
-      })
-      getRoleListAllSelf().then((res) => {
-        if (res.code === 200) this.roles = res.data
-      })
-      getPermissionListAllSelf().then((res) => {
-        if (res.code === 200) this.permissions = res.data
-      })
-      getMenuAllSelf().then((res) => {
-        if (res.code === 200) this.menus = res.data
-      })
-      getTagAllSelf().then((res) => {
-        if (res.code === 200) this.tags = res.data
-      })
+    // 统一获取 1 用户信息 2 用户角色 3 用户权限 4 用户拥有菜单 5 用户特殊标签
+    getUser(type: string = '12345') {
+      if (type.includes('1'))
+        getUserSelf().then((res) => {
+          if (res.code === 200) this.userInfo = res.data
+        })
+      if (type.includes('2'))
+        getRoleListAllSelf().then((res) => {
+          if (res.code === 200) this.roles = res.data
+        })
+      if (type.includes('3'))
+        getPermissionListAllSelf().then((res) => {
+          if (res.code === 200) this.permissions = res.data
+        })
+      if (type.includes('4'))
+        getMenuAllSelf().then((res) => {
+          if (res.code === 200) this.menus = res.data
+        })
+      if (type.includes('5'))
+        getTagAllSelf().then((res) => {
+          if (res.code === 200) this.tags = res.data
+        })
     }
   },
   storage: {

@@ -48,21 +48,21 @@ html {
 
   &::-webkit-scrollbar-thumb {
     background: transparent;
-    border-radius: 3px;
+    border-radius: 3.5px;
   }
 
   &:hover::-webkit-scrollbar-thumb {
-    background: var(--jm-color-primary-4);
+    background: var(--jm-color-black-1);
   }
 
   &:hover::-webkit-scrollbar-track {
-    background: var(--jm-color-primary-1);
+    background: transparent;
   }
 }
 
 .g-scroll-y {
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 7px;
   }
 }
 
@@ -86,4 +86,12 @@ html {
   @extend .g-line;
   /* autoprefixer: on */
   -webkit-line-clamp: 2;
+}
+
+.g-w-320 {
+  width: 320px
+}
+
+.g-w-240 {
+  width: 240px
 }

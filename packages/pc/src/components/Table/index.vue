@@ -5,9 +5,19 @@
 -->
 
 <template>
-  <div class="flex-1 flex-shrink-0 relative" ref="refTable">
+  <div class="flex-1 flex-shrink-0 relative table-wrapper" ref="refTable">
     <div class="absolute top-0 left-0 w-full">
-      <ElTable v-bind="$attrs" :height="Math.floor(height)" stripe>
+      <ElTable
+        v-bind="$attrs"
+        :height="Math.floor(height)"
+        :data="data"
+        stripe
+        :rowKey="rowKey"
+        @select-all="selectAll"
+        @select="select"
+        @selection-change="selectionChange"
+        ref="table"
+      >
         <slot></slot>
         <template #append>
           <slot name="append"></slot>
@@ -24,10 +34,22 @@
 import { ref } from 'vue'
 import { ElTable } from 'element-plus'
 import { useElementSize } from '@vueuse/core'
+import { tableProps } from './type'
+import { useIndex } from './hooks/use-index'
+
 defineOptions({
   inheritAttrs: false
 })
 
 const refTable = ref<HTMLDivElement>()
 const { height } = useElementSize(refTable)
+
+const props = defineProps(tableProps)
+const emit = defineEmits(['selectAll', 'select', 'selectionChange'])
+
+const { table, selectAll, select, selectionChange } = useIndex(props, emit)
 </script>
+
+<style lang="scss">
+@import './index.scss';
+</style>

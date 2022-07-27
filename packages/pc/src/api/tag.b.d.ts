@@ -6,11 +6,27 @@
 
 
 // 标签数据接口类型
-interface DataTag extends DataBase {
+interface DataTagInfo extends DataBase {
   id: string
   code: string
   label: string
   sort: number
   parentCode: string
   parentLabel: string
+  checkedUserId?: string
+}
+
+// 树级标签列表接口类型
+interface DataTag extends DataTagInfo {
+  children: DataTag[]
+}
+
+// 标签添加参数类型
+interface ParamsTagAdd {
+  id?: string
+  code: string
+  label: string
+  parentCode?: string
+  sort?: number
+  remarks?: string
 }

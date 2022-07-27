@@ -12,6 +12,12 @@
     /* @apply flex-shrink-0; */
     flex-shrink:1;
   }
+
+  .g-popup {
+    @apply mt-4;
+    @apply pl-4;
+    @apply pr-20;
+  }
 }
 
 @layer components {

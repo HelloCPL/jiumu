@@ -24,10 +24,8 @@ interface DataUserInfo extends DataBase {
 }
 
 // 登录记录列表接口参数
-interface ParamsLoginInfo {
-  userId: string,
-  pageNo?: number
-  pageSize?: number
+interface ParamsLoginInfo extends ParamsPage {
+  userId: string
 }
 
 // 登录记录接口返回数据类型
@@ -53,4 +51,9 @@ interface ParamsUpdateUserBaseSelf {
   professional?: string
   address?: string
   remarks?: string
+}
+
+// 获取用户列表接口参数
+interface ParamsUserList extends ParamsPage {
+  keyword: string
 }

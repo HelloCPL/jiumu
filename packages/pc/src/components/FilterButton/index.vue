@@ -24,27 +24,13 @@
 
 <script lang="ts" setup>
 import { ElButton } from 'element-plus'
+import { filterButtonProps } from './type'
 
 const emits = defineEmits(['click'])
 const handleClick = (item: PropsList) => {
   emits('click', item)
 }
 
-type PropsList = {
-  name: string
-  key: string
-  code?: string // 权限标识
-  type?: any
-  plain?: boolean
-  text?: boolean
-  disabled?: boolean
-}
+defineProps(filterButtonProps)
 
-type Props = {
-  list: PropsList[]
-}
-
-withDefaults(defineProps<Props>(), {
-  list: () => [{ name: '新增', key: 'add', type: 'primary' }]
-})
 </script>

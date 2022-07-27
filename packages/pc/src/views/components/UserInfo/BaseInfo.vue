@@ -5,30 +5,19 @@
 -->
 
 <template>
-  <ElRow class="relative mb-2 p-1 hover:bg-primary-1 base-wrapper" :class="{ 'bg-primary-1': showEdit }">
+  <ElRow class="relative mb-2 p-1 hover:bg-primary-1 base-wrapper"
+    :class="{ 'bg-primary-1': showEdit }">
     <!-- 基本信息展示 -->
     <template v-if="!showEdit">
       <ElCol :span="16" class="mb-2">
         <span class="relative">
           {{ userInfo.username }}
-          <img
-            class="absolute top-0 w-4 icon-sex"
-            :src="$STATIC_URL + 'pc/icons/icon_male.png'"
-            alt=""
-            v-if="userInfo.sex === '201'"
-          />
-          <img
-            class="absolute top-0 w-4 icon-sex"
-            :src="$STATIC_URL + 'pc/icons/icon_female.png'"
-            alt=""
-            v-else-if="userInfo.sex === '202'"
-          />
-          <img
-            class="absolute top-0 w-4 icon-sex"
-            :src="$STATIC_URL + 'pc/icons/icon_sex_no.png'"
-            alt=""
-            v-else
-          />
+          <img class="absolute top-0 w-4 icon-sex" :src="$STATIC_URL + 'pc/icons/icon_male.png'"
+            alt="" v-if="userInfo.sex === '201'" />
+          <img class="absolute top-0 w-4 icon-sex" :src="$STATIC_URL + 'pc/icons/icon_female.png'"
+            alt="" v-else-if="userInfo.sex === '202'" />
+          <img class="absolute top-0 w-4 icon-sex" :src="$STATIC_URL + 'pc/icons/icon_sex_no.png'"
+            alt="" v-else />
         </span>
       </ElCol>
       <ElCol :span="16" class="mb-2">
@@ -40,13 +29,13 @@
       <ElCol :span="16" class="mb-2">职业：{{ userInfo.professional }}</ElCol>
       <ElCol :span="16" class="mb-2">地址：{{ userInfo.address }}</ElCol>
       <ElCol :span="16">备注：{{ userInfo.remarks }}</ElCol>
-      <span class="absolute right-1 bottom-1 text-sm text-primary cursor-pointer update-word" @click="toEdit"
-        >修改</span
-      >
+      <span class="absolute right-1 bottom-1 text-sm text-primary cursor-pointer update-word"
+        @click="toEdit">修改</span>
     </template>
     <!-- 基本信息修改 -->
     <template v-else>
-      <ElForm :model="form" label-width="70px" size="small" class="mt-2 pr-8 w-full">
+      <ElForm :model="form" label-width="70px" size="small" class="mt-2 pr-8 w-full"
+        @submit.native.prevent>
         <ElFormItem label="昵称">
           <ElInput v-model="form.username"></ElInput>
         </ElFormItem>
@@ -57,12 +46,8 @@
           </ElRadioGroup>
         </ElFormItem>
         <ElFormItem label="出生日期">
-          <ElDatePicker
-            v-model="form.birthday"
-            type="date"
-            placeholder="请选择日期"
-            value-format="YYYY-MM-DD HH:mm:ss"
-          />
+          <ElDatePicker v-model="form.birthday" type="date" placeholder="请选择日期"
+            value-format="YYYY-MM-DD HH:mm:ss" />
         </ElFormItem>
         <ElFormItem label="职业">
           <ElInput v-model="form.professional"></ElInput>
@@ -100,7 +85,7 @@ import { formatDate } from '@jiumu/utils'
 import { useUserStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
-import { updateUserBaseSelf, getUserSelf } from '@/api/user'
+import { updateUserBaseSelf } from '@/api/user'
 
 const store = useUserStore()
 const { userInfo } = storeToRefs(store)
@@ -138,9 +123,7 @@ const save = async () => {
   }
   const res = await updateUserBaseSelf(params)
   if (res.code === 200) {
-    getUserSelf().then((res2) => {
-      if (res2.code === 200) userInfo.value = res2.data
-    })
+    store.getUser('1')
   }
   showEdit.value = false
 }

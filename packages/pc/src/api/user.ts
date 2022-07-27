@@ -56,3 +56,13 @@ export const exitUser = async (): Promise<DataOptions> => {
 export const updateUserBaseSelf = async (params: ParamsUpdateUserBaseSelf): Promise<DataOptions<null>> => {
   return await post('/pc/user/update/base/self', params).catch((err) => err)
 }
+
+// 获取所有用户列表
+export const getUserList = async (params: ParamsUserList): Promise<DataOptions<DataUserInfo[]>> => {
+  return await post('/pc/user/get/list', params).catch((err) => err)
+}
+
+// 获取一个用户信息
+export const getUserOne = async (id: string, isloading?: boolean): Promise<DataOptions<DataUserInfo>> => {
+  return await post('/pc/user/get/base', { id }, { isloading }).catch((err) => err)
+}

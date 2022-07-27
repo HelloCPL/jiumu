@@ -32,3 +32,23 @@ export const formatDate = (date: any, format = 'YYYY-MM-DD HH:mm:ss'): any => {
     return ''
   }
 }
+
+/**
+ * 寻找最外层的第一个值
+ */
+export const findChildrenFirst = (arr: any[] = [], key = 'code') => {
+  let target = ''
+  const _find = (arr: any[], key) => {
+    const item = arr[0]
+    console.log('item', item);
+    if (item) {
+      if (item.children && item.children.length) {
+        _find(item.children, key)
+      } else {
+        target = item[key]
+      }
+    }
+  }
+  _find(arr, key)
+  return target
+}

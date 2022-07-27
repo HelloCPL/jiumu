@@ -41,6 +41,7 @@ import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, onUnmounted } from 'vue'
 import { isHomeRoutes } from '@/router/routes'
+import { findChildrenFirst } from '@jiumu/utils'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -61,7 +62,7 @@ const select = (key: string, keyPath: string[]) => {
 
 // 跳转
 const routerPush = (name: string) => {
-  name = name || (userStore.menus.length ? userStore.menus[0].code : '/')
+  name = name || (userStore.menus.length ? findChildrenFirst(userStore.menus, 'code') : '/')
   const item = navigationsStore._find(name)
   if (item) {
     router.push({

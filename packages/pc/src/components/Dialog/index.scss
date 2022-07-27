@@ -1,0 +1,31 @@
+.dialog-wrapper {
+  .el-dialog__header {
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--jm-color-border-light);
+  }
+
+  .el-dialog__headerbtn {
+    top: 12px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .el-dialog__body {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+  }
+
+  .el-dialog__footer {
+    border-top: 1px solid var(--jm-color-border-light);
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .dialog-content {
+    max-height: 65vh;
+  }
+}

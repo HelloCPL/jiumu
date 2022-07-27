@@ -27,15 +27,16 @@ const service: AxiosInstance = axios.create({
 let loading: any
 let requireCount = 0
 const showLoading = (isloading?: boolean) => {
-  if (requireCount === 0 && !loading && isloading) {
+  if (requireCount <= 0 && !loading && isloading) {
     loading = Loading()
   }
   requireCount++
 }
 const hideLoading = () => {
   --requireCount
-  if (requireCount === 0 && loading) {
+  if (requireCount <= 0 && loading) {
     loading.close()
+    loading = null
   }
 }
 
@@ -105,7 +106,10 @@ service.interceptors.response.use(
       return Promise.resolve(data)
     }
   },
-  (error) => _handleError(error, true)
+  (error) => {
+    hideLoading()
+    _handleError(error, true)
+  }
 )
 
 // 处理详情错误

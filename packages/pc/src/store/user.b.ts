@@ -5,5 +5,5 @@ export interface UserState {
   roles: DataRole[]
   permissions: DataPermission[]
   menus: DataMenu[]
-  tags: DataTag[]
+  tags: DataTagInfo[]
 }

@@ -5,9 +5,7 @@
  */
 
 // 获取所有文章列表接口类型
-interface ParamsAriticleList {
-  pageNo?: number
-  pageSize?: number
+interface ParamsAriticleList extends ParamsPage {
   keyword?: string
   type?: string
 }

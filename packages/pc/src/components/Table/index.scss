@@ -1,0 +1,30 @@
+.table-wrapper {
+  .el-table thead {
+    color: var(--jm-color-text);
+
+    th {
+      background-color: var(--jm-color-bg);
+    }
+  }
+
+  .el-table.is-scrolling-right th.el-table-fixed-column--right,
+  .el-table.is-scrolling-none th.el-table-fixed-column--right {
+    background-color: var(--jm-color-bg);
+  }
+
+
+  .el-table .cell {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .el-button+.el-button {
+    margin-left: 0;
+  }
+
+  .el-button--small {
+    padding-left: 0;
+    padding-right: 0;
+    margin-right: 8px;
+  }
+}

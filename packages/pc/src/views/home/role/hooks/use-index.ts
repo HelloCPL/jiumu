@@ -1,0 +1,113 @@
+/**
+ * @author chen
+ * @description 角色页面逻辑
+ * @update 2022-07-25 15:12:44
+ */
+
+import { ref, reactive } from 'vue'
+import { getRoleList, deleteRole } from '@/api/role'
+import { PropsList } from '@/components/FilterButton/type'
+import { debounce } from 'lodash-es'
+import { Confirm, Message } from '@/utils/interaction'
+import { useUserStore } from '@/store'
+
+export const useIndex = () => {
+  const keyword = ref<string>('')
+  const btnList: PropsList[] = [
+    { name: '新增', key: 'add', type: 'primary' },
+    { name: '导出', key: 'export' }
+  ]
+  const pageNo = ref<number>(1)
+  const pageSize = ref<number>(10)
+  const total = ref<number>(0)
+
+  const data = ref<DataRole[]>([])
+
+  const getDataList = debounce(async () => {
+    const params: ParamsRoleList = {
+      pageNo: pageNo.value,
+      pageSize: pageSize.value,
+      keyword: keyword.value
+    }
+    const res = await getRoleList(params)
+    if (res.code === 200) {
+      data.value = res.data
+      total.value = res.total
+    }
+  }, 300)
+  getDataList()
+
+  return {
+    keyword,
+    btnList,
+    pageNo,
+    pageSize,
+    total,
+    data,
+    getDataList
+  }
+}
+
+// 处理角色新增 编辑 查看等逻辑
+export const useIndexInfo = ({ getDataList }: ObjectAny) => {
+  const store = useUserStore()
+
+  const state = reactive({
+    showInfo: false,
+    show: false,
+    id: ''
+  })
+
+  // 点击按钮
+  const handleBtn = (item: PropsList) => {
+    switch (item.key) {
+      case 'add':
+        state.id = ''
+        state.show = true
+        return
+      case 'export':
+    }
+  }
+
+  // 点击查看详情
+  const handleShowInfo = (row: DataRole) => {
+    state.id = row.id
+    state.showInfo = true
+  }
+
+  // 点击编辑
+  const handleEdit = (row: DataRole) => {
+    state.id = row.id
+    state.show = true
+  }
+
+  // 删除
+  const handleDelete = (row: DataRole) => {
+    Confirm('确定删除这项数据吗？').then(async () => {
+      const res = await deleteRole(row.id)
+      if (res.code === 200) {
+        Message({
+          message: res.message,
+          type: 'success'
+        })
+        getDataList()
+      }
+    })
+  }
+
+  // 处理确认回调
+  const handleConfirm = (type: string) => {
+    getDataList()
+    state.show = false
+    if (type === 'update') store.getUser('2')
+  }
+
+  return {
+    state,
+    handleBtn,
+    handleShowInfo,
+    handleEdit,
+    handleDelete,
+    handleConfirm
+  }
+}

@@ -6,26 +6,17 @@
 
 <template>
   <div class="w-full px-4 py-3 flex justify-end border-b-1 pagination-container">
-    <ElPagination
-      v-bind="$attrs"
-      :hide-on-single-page="false"
-      :current-page="pageNo"
-      :page-size="pageSize"
-      :background="false"
-      :total="total"
-      :layout="layout"
-      @update:current-page="handlePageNo"
-      @update:page-size="handlePageSize"
-      @size-change="$emit('change')"
-      @current-change="$emit('change')"
-      @prev-click="$emit('change')"
-      @next-click="$emit('change')"
-    />
+    <ElPagination v-bind="$attrs" :hide-on-single-page="false" :current-page="pageNo"
+      :page-size="pageSize" :background="false" :total="total" :layout="layout"
+      :page-sizes="pageSizes" @update:current-page="handlePageNo" @update:page-size="handlePageSize"
+      @size-change="$emit('change')" @current-change="$emit('change')" @prev-click="$emit('change')"
+      @next-click="$emit('change')" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ElPagination } from 'element-plus'
+import { paginationProps } from './type'
 defineOptions({
   inheritAttrs: false
 })
@@ -38,19 +29,8 @@ const handlePageSize = (size: any) => {
   emit('update:pageSize', size)
 }
 
-// 其他参数跟官网保持一致
-type Props = {
-  pageNo: number
-  pageSize?: number
-  total?: number
-  layout?: string
-}
-withDefaults(defineProps<Props>(), {
-  pageNo: 1,
-  pageSize: 10,
-  total: 0,
-  layout: 'prev, pager, next, sizes, jumper, total'
-})
+defineProps(paginationProps)
+
 </script>
 
 <style lang="scss">

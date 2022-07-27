@@ -2,5 +2,6 @@
 export * from './crypto'
 export * from './storage'
 export * from './tools'
+export * from './xss'
 
 export * from './vue'

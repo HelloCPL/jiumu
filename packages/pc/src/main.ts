@@ -8,6 +8,7 @@ import './style/css/reset.scss'
 import 'element-plus/dist/index.css'
 import './style/css/element-root.scss'
 import './style/css/index.scss'
+import {useGlobalComponents} from './components/global'
 
 import { defineGlobal, defineDirective } from './utils/vue-global'
 
@@ -21,5 +22,7 @@ pinia.use(usePiniaStoragePlugin)
 
 app.use(pinia)
 app.use(router)
+
+useGlobalComponents(app)
 
 app.mount('#app')

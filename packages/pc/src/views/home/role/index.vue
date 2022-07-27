@@ -7,33 +7,50 @@
 <template>
   <div class="g-container">
     <!-- 筛选框 -->
-    <FilterBox>
+    <FilterBox @search="getDataList">
       <ElFormItem label="关键字">
-        <ElInput v-model="keyword"></ElInput>
-      </ElFormItem>
-      <ElFormItem label="关键字">
-        <ElInput v-model="keyword"></ElInput>
-      </ElFormItem>
-      <ElFormItem label="关键字">
-        <ElInput v-model="keyword"></ElInput>
-      </ElFormItem>
-      <ElFormItem label="关键字">
-        <ElInput v-model="keyword"></ElInput>
-      </ElFormItem>
-      <ElFormItem label="关键字">
-        <ElInput v-model="keyword"></ElInput>
+        <ElInput v-model="keyword" type="text" clearable placeholder="请输入关键字"></ElInput>
       </ElFormItem>
     </FilterBox>
     <!-- 操作盒子 -->
-    <FilterButton :list="btnList"></FilterButton>
+    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
     <!-- 列表 -->
-    <Table :data="data" @cell-click="cellClick">
-      <ElTableColumn prop="date" label="Date" />
-      <ElTableColumn prop="name" label="Name" />
-      <ElTableColumn prop="address" label="Name" />
+    <Table :data="data">
+      <ElTableColumn type="selection" width="55" />
+      <ElTableColumn prop="sort" label="排序" width="60" />
+      <ElTableColumn label="code" min-width="100">
+        <template #default="{ row }">
+          <span class="cursor-pointer hover:text-primary"
+            @click="handleShowInfo(row)">{{ row.code }}</span>
+        </template>
+      </ElTableColumn>
+      <ElTableColumn label="角色" min-width="120">
+        <template #default="{ row }">
+          <GRichText :text="row.label" />
+        </template>
+      </ElTableColumn>
+      <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
+      <ElTableColumn prop="terminal" label="创建终端" min-width="80" />
+      <ElTableColumn prop="remarks" label="备注" min-width="140" />
+      <ElTableColumn label="操作" width="255" fixed="right">
+        <template #default="{ row }">
+          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
+          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+          <ElButton type="primary" text size="small">用户关联</ElButton>
+          <ElButton type="primary" text size="small">菜单关联</ElButton>
+          <ElButton type="primary" text size="small">权限关联</ElButton>
+        </template>
+      </ElTableColumn>
     </Table>
     <!-- 分页 -->
-    <Pagination v-model:pageNo="pageNo" v-model:pageSize="pageSize" :total="total"></Pagination>
+    <Pagination v-model:pageNo="pageNo" v-model:pageSize="pageSize" :total="total"
+      @change="getDataList"></Pagination>
+
+    <!-- 角色新增或编辑 -->
+    <RoleAdd :id="state.id" v-if="state.show" @close="state.show = false" @confirm="handleConfirm">
+    </RoleAdd>
+    <!-- 角色信息 -->
+    <RoleInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></RoleInfo>
   </div>
 </template>
 
@@ -42,82 +59,33 @@ import FilterBox from '@/components/FilterBox/index.vue'
 import FilterButton from '@/components/FilterButton/index.vue'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
-import { ElFormItem, ElInput, ElTableColumn } from 'element-plus'
-import { ref, reactive } from 'vue'
+import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { useIndex, useIndexInfo } from './hooks/use-index'
+import RoleAdd from './components/RoleAdd.vue'
+import RoleInfo from './components/RoleInfo.vue'
 
-const keyword = ref<string>('')
-const btnList = [
-  { name: '新增', key: 'add', type: 'primary' },
-  { name: '导出', key: 'export' }
-]
-const pageNo = ref<number>(1)
-const pageSize = ref<number>(10)
-const total = ref<number>(100)
+defineOptions({
+  name: 'Role'
+})
 
-const data = reactive([
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  }
-])
+const {
+  keyword,
+  btnList,
+  pageNo,
+  pageSize,
+  total,
+  data,
+  getDataList
+} = useIndex()
 
-const cellClick = (a, b) => {
-  console.log(a, b)
-}
+// 控制新增/编辑等逻辑
+const {
+  state,
+  handleBtn,
+  handleShowInfo,
+  handleEdit,
+  handleDelete,
+  handleConfirm
+} = useIndexInfo({ getDataList })
+
 </script>

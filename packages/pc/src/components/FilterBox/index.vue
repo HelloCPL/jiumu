@@ -18,6 +18,7 @@
         :inline="true"
         class="flex-shrink-0"
         :class="{ 'flex-1': length > 2 }"
+        @submit.native.prevent
       >
         <div class="w-full" ref="box">
           <slot></slot>

@@ -5,11 +5,73 @@
 -->
 
 <template>
-  <div>Tag</div>
+  <div class="g-container">
+    <!-- 操作盒子 -->
+    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
+    <!-- 列表 -->
+    <Table :data="data" default-expand-all>
+      <ElTableColumn type="selection" width="55" />
+      <ElTableColumn prop="sort" label="排序" min-width="120" />
+      <ElTableColumn label="code" min-width="110">
+        <template #default="{ row }">
+          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
+        </template>
+      </ElTableColumn>
+      <ElTableColumn label="标签" min-width="120">
+        <template #default="{ row }">
+          <GRichText :text="row.label" />
+        </template>
+      </ElTableColumn>
+      <ElTableColumn prop="parentLabel" label="父级标签" min-width="120" />
+      <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
+      <ElTableColumn prop="terminal" label="创建终端" min-width="80" />
+      <ElTableColumn prop="remarks" label="备注" min-width="140" />
+      <ElTableColumn label="操作" width="200" fixed="right">
+        <template #default="{ row }">
+          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
+          <ElButton type="primary" text size="small" @click="handleAddChild(row)">新增子级</ElButton>
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-if="!(row.children && row.children.length)"
+            >删除</ElButton
+          >
+          <ElButton type="primary" text size="small" v-if="row.parentCode === '8888'">用户关联</ElButton>
+        </template>
+      </ElTableColumn>
+    </Table>
+
+    <!-- 标签新增或编辑 -->
+    <TagAdd
+      :id="state.id"
+      :parentCode="state.parentCode"
+      :options="data"
+      v-if="state.show"
+      @close="state.show = false"
+      @confirm="handleConfirm"
+    />
+    <!-- 角色信息 -->
+    <TagInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></TagInfo>
+  </div>
 </template>
 
 <script lang="ts" setup>
+import FilterButton from '@/components/FilterButton/index.vue'
+import Table from '@/components/Table/index.vue'
+import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { useIndex, useIndexInfo } from './hooks/use-index'
+import TagAdd from './components/TagAdd.vue'
+import TagInfo from './components/TagInfo.vue'
+
 defineOptions({
   name: 'Tag'
 })
+
+const { btnList, data, getDataList } = useIndex()
+
+// 控制新增/编辑等逻辑
+const { state, handleBtn, handleShowInfo, handleEdit, handleAddChild, handleDelete, handleConfirm } =
+  useIndexInfo({ getDataList })
 </script>

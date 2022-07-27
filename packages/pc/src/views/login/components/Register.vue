@@ -6,7 +6,7 @@
 
 <template>
   <div class="h-full w-full p-8">
-    <ElForm :model="form" :rules="rules" ref="formRef">
+    <ElForm :model="form" :rules="rules" ref="formRef" @submit.native.prevent>
       <ElFormItem prop="phone" class="mt-8">
         <ElInput v-model="form.phone" placeholder="请输入账号"></ElInput>
       </ElFormItem>

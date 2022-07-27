@@ -11,7 +11,7 @@ interface KeyValue<T = string, U = any> extends ObjectAny {
 
 // 数据接口返回类型
 interface DataResponse {
-  message: string | string[]
+  message: string
   code: 200 | 500 | 400 | 404 | 403 | 401 | 205 | 206 | 423
   data: any
   total: number
@@ -19,7 +19,7 @@ interface DataResponse {
 
 // 自定义接口返回类型
 interface DataOptions<T = any> {
-  message: string | string[]
+  message: string
   code: 200 | 500 | 400 | 404 | 403 | 401 | 205 | 206 | 423
   data: T
   total: number
@@ -33,6 +33,7 @@ interface DataBase extends ObjectAny {
   updateTime?: string
 }
 
+// 文件返回格式类型
 interface DataBaseFile extends DataBase {
   id: string
   filePath: string
@@ -44,9 +45,16 @@ interface DataBaseFile extends DataBase {
   checkValidTime: string
 }
 
+// 自定义标签返回类型
 interface DataBaseClassify extends DataBase {
   id: string
   label: string
   sort: number
   type: string
+}
+
+// 分页参数
+interface ParamsPage {
+  pageNo?: number
+  pageSize?: number
 }
