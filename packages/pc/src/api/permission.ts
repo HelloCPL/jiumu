@@ -11,12 +11,17 @@ export const getPermissionListAllSelf = async (): Promise<DataOptions<DataPermis
 }
 
 // 获取所有权限列表
-export const getPermissionList = async (params: ParamsPermissionList): Promise<DataOptions<DataPermission[]>> => {
+export const getPermissionList = async (
+  params: ParamsPermissionList = {}
+): Promise<DataOptions<DataPermission[]>> => {
   return await post('/pc/permission/get/list', params).catch((err) => err)
 }
 
 // 获取一个权限
-export const getPermissionOne = async (id: string, isloading?: boolean): Promise<DataOptions<DataPermission>> => {
+export const getPermissionOne = async (
+  id: string,
+  isloading?: boolean
+): Promise<DataOptions<DataPermission>> => {
   return await post('/pc/permission/get/one', { id }, { isloading }).catch((err) => err)
 }
 

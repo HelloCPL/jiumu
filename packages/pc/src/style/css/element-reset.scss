@@ -10,14 +10,18 @@ html {
 
   .el-button {
     height: 28px;
+    line-height: 28px;
+    border-radius: 2px;
   }
 
   .el-button--small {
     height: 24px;
+    line-height: 24px;
   }
 
   .el-button--large {
     height: 36px;
+    line-height: 36px;
   }
 
   .el-loading-spinner {

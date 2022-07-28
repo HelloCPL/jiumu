@@ -55,5 +55,6 @@ interface ParamsUpdateUserBaseSelf {
 
 // 获取用户列表接口参数
 interface ParamsUserList extends ParamsPage {
-  keyword: string
+  keyword?: string
+  simple?: '1' | '0'
 }

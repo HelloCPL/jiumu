@@ -12,7 +12,7 @@ export const getRoleListAllSelf = async (): Promise<DataOptions<DataRole[]>> => 
 }
 
 // 获取所有角色列表
-export const getRoleList = async (params: ParamsRoleList): Promise<DataOptions<DataRole[]>> => {
+export const getRoleList = async (params: ParamsRoleList = {}): Promise<DataOptions<DataRole[]>> => {
   return await post('/pc/role/get/list', params).catch((err) => err)
 }
 
