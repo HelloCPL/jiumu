@@ -28,6 +28,10 @@ export const dialogProps = buildProps({
   showHeader: {
     type: Boolean,
     default: true
+  },
+  classContent: {
+    type: String,
+    default: ''
   }
 } as const)
 

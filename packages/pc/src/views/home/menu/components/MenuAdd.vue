@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog :title="title" @close="$emit('close')" @confirm="confirm">
+  <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
     <ElForm :model="form" :rules="rules" ref="formRef" label-width="80px" class="g-popup">
       <ElFormItem label="code" prop="code">
         <ElInput type="text" placeholder="请输入code" v-model="form.code" class="g-w-240"></ElInput>

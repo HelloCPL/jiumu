@@ -14,9 +14,8 @@
   }
 
   .el-dialog__body {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-right: 0;
+    padding: 0;
+    background-color: var(--jm-color-bg);
   }
 
   .el-dialog__footer {

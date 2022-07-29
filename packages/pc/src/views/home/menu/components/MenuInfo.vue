@@ -6,7 +6,7 @@
 
 <template>
   <Dialog title="菜单信息" width="380px" :show-footer="false">
-    <div v-if="dataInfo" class="mr-4">
+    <div v-if="dataInfo" class="px-4">
       <ElRow class="my-3">
         <ElCol :span="6" class="text-right pr-2">code：</ElCol>
         <ElCol :span="18" class="text-lighter">{{ dataInfo?.code }}</ElCol>

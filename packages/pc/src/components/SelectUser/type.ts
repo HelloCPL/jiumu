@@ -10,10 +10,14 @@ export const selectUser = buildProps({
     // 是否可选择
     type: Boolean
   },
+  multiple: { // 是否多选
+    type: Boolean,
+    default: true
+  },
   showList: {
     // 是否显示列表
     type: Boolean,
-    default: true
+    default: false
   },
   isDelete: {
     // 是否可删除

@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog title="用户信息" width="600px" :show-footer="false">
+  <Dialog title="用户信息" width="600px" :show-footer="false" class-content="pl-4">
     <ElRow class="pt-3" v-if="userInfo">
       <ElCol :span="4" class="text-lg">基本信息</ElCol>
       <ElCol :span="20" class="text-light pt-1">
