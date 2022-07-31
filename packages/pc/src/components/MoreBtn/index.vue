@@ -5,14 +5,14 @@
 -->
 
 <template>
-  <div class="flex items-center justify-center mt-2 text-sm">
+  <div class="flex items-center justify-center my-2 text-sm">
     <span class="w-14 text-primary-8 cursor-pointer hover:text-primary" v-if="show" @click="$emit('click')">
       <ElIcon size="var(--jm-font-size)">
         <CaretBottom />
       </ElIcon>
       <span class="pl-1">更多</span>
     </span>
-    <span class="text-lighter" v-else>没有更多了...</span>
+    <span class="text-lighter" v-else-if="!show && isMounted">没有更多了...</span>
   </div>
 </template>
 
@@ -20,10 +20,17 @@
 import { ElIcon } from 'element-plus'
 import { CaretBottom } from '@element-plus/icons-vue'
 import { moreBtnProps } from './type'
+import { ref } from 'vue'
 
 defineProps(moreBtnProps)
 
 defineEmits(['click'])
+
+const isMounted = ref<boolean>(false)
+
+setTimeout(() => {
+  isMounted.value = true
+}, 500)
 </script>
 
 <style lang="scss" scoped></style>

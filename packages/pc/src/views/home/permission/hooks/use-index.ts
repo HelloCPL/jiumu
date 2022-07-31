@@ -25,7 +25,8 @@ export const useIndex = () => {
     const params: ParamsPermissionList = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,
-      keyword: keyword.value
+      keyword: keyword.value,
+      highlight: '1'
     }
     const res = await getPermissionList(params)
     if (res.code === 200) {
@@ -52,7 +53,9 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const state = reactive({
     showInfo: false,
     show: false,
-    id: ''
+    id: '',
+    showPermissionUser: false,
+    showPermissionRole: false
   })
 
   // 点击按钮
@@ -67,19 +70,19 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   }
 
   // 点击查看详情
-  const handleShowInfo = (row: DataRole) => {
+  const handleShowInfo = (row: DataPermission) => {
     state.id = row.id
     state.showInfo = true
   }
 
   // 点击编辑
-  const handleEdit = (row: DataRole) => {
+  const handleEdit = (row: DataPermission) => {
     state.id = row.id
     state.show = true
   }
 
   // 删除
-  const handleDelete = (row: DataRole) => {
+  const handleDelete = (row: DataPermission) => {
     Confirm('确定删除这项数据吗？').then(async () => {
       const res = await deletePermission(row.id)
       if (res.code === 200) {
@@ -99,12 +102,26 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     if (type === 'update') store.getUser('3')
   }
 
+  // 查看用户
+  const handleShowPermissionUser = (row: DataPermission) => {
+    state.id = row.id
+    state.showPermissionUser = true
+  }
+
+  // 查看角色
+  const handleShowPermissionRole = (row: DataPermission) => {
+    state.id = row.id
+    state.showPermissionRole = true
+  }
+
   return {
     state,
     handleBtn,
     handleShowInfo,
     handleEdit,
     handleDelete,
-    handleConfirm
+    handleConfirm,
+    handleShowPermissionUser,
+    handleShowPermissionRole
   }
 }

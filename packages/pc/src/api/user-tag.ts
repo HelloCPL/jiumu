@@ -12,8 +12,15 @@ export const addUserTag = async (params: ParamsUserTagAdd): Promise<DataOptions<
 }
 
 // 用户-特殊标签关联删除
-export const deleteUserTag = async (id: string): Promise<DataOptions<null>> => {
-  return await post('/pc/user-tag/delete', { id }).catch((err) => err)
+export const deleteUserTag = async (id: string | ParamsUserTagAdd): Promise<DataOptions<null>> => {
+  const params: ObjectAny = {}
+  if (typeof id === 'string') {
+    params.id = id
+  } else {
+    params.userId = id.userId
+    params.tagCode = id.tagCode
+  }
+  return await post('/pc/user-tag/delete', params).catch((err) => err)
 }
 
 // 获取指定用户关联的所有特殊标签
@@ -23,5 +30,5 @@ export const getTagByUserId = async (params: ParamsTagByUserId): Promise<DataOpt
 
 // 获取指定特殊标签关联的所有用户
 export const getUserByTagCode = async (params: ParamsUserByTagCode): Promise<DataOptions<DataUserInfo[]>> => {
-  return await post('/pc/user-role/get/alluser/byroleid', params).catch((err) => err)
+  return await post('/pc/user-tag/get/alluser/bytagcode', params).catch((err) => err)
 }

@@ -5,12 +5,12 @@
 -->
 
 <template>
-  <div class="inline-block w-28">
-    <span class="w-full flex justify-center items-center rounded p-1 fill-darker text-light">
+  <div class="inline-block max-w- py-1 px-2 rounded p-1 fill-darker text-light user-span">
+    <span class="flex justify-center items-center">
       <span class="g-line-1">
         <slot></slot>
       </span>
-      <ElIcon class="ml-2 cursor-pointer icon-close" v-if="isDelete">
+      <ElIcon class="ml-2 cursor-pointer icon-close" v-if="isDelete" @click="$emit('delete')">
         <CircleClose />
       </ElIcon>
     </span>
@@ -32,11 +32,15 @@ defineEmits(['delete'])
 </script>
 
 <style lang="scss" scoped>
-.icon-close {
-  color: var(--jm-color-info);
+.user-span {
+  max-width: 180px;
 
-  &:hover {
-    color: var(--jm-color-primary);
+  .icon-close {
+    color: var(--jm-color-info);
+
+    &:hover {
+      color: var(--jm-color-primary);
+    }
   }
 }
 </style>

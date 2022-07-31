@@ -12,8 +12,11 @@ export const getMenuAllSelf = async (isTree: string = '1'): Promise<DataOptions<
 }
 
 // 获取所有菜单（树级结构）
-export const getMenuByParentCode = async (parentCode: string = ''): Promise<DataOptions<DataMenu[]>> => {
-  return await post('/pc/menu/get/byparentcode', { parentCode }).catch((err) => err)
+export const getMenuByParentCode = async (
+  params: ParamsMenuByParentCode = {},
+  isloading = false
+): Promise<DataOptions<DataMenu[]>> => {
+  return await post('/pc/menu/get/byparentcode', params, { isloading }).catch((err) => err)
 }
 
 // 获取一个菜单

@@ -7,6 +7,7 @@
 // 获取所有文章列表接口类型
 interface ParamsAriticleList extends ParamsPage {
   keyword?: string
+  highlight?: '0' | '1'
   type?: string
 }
 

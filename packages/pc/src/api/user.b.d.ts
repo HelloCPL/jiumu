@@ -21,6 +21,7 @@ interface DataUserInfo extends DataBase {
   avatar: DataBaseFile | null
   professional: string
   address: string
+  relevanceId?: string
 }
 
 // 登录记录列表接口参数
@@ -56,5 +57,6 @@ interface ParamsUpdateUserBaseSelf {
 // 获取用户列表接口参数
 interface ParamsUserList extends ParamsPage {
   keyword?: string
+  highlight?: '0' | '1'
   simple?: '1' | '0'
 }

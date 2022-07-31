@@ -15,11 +15,13 @@ interface DataRole extends DataBase {
   checkedUserId?: string
   checkedPermissionId?: string
   checkedMenuId?: string
+  relevanceId?: string
 }
 
 // 获取角色列表接口参数
 interface ParamsRoleList extends ParamsPage {
   keyword?: string
+  highlight?: '0' | '1'
   userId?: string
   permissionId?: string
   menuId?: string

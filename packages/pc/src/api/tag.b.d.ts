@@ -14,6 +14,7 @@ interface DataTagInfo extends DataBase {
   parentCode: string
   parentLabel: string
   checkedUserId?: string
+  relevanceId?: string
 }
 
 // 树级标签列表接口类型

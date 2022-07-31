@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <span v-html="xss.process(text)"></span>
+  <span v-html="xss.process(html)"></span>
 </template>
 
 <script lang="ts" setup>
@@ -16,8 +16,6 @@ defineExpose({
 })
 
 defineProps(richTextProps)
-
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

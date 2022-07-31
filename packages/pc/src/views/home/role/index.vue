@@ -25,7 +25,7 @@
       </ElTableColumn>
       <ElTableColumn label="角色" min-width="120">
         <template #default="{ row }">
-          <GRichText :text="row.label" />
+          <GRichText :html="row.label" />
         </template>
       </ElTableColumn>
       <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
@@ -35,9 +35,11 @@
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
           <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
-          <ElButton type="primary" text size="small">用户关联</ElButton>
-          <ElButton type="primary" text size="small">菜单关联</ElButton>
-          <ElButton type="primary" text size="small">权限关联</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowRoleInfo(row)">用户关联</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowRoleMenu(row)">菜单关联</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowRolePermission(row)"
+            >权限关联</ElButton
+          >
         </template>
       </ElTableColumn>
     </Table>
@@ -53,6 +55,16 @@
     <RoleAdd :id="state.id" v-if="state.show" @close="state.show = false" @confirm="handleConfirm"> </RoleAdd>
     <!-- 角色信息 -->
     <RoleInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></RoleInfo>
+    <!-- 角色-用户关联 -->
+    <RoleUser :id="state.id" v-if="state.showRoleUser" @close="state.showRoleUser = false"></RoleUser>
+    <!-- 角色-用户关联 -->
+    <RoleMenu :id="state.id" v-if="state.showRoleMenu" @close="state.showRoleMenu = false"></RoleMenu>
+    <!-- 角色-权限关联 -->
+    <RolePermission
+      :id="state.id"
+      v-if="state.showRolePermission"
+      @close="state.showRolePermission = false"
+    ></RolePermission>
   </div>
 </template>
 
@@ -65,6 +77,9 @@ import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import RoleAdd from './components/RoleAdd.vue'
 import RoleInfo from './components/RoleInfo.vue'
+import RoleUser from './components/RoleUser.vue'
+import RoleMenu from './components/RoleMenu.vue'
+import RolePermission from './components/RolePermission.vue'
 
 defineOptions({
   name: 'Role'
@@ -73,7 +88,17 @@ defineOptions({
 const { keyword, btnList, pageNo, pageSize, total, data, getDataList } = useIndex()
 
 // 控制新增/编辑等逻辑
-const { state, handleBtn, handleShowInfo, handleEdit, handleDelete, handleConfirm } = useIndexInfo({
+const {
+  state,
+  handleBtn,
+  handleShowInfo,
+  handleEdit,
+  handleDelete,
+  handleConfirm,
+  handleShowRoleInfo,
+  handleShowRoleMenu,
+  handleShowRolePermission
+} = useIndexInfo({
   getDataList
 })
 </script>

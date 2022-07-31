@@ -12,6 +12,7 @@
     :model-value="modelValue"
     :clearable="clearable"
     @update:model-value="$emit('update:model-value', $event)"
+    @keyup.enter.native="$emit('search', modelValue)"
   >
     <template #append>
       <ElButton :icon="Search" @click="$emit('search', modelValue)"></ElButton>
@@ -33,7 +34,7 @@ html {
   .el-input-group--append .el-button {
     padding-top: 0;
     padding-bottom: 0;
-    background-color: var(--jm-color-primary);
+    background-color: var(--jm-color-primary) !important;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 

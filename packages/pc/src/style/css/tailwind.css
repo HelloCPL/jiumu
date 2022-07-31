@@ -51,15 +51,15 @@
   .border-l-1 {
     border-left: 1px solid var(--jm-color-border);
   }
+  .border {
+    border-width: 1px;
+    border-color: var(--jm-color-border)
+  }
   .border-darker {
     border-color: var(--jm-color-border-darker)
   }
   .border-dark {
     border-color: var(--jm-color-border-dark)
-  }
-  .border {
-    border-width: 1px;
-    border-color: var(--jm-color-border)
   }
   .border-default {
     border-color: var(--jm-color-border)

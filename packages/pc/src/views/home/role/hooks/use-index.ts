@@ -27,7 +27,8 @@ export const useIndex = () => {
     const params: ParamsRoleList = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,
-      keyword: keyword.value
+      keyword: keyword.value,
+      highlight: '1'
     }
     const res = await getRoleList(params)
     if (res.code === 200) {
@@ -55,7 +56,10 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const state = reactive({
     showInfo: false,
     show: false,
-    id: ''
+    id: '',
+    showRoleUser: false,
+    showRoleMenu: false,
+    showRolePermission: false
   })
 
   // 点击按钮
@@ -102,12 +106,33 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     if (type === 'update') store.getUser('2')
   }
 
+  // 显示角色-用户关联
+  const handleShowRoleInfo = (row: DataRole) => {
+    state.id = row.id
+    state.showRoleUser = true
+  }
+
+  // 显示角色-用户关联
+  const handleShowRoleMenu = (row: DataRole) => {
+    state.id = row.id
+    state.showRoleMenu = true
+  }
+
+  // 显示角色-权限关联
+  const handleShowRolePermission = (row: DataRole) => {
+    state.id = row.id
+    state.showRolePermission = true
+  }
+
   return {
     state,
     handleBtn,
     handleShowInfo,
     handleEdit,
     handleDelete,
-    handleConfirm
+    handleConfirm,
+    handleShowRoleInfo,
+    handleShowRoleMenu,
+    handleShowRolePermission
   }
 }

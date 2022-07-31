@@ -17,7 +17,7 @@ export const useIndex = () => {
     { name: '导出', key: 'export' }
   ]
 
-  const data = ref<DataRole[]>([])
+  const data = ref<DataMenu[]>([])
 
   const getDataList = debounce(async () => {
     const res = await getMenuByParentCode()
@@ -41,7 +41,9 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     showInfo: false,
     show: false,
     id: '',
-    parentCode: ''
+    parentCode: '',
+    showMenuUser: false,
+    showMenuRole: false
   })
 
   // 点击按钮
@@ -57,27 +59,27 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   }
 
   // 点击查看详情
-  const handleShowInfo = (row: DataRole) => {
+  const handleShowInfo = (row: DataMenuInfo) => {
     state.id = row.id
     state.showInfo = true
   }
 
   // 点击编辑
-  const handleEdit = (row: DataRole) => {
+  const handleEdit = (row: DataMenuInfo) => {
     state.id = row.id
     state.parentCode = ''
     state.show = true
   }
 
   // 新增子级
-  const handleAddChild = (row: DataRole) => {
+  const handleAddChild = (row: DataMenuInfo) => {
     state.parentCode = row.code
     state.id = ''
     state.show = true
   }
 
   // 删除
-  const handleDelete = (row: DataRole) => {
+  const handleDelete = (row: DataMenuInfo) => {
     Confirm('确定删除这项数据吗？').then(async () => {
       const res = await deleteMenu(row.id)
       if (res.code === 200) {
@@ -97,6 +99,18 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     if (type === 'update') store.getUser('4')
   }
 
+  // 查看用户
+  const handleShowMenuUser = (row: DataMenuInfo) => {
+    state.id = row.id
+    state.showMenuUser = true
+  }
+
+  // 查看角色
+  const handleShowMenuRole = (row: DataMenuInfo) => {
+    state.id = row.id
+    state.showMenuRole = true
+  }
+
   return {
     state,
     handleBtn,
@@ -104,6 +118,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleEdit,
     handleAddChild,
     handleDelete,
-    handleConfirm
+    handleConfirm,
+    handleShowMenuUser,
+    handleShowMenuRole
   }
 }

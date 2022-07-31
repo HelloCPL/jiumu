@@ -25,7 +25,7 @@
       </ElTableColumn>
       <ElTableColumn label="权限" min-width="120">
         <template #default="{ row }">
-          <GRichText :text="row.label" />
+          <GRichText :html="row.label" />
         </template>
       </ElTableColumn>
       <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
@@ -35,8 +35,12 @@
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
           <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
-          <ElButton type="primary" text size="small">查看用户</ElButton>
-          <ElButton type="primary" text size="small">角色关联</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowPermissionUser(row)">
+            查看用户
+          </ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowPermissionRole(row)">
+            查看角色
+          </ElButton>
         </template>
       </ElTableColumn>
     </Table>
@@ -53,6 +57,18 @@
     </PermissionAdd>
     <!-- 权限信息 -->
     <PermissionInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"> </PermissionInfo>
+    <!-- 查看权限-用户关联 -->
+    <PermissionUser
+      :id="state.id"
+      v-if="state.showPermissionUser"
+      @close="state.showPermissionUser = false"
+    ></PermissionUser>
+    <!-- 查看权限-角色关联 -->
+    <PermissionRole
+      :id="state.id"
+      v-if="state.showPermissionRole"
+      @close="state.showPermissionRole = false"
+    ></PermissionRole>
   </div>
 </template>
 
@@ -65,6 +81,8 @@ import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import PermissionAdd from './components/PermissionAdd.vue'
 import PermissionInfo from './components/PermissionInfo.vue'
+import PermissionUser from './components/PermissionUser.vue'
+import PermissionRole from './components/PermissionRole.vue'
 
 defineOptions({
   name: 'Permission'
@@ -73,7 +91,16 @@ defineOptions({
 const { keyword, btnList, pageNo, pageSize, total, data, getDataList } = useIndex()
 
 // 控制新增/编辑等逻辑
-const { state, handleBtn, handleShowInfo, handleEdit, handleDelete, handleConfirm } = useIndexInfo({
+const {
+  state,
+  handleBtn,
+  handleShowInfo,
+  handleEdit,
+  handleDelete,
+  handleConfirm,
+  handleShowPermissionUser,
+  handleShowPermissionRole
+} = useIndexInfo({
   getDataList
 })
 </script>

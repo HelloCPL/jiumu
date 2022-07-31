@@ -87,14 +87,9 @@ import { Calendar } from '@element-plus/icons-vue'
 import { formatDate } from '@jiumu/utils'
 import { getRoleByUserId } from '@/api/user-role'
 import { getTagByUserId } from '@/api/user-tag'
+import { userInfoProps } from './type'
 
-const props = defineProps({
-  id: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
+const props = defineProps(userInfoProps)
 
 // 用户信息
 const userInfo = ref<DataUserInfo | null>(null)
@@ -120,7 +115,7 @@ const _getRole = async (id: string) => {
 _getRole(props.id)
 
 // 标签信息
-const tags = ref<DataRole[]>([])
+const tags = ref<DataTagInfo[]>([])
 const _getTags = async (id: string) => {
   const res = await getTagByUserId({
     userId: id,

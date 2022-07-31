@@ -5,22 +5,25 @@
 -->
 
 <template>
-  <ElInput
+  <ElInputNumber
     type="number"
     :min="min"
     :max="max"
     :step="step"
+    :step-strictly="stepStrictly"
+    controls-position="right"
+    :placeholder="placeholder"
     :model-value="modelValue"
     @update:modelValue="handleUpdate"
     @blur="handleBlur"
-  ></ElInput>
+  ></ElInputNumber>
 </template>
 
 <script lang="ts" setup>
-import { ElInput } from 'element-plus'
-import { inputProps } from './type'
+import { ElInputNumber } from 'element-plus'
+import { inputNumberProps } from './type'
 
-const props = defineProps(inputProps)
+const props = defineProps(inputNumberProps)
 const emit = defineEmits(['update:modelValue'])
 
 const handleUpdate = (val) => {
@@ -35,8 +38,7 @@ const handleUpdate = (val) => {
 }
 
 const handleBlur = (e) => {
-  if (e.target.valueAsNumber === NaN || e.target.valueAsNumber < props.min)
-    emit('update:modelValue', props.min)
+  if (e.target.value === '' || e.target.valueAsNumber < props.min) emit('update:modelValue', props.min)
   else if (e.target.valueAsNumber > props.max) emit('update:modelValue', props.max)
 }
 </script>

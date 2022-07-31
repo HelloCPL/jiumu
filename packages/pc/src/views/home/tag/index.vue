@@ -19,7 +19,7 @@
       </ElTableColumn>
       <ElTableColumn label="标签" min-width="120">
         <template #default="{ row }">
-          <GRichText :text="row.label" />
+          <GRichText :html="row.label" />
         </template>
       </ElTableColumn>
       <ElTableColumn prop="parentLabel" label="父级标签" min-width="120" />
@@ -39,7 +39,15 @@
           >
             删除
           </ElButton>
-          <ElButton type="primary" text size="small" v-if="row.parentCode === '8888'">用户关联</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            v-if="row.parentCode === '8888'"
+            @click="handleShowTagUser(row)"
+          >
+            用户关联
+          </ElButton>
         </template>
       </ElTableColumn>
     </Table>
@@ -55,6 +63,13 @@
     />
     <!-- 角色信息 -->
     <TagInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></TagInfo>
+    <!-- 角色-用户关联 -->
+    <TagUser
+      :id="state.id"
+      :code="state.code"
+      v-if="state.showTagUser"
+      @close="state.showTagUser = false"
+    ></TagUser>
   </div>
 </template>
 
@@ -65,6 +80,7 @@ import { ElTableColumn, ElButton } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import TagAdd from './components/TagAdd.vue'
 import TagInfo from './components/TagInfo.vue'
+import TagUser from './components/TagUser.vue'
 
 defineOptions({
   name: 'Tag'
@@ -73,6 +89,14 @@ defineOptions({
 const { btnList, data, getDataList } = useIndex()
 
 // 控制新增/编辑等逻辑
-const { state, handleBtn, handleShowInfo, handleEdit, handleAddChild, handleDelete, handleConfirm } =
-  useIndexInfo({ getDataList })
+const {
+  state,
+  handleBtn,
+  handleShowInfo,
+  handleEdit,
+  handleAddChild,
+  handleDelete,
+  handleConfirm,
+  handleShowTagUser
+} = useIndexInfo({ getDataList })
 </script>

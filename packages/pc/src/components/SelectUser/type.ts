@@ -1,7 +1,7 @@
 import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes, PropType } from 'vue'
 
-export const selectUser = buildProps({
+export const selectUserProps = buildProps({
   modelValue: {
     type: Array as PropType<DataUserInfo[]>,
     default: () => []
@@ -10,14 +10,15 @@ export const selectUser = buildProps({
     // 是否可选择
     type: Boolean
   },
-  multiple: { // 是否多选
+  multiple: {
+    // 是否多选
     type: Boolean,
     default: true
   },
   showList: {
     // 是否显示列表
     type: Boolean,
-    default: false
+    default: true
   },
   isDelete: {
     // 是否可删除
@@ -26,4 +27,4 @@ export const selectUser = buildProps({
   }
 } as const)
 
-export type SelectUser = ExtractPropTypes<typeof selectUser>
+export type SelectUserProps = ExtractPropTypes<typeof selectUserProps>

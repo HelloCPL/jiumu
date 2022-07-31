@@ -12,8 +12,15 @@ export const addRoleMenu = async (params: ParamsRoleMenuAdd): Promise<DataOption
 }
 
 // 角色-菜单关联删除
-export const deleteRoleMenu = async (id: string): Promise<DataOptions<null>> => {
-  return await post('/pc/role-menu/delete', { id }).catch((err) => err)
+export const deleteRoleMenu = async (id: string | ParamsRoleMenuAdd): Promise<DataOptions<null>> => {
+  const params: ObjectAny = {}
+  if (typeof id === 'string') {
+    params.id = id
+  } else {
+    params.menuId = id.menuId
+    params.roleId = id.roleId
+  }
+  return await post('/pc/role-menu/delete', params).catch((err) => err)
 }
 
 // 获取指定角色关联的所有菜单

@@ -11,15 +11,17 @@ interface DataPermission extends DataBase {
   label: string
   sort: number
   configurable: string
-  roleId?: string
-  userId?: string
+  checkedRoleId?: string
+  checkedUserId?: string
+  relevanceId?: string
 }
 
 // 获取权限列表接口参数
 interface ParamsPermissionList extends ParamsPage {
   keyword?: string
+  highlight?: '0' | '1'
   userId?: string
-  menuId?: string
+  roleId?: string
 }
 
 // 添加权限接口参数

@@ -4,6 +4,7 @@
 
 import { App } from 'vue'
 import { useUserStore } from '@/store'
+import { ElInfiniteScroll } from 'element-plus'
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
@@ -32,6 +33,8 @@ export const defineDirective = (app: App) => {
     })
     if (!flag) el.style.display = 'none'
   })
+
+  app.directive('InfiniteScroll', ElInfiniteScroll)
 }
 
 function _findPermissions(val: string, arr: DataPermission[]): boolean {

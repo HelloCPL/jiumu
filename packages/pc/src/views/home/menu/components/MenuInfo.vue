@@ -42,14 +42,9 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ref } from 'vue'
 import { getMenuOne } from '@/api/menu'
 import { ElRow, ElCol } from 'element-plus'
+import { menuInfoProps } from './type'
 
-const props = defineProps({
-  id: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
+const props = defineProps(menuInfoProps)
 
 const dataInfo = ref<DataMenuInfo | null>(null)
 

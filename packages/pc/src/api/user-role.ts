@@ -12,8 +12,15 @@ export const addUserRole = async (params: ParamsUserRoleAdd): Promise<DataOption
 }
 
 // 用户-角色关联删除
-export const deleteUserRole = async (id: string): Promise<DataOptions<null>> => {
-  return await post('/pc/user-role/delete', { id }).catch((err) => err)
+export const deleteUserRole = async (id: string | ParamsUserRoleAdd): Promise<DataOptions<null>> => {
+  const params: ObjectAny = {}
+  if (typeof id === 'string') {
+    params.id = id
+  } else {
+    params.userId = id.userId
+    params.roleId = id.roleId
+  }
+  return await post('/pc/user-role/delete', params).catch((err) => err)
 }
 
 // 获取指定用户关联的所有角色

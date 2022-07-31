@@ -19,14 +19,14 @@
       </ElTableColumn>
       <ElTableColumn label="菜单" min-width="120">
         <template #default="{ row }">
-          <GRichText :text="row.label" />
+          <GRichText :html="row.label" />
         </template>
       </ElTableColumn>
       <ElTableColumn prop="parentLabel" label="父级菜单" min-width="120" />
       <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
       <ElTableColumn prop="terminal" label="创建终端" min-width="80" />
       <ElTableColumn prop="remarks" label="备注" min-width="140" />
-      <ElTableColumn label="操作" width="200" fixed="right">
+      <ElTableColumn label="操作" width="260" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
           <ElButton type="primary" text size="small" @click="handleAddChild(row)">新增子级</ElButton>
@@ -39,7 +39,8 @@
           >
             删除
           </ElButton>
-          <ElButton type="primary" text size="small">角色关联</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowMenuUser(row)">查看用户</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowMenuRole(row)">查看角色</ElButton>
         </template>
       </ElTableColumn>
     </Table>
@@ -55,6 +56,10 @@
     />
     <!-- 角色信息 -->
     <MenuInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></MenuInfo>
+    <!-- 查看菜单-用户关联 -->
+    <MenuUser :id="state.id" v-if="state.showMenuUser" @close="state.showMenuUser = false"></MenuUser>
+    <!-- 查看菜单-角色关联 -->
+    <MenuRole :id="state.id" v-if="state.showMenuRole" @close="state.showMenuRole = false"></MenuRole>
   </div>
 </template>
 
@@ -65,6 +70,8 @@ import { ElTableColumn, ElButton } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import MenuAdd from './components/MenuAdd.vue'
 import MenuInfo from './components/MenuInfo.vue'
+import MenuUser from './components/MenuUser.vue'
+import MenuRole from './components/MenuRole.vue'
 
 defineOptions({
   name: 'Menu'
@@ -73,8 +80,17 @@ defineOptions({
 const { btnList, data, getDataList } = useIndex()
 
 // 控制新增/编辑等逻辑
-const { state, handleBtn, handleShowInfo, handleEdit, handleAddChild, handleDelete, handleConfirm } =
-  useIndexInfo({
-    getDataList
-  })
+const {
+  state,
+  handleBtn,
+  handleShowInfo,
+  handleEdit,
+  handleAddChild,
+  handleDelete,
+  handleConfirm,
+  handleShowMenuUser,
+  handleShowMenuRole
+} = useIndexInfo({
+  getDataList
+})
 </script>

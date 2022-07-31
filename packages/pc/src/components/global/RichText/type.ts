@@ -2,8 +2,9 @@ import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 
 export const richTextProps = buildProps({
-  text: {
-    type: String
+  html: {
+    type: String,
+    default: ''
   }
 } as const)
 

@@ -18,4 +18,5 @@ interface ParamsTagByUserId extends ParamsPage {
 // 获取指定特殊标签关联的所有用户
 interface ParamsUserByTagCode extends ParamsPage {
   tagCode: string
+  simple?: '1' | '0'
 }

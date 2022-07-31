@@ -41,7 +41,9 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     showInfo: false,
     show: false,
     id: '',
-    parentCode: ''
+    parentCode: '',
+    showTagUser: false,
+    code: ''
   })
 
   // 点击按钮
@@ -57,27 +59,27 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   }
 
   // 点击查看详情
-  const handleShowInfo = (row: DataRole) => {
+  const handleShowInfo = (row: DataTagInfo) => {
     state.id = row.id
     state.showInfo = true
   }
 
   // 点击编辑
-  const handleEdit = (row: DataRole) => {
+  const handleEdit = (row: DataTagInfo) => {
     state.id = row.id
     state.parentCode = ''
     state.show = true
   }
 
   // 新增子级
-  const handleAddChild = (row: DataRole) => {
+  const handleAddChild = (row: DataTagInfo) => {
     state.parentCode = row.code
     state.id = ''
     state.show = true
   }
 
   // 删除
-  const handleDelete = (row: DataRole) => {
+  const handleDelete = (row: DataTagInfo) => {
     Confirm('确定删除这项数据吗？').then(async () => {
       const res = await deleteTag(row.id)
       if (res.code === 200) {
@@ -97,6 +99,13 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     if (type === 'update') store.getUser('5')
   }
 
+  // 关联用户
+  const handleShowTagUser = (row: DataTagInfo) => {
+    state.id = row.id
+    state.code = row.code
+    state.showTagUser = true
+  }
+
   return {
     state,
     handleBtn,
@@ -104,6 +113,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleEdit,
     handleAddChild,
     handleDelete,
-    handleConfirm
+    handleConfirm,
+    handleShowTagUser
   }
 }

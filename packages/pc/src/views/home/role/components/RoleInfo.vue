@@ -38,14 +38,9 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ref } from 'vue'
 import { getRoleOne } from '@/api/role'
 import { ElRow, ElCol } from 'element-plus'
+import { roleInfoProps } from './type'
 
-const props = defineProps({
-  id: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
+const props = defineProps(roleInfoProps)
 
 const dataInfo = ref<DataRole | null>(null)
 

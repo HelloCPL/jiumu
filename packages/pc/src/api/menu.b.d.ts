@@ -15,12 +15,19 @@ interface DataMenuInfo extends DataBase {
   configurable: string
   checkedRoleId?: string
   checkedUserId?: string
+  relevanceId?: string
 }
 
 
 // 树级菜单数据接口类型
 interface DataMenu extends DataMenuInfo {
   children: DataMenu[]
+}
+
+interface ParamsMenuByParentCode {
+  parentCode?: string
+  roleId?: string
+  userId?: string
 }
 
 // 菜单添加接口参数

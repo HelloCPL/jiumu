@@ -26,13 +26,13 @@
           <GRichText
             class="cursor-pointer hover:text-primary"
             @click="handleShowInfo(row)"
-            :text="row.phone"
+            :html="row.phone"
           />
         </template>
       </ElTableColumn>
       <ElTableColumn label="昵称" min-width="120">
         <template #default="{ row }">
-          <GRichText :text="row.username" />
+          <GRichText :html="row.username" />
         </template>
       </ElTableColumn>
       <ElTableColumn prop="sexLabel" label="性别" width="60" />
@@ -46,10 +46,12 @@
       <ElTableColumn prop="terminal" label="注册终端" min-width="80" />
       <ElTableColumn label="操作" width="250" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small">角色关联</ElButton>
-          <ElButton type="primary" text size="small">标签关联</ElButton>
-          <ElButton type="primary" text size="small">查看菜单</ElButton>
-          <ElButton type="primary" text size="small">查看权限</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowUserRole(row)">查看角色</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowUserTag(row)">查看标签</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowUserMenu(row)">查看菜单</ElButton>
+          <ElButton type="primary" text size="small" @click="handleShowUserPermission(row)">
+            查看权限
+          </ElButton>
         </template>
       </ElTableColumn>
     </Table>
@@ -63,6 +65,18 @@
 
     <!-- 角色信息 -->
     <UserInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></UserInfo>
+    <!-- 查看用户-角色关联 -->
+    <UserRole :id="state.id" v-if="state.showUserRole" @close="state.showUserRole = false"></UserRole>
+    <!-- 查看用户-标签关联 -->
+    <UserTag :id="state.id" v-if="state.showUserTag" @close="state.showUserTag = false"></UserTag>
+    <!-- 查看用户-菜单关联 -->
+    <UserMenu :id="state.id" v-if="state.showUserMenu" @close="state.showUserMenu = false"></UserMenu>
+    <!-- 查看用户-权限关联 -->
+    <UserPermission
+      :id="state.id"
+      v-if="state.showUserPermission"
+      @close="state.showUserPermission = false"
+    ></UserPermission>
   </div>
 </template>
 
@@ -74,6 +88,10 @@ import { ElFormItem, ElInput, ElTableColumn, ElButton, ElImage } from 'element-p
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import UserInfo from './components/UserInfo.vue'
+import UserRole from './components/UserRole.vue'
+import UserTag from './components/UserTag.vue'
+import UserMenu from './components/UserMenu.vue'
+import UserPermission from './components/UserPermission.vue'
 
 defineOptions({
   name: 'User'
@@ -82,5 +100,12 @@ defineOptions({
 const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 
 // 控制查看等逻辑
-const { state, handleShowInfo } = useIndexInfo()
+const {
+  state,
+  handleShowInfo,
+  handleShowUserRole,
+  handleShowUserTag,
+  handleShowUserMenu,
+  handleShowUserPermission
+} = useIndexInfo()
 </script>

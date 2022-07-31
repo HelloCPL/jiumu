@@ -30,5 +30,6 @@ interface ParamsMenuByUserId extends ParamsPage {
 // 获取指定菜单关联的所有用户参数
 interface ParamsUserByMenuId extends ParamsPage {
   menuId: string
+  simple?: '1' | '0'
 }
 

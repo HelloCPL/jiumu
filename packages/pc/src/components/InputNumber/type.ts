@@ -4,10 +4,10 @@
 
 import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
-import { inputProps as _inputProps } from 'element-plus'
+import { inputNumberProps as _inputNumberProps } from 'element-plus'
 
-export const inputProps = buildProps({
-  ..._inputProps,
+export const inputNumberProps = buildProps({
+  ..._inputNumberProps,
   min: {
     type: Number,
     default: 1
@@ -20,10 +20,19 @@ export const inputProps = buildProps({
     type: Number,
     default: 1
   },
+  stepStrictly: {
+    type: Boolean,
+    default: true
+  },
   modelValue: {
-    type: [Number, String]
+    type: [Number],
+    default: 1
+  },
+  placeholder: {
+    type: String,
+    default: '请输入'
   },
   isFloat: Boolean // 是否允许小数
 } as const)
 
-export type InputProps = ExtractPropTypes<typeof inputProps>
+export type inputNumberProps = ExtractPropTypes<typeof inputNumberProps>

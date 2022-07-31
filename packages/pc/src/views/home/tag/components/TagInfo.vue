@@ -42,16 +42,11 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ref } from 'vue'
 import { getTagOne } from '@/api/tag'
 import { ElRow, ElCol } from 'element-plus'
+import { tagInfoProps } from './type'
 
-const props = defineProps({
-  id: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
+const props = defineProps(tagInfoProps)
 
-const dataInfo = ref<DataTag | null>(null)
+const dataInfo = ref<DataTagInfo | null>(null)
 
 const _getOne = async (id: string) => {
   const res = await getTagOne(id, true)

@@ -20,7 +20,8 @@ export const useIndex = () => {
     const params: ParamsUserList = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,
-      keyword: keyword.value
+      keyword: keyword.value,
+      highlight: '1'
     }
     const res = await getUserList(params)
     if (res.code === 200) {
@@ -44,17 +45,45 @@ export const useIndex = () => {
 export const useIndexInfo = () => {
   const state = reactive({
     showInfo: false,
-    id: ''
+    id: '',
+    showUserRole: false,
+    showUserTag: false,
+    showUserMenu: false,
+    showUserPermission: false
   })
 
   // 点击查看详情
-  const handleShowInfo = (row: DataRole) => {
+  const handleShowInfo = (row: DataUserInfo) => {
     state.id = row.id
     state.showInfo = true
+  }
+  // 点击查看角色
+  const handleShowUserRole = (row: DataUserInfo) => {
+    state.id = row.id
+    state.showUserRole = true
+  }
+  // 点击查看标签
+  const handleShowUserTag = (row: DataUserInfo) => {
+    state.id = row.id
+    state.showUserTag = true
+  }
+  // 点击查看菜单
+  const handleShowUserMenu = (row: DataUserInfo) => {
+    state.id = row.id
+    state.showUserMenu = true
+  }
+  // 点击查看权限
+  const handleShowUserPermission = (row: DataUserInfo) => {
+    state.id = row.id
+    state.showUserPermission = true
   }
 
   return {
     state,
-    handleShowInfo
+    handleShowInfo,
+    handleShowUserRole,
+    handleShowUserTag,
+    handleShowUserMenu,
+    handleShowUserPermission
   }
 }

@@ -38,14 +38,9 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ref } from 'vue'
 import { getPermissionOne } from '@/api/permission'
 import { ElRow, ElCol } from 'element-plus'
+import { permissionInfoProps } from './type'
 
-const props = defineProps({
-  id: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
+const props = defineProps(permissionInfoProps)
 
 const dataInfo = ref<DataPermission | null>(null)
 
