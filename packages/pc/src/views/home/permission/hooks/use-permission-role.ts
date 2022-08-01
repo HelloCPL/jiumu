@@ -2,9 +2,10 @@
  * 查看权限-角色关联逻辑处理
  */
 import { PermissionInfoProps } from '../components/type'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getRoleByPermissionId } from '@/api/role-permission'
+import { getText } from '@jiumu/utils'
 
 export const usePermissionRole = (props: PermissionInfoProps) => {
   // 已关联的角色
@@ -26,7 +27,13 @@ export const usePermissionRole = (props: PermissionInfoProps) => {
   })
   getDataList()
 
+  const _label = computed(() => {
+    if (!props.label) return ''
+    return '（' + getText(props.label) + '）'
+  })
+
   return {
+    _label,
     total,
     dataList,
     getDataList

@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog title="角色-用户关联" :show-footer="false">
+  <Dialog :title="'角色-用户关联' + _label" :show-footer="false">
     <PopupTwo
       v-model:keyword="keyword"
       :more-left="total > dataList.length"
@@ -61,7 +61,7 @@ import UsernameShow from '@/components/UsernameShow/index.vue'
 
 const props = defineProps(roleInfoProps)
 
-const { keyword, total, dataList, getDataList, search, dataList2, changeCheck, deleteRelevance } =
+const { _label, keyword, total, dataList, getDataList, search, dataList2, changeCheck, deleteRelevance } =
   useRoleUser(props)
 </script>
 

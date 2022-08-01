@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="400px" title="查看用户-特殊标签关联" :show-footer="false">
+  <Dialog width="500px" :title="'查看用户-特殊标签关联' + _username" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
       :show-left-top="false"
@@ -41,5 +41,5 @@ import { useUserTag } from '../hooks/use-user-tag'
 
 const props = defineProps(userInfoProps)
 
-const { total, dataList, getDataList } = useUserTag(props)
+const { _username, total, dataList, getDataList } = useUserTag(props)
 </script>

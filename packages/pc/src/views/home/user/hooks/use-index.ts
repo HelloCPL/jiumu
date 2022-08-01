@@ -46,6 +46,7 @@ export const useIndexInfo = () => {
   const state = reactive({
     showInfo: false,
     id: '',
+    username: '',
     showUserRole: false,
     showUserTag: false,
     showUserMenu: false,
@@ -60,21 +61,25 @@ export const useIndexInfo = () => {
   // 点击查看角色
   const handleShowUserRole = (row: DataUserInfo) => {
     state.id = row.id
+    state.username = row.username
     state.showUserRole = true
   }
   // 点击查看标签
   const handleShowUserTag = (row: DataUserInfo) => {
     state.id = row.id
+    state.username = row.username
     state.showUserTag = true
   }
   // 点击查看菜单
   const handleShowUserMenu = (row: DataUserInfo) => {
     state.id = row.id
+    state.username = row.username
     state.showUserMenu = true
   }
   // 点击查看权限
   const handleShowUserPermission = (row: DataUserInfo) => {
     state.id = row.id
+    state.username = row.username
     state.showUserPermission = true
   }
 

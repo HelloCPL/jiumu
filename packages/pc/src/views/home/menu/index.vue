@@ -57,9 +57,19 @@
     <!-- 角色信息 -->
     <MenuInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></MenuInfo>
     <!-- 查看菜单-用户关联 -->
-    <MenuUser :id="state.id" v-if="state.showMenuUser" @close="state.showMenuUser = false"></MenuUser>
+    <MenuUser
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showMenuUser"
+      @close="state.showMenuUser = false"
+    ></MenuUser>
     <!-- 查看菜单-角色关联 -->
-    <MenuRole :id="state.id" v-if="state.showMenuRole" @close="state.showMenuRole = false"></MenuRole>
+    <MenuRole
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showMenuRole"
+      @close="state.showMenuRole = false"
+    ></MenuRole>
   </div>
 </template>
 

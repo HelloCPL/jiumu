@@ -2,9 +2,10 @@
  * 查看用户-特殊标签关联逻辑处理
  */
 import { UserInfoProps } from '../components/type'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getTagByUserId } from '@/api/user-tag'
+import { getText } from '@jiumu/utils'
 
 export const useUserTag = (props: UserInfoProps) => {
   // 已关联的特殊标签
@@ -26,7 +27,13 @@ export const useUserTag = (props: UserInfoProps) => {
   })
   getDataList()
 
+  const _username = computed(() => {
+    if (!props.username) return ''
+    return '（' + getText(props.username) + '）'
+  })
+
   return {
+    _username,
     total,
     dataList,
     getDataList

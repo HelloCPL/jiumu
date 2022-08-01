@@ -11,8 +11,11 @@
         <ElInput type="text" placeholder="请输入code" v-model="form.code"></ElInput>
         <span class="text-sm text-lighter mt-1">code格式建议：xxx:xx:x</span>
       </ElFormItem>
-      <ElFormItem label="权限" prop="label" class="g-w-320">
-        <ElInput type="text" placeholder="请输入权限" v-model="form.label"></ElInput>
+      <ElFormItem label="权限" prop="label">
+        <ElInput type="text" placeholder="请输入权限" v-model="form.label" class="g-w-240"></ElInput>
+        <span class="text-sm text-lighter mt-1"
+          >权限命名建议：页面级别、[按钮级别]、&lt;接口级别&gt;、(其他类型)</span
+        >
       </ElFormItem>
       <ElFormItem label="排序" prop="sort" class="g-w-320">
         <InputNumber type="number" placeholder="请输入排序" v-model="form.sort"></InputNumber>

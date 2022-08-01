@@ -5,15 +5,20 @@
 -->
 
 <template>
-  <Dialog width="400px" title="查看菜单-用户关联" :show-footer="false">
+  <Dialog width="500px" :title="'查看菜单-用户关联（' + label + '）'" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
-      :show-left-top="false"
       :show-right="false"
       :span-left="24"
       height="60vh"
       @scroll-left="getDataList"
     >
+      <template #leftTop>
+        <p class="px-4 text-sm text-lighter">
+          <span class="text-danger">注意：</span>
+          <span>菜单仅跟角色关联，如要修改用户的菜单列表请在角色管理中修改“角色-菜单”之间的关联。</span>
+        </p>
+      </template>
       <!-- 左侧 -->
       <template #left>
         <div class="px-4 pt-3">

@@ -2,11 +2,12 @@
  * 角色-用户关联逻辑处理
  */
 import { RoleInfoProps } from '../components/type'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getUserList } from '@/api/user'
 import { addUserRole, deleteUserRole, getUserByRoleId } from '@/api/user-role'
 import { _push, _pop, _find, _relevance } from '@/hooks/use-relevance'
+import { getText } from '@jiumu/utils'
 
 export const useRoleUser = (props: RoleInfoProps) => {
   // 用户列表
@@ -78,7 +79,13 @@ export const useRoleUser = (props: RoleInfoProps) => {
     }
   }
 
+  const _label = computed(() => {
+    if (!props.label) return ''
+    return '（' + getText(props.label) + '）'
+  })
+
   return {
+    _label,
     keyword,
     total,
     dataList,

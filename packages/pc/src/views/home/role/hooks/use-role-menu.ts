@@ -2,11 +2,12 @@
  * 角色-菜单关联逻辑处理
  */
 import { RoleInfoProps } from '../components/type'
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getMenuByParentCode } from '@/api/menu'
 import { addRoleMenu, deleteRoleMenu } from '@/api/role-menu'
 import { ElTree } from 'element-plus'
+import { getText } from '@jiumu/utils'
 
 export const useRoleMenu = (props: RoleInfoProps) => {
   // 菜单列表
@@ -78,7 +79,13 @@ export const useRoleMenu = (props: RoleInfoProps) => {
     })
   }
 
+  const _label = computed(() => {
+    if (!props.label) return ''
+    return '（' + getText(props.label) + '）'
+  })
+
   return {
+    _label,
     dataList,
     refTree,
     getDataList,

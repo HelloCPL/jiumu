@@ -6,6 +6,10 @@ export const roleInfoProps = buildProps({
     type: String,
     require: true,
     default: ''
+  },
+  label: {
+    type: String,
+    default: ''
   }
 } as const)
 

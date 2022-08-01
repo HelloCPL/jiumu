@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="400px" title="查看用户-角色关联" :show-footer="false">
+  <Dialog width="500px" :title="'查看用户-角色关联' + _username" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
       :show-left-top="false"
@@ -41,5 +41,5 @@ import { useUserRole } from '../hooks/use-user-role'
 
 const props = defineProps(userInfoProps)
 
-const { total, dataList, getDataList } = useUserRole(props)
+const { _username, total, dataList, getDataList } = useUserRole(props)
 </script>

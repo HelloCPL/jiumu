@@ -37,9 +37,9 @@
           <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
           <ElButton type="primary" text size="small" @click="handleShowRoleInfo(row)">用户关联</ElButton>
           <ElButton type="primary" text size="small" @click="handleShowRoleMenu(row)">菜单关联</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowRolePermission(row)"
-            >权限关联</ElButton
-          >
+          <ElButton type="primary" text size="small" @click="handleShowRolePermission(row)">
+            权限关联
+          </ElButton>
         </template>
       </ElTableColumn>
     </Table>
@@ -56,12 +56,23 @@
     <!-- 角色信息 -->
     <RoleInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></RoleInfo>
     <!-- 角色-用户关联 -->
-    <RoleUser :id="state.id" v-if="state.showRoleUser" @close="state.showRoleUser = false"></RoleUser>
+    <RoleUser
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showRoleUser"
+      @close="state.showRoleUser = false"
+    ></RoleUser>
     <!-- 角色-用户关联 -->
-    <RoleMenu :id="state.id" v-if="state.showRoleMenu" @close="state.showRoleMenu = false"></RoleMenu>
+    <RoleMenu
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showRoleMenu"
+      @close="state.showRoleMenu = false"
+    ></RoleMenu>
     <!-- 角色-权限关联 -->
     <RolePermission
       :id="state.id"
+      :label="state.label"
       v-if="state.showRolePermission"
       @close="state.showRolePermission = false"
     ></RolePermission>

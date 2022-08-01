@@ -19,7 +19,7 @@
   >
     <template #header v-if="showHeader">
       <slot name="header">
-        <div class="w-full h-12 px-4 text-lg flex items-center">
+        <div class="w-full h-12 pl-4 pr-9 text-lg flex items-center">
           <span class="g-line-1">{{ title }}</span>
         </div>
       </slot>

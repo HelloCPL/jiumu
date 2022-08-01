@@ -5,15 +5,14 @@
 -->
 
 <template>
-  <Dialog width="400px" title="查看用户-菜单关联" :show-footer="false">
-    <PopupTwo
-      :show-left-top="false"
-      :show-right="false"
-      :span-left="24"
-      height="60vh"
-      :show-more="false"
-      @scroll-left="getDataList"
-    >
+  <Dialog width="500px" :title="'查看用户-菜单关联' + _username" :show-footer="false">
+    <PopupTwo :show-right="false" :span-left="24" height="60vh" :show-more="false" @scroll-left="getDataList">
+      <template #leftTop>
+        <p class="px-4 text-sm text-lighter">
+          <span class="text-danger">注意：</span>
+          <span>菜单仅跟角色关联，如要修改用户的菜单列表请在角色管理中修改“角色-菜单”之间的关联。</span>
+        </p>
+      </template>
       <!-- 左侧 -->
       <template #left>
         <div class="pl-4 user-menu-box">
@@ -33,7 +32,7 @@ import { ElTree } from 'element-plus'
 
 const props = defineProps(userInfoProps)
 
-const { dataList, getDataList } = useUserMenu(props)
+const { _username, dataList, getDataList } = useUserMenu(props)
 </script>
 
 <style lang="scss">

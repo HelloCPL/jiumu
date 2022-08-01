@@ -66,14 +66,30 @@
     <!-- 角色信息 -->
     <UserInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></UserInfo>
     <!-- 查看用户-角色关联 -->
-    <UserRole :id="state.id" v-if="state.showUserRole" @close="state.showUserRole = false"></UserRole>
+    <UserRole
+      :id="state.id"
+      :username="state.username"
+      v-if="state.showUserRole"
+      @close="state.showUserRole = false"
+    ></UserRole>
     <!-- 查看用户-标签关联 -->
-    <UserTag :id="state.id" v-if="state.showUserTag" @close="state.showUserTag = false"></UserTag>
+    <UserTag
+      :id="state.id"
+      :username="state.username"
+      v-if="state.showUserTag"
+      @close="state.showUserTag = false"
+    ></UserTag>
     <!-- 查看用户-菜单关联 -->
-    <UserMenu :id="state.id" v-if="state.showUserMenu" @close="state.showUserMenu = false"></UserMenu>
+    <UserMenu
+      :id="state.id"
+      :username="state.username"
+      v-if="state.showUserMenu"
+      @close="state.showUserMenu = false"
+    ></UserMenu>
     <!-- 查看用户-权限关联 -->
     <UserPermission
       :id="state.id"
+      :username="state.username"
       v-if="state.showUserPermission"
       @close="state.showUserPermission = false"
     ></UserPermission>

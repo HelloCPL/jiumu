@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="400px" title="查看菜单-角色关联" :show-footer="false">
+  <Dialog width="500px" :title="'查看菜单-角色关联（' + label + '）'" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
       :show-left-top="false"

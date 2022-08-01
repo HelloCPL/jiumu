@@ -14,7 +14,7 @@
           :class="{ 'role-permission-active': active === 0 }"
           @click="handleActive(0)"
         >
-          已关联的权限
+          <span class="g-line-1">已关联权限{{ _label }}</span>
         </ElCol>
         <ElCol
           :span="12"
@@ -91,6 +91,7 @@ import { Close } from '@element-plus/icons-vue'
 const props = defineProps(roleInfoProps)
 
 const {
+  _label,
   active,
   handleActive,
   keyword,

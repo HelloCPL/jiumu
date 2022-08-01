@@ -2,10 +2,11 @@
  * 角色-权限关联逻辑处理
  */
 import { RoleInfoProps } from '../components/type'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getPermissionList } from '@/api/permission'
 import { addRolePermission, deleteRolePermission, getPermissionByRoleId } from '@/api/role-permission'
+import { getText } from '@jiumu/utils'
 
 export const useRolePermission = (props: RoleInfoProps) => {
   // 权限列表
@@ -125,7 +126,13 @@ export const useRolePermission = (props: RoleInfoProps) => {
   }
   handleActive(0)
 
+  const _label = computed(() => {
+    if (!props.label) return ''
+    return '（' + getText(props.label) + '）'
+  })
+
   return {
+    _label,
     active,
     handleActive,
     keyword,

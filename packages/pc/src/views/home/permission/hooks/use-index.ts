@@ -54,6 +54,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     showInfo: false,
     show: false,
     id: '',
+    label: '',
     showPermissionUser: false,
     showPermissionRole: false
   })
@@ -105,12 +106,14 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 查看用户
   const handleShowPermissionUser = (row: DataPermission) => {
     state.id = row.id
+    state.label = row.label
     state.showPermissionUser = true
   }
 
   // 查看角色
   const handleShowPermissionRole = (row: DataPermission) => {
     state.id = row.id
+    state.label = row.label
     state.showPermissionRole = true
   }
 

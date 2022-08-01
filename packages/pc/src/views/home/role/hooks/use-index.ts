@@ -57,6 +57,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     showInfo: false,
     show: false,
     id: '',
+    label: '',
     showRoleUser: false,
     showRoleMenu: false,
     showRolePermission: false
@@ -109,18 +110,21 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 显示角色-用户关联
   const handleShowRoleInfo = (row: DataRole) => {
     state.id = row.id
+    state.label = row.label
     state.showRoleUser = true
   }
 
   // 显示角色-用户关联
   const handleShowRoleMenu = (row: DataRole) => {
     state.id = row.id
+    state.label = row.label
     state.showRoleMenu = true
   }
 
   // 显示角色-权限关联
   const handleShowRolePermission = (row: DataRole) => {
     state.id = row.id
+    state.label = row.label
     state.showRolePermission = true
   }
 

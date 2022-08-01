@@ -52,3 +52,11 @@ export const findChildrenFirst = (arr: any[] = [], key = 'code') => {
   _find(arr, key)
   return target
 }
+
+/**
+ * 清除富文本 html标签 空格 换行
+ */
+export const getText = (html: string): string => {
+  if (!html) return ''
+  return html.replace(/<\/?[^>]*>|(\n|\t|\r)|(\s)/g, '')
+}

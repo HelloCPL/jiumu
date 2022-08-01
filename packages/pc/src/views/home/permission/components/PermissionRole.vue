@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="400px" title="查看权限-角色关联" :show-footer="false">
+  <Dialog width="500px" :title="'查看权限-角色关联' + _label" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
       :show-left-top="false"
@@ -41,5 +41,5 @@ import { usePermissionRole } from '../hooks/use-permission-role'
 
 const props = defineProps(permissionInfoProps)
 
-const { total, dataList, getDataList } = usePermissionRole(props)
+const { _label, total, dataList, getDataList } = usePermissionRole(props)
 </script>

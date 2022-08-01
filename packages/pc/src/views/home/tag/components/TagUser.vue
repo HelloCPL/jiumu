@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog title="特殊标签-用户关联" :show-footer="false">
+  <Dialog :title="'特殊标签-用户关联（' + code + '）'" :show-footer="false">
     <PopupTwo
       v-model:keyword="keyword"
       :more-left="total > dataList.length"

@@ -41,6 +41,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     showInfo: false,
     show: false,
     id: '',
+    label: '',
     parentCode: '',
     showMenuUser: false,
     showMenuRole: false
@@ -102,12 +103,14 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 查看用户
   const handleShowMenuUser = (row: DataMenuInfo) => {
     state.id = row.id
+    state.label = row.label
     state.showMenuUser = true
   }
 
   // 查看角色
   const handleShowMenuRole = (row: DataMenuInfo) => {
     state.id = row.id
+    state.label = row.label
     state.showMenuRole = true
   }
 

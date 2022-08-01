@@ -81,6 +81,7 @@ service.interceptors.response.use(
         // 正常
         return Promise.resolve(data)
       } else if (data.code === Code.authLogin) {
+        console.log('过期了', data)
         // token 过期需要重新登录 清空数据后跳转到登录页
         const store = useResetStore()
         store.reset()

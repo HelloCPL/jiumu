@@ -6,6 +6,10 @@ export const userInfoProps = buildProps({
     type: String,
     require: true,
     default: ''
+  },
+  username: {
+    type: String,
+    default: ''
   }
 } as const)
 

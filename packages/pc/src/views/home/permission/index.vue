@@ -20,7 +20,9 @@
       <ElTableColumn prop="sort" label="排序" width="60" />
       <ElTableColumn label="code" min-width="150">
         <template #default="{ row }">
-          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
+          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
+            <GRichText :html="row.code" />
+          </span>
         </template>
       </ElTableColumn>
       <ElTableColumn label="权限" min-width="120">
@@ -60,12 +62,14 @@
     <!-- 查看权限-用户关联 -->
     <PermissionUser
       :id="state.id"
+      :label="state.label"
       v-if="state.showPermissionUser"
       @close="state.showPermissionUser = false"
     ></PermissionUser>
     <!-- 查看权限-角色关联 -->
     <PermissionRole
       :id="state.id"
+      :label="state.label"
       v-if="state.showPermissionRole"
       @close="state.showPermissionRole = false"
     ></PermissionRole>

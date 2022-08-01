@@ -5,11 +5,12 @@
 -->
 
 <template>
-  <Dialog title="角色-菜单关联" :show-footer="false" width="400px">
+  <Dialog :title="'角色-菜单关联' + _label" :show-footer="false" width="400px">
     <PopupTwo :span-left="24" :show-right="false" height="60vh">
       <template #leftTop>
-        <p class="py-2 px-4 text-sm text-lighter">
-          <span class="text-danger">注意：</span>新增关联时必须先关联其父级，删除关联时必须先删除其所有子级
+        <p class="px-4 text-sm text-lighter">
+          <span class="text-danger">注意：</span>
+          <span>“角色-菜单”新增关联时必须先关联其父级，删除关联时必须先删除其所有子级</span>
         </p>
       </template>
       <!-- 左侧 -->
@@ -39,7 +40,7 @@ import { ElTree } from 'element-plus'
 
 const props = defineProps(roleInfoProps)
 
-const { dataList, refTree, changeCheck } = useRoleMenu(props)
+const { _label, dataList, refTree, changeCheck } = useRoleMenu(props)
 </script>
 
 <style lang="scss">
