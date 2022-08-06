@@ -43,7 +43,7 @@
       </ElTableColumn>
       <ElTableColumn prop="professional" label="职业" min-width="130" />
       <ElTableColumn prop="createTime" label="注册时间" min-width="120" />
-      <ElTableColumn prop="terminal" label="注册终端" min-width="80" />
+      <ElTableColumn prop="terminal" label="注册终端" width="80" />
       <ElTableColumn label="操作" width="250" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleShowUserRole(row)">查看角色</ElButton>

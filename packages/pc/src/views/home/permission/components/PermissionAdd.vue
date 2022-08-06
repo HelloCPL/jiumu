@@ -13,9 +13,7 @@
       </ElFormItem>
       <ElFormItem label="权限" prop="label">
         <ElInput type="text" placeholder="请输入权限" v-model="form.label" class="g-w-240"></ElInput>
-        <span class="text-sm text-lighter mt-1"
-          >权限命名建议：页面级别、[按钮级别]、&lt;接口级别&gt;、(其他类型)</span
-        >
+        <span class="text-sm text-lighter mt-1">权限命名建议：页面级别、[按钮级别]、(接口级别)</span>
       </ElFormItem>
       <ElFormItem label="排序" prop="sort" class="g-w-320">
         <InputNumber type="number" placeholder="请输入排序" v-model="form.sort"></InputNumber>

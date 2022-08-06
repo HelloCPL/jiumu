@@ -29,7 +29,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
-      <ElTableColumn prop="terminal" label="创建终端" min-width="80" />
+      <ElTableColumn prop="terminal" label="创建终端" width="80" />
       <ElTableColumn prop="remarks" label="备注" min-width="140" />
       <ElTableColumn label="操作" width="255" fixed="right">
         <template #default="{ row }">
