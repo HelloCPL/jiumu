@@ -8,7 +8,12 @@
   <div :class="{ flex: !multiple }">
     <span @click="handleClick">
       <slot>
-        <ElButton type="primary" class="px-10">选择用户</ElButton>
+        <ElButton type="primary" class="px-6">
+          <ElIcon>
+            <User />
+          </ElIcon>
+          <span class="pl-1">选择用户</span>
+        </ElButton>
       </slot>
     </span>
     <!-- 展示所选项 -->
@@ -48,7 +53,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ElButton } from 'element-plus'
+import { ElButton, ElIcon } from 'element-plus'
+import { User } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { selectUserProps } from './type'
 import SelectUserBox from './SelectUserBox.vue'

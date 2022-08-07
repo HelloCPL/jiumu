@@ -1,3 +1,7 @@
+/**
+ * 搜索输入框盒子组件参数类型
+ */
+
 import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 import { inputProps } from 'element-plus'

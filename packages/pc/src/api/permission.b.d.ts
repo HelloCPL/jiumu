@@ -10,7 +10,7 @@ interface DataPermission extends DataBase {
   code: string
   label: string
   sort: number
-  configurable: string
+  configurable?: string
   checkedRoleId?: string
   checkedUserId?: string
   relevanceId?: string

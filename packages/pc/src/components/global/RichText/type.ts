@@ -1,3 +1,7 @@
+/**
+ * 富文本组件参数类型
+ */
+
 import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 

@@ -98,6 +98,11 @@ module.exports = {
         500: 'var(--jm-color-info-500)',
         600: 'var(--jm-color-info-600)',
         DEFAULT: 'var(--jm-color-info)'
+      },
+      basic: {
+        white: 'var(--jm-color-basic-white)',
+        black: 'var(--jm-color-basic-black)',
+        transparent: 'var(--jm-color-basic-transparent)'
       }
     },
     plugins: []

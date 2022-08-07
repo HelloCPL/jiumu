@@ -40,6 +40,7 @@ interface DataBaseFile extends DataBase {
   fileName: string
   fileSize: number
   staticPlace: string
+  suffix: string
   createUser: string
   isSecret: '0' | '1'
   checkValidTime: string

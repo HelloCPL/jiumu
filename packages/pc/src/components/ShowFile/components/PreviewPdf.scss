@@ -1,0 +1,38 @@
+.preview-pdf {
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .preview-pdf-close {
+    width: 44px;
+    height: 44px;
+    background-color: var(--jm-color-text-light);
+    font-size: 24px;
+  }
+
+  .preview-pdf-bottom {
+    bottom: 30px;
+    width: 320px;
+    height: 44px;
+    border-radius: 22px;
+    padding: 0 24px;
+    background-color: var(--jm-color-text-light);
+    font-size: 22px;
+
+    .preview-page {
+      cursor: default;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .preview-pdf-content {
+    height: calc(100vh - 100px);
+    margin-top: 14px;
+    width: 100%;
+  }
+
+  .vue-pdf-embed {
+    text-align: center;
+    width: 720px;
+    margin: 0 auto;
+    min-height: 100%;
+  }
+}

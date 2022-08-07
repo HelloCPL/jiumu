@@ -38,9 +38,8 @@ export const formatDate = (date: any, format = 'YYYY-MM-DD HH:mm:ss'): any => {
  */
 export const findChildrenFirst = (arr: any[] = [], key = 'code') => {
   let target = ''
-  const _find = (arr: any[], key) => {
+  const _find = (arr: any[], key: any) => {
     const item = arr[0]
-    console.log('item', item)
     if (item) {
       if (item.children && item.children.length) {
         _find(item.children, key)
@@ -59,4 +58,19 @@ export const findChildrenFirst = (arr: any[] = [], key = 'code') => {
 export const getText = (html: string): string => {
   if (!html) return ''
   return html.replace(/<\/?[^>]*>|(\n|\t|\r)|(\s)/g, '')
+}
+
+/**
+ * 获取后缀
+ * suffix 字符 separator 指定分隔符 返回目标是否包含指定分隔符
+ */
+export const getSuffix = (str: string, separator = '.', includeSeparator = false): string => {
+  let suffix: string = ''
+  if (!str) return suffix
+  let i = str.lastIndexOf(separator)
+  if (!includeSeparator) i = i + separator.length
+  suffix = str.substring(i)
+  const i2 = suffix.indexOf('?')
+  if (i2 !== -1) suffix = suffix.substring(0, i2)
+  return suffix
 }

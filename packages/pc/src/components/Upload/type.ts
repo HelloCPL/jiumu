@@ -11,8 +11,8 @@ export const uploadProps = buildProps({
   ..._uploadProps,
   type: {
     // 上传类型
-    type: String as PropType<'image' | 'file' | 'videos'>,
-    default: 'image'
+    type: String as PropType<'images' | 'files' | 'videos'>,
+    default: 'images'
   },
   accept: {
     // 文件类型
@@ -27,7 +27,7 @@ export const uploadProps = buildProps({
   limit: {
     // 最大上传数量
     type: Number,
-    default: 0
+    default: 9
   },
   limited: {
     // 已上传数量
@@ -37,10 +37,6 @@ export const uploadProps = buildProps({
   disabled: {
     type: Boolean,
     default: false
-  },
-  placeholder: {
-    type: String,
-    default: ''
   },
   params: {
     // 自定义上传参数

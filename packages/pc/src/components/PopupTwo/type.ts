@@ -1,3 +1,7 @@
+/**
+ * 弹窗左右两侧组件参数类型
+ */
+
 import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 
