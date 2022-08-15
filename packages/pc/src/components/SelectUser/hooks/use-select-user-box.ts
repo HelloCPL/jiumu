@@ -42,7 +42,6 @@ export const useSelectUserBox = (props: any, emit: any) => {
   }
 
   const changeRadio = (info: DataUserInfo) => {
-    console.log(111)
     if (_data.value.length && _data.value[0].id === info.id) {
       _data.value = [{ ...info }]
     } else {

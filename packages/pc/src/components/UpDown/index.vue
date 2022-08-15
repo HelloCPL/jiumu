@@ -39,13 +39,14 @@ import { ElIcon } from 'element-plus'
 import { ArrowDownBold } from '@element-plus/icons-vue'
 
 const props = defineProps(upDownProps)
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
 const box = ref<HTMLElement>()
 const { height } = useElementSize(box)
 
 const handleClick = () => {
   emit('update:modelValue', !props.modelValue)
+  emit('change', !props.modelValue)
 }
 </script>
 

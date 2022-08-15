@@ -67,7 +67,6 @@ const emit = defineEmits(['update:modelValue', 'change'])
 const isShow = ref<boolean>(false)
 
 const handleDelete = (index: number) => {
-  console.log(index)
   if (index === -1) {
     emit('update:modelValue', [])
     emit('change', [])

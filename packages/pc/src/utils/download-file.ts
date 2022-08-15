@@ -5,34 +5,16 @@
  */
 
 import { useUserStore } from '@/store'
+import { isPlainObject } from 'lodash-es'
 import { Message } from './interaction'
 
 /**
  * 文件下载
  */
 export const downloadFile = (file: DataBaseFile) => {
-  _getBlob(file.filePath, (blob: Blob) => {
-    _saveFile(blob, file.fileName)
+  getFileBlod(file.filePath, {}).then((data) => {
+    _saveFile(data, file.fileName)
   })
-}
-
-function _getBlob(url: string, cd: Function) {
-  const xhr = new XMLHttpRequest()
-  xhr.open('GET', url, true)
-  xhr.responseType = 'blob'
-  const store = useUserStore()
-  if (store.token) {
-    xhr.setRequestHeader('Authorization', store.token)
-  }
-  // 监听请求
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      cd(xhr.response)
-    } else {
-      Message('文件下载失败')
-    }
-  }
-  xhr.send()
 }
 
 // 保存文件
@@ -55,23 +37,41 @@ function _saveFile(blob: Blob, fileName: string) {
 /**
  * 请求返回文本
  */
-export const downloadText = (url: string): Promise<any> => {
+export const getFileText = (url: string): Promise<any> => {
+  return new Promise((resolve) => {
+    getFileBlod(url).then((data) => {
+      const reader = new FileReader()
+      reader.readAsText(data, 'GBK')
+      reader.onload = function (e) {
+        resolve(e.target?.result)
+      }
+    })
+  })
+}
+
+/**
+ * 请求返回 blob 文件流
+ */
+export const getFileBlod = (
+  url: string,
+  headers: ObjectAny = { 'Content-Type': 'application/x-www-form-urlencoded' }
+): Promise<any> => {
   return new Promise((resolve) => {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.responseType = 'blob'
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    if (isPlainObject(headers)) {
+      for (const key in headers) {
+        xhr.setRequestHeader(key, headers[key])
+      }
+    }
     const store = useUserStore()
     if (store.token) {
       xhr.setRequestHeader('Authorization', store.token)
     }
     xhr.onload = function () {
       if (xhr.status === 200) {
-        const reader = new FileReader()
-        reader.readAsText(xhr.response, 'GBK')
-        reader.onload = function (e) {
-          resolve(e.target?.result)
-        }
+        resolve(xhr.response)
       } else {
         Message('文件请求失败')
       }

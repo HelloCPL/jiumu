@@ -13,7 +13,7 @@ export const showImageProps = buildProps({
   isDelete: {
     // 是否可删除
     type: Boolean,
-    default: true
+    default: false
   },
   isPreview: {
     type: Boolean,

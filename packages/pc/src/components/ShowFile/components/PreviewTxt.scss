@@ -28,9 +28,35 @@
   .preview-txt-wrapper {
     width: 720px;
     margin: 0 auto;
-    min-height: 100%;
+    min-height: calc(100vh - 100px);
     background: #ffffff;
     line-height: 1.5;
     white-space: pre-wrap;
+  }
+
+  .preview-excel-content {
+    height: calc(100vh - 30px);
+    margin-top: 14px;
+    width: 100%;
+  }
+
+  #preview-excel-wrapper {
+    width: 1208px;
+    height: 100%;
+    margin: 0 auto;
+    background: #ffffff;
+  }
+
+  :deep(.docx-wrapper) {
+    background: #ffffff;
+    padding: 0;
+  }
+
+  :deep(.docx-wrapper>section.docx) {
+    margin-bottom: 0;
+  }
+
+  :deep(.luckysheet-stat-area) {
+    background: #ffffff;
   }
 }

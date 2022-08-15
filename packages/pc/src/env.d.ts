@@ -27,4 +27,8 @@ declare module '*.vue' {
 declare global {
   // 解决 pnpm 子项目不能提示问题
   const defineOptions: typeof defineComponent
+
+  interface Window {
+    luckysheet: any
+  }
 }

@@ -32,6 +32,14 @@ export const useIndex = (props: ShowFileProps, emit: any) => {
         state.urlPdf = file.filePath
         state.showPdf = true
         break
+      case 'word':
+        state.urlWord = file.filePath
+        state.showWord = true
+        break
+      case 'excel':
+        state.urlExcel = file.filePath
+        state.showExcel = true
+        break
       case 'txt':
         state.urlTxt = file.filePath
         state.showTxt = true
@@ -44,8 +52,9 @@ export const useIndex = (props: ShowFileProps, emit: any) => {
       const res = await deleteFile(file.id)
       if (res.code === 200) {
         const arr = props.modelValue
-        arr.splice(index, 1)
+        const item = arr.splice(index, 1)
         emit('update:modelValue', arr)
+        emit('change', arr, item)
       }
     })
   }

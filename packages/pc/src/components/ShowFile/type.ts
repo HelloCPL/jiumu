@@ -13,7 +13,7 @@ export const showFileProps = buildProps({
   isDelete: {
     // 是否可删除 硬删除
     type: Boolean,
-    default: true
+    default: false
   },
   isDownload: {
     // 是否可下载

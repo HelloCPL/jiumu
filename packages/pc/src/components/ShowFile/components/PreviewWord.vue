@@ -1,5 +1,5 @@
 <!--
-  @describe: txt 预览
+  @describe: word 预览
   @author cpl
   @update 2022-08-07 16:50:39
 -->
@@ -32,12 +32,12 @@
       </span>
       <div class="w-full g-scroll-y-0 preview-txt-content">
         <div ref="refBox">
+          <!-- word 容器 -->
           <div
-            class="px-24 py-28 preview-txt-wrapper"
+            class="preview-txt-wrapper"
             :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
-          >
-            {{ content }}
-          </div>
+            ref="refContent"
+          ></div>
         </div>
       </div>
     </div>
@@ -48,7 +48,9 @@
 import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { reactive, ref, nextTick } from 'vue'
-import { getFileText } from '@/utils/download-file'
+import { getFileBlod } from '@/utils/download-file'
+import { renderAsync } from 'docx-preview'
+
 const props = defineProps({
   url: {
     type: String,
@@ -58,10 +60,12 @@ const props = defineProps({
 })
 defineEmits(['close'])
 
-const content = ref<string>('')
+const refContent = ref<HTMLDivElement>()
 const getContent = () => {
-  getFileText(props.url).then((data: any) => {
-    content.value = data
+  getFileBlod(props.url).then((data: any) => {
+    nextTick(() => {
+      renderAsync(data, refContent.value as HTMLDivElement)
+    })
   })
 }
 getContent()
