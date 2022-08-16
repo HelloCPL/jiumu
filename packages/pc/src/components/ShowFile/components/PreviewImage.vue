@@ -13,6 +13,7 @@ import { ElImageViewer } from 'element-plus'
 import { PropType } from 'vue'
 
 defineProps({
+  // 其他参数与ElImageViewer保持一致
   urlList: {
     type: Array as PropType<string[]>,
     require: true,

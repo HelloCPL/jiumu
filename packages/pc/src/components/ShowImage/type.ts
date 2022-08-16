@@ -7,7 +7,7 @@ import { ExtractPropTypes, PropType } from 'vue'
 
 export const showImageProps = buildProps({
   modelValue: {
-    type: Array as PropType<DataBaseFile[]>,
+    type: Array as PropType<DataBaseFile[] | string[]>,
     default: () => []
   },
   isDelete: {
