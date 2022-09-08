@@ -5,11 +5,17 @@
 -->
 
 <template>
-  <div>ClassifyMe</div>
+  <div class="p-6">
+    <Editor v-model="vv"></Editor>
+  </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
+import Editor from '@/components/Editor/index.vue'
 defineOptions({
   name: 'ClassifyMe'
 })
+
+const vv = ref('')
 </script>

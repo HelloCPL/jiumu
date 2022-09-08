@@ -6,7 +6,8 @@
     "src/**/*.d.ts",
      "src/**/*.tsx",
      "src/**/*.vue",
-     ".src/env.d.ts"
+     ".src/env.d.ts",
+     "./custom-type.d.ts"
     ],
   "compilerOptions": {
     // "types": ["element-plus/global"],
