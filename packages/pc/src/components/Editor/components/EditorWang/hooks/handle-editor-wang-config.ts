@@ -7,57 +7,57 @@ import { isPlainObject } from 'lodash-es'
 
 // 工具栏配置
 const toolbarConfig: Partial<IToolbarConfig> = {
-  // toolbarKeys: [
-  //   'undo',
-  //   'redo',
-  //   'clearStyle',
-  //   '|',
-  //   'headerSelect',
-  //   'fontSize',
-  //   'fontFamily',
-  //   'lineHeight',
-  //   '|',
-  //   'bold',
-  //   'italic',
-  //   'color',
-  //   'bgColor',
-  //   'underline',
-  //   'through',
-  //   {
-  //     key: 'group-justify',
-  //     title: '对齐',
-  //     menuKeys: ['justifyLeft', 'justifyRight', 'justifyCenter', 'justifyJustify']
-  //   },
-  //   {
-  //     key: 'group-indent',
-  //     title: '缩进',
-  //     menuKeys: ['indent', 'delIndent']
-  //   },
-  //   '|',
-  //   'blockquote',
-  //   'sup',
-  //   'sub',
-  //   'bulletedList',
-  //   // 'numberedList',
-  //   '|',
-  //   'code',
-  //   'codeBlock',
-  //   // 'insertLink',
-  //   {
-  //     key: 'group-image',
-  //     title: '图片',
-  //     menuKeys: ['insertImage', 'uploadImage']
-  //   },
-  //   {
-  //     key: 'group-video',
-  //     title: '视频',
-  //     menuKeys: ['insertVideo', 'uploadVideo']
-  //   },
-  //   'insertTable',
-  //   'divider',
-  //   '|',
-  //   'fullScreen'
-  // ]
+  toolbarKeys: [
+    'undo',
+    'redo',
+    'clearStyle',
+    '|',
+    'headerSelect',
+    'fontSize',
+    'fontFamily',
+    'lineHeight',
+    '|',
+    'bold',
+    'italic',
+    'color',
+    'bgColor',
+    'underline',
+    'through',
+    {
+      key: 'group-justify',
+      title: '对齐',
+      menuKeys: ['justifyLeft', 'justifyRight', 'justifyCenter', 'justifyJustify']
+    },
+    {
+      key: 'group-indent',
+      title: '缩进',
+      menuKeys: ['indent', 'delIndent']
+    },
+    '|',
+    'blockquote',
+    'sup',
+    'sub',
+    'bulletedList',
+    // 'numberedList',
+    '|',
+    'code',
+    'codeBlock',
+    // 'insertLink',
+    {
+      key: 'group-image',
+      title: '图片',
+      menuKeys: ['insertImage', 'uploadImage']
+    },
+    {
+      key: 'group-video',
+      title: '视频',
+      menuKeys: ['insertVideo', 'uploadVideo']
+    },
+    'insertTable',
+    'divider',
+    '|',
+    'fullScreen'
+  ]
 }
 
 export const getToolbarConfig = (config: Partial<IToolbarConfig>): Partial<IToolbarConfig> => {

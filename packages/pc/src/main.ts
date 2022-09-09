@@ -6,9 +6,10 @@ import router from './router'
 // css 处理
 import './style/css/reset.scss'
 import 'element-plus/dist/index.css'
+import '@wangeditor/editor/dist/css/style.css'
 import './style/css/element-root.scss'
 import './style/css/index.scss'
-import {useGlobalComponents} from './components/global'
+import { useGlobalComponents } from './components/global'
 
 import { defineGlobal, defineDirective } from './utils/vue-global'
 
