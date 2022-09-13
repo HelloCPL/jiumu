@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="bg-white flex flex-col editor-wang-container">
+  <div class="w-full bg-white flex flex-col editor-wang-container" :style="{ height: height + 'px' }">
     <!-- 工具栏 -->
     <div id="toolbar-container"></div>
     <!-- 编辑器内容 -->
@@ -17,8 +17,9 @@
 import { useEditorWang } from './hooks/use-editor-wang'
 import { editorWangProps } from './type'
 const props = defineProps(editorWangProps)
+const emit = defineEmits(['update:modelValue', 'change', 'blur', 'focus'])
 
-useEditorWang(props)
+useEditorWang(props, emit)
 </script>
 
 <style lang="scss">

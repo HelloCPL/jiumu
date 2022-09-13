@@ -4,6 +4,7 @@
 
 import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import { isPlainObject } from 'lodash-es'
+import { EditorWangProps } from '../type'
 
 // 工具栏配置
 const toolbarConfig: Partial<IToolbarConfig> = {
@@ -76,10 +77,14 @@ export const getToolbarConfig = (config: Partial<IToolbarConfig>): Partial<ITool
 // 编辑器配置
 const editorConfig: Partial<IEditorConfig> = {
   placeholder: '请输入...',
-  scroll: true,
+  scroll: false,
   MENU_CONF: {
     fontSize: {
-      fontSizeList: ['12px', '14px', '16px', '18px', '20px', '21px', '24px', '29px', '32px', '34px']
+      // title: '字大小',
+      fontSizeList: ['12px', '14px', '16px', '18px', '20px', '21px', '24px', '29px', '32px', '34px'],
+      // default: '24px',
+      title: '号',
+      default: '默号'
     },
     lineHeight: {
       lineHeightList: ['1', '1.2', '1.5', '2']
@@ -97,7 +102,9 @@ const editorConfig: Partial<IEditorConfig> = {
 
 // }
 
-export const getEditorConfig = (config: Partial<IEditorConfig>): Partial<IEditorConfig> => {
+export const getEditorConfig = (props: EditorWangProps): Partial<IEditorConfig> => {
+  const config: Partial<IEditorConfig> = props.config || {}
+  config.placeholder = props.placeholder
   const option: Partial<IEditorConfig> = {
     ...editorConfig
   }

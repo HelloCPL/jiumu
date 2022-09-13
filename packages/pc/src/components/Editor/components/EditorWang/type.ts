@@ -15,6 +15,10 @@ export const editorWangProps = buildProps({
     type: String,
     default: '请输入...'
   },
+  height: {
+    type: Number,
+    default: 500
+  },
   config: {
     // 富文本配置
     type: Object as PropType<Partial<IDomEditor>>,
