@@ -1,9 +1,42 @@
 .editor-wang-container {
   border: 1px solid red;
-  height: 500px;
 
-  .editor-container {
-    height: 400px;
+  #toolbar-container {
+    .w-e-bar {
+      background: rgba(255, 0, 0, 0.1);
+
+      .w-e-bar-item button {
+        width: auto !important;
+      }
+    }
+  }
+
+  #editor-container {
+    .w-e-text-container {
+      background: rgba(0, 255, 0, 0.1);
+
+      .w-e-scroll {
+        overflow-y: auto !important;
+        overflow-x: hidden;
+
+        &::-webkit-scrollbar {
+          width: 7px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: transparent;
+          border-radius: 3.5px;
+        }
+
+        &:hover::-webkit-scrollbar-thumb {
+          background: var(--jm-color-black-1);
+        }
+
+        &:hover::-webkit-scrollbar-track {
+          background: transparent;
+        }
+      }
+    }
   }
 
   .w-e-text-container {

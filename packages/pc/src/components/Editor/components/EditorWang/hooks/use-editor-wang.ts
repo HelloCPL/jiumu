@@ -11,15 +11,24 @@
 7. 增加预览显示
 */
 
-import { IDomEditor, Toolbar, DomEditor, createEditor, createToolbar } from '@wangeditor/editor'
+import {
+  IDomEditor,
+  Toolbar,
+  DomEditor,
+  createEditor,
+  createToolbar,
+  IEditorConfig
+} from '@wangeditor/editor'
 import { onMounted, nextTick, watch, onUnmounted } from 'vue'
 import { EditorWangProps } from '../type'
 import { getToolbarConfig, getEditorConfig } from './handle-editor-wang-config'
+import { deleteFile } from '@/api/file'
+import { debounce } from 'lodash-es'
 
 export const useEditorWang = (props: EditorWangProps, emit: any) => {
   // 获取配置
   const toolbarConfig = getToolbarConfig(props.toolbarConfig)
-  const editorConfig = getEditorConfig(props)
+  const { originFiles, editorConfig } = getEditorConfig(props)
 
   let editor: IDomEditor | null = null
   let toolbar: Toolbar | null = null
@@ -44,29 +53,44 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
         selector: '#toolbar-container',
         config: toolbarConfig
       })
+      setEditorHeight()
     })
   }
 
+  // 设置编辑器高度 如果滚动设置高度 如果不滚动设置最小高度
+  const setEditorHeight = () => {
+    nextTick(() => {
+      const tDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('toolbar-container')
+      const eDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('editor-container')
+      if (tDiv && eDiv) {
+        const h = props.height - tDiv.clientHeight
+        if (h > 0) eDiv.style.height = h + 'px'
+      }
+    })
+  }
+
+  // 监听modelValue 同时做防抖处理
+  const debounceValue = debounce(() => {
+    nextTick(() => {
+      if (editor) editor.setHtml(value)
+    })
+  }, 1000)
   watch(
     () => props.modelValue,
     (val) => {
-      nextTick(() => {
-        if (editor) editor.setHtml(val)
-      })
+      value = val
+      debounceValue()
     }
   )
 
+  // 初始化和销毁操作
   onMounted(initEditor)
   onUnmounted(() => {
     if (editor) editor.destroy()
   })
 
   const onCreated = (editor: IDomEditor) => {
-    console.log(props, editor)
-
     editor.setHtml(props.modelValue)
-    const aa = editor.getMenuConfig('fontSize')
-    console.log('aa', aa)
   }
   const onChange = (editor: IDomEditor) => {
     value = editor.getHtml()
@@ -79,4 +103,31 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
   const onBlur = () => {
     emit('blur', value)
   }
+
+  // 销毁时删除富文本已删除的在线图片或视频
+  const removeFile = () => {
+    const imageList = editor?.getElemsByType('image') || []
+    const videoList = editor?.getElemsByType('video') || []
+    const arr = [...imageList, ...videoList]
+    const idsList: string[] = []
+    originFiles.forEach((file) => {
+      if (!findFileId(arr, file.filePath)) {
+        idsList.push(file.id)
+      }
+    })
+    const ids = idsList.join(',')
+    if (ids) deleteFile(ids)
+  }
+  onUnmounted(removeFile)
+}
+
+function findFileId(files: any[], url: string): boolean {
+  let flag = false
+  files.find((file) => {
+    if (file.src === url) {
+      flag = true
+      return flag
+    }
+  })
+  return flag
 }

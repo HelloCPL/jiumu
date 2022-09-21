@@ -5,9 +5,9 @@
 -->
 
 <template>
-  <div class="w-full bg-white flex flex-col editor-wang-container" :style="{ height: height + 'px' }">
+  <div class="w-full bg-white flex flex-col editor-wang-container">
     <!-- 工具栏 -->
-    <div id="toolbar-container"></div>
+    <div id="toolbar-container" class="bg-danger-100"></div>
     <!-- 编辑器内容 -->
     <div id="editor-container"></div>
   </div>
