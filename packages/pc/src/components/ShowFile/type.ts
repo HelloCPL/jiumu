@@ -6,6 +6,7 @@ import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const showFileProps = buildProps({
+  // 双向绑定值 值类型为文件列表数组
   modelValue: {
     type: Array as PropType<DataBaseFile[]>,
     default: () => []

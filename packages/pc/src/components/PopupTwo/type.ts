@@ -55,14 +55,17 @@ export const popupTwoProps = buildProps({
     type: Boolean,
     default: true
   },
+  // 右侧栅格数
   spanRight: {
     type: Number,
     default: 12
   },
+  // 组件高度
   height: {
     type: String,
     default: '50vh'
   },
+  // 是否显示更多
   showMore: {
     type: Boolean,
     default: true

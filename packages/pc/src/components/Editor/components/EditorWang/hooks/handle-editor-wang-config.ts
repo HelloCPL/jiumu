@@ -60,8 +60,10 @@ export const getToolbarConfig = (config: Partial<IToolbarConfig>): Partial<ITool
       },
       'insertTable',
       '|',
-      'fullScreen',
-      'preview'
+      // 'fullScreen',
+      'MyButtonTitle',
+      'MyButtonPreview',
+      'MyButtonFullScreen'
     ]
   }
   if (isPlainObject(config)) {

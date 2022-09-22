@@ -1,6 +1,6 @@
 /**
  * 筛选按钮组件参数类型
-*/
+ */
 
 import { buildProps } from '@jiumu/utils'
 import { PropType, ExtractPropTypes } from 'vue'
@@ -16,6 +16,7 @@ export type PropsList = {
 }
 
 export const filterButtonProps = buildProps({
+  // 按钮列表
   list: {
     type: Array as PropType<PropsList[]>,
     default: () => [{ name: '新增', key: 'add', type: 'primary' }]

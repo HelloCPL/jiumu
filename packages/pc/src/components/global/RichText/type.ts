@@ -6,6 +6,7 @@ import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 
 export const richTextProps = buildProps({
+  // html结构文本
   html: {
     type: String,
     default: ''

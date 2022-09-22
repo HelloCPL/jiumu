@@ -19,11 +19,12 @@ import {
   createToolbar,
   IEditorConfig
 } from '@wangeditor/editor'
-import { onMounted, nextTick, watch, onUnmounted } from 'vue'
+import { onMounted, nextTick, watch, onUnmounted, ref } from 'vue'
 import { EditorWangProps } from '../type'
 import { getToolbarConfig, getEditorConfig } from './handle-editor-wang-config'
 import { deleteFile } from '@/api/file'
 import { debounce } from 'lodash-es'
+import gsap from 'gsap'
 
 export const useEditorWang = (props: EditorWangProps, emit: any) => {
   // 获取配置
@@ -33,6 +34,35 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
   let editor: IDomEditor | null = null
   let toolbar: Toolbar | null = null
   let value: string = ''
+
+  // 富文本创建完成回调
+  const onCreated = (editor: IDomEditor) => {
+    editor.setHtml(props.modelValue)
+    handleEditorEmit(editor)
+  }
+  const onChange = (editor: IDomEditor) => {
+    value = editor.getHtml()
+    emit('update:modelValue', value)
+    emit('change', value)
+  }
+  const onFocus = () => {
+    emit('focus', value)
+  }
+  const onBlur = () => {
+    emit('blur', value)
+  }
+
+  // 设置编辑器高度
+  const setEditorHeight = () => {
+    nextTick(() => {
+      const tDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('toolbar-container')
+      const eDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('editor-container')
+      if (tDiv && eDiv) {
+        const h = props.height - tDiv.clientHeight
+        if (h > 0) eDiv.style.height = h + 'px'
+      }
+    })
+  }
 
   // 初始化编辑器
   const initEditor = () => {
@@ -57,17 +87,11 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
     })
   }
 
-  // 设置编辑器高度 如果滚动设置高度 如果不滚动设置最小高度
-  const setEditorHeight = () => {
-    nextTick(() => {
-      const tDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('toolbar-container')
-      const eDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('editor-container')
-      if (tDiv && eDiv) {
-        const h = props.height - tDiv.clientHeight
-        if (h > 0) eDiv.style.height = h + 'px'
-      }
-    })
-  }
+  // 初始化和销毁操作
+  onMounted(initEditor)
+  onUnmounted(() => {
+    if (editor) editor.destroy()
+  })
 
   // 监听modelValue 同时做防抖处理
   const debounceValue = debounce(() => {
@@ -82,27 +106,6 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
       debounceValue()
     }
   )
-
-  // 初始化和销毁操作
-  onMounted(initEditor)
-  onUnmounted(() => {
-    if (editor) editor.destroy()
-  })
-
-  const onCreated = (editor: IDomEditor) => {
-    editor.setHtml(props.modelValue)
-  }
-  const onChange = (editor: IDomEditor) => {
-    value = editor.getHtml()
-    emit('update:modelValue', value)
-    emit('change', value)
-  }
-  const onFocus = () => {
-    emit('focus', value)
-  }
-  const onBlur = () => {
-    emit('blur', value)
-  }
 
   // 销毁时删除富文本已删除的在线图片或视频
   const removeFile = () => {
@@ -119,6 +122,33 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
     if (ids) deleteFile(ids)
   }
   onUnmounted(removeFile)
+
+  // 自定义按钮监听逻辑
+  const showCatalog = ref<boolean>(false)
+  const catalogHeaders = ref<any[]>([])
+
+  const handleEditorEmit = (editor: IDomEditor) => {
+    editor.on('wang-editor-title', (active: boolean) => {
+      showCatalog.value = active
+      if (active) {
+        const headers = editor.getElemsByTypePrefix('header')
+
+        console.log('headers', headers)
+      }
+    })
+    editor.on('wang-editor-preview', (active: boolean) => {
+      console.log('wang-editor-preview', active)
+    })
+    editor.on('wang-editor-fullScreen', (active: boolean) => {
+      if (active) editor.fullScreen()
+      else editor.unFullScreen()
+    })
+  }
+
+  return {
+    showCatalog,
+    catalogHeaders
+  }
 }
 
 function findFileId(files: any[], url: string): boolean {

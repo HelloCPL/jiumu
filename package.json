@@ -30,6 +30,7 @@
         "dayjs": "^1.11.4",
         "docx-preview": "^0.1.11",
         "gsap": "^3.10.4",
+        "jquery": "^3.6.1",
         "lodash-es": "^4.17.21",
         "luckyexcel": "^1.0.1",
         "pinia": "^2.0.14",

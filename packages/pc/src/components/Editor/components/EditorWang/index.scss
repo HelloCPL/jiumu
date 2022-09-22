@@ -1,10 +1,12 @@
 .editor-wang-container {
   border: 1px solid red;
 
+  .editor-title {
+    width: 250px;
+  }
+
   #toolbar-container {
     .w-e-bar {
-      background: rgba(255, 0, 0, 0.1);
-
       .w-e-bar-item button {
         width: auto !important;
       }
@@ -13,8 +15,6 @@
 
   #editor-container {
     .w-e-text-container {
-      background: rgba(0, 255, 0, 0.1);
-
       .w-e-scroll {
         overflow-y: auto !important;
         overflow-x: hidden;

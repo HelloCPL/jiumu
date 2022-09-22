@@ -6,6 +6,7 @@ import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 
 export const moreBtnProps = buildProps({
+  // 是否显示更多
   show: Boolean
 } as const)
 

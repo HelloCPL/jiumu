@@ -7,10 +7,13 @@ import { ExtractPropTypes } from 'vue'
 import { inputProps } from 'element-plus'
 
 export const searchProps = buildProps({
+  // 其他参数与 elementPlus Input 参数保持一致
   ...inputProps,
+  // 双向绑定
   modelValue: {
     type: String
   },
+  // 类型
   type: {
     type: String,
     default: 'text'

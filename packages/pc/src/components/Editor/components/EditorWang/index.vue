@@ -5,21 +5,28 @@
 -->
 
 <template>
-  <div class="w-full bg-white flex flex-col editor-wang-container">
-    <!-- 工具栏 -->
-    <div id="toolbar-container" class="bg-danger-100"></div>
-    <!-- 编辑器内容 -->
-    <div id="editor-container"></div>
+  <div class="w-full bg-white flex editor-wang-container">
+    <!-- 编辑器  -->
+    <div class="flex-1">
+      <!-- 工具栏 -->
+      <div id="toolbar-container"></div>
+      <!-- 编辑器内容 -->
+      <div id="editor-container"></div>
+    </div>
+    <!-- 标题 -->
+    <TitleCatalog :active="showCatalog" :headers="catalogHeaders" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useEditorWang } from './hooks/use-editor-wang'
 import { editorWangProps } from './type'
+import TitleCatalog from './components/TitleCatalog.vue'
+
 const props = defineProps(editorWangProps)
 const emit = defineEmits(['update:modelValue', 'change', 'blur', 'focus'])
 
-useEditorWang(props, emit)
+const { showCatalog, catalogHeaders } = useEditorWang(props, emit)
 </script>
 
 <style lang="scss">

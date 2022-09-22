@@ -2,14 +2,35 @@
  * 添加自定义菜单按钮
  */
 
-import { Boot } from '@wangeditor/editor'
-import { MyButtonMenuPreview } from './editor-wang-custom-menus-preview'
+import { Boot, IModuleConf } from '@wangeditor/editor'
+import { MyMenuButton } from './editor-wang-custom-menus-button'
+import { previewSvg } from '@/assets/svg/index'
+import { titleSvg } from '@/assets/svg/index'
+import { fullScreenSvg } from '@/assets/svg/index'
 
-const menuConf1 = {
-  key: 'preview',
+const menuButtonPreview = {
+  key: 'MyButtonPreview',
   factory() {
-    return new MyButtonMenuPreview()
+    return new MyMenuButton('预览', 'preview', previewSvg)
   }
 }
 
-Boot.registerMenu(menuConf1)
+const menuButtonTitle = {
+  key: 'MyButtonTitle',
+  factory() {
+    return new MyMenuButton('查看目录', 'title', titleSvg)
+  }
+}
+
+const menuButtonFullScreen = {
+  key: 'MyButtonFullScreen',
+  factory() {
+    return new MyMenuButton('全屏', 'fullScreen', fullScreenSvg)
+  }
+}
+
+const module: Partial<IModuleConf> = {
+  menus: [menuButtonPreview, menuButtonTitle, menuButtonFullScreen]
+}
+
+Boot.registerModule(module)
