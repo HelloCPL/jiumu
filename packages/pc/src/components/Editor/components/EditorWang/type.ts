@@ -17,7 +17,7 @@ export const editorWangProps = buildProps({
   },
   height: {
     type: Number,
-    default: 580
+    default: 520
   },
   config: {
     // 富文本配置

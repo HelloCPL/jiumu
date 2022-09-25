@@ -24,11 +24,10 @@ import { EditorWangProps } from '../type'
 import { getToolbarConfig, getEditorConfig } from './handle-editor-wang-config'
 import { deleteFile } from '@/api/file'
 import { debounce } from 'lodash-es'
-import gsap from 'gsap'
 
-export const useEditorWang = (props: EditorWangProps, emit: any) => {
+export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => {
   // 获取配置
-  const toolbarConfig = getToolbarConfig(props.toolbarConfig)
+  const toolbarConfig = getToolbarConfig(props.toolbarConfig, id)
   const { originFiles, editorConfig } = getEditorConfig(props)
 
   let editor: IDomEditor | null = null
@@ -44,6 +43,7 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
     value = editor.getHtml()
     emit('update:modelValue', value)
     emit('change', value)
+    handleTitle(editor)
   }
   const onFocus = () => {
     emit('focus', value)
@@ -55,8 +55,8 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
   // 设置编辑器高度
   const setEditorHeight = () => {
     nextTick(() => {
-      const tDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('toolbar-container')
-      const eDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('editor-container')
+      const tDiv: HTMLDivElement = <HTMLDivElement>document.getElementById(`toolbar-${id}`)
+      const eDiv: HTMLDivElement = <HTMLDivElement>document.getElementById(`editor-${id}`)
       if (tDiv && eDiv) {
         const h = props.height - tDiv.clientHeight
         if (h > 0) eDiv.style.height = h + 'px'
@@ -68,7 +68,7 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
   const initEditor = () => {
     nextTick(() => {
       editor = createEditor({
-        selector: '#editor-container',
+        selector: `#editor-${id}`,
         html: '',
         config: {
           ...editorConfig,
@@ -80,7 +80,7 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
       })
       toolbar = createToolbar({
         editor,
-        selector: '#toolbar-container',
+        selector: `#toolbar-${id}`,
         config: toolbarConfig
       })
       setEditorHeight()
@@ -126,18 +126,19 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
   // 自定义按钮监听逻辑
   const showCatalog = ref<boolean>(false)
   const catalogHeaders = ref<any[]>([])
+  const handleTitle = (editor: IDomEditor) => {
+    if (showCatalog.value) {
+      catalogHeaders.value = editor.getElemsByTypePrefix('header')
+    }
+  }
+  const handleChangeTitle = (item: any) => {
+    editor?.scrollToElem(item.id)
+  }
 
   const handleEditorEmit = (editor: IDomEditor) => {
     editor.on('wang-editor-title', (active: boolean) => {
       showCatalog.value = active
-      if (active) {
-        const headers = editor.getElemsByTypePrefix('header')
-
-        console.log('headers', headers)
-      }
-    })
-    editor.on('wang-editor-preview', (active: boolean) => {
-      console.log('wang-editor-preview', active)
+      handleTitle(editor)
     })
     editor.on('wang-editor-fullScreen', (active: boolean) => {
       if (active) editor.fullScreen()
@@ -147,7 +148,8 @@ export const useEditorWang = (props: EditorWangProps, emit: any) => {
 
   return {
     showCatalog,
-    catalogHeaders
+    catalogHeaders,
+    handleChangeTitle
   }
 }
 

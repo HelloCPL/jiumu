@@ -1,19 +1,26 @@
 .editor-wang-container {
-  border: 1px solid red;
+  // border: 1px solid red;
 
   .editor-title {
     width: 250px;
   }
 
-  #toolbar-container {
+  .toolbar-container {
     .w-e-bar {
-      .w-e-bar-item button {
-        width: auto !important;
+      .w-e-bar-item {
+        button {
+          width: auto !important;
+        }
+
+        .myactive {
+          background-color: var(--w-e-toolbar-active-bg-color);
+          color: var(--w-e-toolbar-active-color);
+        }
       }
     }
   }
 
-  #editor-container {
+  .editor-container {
     .w-e-text-container {
       .w-e-scroll {
         overflow-y: auto !important;
@@ -40,10 +47,16 @@
   }
 
   .w-e-text-container {
-    padding-top: 15px;
-
     p {
       margin: 0;
     }
+  }
+
+  .w-e-text-placeholder {
+    top: 0;
+  }
+
+  .w-e-full-screen-container {
+    z-index: 999;
   }
 }

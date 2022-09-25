@@ -4,33 +4,35 @@
 
 import { Boot, IModuleConf } from '@wangeditor/editor'
 import { MyMenuButton } from './editor-wang-custom-menus-button'
-import { previewSvg } from '@/assets/svg/index'
+// import { previewSvg } from '@/assets/svg/index'
 import { titleSvg } from '@/assets/svg/index'
 import { fullScreenSvg } from '@/assets/svg/index'
 
-const menuButtonPreview = {
-  key: 'MyButtonPreview',
-  factory() {
-    return new MyMenuButton('预览', 'preview', previewSvg)
+export const initCustomMenus = (id: string) => {
+  // const menuButtonPreview = {
+  //   key: 'MyButtonPreview',
+  //   factory() {
+  //     return new MyMenuButton('预览', 'preview', previewSvg, id)
+  //   }
+  // }
+
+  const menuButtonTitle = {
+    key: 'MyButtonTitle',
+    factory() {
+      return new MyMenuButton('查看目录', 'title', titleSvg, id)
+    }
   }
-}
 
-const menuButtonTitle = {
-  key: 'MyButtonTitle',
-  factory() {
-    return new MyMenuButton('查看目录', 'title', titleSvg)
+  const menuButtonFullScreen = {
+    key: 'MyButtonFullScreen',
+    factory() {
+      return new MyMenuButton('全屏', 'fullScreen', fullScreenSvg, id)
+    }
   }
-}
 
-const menuButtonFullScreen = {
-  key: 'MyButtonFullScreen',
-  factory() {
-    return new MyMenuButton('全屏', 'fullScreen', fullScreenSvg)
+  const module: Partial<IModuleConf> = {
+    menus: [menuButtonTitle, menuButtonFullScreen]
   }
-}
 
-const module: Partial<IModuleConf> = {
-  menus: [menuButtonPreview, menuButtonTitle, menuButtonFullScreen]
+  Boot.registerModule(module)
 }
-
-Boot.registerModule(module)

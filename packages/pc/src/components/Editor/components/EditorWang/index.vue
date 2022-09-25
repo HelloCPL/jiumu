@@ -5,16 +5,16 @@
 -->
 
 <template>
-  <div class="w-full bg-white flex editor-wang-container">
+  <div class="w-full bg-white flex border-1 editor-wang-container">
     <!-- 编辑器  -->
     <div class="flex-1">
       <!-- 工具栏 -->
-      <div id="toolbar-container"></div>
+      <div :id="'toolbar-' + id" class="toolbar-container"></div>
       <!-- 编辑器内容 -->
-      <div id="editor-container"></div>
+      <div :id="'editor-' + id" class="editor-container"></div>
     </div>
     <!-- 标题 -->
-    <TitleCatalog :active="showCatalog" :headers="catalogHeaders" />
+    <TitleCatalog :active="showCatalog" :headers="catalogHeaders" @change="handleChangeTitle" />
   </div>
 </template>
 
@@ -22,11 +22,14 @@
 import { useEditorWang } from './hooks/use-editor-wang'
 import { editorWangProps } from './type'
 import TitleCatalog from './components/TitleCatalog.vue'
+import { getRandomId } from '@jiumu/utils'
 
 const props = defineProps(editorWangProps)
 const emit = defineEmits(['update:modelValue', 'change', 'blur', 'focus'])
 
-const { showCatalog, catalogHeaders } = useEditorWang(props, emit)
+const id = getRandomId()
+
+const { showCatalog, catalogHeaders, handleChangeTitle } = useEditorWang(props, emit, id)
 </script>
 
 <style lang="scss">

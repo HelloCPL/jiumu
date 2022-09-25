@@ -6,10 +6,11 @@ import { IEditorConfig, IToolbarConfig, i18nGetResources } from '@wangeditor/edi
 import { isPlainObject } from 'lodash-es'
 import { EditorWangProps } from '../type'
 import { editorWangCustom } from './editor-wang-custom'
-import './editor-wang-custom-menus'
+import { initCustomMenus } from './editor-wang-custom-menus'
 
 // 工具栏配置
-export const getToolbarConfig = (config: Partial<IToolbarConfig>): Partial<IToolbarConfig> => {
+export const getToolbarConfig = (config: Partial<IToolbarConfig>, id: string): Partial<IToolbarConfig> => {
+  initCustomMenus(id)
   const toolbarConfig: Partial<IToolbarConfig> = {
     toolbarKeys: [
       'undo',
@@ -60,9 +61,8 @@ export const getToolbarConfig = (config: Partial<IToolbarConfig>): Partial<ITool
       },
       'insertTable',
       '|',
-      // 'fullScreen',
       'MyButtonTitle',
-      'MyButtonPreview',
+      // 'MyButtonPreview',
       'MyButtonFullScreen'
     ]
   }

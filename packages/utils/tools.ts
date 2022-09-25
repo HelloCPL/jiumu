@@ -74,3 +74,15 @@ export const getSuffix = (str: string, separator = '.', includeSeparator = false
   if (i2 !== -1) suffix = suffix.substring(0, i2)
   return suffix
 }
+
+// 获取随机id
+export const getRandomId = (prefix = 'jiumu', len = 6): string => {
+  const str = 'abcdefghijklmnopqrstuvwxzy'
+  let id: string = prefix
+  id += new Date().valueOf()
+  for (let i = 0; i < len; i++) {
+    const s = Math.floor(Math.random() * 26)
+    id += str.substr(s, 1)
+  }
+  return id
+}
