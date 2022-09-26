@@ -10,7 +10,7 @@
     :style="{ width: catalog.width + 'px', opacity: catalog.opacity }"
   >
     <div class="g-scroll-y" style="width: 220px">
-      <p class="text-lg text-lighter p-2">标题目录：</p>
+      <p class="text-lg text-lighter p-2">导航目录</p>
       <p
         class="p-2 cursor-pointer"
         :style="{ paddingLeft: item.paddingLeft, fontSize: item.fontSize }"

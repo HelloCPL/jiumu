@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import EditorWang from './components/EditorWang/index.vue'
-import EditorMd from './components/EditorMd.vue'
+import EditorMd from './components/EditorMd/index.vue'
 import { editorProps } from './type'
 
 defineOptions({
