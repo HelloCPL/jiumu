@@ -1,0 +1,26 @@
+/*
+* 富文本编辑器主题颜色
+*/
+
+:root {
+  --w-e-textarea-bg-color: var(--jm-color-white);
+  --w-e-textarea-color: var(--jm-color-text);
+  --w-e-textarea-border-color: var(--jm-color-border);
+  --w-e-textarea-slight-border-color: var(--jm-color-border-lighter);
+  --w-e-textarea-slight-color: var(--jm-color-border-light);
+  --w-e-textarea-slight-bg-color: var(--jm-color-fill);
+  --w-e-textarea-selected-border-color: var(--jm-color-primary-100); // 选中的元素，如选中了分割线
+  --w-e-textarea-handler-bg-color: var(--jm-color-primary); // 工具，如图片拖拽按钮
+
+  // toolbar - css vars
+  --w-e-toolbar-color: var(--jm-color-text);
+  --w-e-toolbar-bg-color: var(--jm-color-white);
+  --w-e-toolbar-active-color: var(--jm-color-overlay);
+  --w-e-toolbar-active-bg-color: var(--jm-color-primary-100);
+  --w-e-toolbar-disabled-color: var(--jm-color-text-disabled);
+  --w-e-toolbar-border-color: var(--jm-color-border);
+
+  // modal - css vars
+  --w-e-modal-button-bg-color: var(--jm-color-white);
+  --w-e-modal-button-border-color: var(--jm-color-border);
+}

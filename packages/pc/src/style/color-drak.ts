@@ -299,17 +299,17 @@ const neutralColors: KeyValue<string, string>[] = [
   {
     key: 'overlay-default',
     alias: 'overlay',
-    value: 'rgba(0, 0, 0, .8)',
+    value: 'rgba(130, 131, 130, .8)',
     desc: '默认黑色遮罩层颜色'
   },
   {
     key: 'overlay-light',
-    value: 'rgba(0, 0, 0, .7)',
+    value: 'rgba(130, 131, 130, .7)',
     desc: '一级浅的黑色遮罩层颜色'
   },
   {
     key: 'overlay-lighter',
-    value: 'rgba(0, 0, 0, .5)',
+    value: 'rgba(130, 131, 130, .5)',
     desc: '二级浅的黑色遮罩层颜色'
   },
   {

@@ -68,18 +68,18 @@ const handleTitles = (headers: any[], active: boolean) => {
         }
         if (item.type === 'header1') {
           obj.paddingLeft = '0.5rem'
-          obj.fontSize = '2em'
+          obj.fontSize = '2rem'
         } else if (item.type === 'header2') {
           obj.paddingLeft = '0.75rem'
-          obj.fontSize = '1.5em'
+          obj.fontSize = '1.5rem'
         } else if (item.type === 'header3') {
           obj.paddingLeft = '1rem'
-          obj.fontSize = '1.17em'
+          obj.fontSize = '1.17rem'
         } else if (item.type === 'header4') {
           obj.paddingLeft = '1.25rem'
         } else {
           obj.paddingLeft = '1.5rem'
-          obj.fontSize = '0.83em'
+          obj.fontSize = '0.83rem'
         }
         _title.push(obj)
       }
