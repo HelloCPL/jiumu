@@ -4,7 +4,8 @@
 import { EditorMarkdownProps, ToolbarConfig } from '../type'
 
 export const getToolbarConfig = (config: ToolbarConfig): ToolbarConfig => {
-  return {}
+  const options: ToolbarConfig = {}
+  return options
 }
 
 export const handleMarkdownConfig = (props: EditorMarkdownProps) => {

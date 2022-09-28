@@ -11,19 +11,19 @@
     :height="height + 'px'"
     :toc-nav-position-right="true"
     :placeholder="placeholder"
-    :include-level="includeLevel"
-    :left-toolbar="leftToolbar"
   ></v-md-editor>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { editorMarkdownProps } from './type'
-import { useMarkdownIndex } from './hooks/use-markdown-index'
+// import { useMarkdownIndex } from './hooks/use-markdown-index'
+import { handleMarkdownConfig } from './hooks/handle-markdown-config'
 
 const props = defineProps(editorMarkdownProps)
+// const { includeLevel, leftToolbar } = handleMarkdownConfig(props)
 
-const { includeLevel, leftToolbar } = useMarkdownIndex(props)
+// const { includeLevel, leftToolbar } = useMarkdownIndex(props)
 
 const text = ref('')
 </script>
