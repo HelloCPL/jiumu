@@ -7,25 +7,28 @@
 <template>
   <!-- <div class="">markdown 编辑器</div> -->
   <v-md-editor
-    v-model="text"
+    v-model="value"
     :height="height + 'px'"
-    :toc-nav-position-right="true"
     :placeholder="placeholder"
+    :toc-nav-position-right="tocNavPositionRight"
+    :include-level="includeLevel"
+    :left-toolbar="leftToolbar"
+    :right-toolbar="rightToolbar"
+    :disabled-menus="disabledMenus"
+    ref="refVMdEditor"
+    @change="handleChange"
+    @upload-image="handleUploadImage"
   ></v-md-editor>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { editorMarkdownProps } from './type'
-// import { useMarkdownIndex } from './hooks/use-markdown-index'
-import { handleMarkdownConfig } from './hooks/handle-markdown-config'
+import { useMarkdownIndex } from './hooks/use-markdown-index'
 
 const props = defineProps(editorMarkdownProps)
-// const { includeLevel, leftToolbar } = handleMarkdownConfig(props)
+const emit = defineEmits(['update:modelValue', 'change'])
 
-// const { includeLevel, leftToolbar } = useMarkdownIndex(props)
-
-const text = ref('')
+const { value, refVMdEditor, handleChange, handleUploadImage } = useMarkdownIndex(props, emit)
 </script>
 
 <style lang="scss" scoped>

@@ -98,7 +98,7 @@ export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => 
     nextTick(() => {
       if (editor) editor.setHtml(value)
     })
-  }, 1000)
+  }, 800)
   watch(
     () => props.modelValue,
     (val) => {

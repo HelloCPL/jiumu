@@ -5,21 +5,24 @@
 -->
 
 <template>
+  <button @click="show = !show">销毁/显示</button>
   <EditorWang
     @update:model-value="updateModelValue"
     @change="change"
     @blur="blur"
     @focus="focus"
     v-bind="$attrs"
-    v-if="type === '401'"
+    v-if="type === '401' && show"
   ></EditorWang>
-  <EditorMd v-bind="$attrs" v-else></EditorMd>
+  <EditorMd v-bind="$attrs" v-if="type === '402' && show"></EditorMd>
 </template>
 
 <script lang="ts" setup>
 import EditorWang from './components/EditorWang/index.vue'
 import EditorMd from './components/EditorMd/index.vue'
 import { editorProps } from './type'
+import { ref } from 'vue'
+const show = ref(true)
 
 defineOptions({
   inheritAttrs: false

@@ -12,7 +12,10 @@ import hljs from 'highlight.js'
 
 export const useInit = (app: App) => {
   VMdEditor.use(githubTheme, {
-    Hljs: hljs
+    Hljs: hljs,
+    codeHighlightExtensionMap: {
+      vue: 'xml'
+    }
   })
   app.use(VMdEditor)
 }
