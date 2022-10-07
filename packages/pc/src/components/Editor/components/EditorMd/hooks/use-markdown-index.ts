@@ -65,7 +65,7 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: any) => {
     nextTick(() => {
       value.value = props.modelValue
     })
-  }, 800)
+  }, 1000)
   watch(
     () => props.modelValue,
     () => {

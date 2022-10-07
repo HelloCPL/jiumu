@@ -5,16 +5,35 @@
 -->
 
 <template>
-  <div class="w-full bg-white flex border-1 editor-wang-container">
-    <!-- 编辑器  -->
-    <div class="flex-1">
-      <!-- 工具栏 -->
-      <div :id="'toolbar-' + id" class="toolbar-container"></div>
-      <!-- 编辑器内容 -->
-      <div :id="'editor-' + id" class="editor-container"></div>
+  <div class="w-full border-1" :style="{ height: height + 'px' }">
+    <div
+      class="w-full h-full bg-white flex editor-wang-container"
+      :class="{ 'editor-wang-container-fullscreen': isFullScreen }"
+      :data-id="editorId"
+    >
+      <div class="flex-1 shrink-0 flex flex-col">
+        <!-- 工具栏 -->
+        <div :id="'toolbar-' + id" class="w-full border-b-1 toolbar-container"></div>
+        <div class="w-full flex-1 overflow-hidden flex">
+          <!-- 编辑器内容 -->
+          <div :id="'editor-' + id" class="h-full flex-1 editor-container"></div>
+          <!-- 预览 -->
+          <div
+            class="h-full border-l-1"
+            :style="{ width: previewStyle.width + '%', opacity: previewStyle.opacity }"
+          >
+            哈哈
+          </div>
+        </div>
+      </div>
+      <!-- 标题 -->
+      <div
+        class="overflow-hidden"
+        :style="{ width: catalogStyle.width + 'px', opacity: catalogStyle.opacity }"
+      >
+        <TitleCatalog :headers="catalogHeaders" @change="handleChangeTitle" v-if="showCatalog" />
+      </div>
     </div>
-    <!-- 标题 -->
-    <TitleCatalog :active="showCatalog" :headers="catalogHeaders" @change="handleChangeTitle" />
   </div>
 </template>
 
@@ -28,8 +47,16 @@ const props = defineProps(editorWangProps)
 const emit = defineEmits(['update:modelValue', 'change', 'blur', 'focus'])
 
 const id = getRandomId()
-
-const { showCatalog, catalogHeaders, handleChangeTitle } = useEditorWang(props, emit, id)
+const {
+  editorId,
+  showCatalog,
+  catalogHeaders,
+  catalogStyle,
+  handleChangeTitle,
+  isPreview,
+  previewStyle,
+  isFullScreen
+} = useEditorWang(props, emit, id)
 </script>
 
 <style lang="scss">

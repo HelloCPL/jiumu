@@ -117,6 +117,30 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
     desc: '红色'
   },
   {
+    key: 'purple',
+    value: [
+      { key: 50, value: '#360861', rgb: '54, 8, 97' },
+      { key: 100, value: '#400974', rgb: '64, 9, 116' },
+      { key: 200, value: '#520d92', rgb: '82, 13, 146' },
+      { key: 300, value: '#5e10a7', rgb: '94, 16, 167' },
+      { key: 400, value: '#6d17bd', rgb: '109, 23, 189' },
+      {
+        key: 500,
+        value: '#9333EA',
+        rgb: '147, 51, 234',
+        default: true,
+        desc: '紫色 purple'
+      },
+      { key: 600, value: '#a959f3', rgb: '169, 89, 243' },
+      { key: 8, value: 'rgba(147, 51, 234, 0.8)' },
+      { key: 6, value: 'rgba(147, 51, 234, 0.6)' },
+      { key: 4, value: 'rgba(147, 51, 234, 0.4)' },
+      { key: 2, value: 'rgba(147, 51, 234, 0.2)' },
+      { key: 1, value: 'rgba(147, 51, 234, 0.1)' }
+    ],
+    desc: '紫色'
+  },
+  {
     key: 'white',
     value: [
       { key: 1, value: 'rgba(20, 20, 20,0.1)' },

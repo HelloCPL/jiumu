@@ -5,14 +5,11 @@
 -->
 
 <template>
-  <div
-    class="flex-shrink-0 overflow-hidden border-l-1"
-    :style="{ width: catalog.width + 'px', opacity: catalog.opacity }"
-  >
-    <div class="g-scroll-y" style="width: 220px">
-      <p class="text-lg text-lighter p-2">导航目录</p>
+  <div class="h-full flex-shrink-0 border-l-1" style="width: 200px">
+    <div class="g-scroll-y w-full">
+      <p class="border-b-1 title-catalog">目录导航</p>
       <p
-        class="p-2 cursor-pointer"
+        class="px-2 my-2 cursor-pointer"
         :style="{ paddingLeft: item.paddingLeft, fontSize: item.fontSize }"
         v-for="item in titles"
         :key="item.id"
@@ -25,15 +22,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
-import gsap from 'gsap'
+import { ref, watch, onMounted } from 'vue'
 
 const props = defineProps({
-  active: {
-    // 是否激活状态
-    type: Boolean,
-    default: false
-  },
   headers: {
     // 标题列表
     type: Array,
@@ -41,11 +32,6 @@ const props = defineProps({
   }
 })
 defineEmits(['change'])
-
-const catalog = ref({
-  width: 0,
-  opacity: 0
-})
 
 type TitlesType = {
   text: string
@@ -67,18 +53,18 @@ const handleTitles = (headers: any[], active: boolean) => {
           type: item.type
         }
         if (item.type === 'header1') {
-          obj.paddingLeft = '0.5rem'
+          obj.paddingLeft = '1rem'
           obj.fontSize = '2rem'
         } else if (item.type === 'header2') {
-          obj.paddingLeft = '0.75rem'
+          obj.paddingLeft = '1.25rem'
           obj.fontSize = '1.5rem'
         } else if (item.type === 'header3') {
-          obj.paddingLeft = '1rem'
+          obj.paddingLeft = '1.5rem'
           obj.fontSize = '1.17rem'
         } else if (item.type === 'header4') {
-          obj.paddingLeft = '1.25rem'
+          obj.paddingLeft = '1.75rem'
         } else {
-          obj.paddingLeft = '1.5rem'
+          obj.paddingLeft = '2rem'
           obj.fontSize = '0.83rem'
         }
         _title.push(obj)
@@ -88,30 +74,25 @@ const handleTitles = (headers: any[], active: boolean) => {
   }
 }
 
-watch(
-  () => props.active,
-  (val) => {
-    if (val) {
-      gsap.to(catalog.value, {
-        width: 220,
-        opacity: 1
-      })
-    } else {
-      gsap.to(catalog.value, {
-        width: 0,
-        opacity: 0
-      })
-    }
-    handleTitles(props.headers, val)
-  }
-)
+onMounted(() => {
+  handleTitles(props.headers, true)
+})
+
 watch(
   () => props.headers,
   (val) => {
-    handleTitles(val, props.active)
+    handleTitles(val, true)
   },
-  { deep: true }
+  { deep: true, immediate: true }
 )
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.title-catalog {
+  height: 45px;
+  line-height: 45px;
+  padding: 0 14px;
+  font-weight: 600;
+  font-size: var(--jm-font-size-medium);
+}
+</style>

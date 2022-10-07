@@ -84,6 +84,21 @@ module.exports = {
         600: 'var(--jm-color-danger-600)',
         DEFAULT: 'var(--jm-color-danger)'
       },
+      purple: {
+        1: 'var(--jm-color-purple-1)',
+        2: 'var(--jm-color-purple-2)',
+        4: 'var(--jm-color-purple-4)',
+        6: 'var(--jm-color-purple-6)',
+        8: 'var(--jm-color-purple-8)',
+        50: 'var(--jm-color-purple-50)',
+        100: 'var(--jm-color-purple-100)',
+        200: 'var(--jm-color-purple-200)',
+        300: 'var(--jm-color-purple-300)',
+        400: 'var(--jm-color-purple-400)',
+        500: 'var(--jm-color-purple-500)',
+        600: 'var(--jm-color-purple-600)',
+        DEFAULT: 'var(--jm-color-purple)'
+      },
       info: {
         1: 'var(--jm-color-info-1)',
         2: 'var(--jm-color-info-2)',

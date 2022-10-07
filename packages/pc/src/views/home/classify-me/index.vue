@@ -6,7 +6,7 @@
 
 <template>
   <div class="p-6">
-    <Editor v-model="vv"></Editor>
+    <Editor v-model="vv" v-model:type="type"></Editor>
   </div>
 </template>
 
@@ -18,4 +18,5 @@ defineOptions({
 })
 
 const vv = ref('')
+const type = ref('402')
 </script>

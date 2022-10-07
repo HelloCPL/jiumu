@@ -13,16 +13,14 @@ export class MyMenuButton implements IButtonMenu {
   iconSvg
   alwaysEnable
   tag
-  id
 
-  constructor(title: string, _titleEmit: string, iconSvg: any, id: string) {
+  constructor(title: string, _titleEmit: string, iconSvg: any) {
     this.title = title
     this._titleEmit = _titleEmit
     this.iconSvg = iconSvg
 
     this.alwaysEnable = true
     this.tag = 'button'
-    this.id = id
   }
 
   getValue() {
@@ -41,10 +39,12 @@ export class MyMenuButton implements IButtonMenu {
   exec(editor: IDomEditor) {
     this._isActive = !this._isActive
     const title = this._isActive ? this.title : '取消' + this.title
+    const id = editor.id
     const box = $(
-      `.editor-wang-container #toolbar-${this.id} .w-e-bar .w-e-bar-item button[data-tooltip="${title}"]`
+      `.editor-wang-container[data-id="${id}"] .toolbar-container .w-e-bar .w-e-bar-item button[data-tooltip="${title}"]`
     )
-    if (box && box.length) {
+    const len = box.length
+    if (len) {
       if (this._isActive) {
         box[0].classList.add('myactive')
         box[0].dataset.tooltip = '取消' + this.title

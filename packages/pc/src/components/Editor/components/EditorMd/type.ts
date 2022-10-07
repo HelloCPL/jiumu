@@ -4,6 +4,7 @@
 
 import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes, PropType } from 'vue'
+import { handleTooltip } from './hooks/handle-tooltip'
 
 export const editorMarkdownProps = buildProps({
   // 其余参数看 v-md-editor Props 参数
@@ -19,10 +20,7 @@ export const editorMarkdownProps = buildProps({
     type: String,
     default: '请输入...'
   },
-  tocNavPositionRight: {
-    type: Boolean,
-    default: true
-  },
+  // 标题导航级别
   includeLevel: {
     type: Array as PropType<number[]>,
     default: () => [1, 2, 3, 4, 5]
@@ -30,12 +28,20 @@ export const editorMarkdownProps = buildProps({
   leftToolbar: {
     type: String,
     default:
-      'undo redo | h bold italic strikethrough quote hr ul ol code link image table sync-scroll toc preview fullscreen'
+      'undo redo | h bold italic strikethrough ul ol customTip code link image table sync-scroll toc preview fullscreen'
   },
   rightToolbar: {
     type: String,
     default: ''
   },
+  // 自定义工具栏
+  toolbar: {
+    type: Object,
+    default: function () {
+      return handleTooltip()
+    }
+  },
+  // 禁止选择的菜单
   disabledMenus: {
     type: Array as PropType<string[]>,
     default: () => []

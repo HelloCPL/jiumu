@@ -24,6 +24,7 @@ import { EditorWangProps } from '../type'
 import { getToolbarConfig, getEditorConfig } from './handle-editor-wang-config'
 import { deleteFile } from '@/api/file'
 import { debounce } from 'lodash-es'
+import gsap from 'gsap'
 
 export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => {
   // 获取配置
@@ -33,9 +34,11 @@ export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => 
   let editor: IDomEditor | null = null
   let toolbar: Toolbar | null = null
   let value: string = ''
+  const editorId = ref('')
 
   // 富文本创建完成回调
   const onCreated = (editor: IDomEditor) => {
+    editorId.value = editor.id
     editor.setHtml(props.modelValue)
     handleEditorEmit(editor)
   }
@@ -50,18 +53,6 @@ export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => 
   }
   const onBlur = () => {
     emit('blur', value)
-  }
-
-  // 设置编辑器高度
-  const setEditorHeight = () => {
-    nextTick(() => {
-      const tDiv: HTMLDivElement = <HTMLDivElement>document.getElementById(`toolbar-${id}`)
-      const eDiv: HTMLDivElement = <HTMLDivElement>document.getElementById(`editor-${id}`)
-      if (tDiv && eDiv) {
-        const h = props.height - tDiv.clientHeight
-        if (h > 0) eDiv.style.height = h + 'px'
-      }
-    })
   }
 
   // 初始化编辑器
@@ -83,7 +74,6 @@ export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => 
         selector: `#toolbar-${id}`,
         config: toolbarConfig
       })
-      setEditorHeight()
     })
   }
 
@@ -96,9 +86,13 @@ export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => 
   // 监听modelValue 同时做防抖处理
   const debounceValue = debounce(() => {
     nextTick(() => {
-      if (editor) editor.setHtml(value)
+      if (editor) {
+        try {
+          editor.setHtml(value)
+        } catch (e) {}
+      }
     })
-  }, 800)
+  }, 1000)
   watch(
     () => props.modelValue,
     (val) => {
@@ -125,31 +119,75 @@ export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => 
 
   // 自定义按钮监听逻辑
   const showCatalog = ref<boolean>(false)
+  const catalogStyle = ref({
+    width: 0,
+    opacity: 0
+  })
   const catalogHeaders = ref<any[]>([])
   const handleTitle = (editor: IDomEditor) => {
-    if (showCatalog.value) {
-      catalogHeaders.value = editor.getElemsByTypePrefix('header')
-    }
+    catalogHeaders.value = editor.getElemsByTypePrefix('header')
   }
   const handleChangeTitle = (item: any) => {
     editor?.scrollToElem(item.id)
   }
+  const isPreview = ref<boolean>(false)
+  const previewStyle = ref({
+    width: 0,
+    opacity: 0
+  })
+  const isFullScreen = ref<boolean>(false)
 
+  // 监听自定义按钮事件
   const handleEditorEmit = (editor: IDomEditor) => {
+    // 监听目录导航回调
     editor.on('wang-editor-title', (active: boolean) => {
-      showCatalog.value = active
       handleTitle(editor)
+      if (active) {
+        showCatalog.value = active
+        gsap.to(catalogStyle.value, {
+          width: 200,
+          opacity: 1
+        })
+      } else {
+        gsap.to(catalogStyle.value, {
+          width: 0,
+          opacity: 0,
+          onComplete() {
+            showCatalog.value = active
+          }
+        })
+      }
     })
+    // 监听预览
+    editor.on('wang-editor-preview', (active: boolean) => {
+      isPreview.value = active
+      if (active) {
+        gsap.to(previewStyle.value, {
+          width: 50,
+          opacity: 1
+        })
+      } else {
+        gsap.to(previewStyle.value, {
+          width: 0,
+          opacity: 0
+        })
+      }
+    })
+    // 监听全屏
     editor.on('wang-editor-fullScreen', (active: boolean) => {
-      if (active) editor.fullScreen()
-      else editor.unFullScreen()
+      isFullScreen.value = active
     })
   }
 
   return {
+    editorId,
     showCatalog,
     catalogHeaders,
-    handleChangeTitle
+    catalogStyle,
+    handleChangeTitle,
+    isPreview,
+    previewStyle,
+    isFullScreen
   }
 }
 

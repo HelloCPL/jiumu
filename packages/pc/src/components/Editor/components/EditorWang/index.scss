@@ -1,13 +1,21 @@
 .editor-wang-container {
-  // border: 1px solid red;
-
   .editor-title {
     width: 250px;
   }
 
+  .editor-container {
+    padding: 12px 0;
+  }
+
+  // 工具栏
   .toolbar-container {
     .w-e-bar {
+      padding: 2px 8px 2px 8px;
+      box-sizing: border-box;
+
       .w-e-bar-item {
+        padding: 0;
+
         button {
           width: auto !important;
         }
@@ -17,46 +25,80 @@
           color: var(--w-e-toolbar-active-color);
         }
       }
-    }
-  }
 
-  .editor-container {
-    .w-e-text-container {
-      .w-e-scroll {
-        overflow-y: auto !important;
-        overflow-x: hidden;
-
-        &::-webkit-scrollbar {
-          width: 7px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: transparent;
-          border-radius: 3.5px;
-        }
-
-        &:hover::-webkit-scrollbar-thumb {
-          background: var(--jm-color-black-1);
-        }
-
-        &:hover::-webkit-scrollbar-track {
-          background: transparent;
-        }
+      .w-e-bar-divider {
+        height: 24px;
+        position: relative;
+        top: 9px;
       }
     }
   }
 
+  // 内容区
   .w-e-text-container {
+    padding: 0px 16px;
+    box-sizing: border-box;
+
+    .w-e-scroll {
+      overflow-y: auto !important;
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar {
+        width: 7px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 3.5px;
+      }
+
+      &:hover::-webkit-scrollbar-thumb {
+        background: var(--jm-color-black-1);
+      }
+
+      &:hover::-webkit-scrollbar-track {
+        background: transparent;
+      }
+    }
+
     p {
       margin: 0;
     }
   }
 
+  .w-e-text-container [data-slate-editor] {
+    padding: 0;
+  }
+
   .w-e-text-placeholder {
-    top: 0;
+    top: 0px;
+    left: 16px;
+    font-style: normal;
   }
 
   .w-e-full-screen-container {
     z-index: 999;
   }
+
+  .w-e-text-container [data-slate-editor] [data-selected='true'] {
+    box-shadow: none;
+  }
+
+  .w-e-text-container [data-slate-editor] h1,
+  .w-e-text-container [data-slate-editor] h2,
+  .w-e-text-container [data-slate-editor] h3,
+  .w-e-text-container [data-slate-editor] h4,
+  .w-e-text-container [data-slate-editor] h5 {
+    margin: 0;
+    line-height: 2;
+  }
+}
+
+.editor-wang-container-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
 }

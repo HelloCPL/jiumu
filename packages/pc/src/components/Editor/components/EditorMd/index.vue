@@ -10,10 +10,11 @@
     v-model="value"
     :height="height + 'px'"
     :placeholder="placeholder"
-    :toc-nav-position-right="tocNavPositionRight"
+    :toc-nav-position-right="true"
     :include-level="includeLevel"
     :left-toolbar="leftToolbar"
     :right-toolbar="rightToolbar"
+    :toolbar="toolbar"
     :disabled-menus="disabledMenus"
     ref="refVMdEditor"
     @change="handleChange"
@@ -31,6 +32,6 @@ const emit = defineEmits(['update:modelValue', 'change'])
 const { value, refVMdEditor, handleChange, handleUploadImage } = useMarkdownIndex(props, emit)
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import 'index.scss';
 </style>
