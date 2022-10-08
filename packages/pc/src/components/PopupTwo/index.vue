@@ -60,12 +60,12 @@
 <script lang="ts" setup>
 import { ElRow, ElCol } from 'element-plus'
 import Search from '@/components/Search/index.vue'
-import { popupTwoProps } from './type'
+import { popupTwoProps, popupTwoEmits } from './type'
 import { onMounted } from 'vue'
 import MoreBtn from '@/components/MoreBtn/index.vue'
 
 const props = defineProps(popupTwoProps)
-const emit = defineEmits(['scrollLeft', 'scrollRight', 'update:keyword', 'search', 'delete'])
+const emit = defineEmits(popupTwoEmits)
 
 let _mounted = false
 onMounted(() => {

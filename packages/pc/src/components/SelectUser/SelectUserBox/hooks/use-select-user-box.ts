@@ -4,8 +4,9 @@
 import { ref, onMounted } from 'vue'
 import { getUserList } from '@/api/user'
 import { debounce, isArray } from 'lodash-es'
+import { SelectUserBoxProps, SelectUserBoxEmits } from '../type'
 
-export const useSelectUserBox = (props: any, emit: any) => {
+export const useSelectUserBox = (props: SelectUserBoxProps, emit: SelectUserBoxEmits) => {
   // 获取用户信息
   let pageNo = 1
   const total = ref<number>(0)

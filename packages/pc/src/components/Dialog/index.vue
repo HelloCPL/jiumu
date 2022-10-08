@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { ElDialog, ElButton } from 'element-plus'
 import { ref, onMounted, onUnmounted } from 'vue'
-import { dialogProps } from './type'
+import { dialogProps, dialogEmit } from './type'
 
 const isShow = ref<boolean>(false)
 onMounted(() => {
@@ -49,7 +49,7 @@ onUnmounted(() => {
   isShow.value = false
 })
 
-const emit = defineEmits(['confirm', 'cancel', 'close'])
+const emit = defineEmits(dialogEmit)
 
 const handleCancel = () => {
   isShow.value = false

@@ -2,7 +2,7 @@
  * 筛选按钮组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
 import { PropType, ExtractPropTypes } from 'vue'
 
 export type PropsList = {
@@ -24,3 +24,9 @@ export const filterButtonProps = buildProps({
 } as const)
 
 export type FilterButtonProps = ExtractPropTypes<typeof filterButtonProps>
+
+export const filterButtonEmits = {
+  click: (item: PropsList) => item
+}
+
+export type FilterButtonEmits = EmitFn<typeof filterButtonEmits>

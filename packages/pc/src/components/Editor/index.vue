@@ -35,6 +35,7 @@
       @change="change"
       v-else-if="type === '402' && show"
     ></EditorMd>
+    <EditorAoMao v-else-if="type === '403' && show"></EditorAoMao>
   </div>
 </template>
 
@@ -42,7 +43,8 @@
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import EditorWang from './components/EditorWang/index.vue'
 import EditorMd from './components/EditorMd/index.vue'
-import { editorProps } from './type'
+import EditorAoMao from './components/EditorAoMao/index.vue'
+import { editorProps, editorEmits } from './type'
 import { onMounted, ref, watch } from 'vue'
 const show = ref(true)
 
@@ -51,7 +53,7 @@ defineOptions({
 })
 
 const props = defineProps(editorProps)
-const emit = defineEmits(['update:modelValue', 'update:type', 'changeType', 'change', 'blur', 'focus'])
+const emit = defineEmits(editorEmits)
 const updateModelValue = (val: string) => {
   emit('update:modelValue', val)
 }

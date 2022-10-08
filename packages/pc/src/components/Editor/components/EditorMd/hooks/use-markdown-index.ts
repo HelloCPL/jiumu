@@ -3,7 +3,7 @@
  */
 import { debounce, isArray } from 'lodash-es'
 import { nextTick, ref, watch, onMounted, onUnmounted } from 'vue'
-import { EditorMarkdownProps } from '../type'
+import { EditorMarkdownProps, EditorMarkdownEmits } from '../type'
 import { uploadFile, deleteFile } from '@/api/file'
 
 type insertFnParams = {
@@ -14,7 +14,7 @@ type insertFnParams = {
 }
 type insertFn = (obj: insertFnParams) => void
 
-export const useMarkdownIndex = (props: EditorMarkdownProps, emit: any) => {
+export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdownEmits) => {
   const value = ref<string>('')
   const refVMdEditor = ref<any>()
 

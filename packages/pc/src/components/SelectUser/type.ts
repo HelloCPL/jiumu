@@ -2,7 +2,7 @@
  * 用户选择组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const selectUserProps = buildProps({
@@ -32,3 +32,10 @@ export const selectUserProps = buildProps({
 } as const)
 
 export type SelectUserProps = ExtractPropTypes<typeof selectUserProps>
+
+export const selectUserEmits = {
+  'update:modelValue': (val: DataUserInfo[]) => val,
+  change: (val: DataUserInfo[]) => val
+}
+
+export type SelectUserEmits = EmitFn<typeof selectUserEmits>

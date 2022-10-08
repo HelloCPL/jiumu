@@ -39,12 +39,12 @@
 
 <script lang="ts" setup>
 import { useEditorWang } from './hooks/use-editor-wang'
-import { editorWangProps } from './type'
+import { editorWangProps, editorWangEmits } from './type'
 import TitleCatalog from './components/TitleCatalog.vue'
 import { getRandomId } from '@jiumu/utils'
 
 const props = defineProps(editorWangProps)
-const emit = defineEmits(['update:modelValue', 'change', 'blur', 'focus'])
+const emit = defineEmits(editorWangEmits)
 
 const id = getRandomId()
 const {

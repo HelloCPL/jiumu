@@ -2,7 +2,7 @@
  * 弹框组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 import { dialogProps as _dialogProps } from 'element-plus'
 
@@ -42,3 +42,10 @@ export const dialogProps = buildProps({
 } as const)
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>
+
+export const dialogEmit = {
+  confirm: () => true,
+  close: () => true
+}
+
+export type DialogEmits = EmitFn<typeof dialogEmit>

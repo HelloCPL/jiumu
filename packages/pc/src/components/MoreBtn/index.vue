@@ -19,12 +19,12 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus'
 import { CaretBottom } from '@element-plus/icons-vue'
-import { moreBtnProps } from './type'
+import { moreBtnProps, moreBtnEmits } from './type'
 import { ref } from 'vue'
 
 defineProps(moreBtnProps)
 
-defineEmits(['click'])
+defineEmits(moreBtnEmits)
 
 const isMounted = ref<boolean>(false)
 

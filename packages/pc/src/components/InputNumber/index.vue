@@ -21,13 +21,13 @@
 
 <script lang="ts" setup>
 import { ElInputNumber } from 'element-plus'
-import { inputNumberProps } from './type'
+import { inputNumberProps, inputNumberEmits } from './type'
 
 const props = defineProps(inputNumberProps)
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(inputNumberEmits)
 
-const handleUpdate = (val) => {
-  if (val === '') {
+const handleUpdate = (val: number | undefined) => {
+  if (!val && val !== 0) {
     emit('update:modelValue', val)
     return
   }
@@ -37,7 +37,7 @@ const handleUpdate = (val) => {
   emit('update:modelValue', val)
 }
 
-const handleBlur = (e) => {
+const handleBlur = (e: any) => {
   if (e.target.value === '' || e.target.valueAsNumber < props.min) emit('update:modelValue', props.min)
   else if (e.target.valueAsNumber > props.max) emit('update:modelValue', props.max)
 }

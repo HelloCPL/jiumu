@@ -2,8 +2,9 @@
  * 富文本参数
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
 import { IDomEditor, IToolbarConfig } from '@wangeditor/editor'
+import { isString } from 'lodash-es'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const editorWangProps = buildProps({
@@ -31,3 +32,12 @@ export const editorWangProps = buildProps({
 } as const)
 
 export type EditorWangProps = ExtractPropTypes<typeof editorWangProps>
+
+export const editorWangEmits = {
+  'update:modelValue': (name: string) => isString(name),
+  change: (name: string) => isString(name),
+  blur: (name: string) => isString(name),
+  focus: (name: string) => isString(name)
+}
+
+export type EditorWangEmits = EmitFn<typeof editorWangEmits>

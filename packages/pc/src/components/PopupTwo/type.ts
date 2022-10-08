@@ -2,7 +2,8 @@
  * 弹窗左右两侧组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
+import { isString } from 'lodash-es'
 import { ExtractPropTypes } from 'vue'
 
 export const popupTwoProps = buildProps({
@@ -73,3 +74,13 @@ export const popupTwoProps = buildProps({
 } as const)
 
 export type PopupTwoProps = ExtractPropTypes<typeof popupTwoProps>
+
+export const popupTwoEmits = {
+  scrollLeft: () => true,
+  scrollRight: () => true,
+  'update:keyword': (val: string) => isString(val),
+  search: (val: string) => isString(val),
+  delete: () => true
+}
+
+export type PopupTwoEmits = EmitFn<typeof popupTwoEmits>

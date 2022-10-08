@@ -20,13 +20,13 @@ import {
   IEditorConfig
 } from '@wangeditor/editor'
 import { onMounted, nextTick, watch, onUnmounted, ref } from 'vue'
-import { EditorWangProps } from '../type'
+import { EditorWangProps, EditorWangEmits } from '../type'
 import { getToolbarConfig, getEditorConfig } from './handle-editor-wang-config'
 import { deleteFile } from '@/api/file'
 import { debounce } from 'lodash-es'
 import gsap from 'gsap'
 
-export const useEditorWang = (props: EditorWangProps, emit: any, id: string) => {
+export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id: string) => {
   // 获取配置
   const toolbarConfig = getToolbarConfig(props.toolbarConfig, id)
   const { originFiles, editorConfig } = getEditorConfig(props)

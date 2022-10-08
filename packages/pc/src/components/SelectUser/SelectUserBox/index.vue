@@ -71,19 +71,11 @@ import { Close } from '@element-plus/icons-vue'
 import PopupTwo from '@/components/PopupTwo/index.vue'
 import { useSelectUserBox } from './hooks/use-select-user-box'
 import { PropType } from 'vue'
+import { selectUserBoxProps, selectUserBoxEmits } from './type'
 
-const props = defineProps({
-  data: {
-    type: Array as PropType<DataUserInfo[]>,
-    default: () => []
-  },
-  multiple: {
-    type: Boolean,
-    default: true
-  }
-})
+const props = defineProps(selectUserBoxProps)
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(selectUserBoxEmits)
 
 const {
   keyword,

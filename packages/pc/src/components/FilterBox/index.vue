@@ -48,8 +48,9 @@
 import { ElForm, ElButton, ElIcon } from 'element-plus'
 import { Search, Brush, More, MoreFilled } from '@element-plus/icons-vue'
 import { ref, nextTick, onMounted, onUpdated, onUnmounted } from 'vue'
+import { filterBoxEmits } from './type'
 
-defineEmits(['search', 'reset'])
+defineEmits(filterBoxEmits)
 
 const box = ref<HTMLElement>()
 const length = ref<number>(2)

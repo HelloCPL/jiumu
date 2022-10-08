@@ -28,7 +28,9 @@ defineProps({
     default: true
   }
 })
-defineEmits(['delete'])
+defineEmits({
+  delete: () => true
+})
 </script>
 
 <style lang="scss" scoped>

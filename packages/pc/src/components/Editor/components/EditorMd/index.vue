@@ -23,11 +23,11 @@
 </template>
 
 <script lang="ts" setup>
-import { editorMarkdownProps } from './type'
+import { editorMarkdownProps, editorMarkdownEmits } from './type'
 import { useMarkdownIndex } from './hooks/use-markdown-index'
 
 const props = defineProps(editorMarkdownProps)
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(editorMarkdownEmits)
 
 const { value, refVMdEditor, handleChange, handleUploadImage } = useMarkdownIndex(props, emit)
 </script>

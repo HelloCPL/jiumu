@@ -56,13 +56,13 @@
 import { ElButton, ElIcon } from 'element-plus'
 import { User } from '@element-plus/icons-vue'
 import { ref } from 'vue'
-import { selectUserProps } from './type'
-import SelectUserBox from './SelectUserBox.vue'
+import { selectUserProps, selectUserEmits } from './type'
+import SelectUserBox from './SelectUserBox/index.vue'
 import SelectUserSpan from './SelectUserSpan.vue'
 import UsernameShow from '@/components/UsernameShow/index.vue'
 
 const props = defineProps(selectUserProps)
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(selectUserEmits)
 
 const isShow = ref<boolean>(false)
 

@@ -23,10 +23,10 @@
 <script lang="ts" setup>
 import { ElInput, ElButton } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
-import { searchProps } from './type'
+import { searchProps, searchEmits } from './type'
 
 defineProps(searchProps)
-defineEmits(['search', 'update:model-value'])
+defineEmits(searchEmits)
 </script>
 
 <style lang="scss">

@@ -2,9 +2,10 @@
  * 搜索输入框盒子组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 import { inputProps } from 'element-plus'
+import { isString } from 'lodash-es'
 
 export const searchProps = buildProps({
   // 其他参数与 elementPlus Input 参数保持一致
@@ -33,3 +34,10 @@ export const searchProps = buildProps({
 } as const)
 
 export type SearchProps = ExtractPropTypes<typeof searchProps>
+
+export const searchEmits = {
+  search: (val: string) => isString(val),
+  'update:model-value': (val: string) => isString(val)
+}
+
+export type SearchEmits = EmitFn<typeof searchEmits>

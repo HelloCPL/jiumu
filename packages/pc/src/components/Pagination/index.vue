@@ -17,27 +17,30 @@
       :page-sizes="pageSizes"
       @update:current-page="handlePageNo"
       @update:page-size="handlePageSize"
-      @size-change="$emit('change')"
-      @current-change="$emit('change')"
-      @prev-click="$emit('change')"
-      @next-click="$emit('change')"
+      @size-change="handleChange"
+      @current-change="handleChange"
+      @prev-click="handleChange"
+      @next-click="handleChange"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ElPagination } from 'element-plus'
-import { paginationProps } from './type'
+import { paginationProps, paginationEmits } from './type'
 defineOptions({
   inheritAttrs: false
 })
 
-const emit = defineEmits(['update:pageNo', 'update:pageSize', 'change'])
-const handlePageNo = (page: any) => {
+const emit = defineEmits(paginationEmits)
+const handlePageNo = (page: number) => {
   emit('update:pageNo', page)
 }
-const handlePageSize = (size: any) => {
+const handlePageSize = (size: number) => {
   emit('update:pageSize', size)
+}
+const handleChange = (val: number) => {
+  emit('change', val)
 }
 
 defineProps(paginationProps)
