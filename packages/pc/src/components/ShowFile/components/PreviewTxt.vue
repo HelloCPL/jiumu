@@ -56,7 +56,9 @@ const props = defineProps({
     default: ''
   }
 })
-defineEmits(['close'])
+defineEmits({
+  close: () => true
+})
 
 const content = ref<string>('')
 const getContent = () => {

@@ -2,7 +2,8 @@
  * 文件列表展示组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
+import { isArray } from 'lodash-es'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const showFileProps = buildProps({
@@ -29,3 +30,10 @@ export const showFileProps = buildProps({
 } as const)
 
 export type ShowFileProps = ExtractPropTypes<typeof showFileProps>
+
+export const showFileEmits = {
+  'update:modelValue': (files: DataBaseFile[]) => isArray(files),
+  change: (files: DataBaseFile[], del: DataBaseFile[]) => isArray(files) && isArray(del)
+}
+
+export type ShowFileEmits = EmitFn<typeof showFileEmits>

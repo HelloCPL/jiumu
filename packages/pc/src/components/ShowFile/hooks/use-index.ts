@@ -2,12 +2,12 @@
  * 文件展示组件处理逻辑
  */
 
-import { ShowFileProps } from '../type'
+import { ShowFileProps, ShowFileEmits } from '../type'
 import { deleteFile } from '@/api/file'
 import { Confirm } from '@/utils/interaction'
 import { reactive } from 'vue'
 
-export const useIndex = (props: ShowFileProps, emit: any) => {
+export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
   const state = reactive({
     showImage: false,
     urlImage: '',

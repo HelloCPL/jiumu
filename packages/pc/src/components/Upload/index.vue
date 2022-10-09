@@ -50,11 +50,11 @@
 <script lang="ts" setup>
 import { ElUpload, ElButton, ElIcon } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
-import { uploadProps } from './type'
+import { uploadProps, uploadEmits } from './type'
 import { useIndex } from './hooks/use-index'
 
 const props = defineProps(uploadProps)
-const emit = defineEmits(['change'])
+const emit = defineEmits(uploadEmits)
 const { refUpload, _accept, _limit, onChange, onExceed, beforeUpload, httpRequest } = useIndex(props, emit)
 </script>
 

@@ -2,7 +2,7 @@
  * 文件上传逻辑处理
  */
 
-import { UploadProps } from '../type'
+import { UploadProps, UploadEmits } from '../type'
 import { ref, computed, nextTick, watch } from 'vue'
 import { UploadInstance, UploadRawFile, UploadRequestOptions } from 'element-plus'
 import { Message } from '@/utils/interaction'
@@ -10,7 +10,7 @@ import { getSuffix } from '@jiumu/utils'
 import { uploadFile } from '@/api/file'
 import { isPlainObject } from 'lodash-es'
 
-export const useIndex = (props: UploadProps, emit: any) => {
+export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const refUpload = ref<UploadInstance>()
 
   // 接收类型

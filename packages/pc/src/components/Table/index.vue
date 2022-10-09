@@ -34,7 +34,7 @@
 import { ref } from 'vue'
 import { ElTable } from 'element-plus'
 import { useElementSize } from '@vueuse/core'
-import { tableProps } from './type'
+import { tableProps, tableEmits } from './type'
 import { useIndex } from './hooks/use-index'
 
 defineOptions({
@@ -45,7 +45,7 @@ const refTable = ref<HTMLDivElement>()
 const { height } = useElementSize(refTable)
 
 const props = defineProps(tableProps)
-const emit = defineEmits(['selectAll', 'select', 'selectionChange'])
+const emit = defineEmits(tableEmits)
 
 const { table, selectAll, select, selectionChange } = useIndex(props, emit)
 </script>

@@ -58,7 +58,9 @@ const props = defineProps({
     default: ''
   }
 })
-defineEmits(['close'])
+defineEmits({
+  close: () => true
+})
 
 const refContent = ref<HTMLDivElement>()
 const getContent = () => {

@@ -38,7 +38,9 @@ const props = defineProps({
     default: ''
   }
 })
-defineEmits(['close'])
+defineEmits({
+  close: () => true
+})
 
 const getContent = () => {
   LuckeExcel.transformExcelToLuckyByUrl(props.url, '', (json: any) => {

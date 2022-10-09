@@ -2,7 +2,7 @@
  * table组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 import { tableV2Props } from 'element-plus'
 
@@ -22,3 +22,16 @@ export const tableProps = buildProps({
 } as const)
 
 export type TableProps = ExtractPropTypes<typeof tableProps>
+
+type SelectAllTwo = {
+  _isAll: boolean
+  _all: ObjectAny
+}
+
+export const tableEmits = {
+  selectAll: (selection: any, obj: SelectAllTwo) => true,
+  select: (selection: any, row: any, obj: SelectAllTwo & { _selected: boolean }) => true,
+  selectionChange: (selection: any, obj: SelectAllTwo) => true
+}
+
+export type TableEmits = EmitFn<typeof tableEmits>

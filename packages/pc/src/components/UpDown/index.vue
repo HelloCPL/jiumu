@@ -32,14 +32,14 @@
 </template>
 
 <script lang="ts" setup>
-import { upDownProps } from './type'
+import { upDownProps, upDownEmits } from './type'
 import { ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
 import { ElIcon } from 'element-plus'
 import { ArrowDownBold } from '@element-plus/icons-vue'
 
 const props = defineProps(upDownProps)
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(upDownEmits)
 
 const box = ref<HTMLElement>()
 const { height } = useElementSize(box)

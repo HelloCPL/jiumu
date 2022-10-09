@@ -7,10 +7,10 @@
 import { ref, onMounted, nextTick, watch } from 'vue'
 import { TableV2Instance } from 'element-plus'
 import { isPlainObject } from 'lodash-es'
+import { TableProps, TableEmits } from '../type'
 
-export const useIndex = (props: any, emit: any) => {
+export const useIndex = (props: TableProps, emit: TableEmits) => {
   const table = ref<TableV2Instance>()
-
   // 判断是否全选
   let _isAll = false
   let _all: ObjectAny = {}
@@ -67,7 +67,7 @@ export const useIndex = (props: any, emit: any) => {
 
   // 手动选择某项
   const select = (selection: any, row: any) => {
-    const _selected = selection.length && row && selection.indexOf(row) !== -1
+    const _selected: boolean = selection.length && row && selection.indexOf(row) !== -1
     if (_selected) {
       _selectAll(row, true)
     } else {
@@ -93,6 +93,7 @@ export const useIndex = (props: any, emit: any) => {
   const _selectAll = (arr: any, selected: boolean) => {
     if (Array.isArray(arr)) {
       arr.forEach((row) => {
+        // @ts-ignore
         table.value?.toggleRowSelection(row, selected)
         // @ts-ignore
         _all[row[props.rowKey]] = selected
@@ -101,6 +102,7 @@ export const useIndex = (props: any, emit: any) => {
         }
       })
     } else if (isPlainObject(arr)) {
+      // @ts-ignore
       table.value?.toggleRowSelection(arr, selected)
       // @ts-ignore
       _all[arr[props.rowKey]] = selected

@@ -2,7 +2,8 @@
  * 图片列表展示组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
+import { isArray } from 'lodash-es'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const showImageProps = buildProps({
@@ -24,3 +25,10 @@ export const showImageProps = buildProps({
 } as const)
 
 export type ShowImageProps = ExtractPropTypes<typeof showImageProps>
+
+export const showImageEmits = {
+  'update:modelValue': (files: DataBaseFile[] | string[]) => isArray(files),
+  change: (files: DataBaseFile[] | string[], del: DataBaseFile[] | string[]) => isArray(files) && isArray(del)
+}
+
+export type ShowImageEmits = EmitFn<typeof showImageEmits>

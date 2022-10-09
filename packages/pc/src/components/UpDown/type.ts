@@ -2,7 +2,8 @@
  * 展开收起组件props传参
  */
 
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
+import { isBoolean } from 'lodash-es'
 import { ExtractPropTypes } from 'vue'
 
 export const upDownProps = buildProps({
@@ -19,3 +20,10 @@ export const upDownProps = buildProps({
 } as const)
 
 export type UpDownProps = ExtractPropTypes<typeof upDownProps>
+
+export const upDownEmits = {
+  'update:modelValue': (bol: boolean) => isBoolean(bol),
+  change: (bol: boolean) => isBoolean(bol)
+}
+
+export type UpDownEmits = EmitFn<typeof upDownEmits>

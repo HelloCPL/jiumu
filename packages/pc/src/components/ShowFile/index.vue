@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts" setup>
-import { showFileProps } from './type'
+import { showFileProps, showFileEmits } from './type'
 import { ElIcon } from 'element-plus'
 import { View, Download, Delete } from '@element-plus/icons-vue'
 import FileIcon from './components/FileIcon.vue'
@@ -86,7 +86,7 @@ import PreviewWord from './components/PreviewWord.vue'
 import PreviewExcel from './components/PreviewExcel.vue'
 
 const props = defineProps(showFileProps)
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(showFileEmits)
 const { state, handlePreview, handleDelete } = useIndex(props, emit)
 </script>
 

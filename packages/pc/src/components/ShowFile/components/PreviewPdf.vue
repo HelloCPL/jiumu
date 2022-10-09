@@ -72,7 +72,9 @@ const props = defineProps({
     default: ''
   }
 })
-defineEmits(['close'])
+defineEmits({
+  close: () => true
+})
 
 const { refBox, state, handleZoomOut, handleZoomIn, handleZoom, handleLastPage, handleNextPage } =
   usePreviewPdf(props)

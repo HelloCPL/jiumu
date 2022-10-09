@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { ElImage, ElIcon } from 'element-plus'
 import { View, Delete } from '@element-plus/icons-vue'
-import { showImageProps } from './type'
+import { showImageProps, showImageEmits } from './type'
 import { ref, watch } from 'vue'
 import { isArray, isObject } from 'lodash-es'
 import PreviewImage from '@/components/ShowFile/components/PreviewImage.vue'
@@ -47,7 +47,7 @@ import { Confirm } from '@/utils/interaction'
 import { deleteFile } from '@/api/file'
 
 const props = defineProps(showImageProps)
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(showImageEmits)
 
 const list = ref<string[]>([])
 watch(
@@ -78,7 +78,7 @@ const handleDelete = (index: number) => {
   Confirm('确定删除这个图片吗？').then(async () => {
     const file = props.modelValue[index]
     if (isObject(file)) {
-      const res = await deleteFile(file.id)
+      const res = await deleteFile((file as DataBaseFile).id)
       if (res.code === 200) {
         const arr = props.modelValue
         const item = arr.splice(index, 1)
