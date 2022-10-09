@@ -55,6 +55,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
         state.show = true
         return
       case 'export':
+        // do something
+        return
     }
   }
 

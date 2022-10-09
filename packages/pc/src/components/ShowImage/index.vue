@@ -78,7 +78,7 @@ const handleDelete = (index: number) => {
   Confirm('确定删除这个图片吗？').then(async () => {
     const file = props.modelValue[index]
     if (isObject(file)) {
-      const res = await deleteFile((file as DataBaseFile).id)
+      const res = await deleteFile(file.id)
       if (res.code === 200) {
         const arr = props.modelValue
         const item = arr.splice(index, 1)
