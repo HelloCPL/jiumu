@@ -49,6 +49,9 @@ export default defineConfig(({ mode }) => {
       preprocessorOptions: {
         scss: {
           additionalData: `@import "./src/style/css/env.${VITE_MODE}.scss";`
+        },
+        less: {
+          javascriptEnabled: true
         }
       }
     }

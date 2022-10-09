@@ -1,4 +1,5 @@
-import { buildProps } from '@jiumu/utils'
+import { buildProps, EmitFn } from '@jiumu/utils'
+import { isString } from 'lodash-es'
 import { ExtractPropTypes } from 'vue'
 
 export const editorAoMaoProps = buildProps({
@@ -20,9 +21,11 @@ export const editorAoMaoProps = buildProps({
 
 export type EditorAoMaoProps = ExtractPropTypes<typeof editorAoMaoProps>
 
-export interface EditorAoMaoEmits {
-  (event: 'update:modelValue', name: string): void
-  (event: 'change', name: string): void
-  (event: 'focus', name: string): void
-  (event: 'blur', name: string): void
+export const editorAoMaoEmits = {
+  'update:modelvalue': (val: string) => isString(val),
+  change: (val: string) => isString(val),
+  focus: (val: string) => isString(val),
+  blur: (val: string) => isString(val)
 }
+
+export type EditorAoMaoEmits = EmitFn<typeof editorAoMaoEmits>

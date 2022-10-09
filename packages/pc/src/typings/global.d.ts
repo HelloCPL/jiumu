@@ -1,5 +1,6 @@
 // import {Code} from '@/enumerations/index'
 
+// 常用类型
 interface ObjectAny {
   [x:string]: any
 }
@@ -7,6 +8,11 @@ interface ObjectAny {
 interface KeyValue<T = string, U = any> extends ObjectAny {
   key: T,
   value: U
+}
+
+interface KeyId<T = string, U = string> extends ObjectAny {
+  key: T
+  id: U
 }
 
 // 数据接口返回类型

@@ -7,7 +7,7 @@
 <template>
   <button @click="show = !show">销毁/显示</button>
   <div>
-    <div class="flex items-center mb-2 editor-title" style="height: 32px；">
+    <!-- <div class="flex items-center mb-2 editor-title" style="height: 32px；">
       <slot>
         <span class="mr-6">内容</span>
       </slot>
@@ -18,7 +18,7 @@
           <ElRadio label="402">Markdown编辑器</ElRadio>
         </ElRadioGroup>
       </div>
-    </div>
+    </div> -->
     <EditorWang
       :model-value="modelValue"
       @update:model-value="updateModelValue"

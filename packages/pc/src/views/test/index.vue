@@ -1,6 +1,6 @@
 <template>
   <div class="m-4 box">
-    <Editor class="mb-6" type="402" :height="1000" v-model="vv" @change="handleChange"></Editor>
+    <Editor class="mb-6" v-model="vv" type="402" @change="handleChange"></Editor>
     <!-- <EditorPreview :value="vv" type="401"></EditorPreview> -->
   </div>
 </template>
