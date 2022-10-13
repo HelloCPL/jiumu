@@ -41,24 +41,11 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ElForm, ElFormItem, ElInput, ElButton, ElCascader } from 'element-plus'
 import { useTagAdd } from '../hooks/use-tag-add'
 import InputNumber from '@/components/InputNumber/index.vue'
-import { PropType } from 'vue'
+import { tagAddProps, tagAddEmits } from './type'
 
-const emit = defineEmits(['close', 'confirm'])
+const emit = defineEmits(tagAddEmits)
+const props = defineProps(tagAddProps)
 
-const props = defineProps({
-  id: {
-    type: String,
-    default: ''
-  },
-  parentCode: {
-    type: String,
-    default: ''
-  },
-  options: {
-    type: Array as PropType<DataTag[]>,
-    default: () => []
-  }
-})
 const { title, formRef, form, rules, confirm } = useTagAdd(props, emit)
 
 const _props = {

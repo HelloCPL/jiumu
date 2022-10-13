@@ -9,8 +9,9 @@ import { Message } from '@/utils/interaction'
 import { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { debounce } from 'lodash-es'
+import { PermissionAddEmits } from '../components/type'
 
-export const usePermissionAdd = (props: any, emit: any) => {
+export const usePermissionAdd = (props: any, emit: PermissionAddEmits) => {
   const title = ref<string>('权限新增')
 
   const formRef = ref<FormInstance>()

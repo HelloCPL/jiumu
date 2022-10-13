@@ -9,8 +9,9 @@ import { Message } from '@/utils/interaction'
 import { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { debounce } from 'lodash-es'
+import { MenuAddProps, MenuAddEmits } from '../components/type'
 
-export const useMenuAdd = (props: any, emit: any) => {
+export const useMenuAdd = (props: MenuAddProps, emit: MenuAddEmits) => {
   const title = ref<string>('菜单新增')
 
   const formRef = ref<FormInstance>()

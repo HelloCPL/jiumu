@@ -1,3 +1,7 @@
+/**
+ * 登录注册类型
+ */
+
 export interface LoginShow {
   show: boolean
   top: number

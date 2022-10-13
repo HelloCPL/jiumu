@@ -18,3 +18,9 @@ themeStore.toggleTheme()
 themeStore.toggleFontFamily()
 themeStore.toggleFontSize()
 </script>
+
+<style>
+#app {
+  color: var(--jm-color-text);
+}
+</style>

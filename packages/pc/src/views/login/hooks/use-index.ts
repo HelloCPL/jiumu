@@ -2,7 +2,7 @@
  * 登录首页处理逻辑
  */
 
-import { LoginShow } from './index.b'
+import { LoginShow } from './type'
 import { ref, Ref } from 'vue'
 import gsap from 'gsap'
 

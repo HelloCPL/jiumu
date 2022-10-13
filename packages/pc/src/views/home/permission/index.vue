@@ -30,7 +30,11 @@
           <GRichText :html="row.label" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
+      <ElTableColumn label="更新时间" width="150">
+        <template #default="{ row }">
+          <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
+        </template>
+      </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" width="80" />
       <ElTableColumn prop="remarks" label="备注" min-width="140" />
       <ElTableColumn label="操作" width="200" fixed="right">
@@ -87,16 +91,18 @@ import PermissionAdd from './components/PermissionAdd.vue'
 import PermissionInfo from './components/PermissionInfo.vue'
 import PermissionUser from './components/PermissionUser.vue'
 import PermissionRole from './components/PermissionRole.vue'
+import { formatDate } from '@jiumu/utils'
 
 defineOptions({
   name: 'Permission'
 })
 
-const { keyword, btnList, pageNo, pageSize, total, data, getDataList } = useIndex()
+const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 
 // 控制新增/编辑等逻辑
 const {
   state,
+  btnList,
   handleBtn,
   handleShowInfo,
   handleEdit,

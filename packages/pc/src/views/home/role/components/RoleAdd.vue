@@ -32,8 +32,9 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ElForm, ElFormItem, ElInput, ElButton } from 'element-plus'
 import { useRoleAdd } from '../hooks/use-role-add'
 import InputNumber from '@/components/InputNumber/index.vue'
+import { roleAddEmits } from './type'
 
-const emit = defineEmits(['close', 'confirm'])
+const emit = defineEmits(roleAddEmits)
 type Props = {
   id?: string
 }

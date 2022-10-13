@@ -9,8 +9,9 @@ import { Message } from '@/utils/interaction'
 import { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { debounce } from 'lodash-es'
+import { TagAddProps, TagAddEmits } from '../components/type'
 
-export const useTagAdd = (props: any, emit: any) => {
+export const useTagAdd = (props: TagAddProps, emit: TagAddEmits) => {
   const title = ref<string>('标签新增')
 
   const formRef = ref<FormInstance>()

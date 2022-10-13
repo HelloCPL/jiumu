@@ -2,12 +2,13 @@
  * element-plus 部分样式重置 放在 html 上提高权重
 */
 
-
 html {
+  // 菜单
   .el-menu {
     border-right: 0;
   }
 
+  // 按钮
   .el-button {
     height: 28px;
     line-height: 28px;
@@ -28,7 +29,13 @@ html {
     top: 8%;
   }
 
-  .g-popup .el-cascader {
+  // 多级选择
+  .el-cascader {
+    width: 100%;
+  }
+
+  // 自动输入框
+  .el-autocomplete {
     width: 100%;
   }
 }

@@ -24,10 +24,10 @@
 
 <script lang="ts" setup>
 import { ElButton } from 'element-plus'
-import { filterButtonProps, PropsList, filterButtonEmits } from './type'
+import { filterButtonProps, FilterButtonList, filterButtonEmits } from './type'
 
 const emit = defineEmits(filterButtonEmits)
-const handleClick = (item: PropsList) => {
+const handleClick = (item: FilterButtonList) => {
   emit('click', item)
 }
 

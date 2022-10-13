@@ -6,17 +6,12 @@
 
 import { ref, reactive } from 'vue'
 import { getTagByParentCode, deleteTag } from '@/api/tag'
-import { PropsList } from '@/components/FilterButton/type'
+import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
 import { Confirm, Message } from '@/utils/interaction'
 import { useUserStore } from '@/store'
 
 export const useIndex = () => {
-  const btnList: PropsList[] = [
-    { name: '新增', key: 'add', type: 'primary' },
-    { name: '导出', key: 'export' }
-  ]
-
   const data = ref<DataTag[]>([])
 
   const getDataList = debounce(async () => {
@@ -28,7 +23,6 @@ export const useIndex = () => {
   getDataList()
 
   return {
-    btnList,
     data,
     getDataList
   }
@@ -46,8 +40,13 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     code: ''
   })
 
+  const btnList: FilterButtonList[] = [
+    { name: '新增', key: 'add', type: 'primary' },
+    { name: '导出', key: 'export' }
+  ]
+
   // 点击按钮
-  const handleBtn = (item: PropsList) => {
+  const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
       case 'add':
         state.id = ''
@@ -110,6 +109,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
 
   return {
     state,
+    btnList,
     handleBtn,
     handleShowInfo,
     handleEdit,

@@ -6,17 +6,14 @@
 
 import { ref, reactive } from 'vue'
 import { getRoleList, deleteRole } from '@/api/role'
-import { PropsList } from '@/components/FilterButton/type'
+import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
 import { Confirm, Message } from '@/utils/interaction'
 import { useUserStore } from '@/store'
 
 export const useIndex = () => {
   const keyword = ref<string>('')
-  const btnList: PropsList[] = [
-    { name: '新增', key: 'add', type: 'primary' },
-    { name: '导出', key: 'export' }
-  ]
+
   const pageNo = ref<number>(1)
   const pageSize = ref<number>(10)
   const total = ref<number>(0)
@@ -40,7 +37,6 @@ export const useIndex = () => {
 
   return {
     keyword,
-    btnList,
     pageNo,
     pageSize,
     total,
@@ -63,8 +59,13 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     showRolePermission: false
   })
 
+  const btnList: FilterButtonList[] = [
+    { name: '新增', key: 'add', type: 'primary' },
+    { name: '导出', key: 'export' }
+  ]
+
   // 点击按钮
-  const handleBtn = (item: PropsList) => {
+  const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
       case 'add':
         state.id = ''
@@ -130,6 +131,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
 
   return {
     state,
+    btnList,
     handleBtn,
     handleShowInfo,
     handleEdit,

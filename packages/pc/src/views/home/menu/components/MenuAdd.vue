@@ -42,24 +42,11 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ElForm, ElFormItem, ElInput, ElButton, ElCascader } from 'element-plus'
 import { useMenuAdd } from '../hooks/use-menu-add'
 import InputNumber from '@/components/InputNumber/index.vue'
-import { PropsType } from 'vue'
+import { menuAddProps, menuAddEmits } from './type'
 
-const emit = defineEmits(['close', 'confirm'])
+const emit = defineEmits(menuAddEmits)
+const props = defineProps(menuAddProps)
 
-const props = defineProps({
-  id: {
-    type: String,
-    default: ''
-  },
-  parentCode: {
-    type: String,
-    default: ''
-  },
-  options: {
-    type: Array as PropsType<DataMenu[]>,
-    default: () => []
-  }
-})
 const { title, formRef, form, rules, confirm } = useMenuAdd(props, emit)
 
 const _props = {

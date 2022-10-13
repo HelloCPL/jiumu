@@ -23,7 +23,11 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="parentLabel" label="父级菜单" min-width="120" />
-      <ElTableColumn prop="updateTime" label="更新时间" min-width="120" />
+      <ElTableColumn label="更新时间" width="150">
+        <template #default="{ row }">
+          <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
+        </template>
+      </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" min-width="80" />
       <ElTableColumn prop="remarks" label="备注" min-width="140" />
       <ElTableColumn label="操作" width="260" fixed="right">
@@ -82,16 +86,18 @@ import MenuAdd from './components/MenuAdd.vue'
 import MenuInfo from './components/MenuInfo.vue'
 import MenuUser from './components/MenuUser.vue'
 import MenuRole from './components/MenuRole.vue'
+import { formatDate } from '@jiumu/utils'
 
 defineOptions({
   name: 'Menu'
 })
 
-const { btnList, data, getDataList } = useIndex()
+const { data, getDataList } = useIndex()
 
 // 控制新增/编辑等逻辑
 const {
   state,
+  btnList,
   handleBtn,
   handleShowInfo,
   handleEdit,

@@ -38,8 +38,9 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ElForm, ElFormItem, ElInput, ElButton } from 'element-plus'
 import { usePermissionAdd } from '../hooks/use-permission-add'
 import InputNumber from '@/components/InputNumber/index.vue'
+import { permissionAddEmits } from './type'
 
-const emit = defineEmits(['close', 'confirm'])
+const emit = defineEmits(permissionAddEmits)
 type Props = {
   id?: string
 }

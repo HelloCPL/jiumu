@@ -5,7 +5,7 @@
 import { buildProps, EmitFn } from '@jiumu/utils'
 import { PropType, ExtractPropTypes } from 'vue'
 
-export type PropsList = {
+export type FilterButtonList = {
   name: string
   key: string
   code?: string // 权限标识
@@ -18,7 +18,7 @@ export type PropsList = {
 export const filterButtonProps = buildProps({
   // 按钮列表
   list: {
-    type: Array as PropType<PropsList[]>,
+    type: Array as PropType<FilterButtonList[]>,
     default: () => [{ name: '新增', key: 'add', type: 'primary' }]
   }
 } as const)
@@ -26,7 +26,7 @@ export const filterButtonProps = buildProps({
 export type FilterButtonProps = ExtractPropTypes<typeof filterButtonProps>
 
 export const filterButtonEmits = {
-  click: (item: PropsList) => item
+  click: (item: FilterButtonList) => item
 }
 
 export type FilterButtonEmits = EmitFn<typeof filterButtonEmits>

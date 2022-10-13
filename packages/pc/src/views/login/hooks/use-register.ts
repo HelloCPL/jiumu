@@ -2,7 +2,7 @@
  * 登录页处理逻辑
  */
 import { reactive, ref, Ref } from 'vue'
-import { LoginInfo } from './index.b'
+import { LoginInfo } from './type'
 import { FormRules, FormInstance } from 'element-plus'
 
 interface UseRegister {
@@ -22,8 +22,7 @@ export function useRegister(): UseRegister {
 
   // 校验账号
   const validPhone = (rule: any, value: string, callback: Function) => {
-    const reg: RegExp =
-      /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
+    const reg: RegExp = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
     const flag = value === 'root' || value === 'test' || reg.test(value)
     if (flag) callback()
     else callback('请输入手机号码格式的账号')

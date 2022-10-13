@@ -42,7 +42,11 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="professional" label="职业" min-width="130" />
-      <ElTableColumn prop="createTime" label="注册时间" min-width="120" />
+      <ElTableColumn label="注册时间" width="150">
+        <template #default="{ row }">
+          <span>{{ formatDate(row.createTime, 'YYYY-MM-DD HH:mm') }}</span>
+        </template>
+      </ElTableColumn>
       <ElTableColumn prop="terminal" label="注册终端" width="80" />
       <ElTableColumn label="操作" width="250" fixed="right">
         <template #default="{ row }">

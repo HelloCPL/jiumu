@@ -9,8 +9,9 @@ import { Message } from '@/utils/interaction'
 import { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { debounce } from 'lodash-es'
+import { RoleAddEmits } from '../components/type'
 
-export const useRoleAdd = (props: any, emit: any) => {
+export const useRoleAdd = (props: any, emit: RoleAddEmits) => {
   const title = ref<string>('角色新增')
   const formRef = ref<FormInstance>()
   const form = reactive<ParamsRoleAdd>({
