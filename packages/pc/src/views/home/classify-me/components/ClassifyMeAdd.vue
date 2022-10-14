@@ -17,6 +17,7 @@
         <ElAutocomplete
           placeholder="请输入角色"
           value-key="type"
+          clearable
           v-model="form.type"
           :fetch-suggestions="fetchSuggestionType"
         ></ElAutocomplete>
