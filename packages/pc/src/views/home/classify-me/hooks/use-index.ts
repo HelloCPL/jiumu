@@ -6,8 +6,9 @@
 
 import { ref, reactive } from 'vue'
 import { debounce } from 'lodash-es'
-import { getTagCustomListTypeSelf, getTagCustomListSelf } from '@/api/classify'
+import { getTagCustomListTypeSelf, getTagCustomListSelf, deleteTagCustom } from '@/api/classify'
 import { FilterButtonList } from '@/components/FilterButton/type'
+import { Confirm, Message } from '@/utils/interaction'
 
 export const useIndex = () => {
   const keyword = ref<string>('')
@@ -54,6 +55,7 @@ export const useIndex = () => {
     keyword,
     type,
     typeList,
+    getTypeList,
     pageNo,
     pageSize,
     total,
@@ -64,7 +66,7 @@ export const useIndex = () => {
 }
 
 // 处理新增 导出 编辑 删除 查看等逻辑
-export const useIndexInfo = ({ getDataList }: ObjectAny) => {
+export const useIndexInfo = ({ getDataList, getTypeList }: ObjectAny) => {
   const state = reactive({
     id: '',
     show: false, // 显示新增或编辑
@@ -90,12 +92,43 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const handleConfirm = () => {
     getDataList()
     state.show = false
+    getTypeList()
+  }
+
+  // 点击编辑
+  const handleEdit = (row: DataTagCustom) => {
+    state.id = row.id
+    state.show = true
+  }
+
+  // 删除
+  const handleDelete = (row: DataTagCustom) => {
+    Confirm('确定删除这项数据吗？').then(async () => {
+      const res = await deleteTagCustom(row.id)
+      if (res.code === 200) {
+        Message({
+          message: res.message,
+          type: 'success'
+        })
+        getDataList()
+        getTypeList()
+      }
+    })
+  }
+
+  // 显示详情
+  const handleShowInfo = (row: DataTagCustom) => {
+    state.id = row.id
+    state.showInfo = true
   }
 
   return {
     state,
     btnList,
     handleBtn,
-    handleConfirm
+    handleConfirm,
+    handleEdit,
+    handleDelete,
+    handleShowInfo
   }
 }

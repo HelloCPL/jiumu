@@ -8,13 +8,13 @@ import { isPlainObject } from 'lodash-es'
 // 上传文件
 export const uploadFile = async (
   file: FormData,
-  params: ObjectAny = {}
+  params: ParamsFileOther = {}
 ): Promise<DataOptions<DataBaseFile[]>> => {
   const query = _getFileParams(params)
   return await postForm(`/pc/file/add${query}`, file).catch((err) => err)
 }
 
-const _getFileParams = (params: ObjectAny) => {
+const _getFileParams = (params: ParamsFileOther) => {
   let query = ''
   if (isPlainObject(params)) {
     for (const key in params) {

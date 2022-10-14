@@ -29,3 +29,20 @@ export const getTagCustomList = async (
 export const addTagCustom = async (params: ParamsTagCustomAdd): Promise<DataOptions<null>> => {
   return await post('/pc/tag/custom/add', params).catch((err) => err)
 }
+
+// 修改自定义标签
+export const updateTagCustom = async (params: ParamsTagCustomAdd): Promise<DataOptions<null>> => {
+  return await post('/pc/tag/custom/update', params).catch((err) => err)
+}
+// 删除某个自定义标签
+export const deleteTagCustom = async (id: string): Promise<DataOptions<null>> => {
+  return await post('/pc/tag/custom/delete', { id }).catch((err) => err)
+}
+
+// 获取我的一个自定义标签
+export const getTagCustomByIdsSelf = async (
+  ids: string,
+  isloading?: boolean
+): Promise<DataOptions<DataTagCustom[]>> => {
+  return await post('/pc/tag/custom/get/byids/self', { ids }, { isloading }).catch((err) => err)
+}

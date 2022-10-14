@@ -36,7 +36,7 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const httpRequest = async (fileOption: UploadRequestOptions) => {
     const file = new FormData()
     file.append('file', fileOption.file)
-    let params: ObjectAny = {}
+    let params: ParamsFileOther = {}
     if (isPlainObject(props.params)) params = Object.assign(params, props.params)
     params.staticPlace = props.type
     const res = await uploadFile(file, params)

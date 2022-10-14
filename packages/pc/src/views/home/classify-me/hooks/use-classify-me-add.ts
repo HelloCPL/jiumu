@@ -5,7 +5,12 @@
 import { ClassifyMeAddProps, ClassifyMeAddEmits } from '../components/type'
 import { reactive, ref } from 'vue'
 import { FormInstance, FormRules } from 'element-plus'
-import { getTagCustomListTypeSelf, addTagCustom } from '@/api/classify'
+import {
+  getTagCustomListTypeSelf,
+  addTagCustom,
+  getTagCustomByIdsSelf,
+  updateTagCustom
+} from '@/api/classify'
 import { debounce } from 'lodash-es'
 import { Message } from '@/utils/interaction'
 
@@ -51,7 +56,16 @@ export const useClassifyMeAdd = (props: ClassifyMeAddProps, emit: ClassifyMeAddE
   })
 
   // 编辑
-  const _update = debounce(async (params: ParamsTagCustomAdd) => {})
+  const _update = debounce(async (params: ParamsTagCustomAdd) => {
+    const res = await updateTagCustom(params)
+    if (res.code === 200) {
+      Message({
+        message: res.message,
+        type: 'success'
+      })
+      emit('confirm')
+    }
+  })
 
   const confirm = () => {
     if (!formRef.value) return
@@ -72,8 +86,20 @@ export const useClassifyMeAdd = (props: ClassifyMeAddProps, emit: ClassifyMeAddE
     })
   }
 
+  // 获取详情
+  const _getOne = async (id: string) => {
+    const res = await getTagCustomByIdsSelf(id, true)
+    if (res.code === 200 && res.data.length) {
+      const data = res.data[0]
+      form.label = data.label
+      form.sort = data.sort
+      form.type = data.type
+    }
+  }
+
   if (props.id) {
     title.value = '自定义标签编辑'
+    _getOne(props.id)
   }
 
   return {

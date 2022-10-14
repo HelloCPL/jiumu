@@ -41,7 +41,7 @@ export const uploadProps = buildProps({
   },
   params: {
     // 自定义上传参数
-    type: Object,
+    type: Object as PropType<ParamsFileOther>,
     default: () => ({})
   }
 } as const)

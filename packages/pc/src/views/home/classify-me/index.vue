@@ -25,7 +25,9 @@
       <ElTableColumn prop="sort" label="排序" width="60" />
       <ElTableColumn label="描述" min-width="140">
         <template #default="{ row }">
-          <GRichText :html="row.label" />
+          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
+            <GRichText :html="row.label" />
+          </span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="type" label="类型" min-width="120" />
@@ -36,6 +38,12 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" width="120" />
+      <ElTableColumn label="操作" width="255" fixed="right">
+        <template #default="{ row }">
+          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
+          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+        </template>
+      </ElTableColumn>
     </Table>
     <!-- 分页 -->
     <Pagination
@@ -48,6 +56,8 @@
     <!-- 自定义标签新增 -->
     <ClassifyMeAdd :id="state.id" v-if="state.show" @close="state.show = false" @confirm="handleConfirm">
     </ClassifyMeAdd>
+    <!-- 自定义标签详情 -->
+    <ClassifyMeInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></ClassifyMeInfo>
   </div>
 </template>
 
@@ -55,16 +65,21 @@
 import FilterBox from '@/components/FilterBox/index.vue'
 import FilterButton from '@/components/FilterButton/index.vue'
 import { useIndex, useIndexInfo } from './hooks/use-index'
-import { ElFormItem, ElInput, ElSelect, ElOption, ElTableColumn } from 'element-plus'
+import { ElFormItem, ElInput, ElSelect, ElOption, ElTableColumn, ElButton } from 'element-plus'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import ClassifyMeAdd from './components/ClassifyMeAdd.vue'
+import ClassifyMeInfo from './components/ClassifyMeInfo.vue'
 
 defineOptions({
   name: 'ClassifyMe'
 })
 
-const { keyword, type, typeList, pageNo, pageSize, total, data, getDataList, handleReset } = useIndex()
-const { state, btnList, handleBtn, handleConfirm } = useIndexInfo({ getDataList })
+const { keyword, type, typeList, getTypeList, pageNo, pageSize, total, data, getDataList, handleReset } =
+  useIndex()
+const { state, btnList, handleBtn, handleEdit, handleDelete, handleConfirm, handleShowInfo } = useIndexInfo({
+  getDataList,
+  getTypeList
+})
 </script>
