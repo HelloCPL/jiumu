@@ -41,7 +41,7 @@ export type PaginationProps = ExtractPropTypes<typeof paginationProps>
 export const paginationEmits = {
   'update:pageNo': (val: number) => isNumber(val),
   'update:pageSize': (val: number) => isNumber(val),
-  change: (val: number) => isNumber(val)
+  change: () => true
 }
 
 export type PaginationEmits = EmitFn<typeof paginationEmits>

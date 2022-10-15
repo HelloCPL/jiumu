@@ -7,7 +7,7 @@
 <template>
   <div class="g-container">
     <!-- 筛选框 -->
-    <FilterBox @search="getDataList">
+    <FilterBox @search="getDataList(1)">
       <ElFormItem label="关键字">
         <ElInput v-model="keyword" type="text" clearable placeholder="请输入关键字"></ElInput>
       </ElFormItem>

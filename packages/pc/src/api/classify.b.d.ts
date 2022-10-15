@@ -26,6 +26,11 @@ interface ParamsTagCustomListSelf extends ParamsTagCustomList {
   type?: string
 }
 
+// 获取指定用户自定义标签列表接口类型
+interface ParamsTagCustomListByUserId extends ParamsTagCustomListSelf {
+  id: string
+}
+
 // 自定义标签类型返回数据类型
 interface DataTagCustomType {
   type: string

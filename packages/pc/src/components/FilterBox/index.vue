@@ -79,7 +79,7 @@ onUnmounted(() => {
   .el-form--inline .el-form-item {
     margin-right: 24px;
     margin-bottom: 14px;
-    min-width: 280px;
+    width: 280px;
   }
 
   .el-form-item__label {

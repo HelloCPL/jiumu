@@ -17,7 +17,8 @@ export const useIndex = () => {
 
   const data = ref<DataPermission[]>([])
 
-  const getDataList = debounce(async () => {
+  const getDataList = debounce(async (num?: number) => {
+    if (num) pageNo.value = num
     const params: ParamsPermissionList = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,

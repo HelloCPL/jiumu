@@ -5,14 +5,24 @@
  */
 
 // 获取所有文章列表接口类型
-interface ParamsAriticleList extends ParamsPage {
+interface ParamsArticleList extends ParamsPage {
   keyword?: string
   highlight?: '0' | '1'
   type?: string
 }
 
+// 获取指定用户的文章列表接口类型
+interface ParamsArticleListByUserId extends ParamsArticleList {
+  classify?: string
+}
+
+interface ParamsArticleListSelf extends ParamsArticleListByUserId {
+  isDraft?: '1' | '0'
+  isSecret?: '1' | '0'
+}
+
 // 文章数据接口类型
-interface DataAriticle extends DataBase {
+interface DataArticle extends DataBase {
   id: string
   title: string
   coverImg?: DataBaseFile | null
@@ -34,7 +44,7 @@ interface DataAriticle extends DataBase {
 }
 
 // 文章详情数据接口类型
-interface DataAritlcleInfo extends DataAriticle {
+interface DataArtlcleInfo extends DataArticle {
   content: string
   contentType: string
   contentTypeLabel: string

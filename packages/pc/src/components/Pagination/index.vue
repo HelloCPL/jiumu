@@ -17,7 +17,7 @@
       :page-sizes="pageSizes"
       @update:current-page="handlePageNo"
       @update:page-size="handlePageSize"
-      @size-change="handleChange"
+      @size-change="handleChangeSize"
       @current-change="handleChange"
       @prev-click="handleChange"
       @next-click="handleChange"
@@ -32,18 +32,23 @@ defineOptions({
   inheritAttrs: false
 })
 
+defineProps(paginationProps)
 const emit = defineEmits(paginationEmits)
+
 const handlePageNo = (page: number) => {
   emit('update:pageNo', page)
 }
 const handlePageSize = (size: number) => {
   emit('update:pageSize', size)
 }
-const handleChange = (val: number) => {
-  emit('change', val)
+const handleChange = () => {
+  emit('change')
 }
-
-defineProps(paginationProps)
+const handleChangeSize = (val: number) => {
+  // emit('update:pageNo', 1)
+  emit('update:pageSize', val)
+  emit('change')
+}
 </script>
 
 <style lang="scss">

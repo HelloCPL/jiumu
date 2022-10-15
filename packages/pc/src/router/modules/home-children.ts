@@ -77,32 +77,32 @@ const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "Classify" */ '@/views/home/classify/index.vue')
   },
   {
-    path: '/ariticle-me-draft',
-    name: 'AriticleMeDraft',
+    path: '/article-me-draft',
+    name: 'ArticleMeDraft',
     meta: {
       title: '我的文章草稿箱',
       code: ''
     },
     component: () =>
-      import(/* webpackChunkName: "AriticleMeDraft" */ '@/views/home/ariticle-me-draft/index.vue')
+      import(/* webpackChunkName: "ArticleMeDraft" */ '@/views/home/article-me-draft/index.vue')
   },
   {
-    path: '/ariticle-me',
-    name: 'AriticleMe',
+    path: '/article-me',
+    name: 'ArticleMe',
     meta: {
       title: '我的文章',
       code: ''
     },
-    component: () => import(/* webpackChunkName: "AriticleMe" */ '@/views/home/ariticle-me/index.vue')
+    component: () => import(/* webpackChunkName: "ArticleMe" */ '@/views/home/article-me/index.vue')
   },
   {
-    path: '/ariticle',
-    name: 'Ariticle',
+    path: '/article',
+    name: 'Article',
     meta: {
       title: '所有文章',
       code: ''
     },
-    component: () => import(/* webpackChunkName: "Ariticle" */ '@/views/home/ariticle/index.vue')
+    component: () => import(/* webpackChunkName: "Article" */ '@/views/home/article/index.vue')
   },
   {
     path: '/source-me',

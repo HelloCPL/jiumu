@@ -5,7 +5,12 @@
 -->
 
 <template>
-  <ElImageViewer :url-list="urlList" :teleported="teleported" :infinite="infinite"></ElImageViewer>
+  <ElImageViewer
+    :url-list="urlList"
+    :teleported="teleported"
+    :infinite="infinite"
+    :z-index="zIndex"
+  ></ElImageViewer>
 </template>
 
 <script lang="ts" setup>
@@ -26,6 +31,10 @@ defineProps({
   infinite: {
     type: Boolean,
     default: false
+  },
+  zIndex: {
+    type: Number,
+    default: 999
   }
 })
 </script>

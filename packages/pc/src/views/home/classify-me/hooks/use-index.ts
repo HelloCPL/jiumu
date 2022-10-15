@@ -28,7 +28,8 @@ export const useIndex = () => {
 
   // 列表数据
   const data = ref<DataTagCustom[]>([])
-  const getDataList = debounce(async () => {
+  const getDataList = debounce(async (num?: number) => {
+    if (num) pageNo.value = num
     const params: ParamsTagCustomListSelf = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,

@@ -5,11 +5,11 @@
 -->
 
 <template>
-  <div>AriticleMeDraft</div>
+  <div>ArticleMeDraft</div>
 </template>
 
 <script lang="ts" setup>
 defineOptions({
-  name: 'AriticleMeDraft'
+  name: 'ArticleMeDraft'
 })
 </script>

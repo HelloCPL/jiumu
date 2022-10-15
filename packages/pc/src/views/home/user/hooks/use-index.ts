@@ -16,7 +16,8 @@ export const useIndex = () => {
 
   const data = ref<DataUserInfo[]>([])
 
-  const getDataList = debounce(async () => {
+  const getDataList = debounce(async (num?: number) => {
+    if (num) pageNo.value = num
     const params: ParamsUserList = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,

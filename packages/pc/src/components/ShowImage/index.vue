@@ -5,9 +5,10 @@
 -->
 
 <template>
-  <div class="flex flex-wrap" v-if="list.length">
+  <div class="flex flex-wrap w-40 h-40" v-if="list.length">
     <div
-      class="w-40 h-40 relative rounded mr-3 mb-3 show-image-wrapper"
+      class="w-full h-full relative rounded show-image-wrapper"
+      :class="{ 'mr-3': list.length > 1, 'mb-3': list.length > 1 }"
       v-for="(item, index) in list"
       :key="item"
     >
@@ -17,10 +18,10 @@
         class="absolute top-0 left-0 w-full h-full overlay-lighter text-xl text-white-8 items-center justify-center hidden show-image-item"
         v-if="isPreview || isDelete"
       >
-        <ElIcon class="mr-3 cursor-pointer" @click="handlePreview(index)" v-if="isPreview">
+        <ElIcon class="cursor-pointer" @click="handlePreview(index)" v-if="isPreview">
           <View />
         </ElIcon>
-        <ElIcon class="cursor-pointer" @click="handleDelete(index)" v-if="isDelete">
+        <ElIcon class="ml-3 cursor-pointer" @click="handleDelete(index)" v-if="isDelete">
           <Delete />
         </ElIcon>
       </div>

@@ -7,7 +7,7 @@
 <template>
   <div class="g-container">
     <!-- 筛选框 -->
-    <FilterBox @search="getDataList">
+    <FilterBox @search="getDataList(1)">
       <ElFormItem label="关键字">
         <ElInput v-model="keyword" type="text" clearable placeholder="请输入关键字"></ElInput>
       </ElFormItem>
@@ -34,7 +34,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" width="80" />
-      <ElTableColumn prop="remarks" label="备注" min-width="140" />
+      <ElTableColumn prop="remarks" label="备注" min-width="160" />
       <ElTableColumn label="操作" width="255" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>

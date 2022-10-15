@@ -7,8 +7,8 @@
 <template>
   <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
     <ElForm :model="form" :rules="rules" ref="formRef" label-width="80px" class="g-popup">
-      <ElFormItem label="描述" prop="label" class="g-w-320">
-        <ElInput type="text" placeholder="请输入描述" v-model="form.label"></ElInput>
+      <ElFormItem label="标签" prop="label" class="g-w-320">
+        <ElInput type="text" placeholder="请输入标签" v-model="form.label"></ElInput>
       </ElFormItem>
       <ElFormItem label="排序" prop="sort" class="g-w-320">
         <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>

@@ -15,6 +15,11 @@ interface KeyId<T = string, U = string> extends ObjectAny {
   id: U
 }
 
+interface ValueLabel<T = string, U = string> extends ObjectAny {
+  value: T
+  label: U
+}
+
 // 数据接口返回类型
 interface DataResponse {
   message: string

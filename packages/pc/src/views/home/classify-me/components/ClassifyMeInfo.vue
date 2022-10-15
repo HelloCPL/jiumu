@@ -8,7 +8,7 @@
   <Dialog title="自定义标签信息" width="380px" :show-footer="false">
     <div v-if="dataInfo" class="px-4">
       <ElRow class="my-3">
-        <ElCol :span="4" class="text-right pr-2">描述：</ElCol>
+        <ElCol :span="4" class="text-right pr-2">标签：</ElCol>
         <ElCol :span="20" class="text-lighter">{{ dataInfo?.label }}</ElCol>
       </ElRow>
       <ElRow class="mb-3">

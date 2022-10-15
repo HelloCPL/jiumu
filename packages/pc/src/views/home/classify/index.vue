@@ -7,7 +7,7 @@
 <template>
   <div class="g-container">
     <!-- 筛选框 -->
-    <FilterBox @search="getDataList">
+    <FilterBox @search="getDataList(1)">
       <ElFormItem label="关键字">
         <ElInput v-model="keyword" type="text" clearable placeholder="请输入关键字"></ElInput>
       </ElFormItem>
@@ -18,7 +18,7 @@
     <Table :data="data">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn label="描述" min-width="140">
+      <ElTableColumn label="标签" min-width="140">
         <template #default="{ row }">
           <GRichText :html="row.label" />
         </template>
@@ -34,7 +34,7 @@
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="120" />
+      <ElTableColumn prop="terminal" label="创建终端" width="80" />
     </Table>
     <!-- 分页 -->
     <Pagination

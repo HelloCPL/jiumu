@@ -14,7 +14,8 @@ export const useIndex = () => {
   const total = ref<number>(0)
   const keyword = ref<string>('')
   const data = ref<DataTagCustom[]>([])
-  const getDataList = debounce(async () => {
+  const getDataList = debounce(async (num?: number) => {
+    if (num) pageNo.value = num
     const params: ParamsTagCustomList = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,

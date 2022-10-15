@@ -18,6 +18,13 @@ export const getTagCustomListSelf = async (
   return await get('/pc/tag/custom/get/list/self', params).catch((err) => err)
 }
 
+// 获取指定用户的自定义标签列表
+export const getTagCustomListByUserId = async (
+  params: ParamsTagCustomListByUserId
+): Promise<DataOptions<DataTagCustom[]>> => {
+  return await get('/pc/tag/custom/get/list/byuserid', params).catch((err) => err)
+}
+
 // 获取所有自定义标签列表
 export const getTagCustomList = async (
   params: ParamsTagCustomList = {}

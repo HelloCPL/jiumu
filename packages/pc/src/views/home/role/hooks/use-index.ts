@@ -20,7 +20,8 @@ export const useIndex = () => {
 
   const data = ref<DataRole[]>([])
 
-  const getDataList = debounce(async () => {
+  const getDataList = debounce(async (num?: number) => {
+    if (num) pageNo.value = num
     const params: ParamsRoleList = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,

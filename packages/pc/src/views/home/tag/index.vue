@@ -11,7 +11,7 @@
     <!-- 列表 -->
     <Table :data="data" default-expand-all>
       <ElTableColumn type="selection" width="55" />
-      <ElTableColumn prop="sort" label="排序" min-width="120" />
+      <ElTableColumn prop="sort" label="排序" min-width="110" />
       <ElTableColumn label="code" min-width="110">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
@@ -29,7 +29,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" width="80" />
-      <ElTableColumn prop="remarks" label="备注" min-width="140" />
+      <ElTableColumn prop="remarks" label="备注" min-width="160" />
       <ElTableColumn label="操作" width="200" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>

@@ -13,7 +13,7 @@ import { login } from '@/api/user'
 
 ```
 // any file
-const data: DataArticle = { ... }
+const data: ParamsArticleList = { ... }
 ```
 
 - 参数型接口以 `Params` 开头的驼峰命名法，接口数据返回类型以 `Data` 开头的驼峰命名法
