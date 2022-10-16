@@ -47,7 +47,7 @@
           <span>{{ formatDate(row.createTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="注册终端" width="80" />
+      <ElTableColumn prop="terminal" label="注册终端" width="100" />
       <ElTableColumn label="操作" width="250" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleShowUserRole(row)">查看角色</ElButton>

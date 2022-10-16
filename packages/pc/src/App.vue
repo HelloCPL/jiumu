@@ -22,5 +22,6 @@ themeStore.toggleFontSize()
 <style>
 #app {
   color: var(--jm-color-text);
+  font-size: var(--jm-font-size);
 }
 </style>

@@ -44,9 +44,25 @@ interface DataArticle extends DataBase {
 }
 
 // 文章详情数据接口类型
-interface DataArtlcleInfo extends DataArticle {
+interface DataArticleInfo extends DataArticle {
   content: string
   contentType: string
   contentTypeLabel: string
   attachment: DataBaseFile[]
+}
+
+// 新增或编辑文章参数
+interface ParamsArticleAdd {
+  id?: string
+  title: string
+  content: string
+  contentType: '401' | '402' | '403'
+  type: string
+  isDraft: '1' | '0'
+  coverImg?: string
+  attactment?: string
+  classify?: string
+  isSecret?: '1' | '0'
+  sort?: number
+  remarks?: string
 }

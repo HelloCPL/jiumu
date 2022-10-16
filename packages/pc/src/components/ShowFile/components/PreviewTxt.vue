@@ -62,7 +62,7 @@ defineEmits({
 
 const content = ref<string>('')
 const getContent = () => {
-  getFileText(props.url).then((data: any) => {
+  getFileText(props.url, 'utf-8').then((data: any) => {
     content.value = data
   })
 }

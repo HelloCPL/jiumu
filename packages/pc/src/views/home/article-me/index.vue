@@ -12,34 +12,13 @@
         <ElInput v-model="keyword" type="text" clearable placeholder="请输入关键字"></ElInput>
       </ElFormItem>
       <ElFormItem label="类型">
-        <ElSelect v-model="type" placeholder="请选择类型" clearable>
-          <ElOption
-            v-for="(item, index) in typeList"
-            :key="index"
-            :value="item.code"
-            :label="item.label"
-          ></ElOption>
-        </ElSelect>
+        <SelectType v-model="type" parent-code="300"></SelectType>
       </ElFormItem>
       <ElFormItem label="标签">
-        <ElSelect v-model="classify" placeholder="请选择标签" clearable>
-          <ElOption
-            v-for="(item, index) in classifyList"
-            :key="index"
-            :value="item.id"
-            :label="item.label"
-          ></ElOption>
-        </ElSelect>
+        <SelectType v-model="classify" type="classify" parent-code="articleClassify"></SelectType>
       </ElFormItem>
       <ElFormItem label="是否公开">
-        <ElSelect v-model="isSecret" placeholder="请选择是否公开" clearable>
-          <ElOption
-            v-for="(item, index) in isSecretList"
-            :key="index"
-            :value="item.value"
-            :label="item.label"
-          ></ElOption>
-        </ElSelect>
+        <SelectType v-model="isSecret" type="isSecret"></SelectType>
       </ElFormItem>
     </FilterBox>
     <!-- 操作盒子 -->
@@ -54,13 +33,13 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="文章类型" min-width="80" />
+      <ElTableColumn prop="typeLabel" label="文章类型" min-width="90" />
       <ElTableColumn label="封面" min-width="140">
         <template #default="{ row }">
           <ShowImage class="max-h-24" :model-value="[row.coverImg]" v-if="row.coverImg"></ShowImage>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="标签" min-width="110">
+      <ElTableColumn label="标签" min-width="100">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">
@@ -70,25 +49,25 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="是否公开" width="80">
+      <ElTableColumn label="是否公开" width="90">
         <template #default="{ row }">
           <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="是否置顶" width="80">
+      <ElTableColumn label="是否置顶" width="90">
         <template #default="{ row }">
           <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="likeCount" label="点赞" width="80"></ElTableColumn>
-      <ElTableColumn prop="likeCount" label="收藏" width="80"></ElTableColumn>
-      <ElTableColumn prop="likeCount" label="评论" width="80"></ElTableColumn>
+      <ElTableColumn prop="likeCount" label="点赞" width="70"></ElTableColumn>
+      <ElTableColumn prop="likeCount" label="收藏" width="70"></ElTableColumn>
+      <ElTableColumn prop="likeCount" label="评论" width="70"></ElTableColumn>
       <ElTableColumn label="更新时间" width="150">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="80" />
+      <ElTableColumn prop="terminal" label="创建终端" width="90" />
       <ElTableColumn label="操作" width="100" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
@@ -115,28 +94,14 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import ShowImage from '@/components/ShowImage/index.vue'
 import { formatDate } from '@jiumu/utils'
+import SelectType from '@/components/SelectType/index.vue'
 
 defineOptions({
   name: 'ArticleMe'
 })
 
-const {
-  keyword,
-  isSecret,
-  isSecretList,
-  type,
-  typeList,
-  getTypeList,
-  classify,
-  classifyList,
-  getClassifyList,
-  pageNo,
-  pageSize,
-  total,
-  data,
-  getDataList,
-  handleReset
-} = useIndex()
+const { keyword, isSecret, type, classify, pageNo, pageSize, total, data, getDataList, handleReset } =
+  useIndex()
 const { state, btnList, handleBtn, handleConfirm, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })

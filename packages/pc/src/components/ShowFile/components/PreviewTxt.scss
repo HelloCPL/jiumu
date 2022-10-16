@@ -1,5 +1,6 @@
 .preview-txt {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--jm-color-overlay-lighter);
+  z-index: 999;
 
   .preview-txt-close {
     width: 44px;

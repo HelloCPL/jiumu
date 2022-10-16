@@ -105,6 +105,15 @@ const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "Article" */ '@/views/home/article/index.vue')
   },
   {
+    path: '/article-add',
+    name: 'ArticleAdd',
+    meta: {
+      title: '新增文章',
+      code: ''
+    },
+    component: () => import(/* webpackChunkName: "ArticleAdd" */ '@/views/home/article-add/index.vue')
+  },
+  {
     path: '/source-me',
     name: 'SourceMe',
     meta: {

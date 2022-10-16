@@ -5,42 +5,18 @@
  */
 
 import { getArticleListSelf } from '@/api/article'
-import { getTagCustomListSelf } from '@/api/classify'
-import { getTagByParentCode } from '@/api/tag'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
 import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
 export const useIndex = () => {
   const keyword = ref<string>('')
   const isSecret = ref<'1' | '0'>()
-  const isSecretList = ref<ValueLabel[]>([
-    { value: '1', label: '否' },
-    { value: '0', label: '是' }
-  ])
   // 标签类型
   const type = ref<string>('')
-  const typeList = ref<DataTag[]>([])
-  const getTypeList = async () => {
-    const res = await getTagByParentCode('300')
-    if (res.code === 200) {
-      typeList.value = res.data
-    }
-  }
-  getTypeList()
   // 自定义标签类型
   const classify = ref<string>('')
-  const classifyList = ref<DataTagCustom[]>([])
-  const getClassifyList = async () => {
-    const res = await getTagCustomListSelf({
-      type: 'articleClassify',
-      pageSize: 100
-    })
-    if (res.code === 200) {
-      classifyList.value = res.data
-    }
-  }
-  getClassifyList()
 
   const pageNo = ref<number>(1)
   const pageSize = ref<number>(10)
@@ -80,13 +56,8 @@ export const useIndex = () => {
   return {
     keyword,
     isSecret,
-    isSecretList,
     type,
-    typeList,
-    getTypeList,
     classify,
-    classifyList,
-    getClassifyList,
     pageNo,
     pageSize,
     total,
@@ -102,13 +73,16 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     id: '',
     show: false // 显示新增或编辑
   })
+  const router = useRouter()
   const btnList: FilterButtonList[] = [{ name: '新增', key: 'add', type: 'primary' }]
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
       case 'add':
-        state.id = ''
-        state.show = true
+        router.push({
+          name: 'ArticleAdd',
+          params: { _metaTitle: '文章新增', _refreshOne: '1' }
+        })
         return
     }
   }

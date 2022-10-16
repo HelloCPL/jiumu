@@ -28,7 +28,7 @@
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="80" />
+      <ElTableColumn prop="terminal" label="创建终端" width="100" />
       <ElTableColumn prop="remarks" label="备注" min-width="160" />
       <ElTableColumn label="操作" width="260" fixed="right">
         <template #default="{ row }">

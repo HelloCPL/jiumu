@@ -15,7 +15,7 @@
     :disabled="disabled || _limit <= 0"
     :limit="_limit"
     :multiple="multiple"
-    :on-chnage="onChange"
+    :on-change="onChange"
     :on-exceed="onExceed"
     :before-upload="beforeUpload"
     :http-request="httpRequest"

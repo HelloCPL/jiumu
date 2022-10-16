@@ -9,14 +9,14 @@ import { KeepAliveOption } from '@/store/keep-alive.b'
 export const afterEach = (router: Router) => {
   router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
     // 动态修改meta标题
-    if (to.params.metaTitle) to.meta.title = <string>to.params.metaTitle
-    else if (to.query.metaTitle) to.meta.title = <string>to.query.metaTitle
+    if (to.params._metaTitle) to.meta.title = <string>to.params._metaTitle
+    else if (to.query._metaTitle) to.meta.title = <string>to.query._metaTitle
 
     // 处理缓存参数
-    if (to.params.hasOwnProperty('keepAliveTo')) to.meta.keepAlive = to.params.keepAliveTo === '1'
-    else if (to.query.hasOwnProperty('keepAliveTo')) to.meta.keepAlive = to.query.keepAliveTo === '1'
-    if (to.params.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.params.keepAliveFrom === '1'
-    else if (to.query.hasOwnProperty('keepAliveFrom')) from.meta.keepAlive = to.query.keepAliveFrom === '1'
+    if (to.params.hasOwnProperty('_keepAliveTo')) to.meta.keepAlive = to.params._keepAliveTo === '1'
+    else if (to.query.hasOwnProperty('_keepAliveTo')) to.meta.keepAlive = to.query._keepAliveTo === '1'
+    if (to.params.hasOwnProperty('_keepAliveFrom')) from.meta.keepAlive = to.params._keepAliveFrom === '1'
+    else if (to.query.hasOwnProperty('_keepAliveFrom')) from.meta.keepAlive = to.query._keepAliveFrom === '1'
 
     // 处理 home 子页面导航栏
     const navigationsStore = useNavigationsStore()
@@ -24,7 +24,7 @@ export const afterEach = (router: Router) => {
   })
 }
 
-function _getKParams(params: RouteLocationNormalized): KeepAliveOption {
+export function _getKParams(params: RouteLocationNormalized): KeepAliveOption {
   return {
     name: params.name,
     path: params.path,

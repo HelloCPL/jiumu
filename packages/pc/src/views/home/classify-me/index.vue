@@ -11,8 +11,8 @@
       <ElFormItem label="关键字">
         <ElInput v-model="keyword" type="text" clearable placeholder="请输入关键字"></ElInput>
       </ElFormItem>
-      <ElFormItem label="类型">
-        <ElSelect v-model="type" placeholder="请选择类型" clearable>
+      <ElFormItem label="标签类型">
+        <ElSelect v-model="type" placeholder="请选择标签类型" clearable>
           <ElOption v-for="(item, index) in typeList" :key="index" :value="item.type"></ElOption>
         </ElSelect>
       </ElFormItem>
@@ -37,7 +37,7 @@
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="80" />
+      <ElTableColumn prop="terminal" label="创建终端" width="100" />
       <ElTableColumn label="操作" width="100" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>

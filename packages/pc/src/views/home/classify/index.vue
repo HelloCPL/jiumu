@@ -34,7 +34,7 @@
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="80" />
+      <ElTableColumn prop="terminal" label="创建终端" width="100" />
     </Table>
     <!-- 分页 -->
     <Pagination

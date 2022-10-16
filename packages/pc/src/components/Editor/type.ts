@@ -11,7 +11,7 @@ export const editorProps = buildProps({
   type: {
     // 编辑器类型 401 wangEditor富文本编辑器 402 Markdown 编辑器 403 AoMaoEditor
     type: String as PropType<'401' | '402' | '403'>,
-    default: '403'
+    default: '401'
   },
   modelValue: {
     // 双向绑定值

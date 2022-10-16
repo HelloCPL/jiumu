@@ -83,7 +83,22 @@
   --el-font-size-base: var(--jm-font-size);
   --el-font-size-small: var(--jm-font-size-small);
   --el-font-size-extra-small: var(--jm-font-size-small-extra);
+  --el-pagination-font-size: var(--jm-font-size);
 
   // 字体类型
   --el-font-family: var(--jm-font-family);
+
+  // 特殊
+  .el-pagination {
+    --el-pagination-font-size: var(--jm-font-size);
+  }
+  .el-select {
+    --el-select-input-font-size: var(--jm-font-size);
+  }
+  .el-dialog {
+    --el-dialog-content-font-size: var(--jm-font-size);
+  }
+  .el-tag {
+    --el-tag-font-size: var(--jm-font-size-small-extra);
+  }
 }

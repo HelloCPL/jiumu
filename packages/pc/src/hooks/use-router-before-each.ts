@@ -1,5 +1,8 @@
 import { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router'
 import { useUserStore } from '@/store'
+import { useNavigationsStore } from '@/store'
+import { _getKParams } from './use-router-after-each'
+
 /**
  * 路由 beforeEach 拦截
  * 主要对 meta.code 需要权限校验的页面进行校验
@@ -7,6 +10,16 @@ import { useUserStore } from '@/store'
 export const beforeEach = (router: Router) => {
   router.beforeEach(
     (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+      // 处理目标页面是否仅更新一次
+      const navigationsStore = useNavigationsStore()
+      if (to.params._refreshOne === '1') {
+        delete to.params._refreshOne
+        navigationsStore._pop(_getKParams(to))
+      } else if (to.query._refreshOne === '1') {
+        delete to.query._refreshOne
+        navigationsStore._pop(_getKParams(to))
+      }
+
       // if (to.meta.code) {
       const store = useUserStore()
       //   const codes = to.meta.code.split(',')

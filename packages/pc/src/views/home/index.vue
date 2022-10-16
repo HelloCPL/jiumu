@@ -8,13 +8,13 @@
   <div class="w-full h-screen bg">
     <!-- 头部 -->
     <Header @show-user-info="showUserInfo"></Header>
-    <div class="w-full flex wrapper">
+    <div class="w-full flex home-wrapper">
       <!-- 左侧导航 -->
       <Sidebar></Sidebar>
       <div class="h-full flex-1 shrink-0 flex flex-col">
         <!-- 中间导航栏 -->
         <Navigator></Navigator>
-        <div class="w-full py-4 px-5 flex-1 flex-shrink-0">
+        <div class="w-full py-4 px-5 home-content">
           <Content></Content>
         </div>
       </div>
@@ -49,7 +49,11 @@ const showUserInfo = () => {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
+.home-wrapper {
   height: calc(100% - 55px);
+}
+
+.home-content {
+  height: calc(100% - 2.5rem);
 }
 </style>

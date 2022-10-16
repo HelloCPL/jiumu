@@ -86,10 +86,18 @@ html {
   -webkit-line-clamp: 2;
 }
 
+// 横向label普通输入框宽度
 .g-w-320 {
-  width: 320px
+  width: 320px;
 }
 
+// home页面筛选框横向输入框宽度
+// 或新页面竖向label输入框宽度
+.g-w-280 {
+  width: 280px;
+}
+
+// 弹框添加或编辑页面竖向label输入框宽度
 .g-w-240 {
-  width: 240px
+  width: 240px;
 }

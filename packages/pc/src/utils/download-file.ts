@@ -37,11 +37,11 @@ function _saveFile(blob: Blob, fileName: string) {
 /**
  * 请求返回文本
  */
-export const getFileText = (url: string): Promise<any> => {
+export const getFileText = (url: string, unicode: string = 'GBK'): Promise<any> => {
   return new Promise((resolve) => {
     getFileBlod(url).then((data) => {
       const reader = new FileReader()
-      reader.readAsText(data, 'GBK')
+      reader.readAsText(data, unicode)
       reader.onload = function (e) {
         resolve(e.target?.result)
       }

@@ -5,20 +5,20 @@
 -->
 
 <template>
-  <button @click="show = !show">销毁/显示</button>
-  <div>
-    <!-- <div class="flex items-center mb-2 editor-title" style="height: 32px；">
-      <slot>
-        <span class="mr-6">内容</span>
-      </slot>
-      <div v-if="!modelValue || modelValue === '<p><br></p>'" class="flex items-center">
+  <div class="w-full">
+    <div
+      class="flex items-center mb-2"
+      style="height: 32px"
+      v-if="!modelValue || modelValue === '<p><br></p>'"
+    >
+      <div class="flex items-center">
         <span class="text-sm text-lighter mr-2">可选择切换编辑器：</span>
         <ElRadioGroup v-model="_type" @change="handleChangeType">
           <ElRadio label="401">富文本编辑器</ElRadio>
           <ElRadio label="402">Markdown编辑器</ElRadio>
         </ElRadioGroup>
       </div>
-    </div> -->
+    </div>
     <EditorWang
       :model-value="modelValue"
       @update:model-value="updateModelValue"
@@ -26,16 +26,16 @@
       @blur="blur"
       @focus="focus"
       v-bind="$attrs"
-      v-if="type === '401' && show"
+      v-if="type === '401'"
     ></EditorWang>
     <EditorMd
       v-bind="$attrs"
       :model-value="modelValue"
       @update:model-value="updateModelValue"
       @change="change"
-      v-else-if="type === '402' && show"
+      v-else-if="type === '402'"
     ></EditorMd>
-    <EditorAoMao v-else-if="type === '403' && show"></EditorAoMao>
+    <EditorAoMao v-else-if="type === '403'"></EditorAoMao>
   </div>
 </template>
 
@@ -45,8 +45,7 @@ import EditorWang from './components/EditorWang/index.vue'
 import EditorMd from './components/EditorMd/index.vue'
 import EditorAoMao from './components/EditorAoMao/index.vue'
 import { editorProps, editorEmits } from './type'
-import { onMounted, ref, watch } from 'vue'
-const show = ref(true)
+import { useIndex } from './index'
 
 defineOptions({
   inheritAttrs: false
@@ -54,35 +53,6 @@ defineOptions({
 
 const props = defineProps(editorProps)
 const emit = defineEmits(editorEmits)
-const updateModelValue = (val: string) => {
-  emit('update:modelValue', val)
-}
-const change = (val: string) => {
-  emit('change', val)
-}
-const blur = (val: string) => {
-  emit('blur', val)
-}
-const focus = (val: string) => {
-  emit('focus', val)
-}
 
-const _type = ref('')
-watch(
-  () => props.type,
-  (val) => {
-    _type.value = val
-  },
-  { immediate: true }
-)
-const handleChangeType = (val: string) => {
-  emit('update:type', val)
-  emit('changeType', val)
-}
+const { updateModelValue, change, blur, focus, _type, handleChangeType } = useIndex(props, emit)
 </script>
-
-<style scoped lang="scss">
-.editor-title {
-  height: 32px;
-}
-</style>
