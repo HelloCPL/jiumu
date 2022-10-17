@@ -120,7 +120,15 @@ export const useKeepAliveStore: StoreDefinition = defineStore(StoreNames.KEEP_AL
         if (to.meta.keepAlive === true) this._push(from)
         else if (to.meta.keepAlive === false) this._pop(from)
       }
-    }
+    },
+
+    /**
+     * 更新指定home的子页面 多个页面是否逗号隔开
+     * target name 或 path
+     * 这里仅作页面更新处理 不会移除 navigation 导航页面
+     * 如需移除 navigation 页面请使用 navigations 的相关方法
+     */
+    refreshHomeTarget(target: string) {}
   },
   storage: {
     type: 'session',

@@ -49,13 +49,14 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
   // 删除
   const handleDelete = (file: DataBaseFile, index: number) => {
     Confirm('确定删除这个文件吗？').then(async () => {
-      const res = await deleteFile(file.id)
-      if (res.code === 200) {
-        const arr = props.modelValue
-        const item = arr.splice(index, 1)
-        emit('update:modelValue', arr)
-        emit('change', arr, item)
-      }
+      // const res =
+      await deleteFile(file.id, false)
+      // if (res.code === 200) {
+      const arr = props.modelValue
+      const item = arr.splice(index, 1)
+      emit('update:modelValue', arr)
+      emit('change', arr, item)
+      // }
     })
   }
 

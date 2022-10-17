@@ -46,7 +46,7 @@ interface DataArticle extends DataBase {
 // 文章详情数据接口类型
 interface DataArticleInfo extends DataArticle {
   content: string
-  contentType: string
+  contentType: '401' | '402' | '403'
   contentTypeLabel: string
   attachment: DataBaseFile[]
 }
@@ -60,7 +60,7 @@ interface ParamsArticleAdd {
   type: string
   isDraft: '1' | '0'
   coverImg?: string
-  attactment?: string
+  attachment?: string
   classify?: string
   isSecret?: '1' | '0'
   sort?: number

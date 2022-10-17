@@ -69,10 +69,6 @@ export const useIndex = () => {
 
 // 处理新增 编辑 删除 查看等逻辑
 export const useIndexInfo = ({ getDataList }: ObjectAny) => {
-  const state = reactive({
-    id: '',
-    show: false // 显示新增或编辑
-  })
   const router = useRouter()
   const btnList: FilterButtonList[] = [{ name: '新增', key: 'add', type: 'primary' }]
   // 点击按钮
@@ -89,13 +85,14 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 处理确认回调
   const handleConfirm = () => {
     getDataList()
-    state.show = false
   }
 
   // 点击编辑
   const handleEdit = (row: DataArticle) => {
-    state.id = row.id
-    state.show = true
+    router.push({
+      name: 'ArticleAdd',
+      params: { _metaTitle: '文章编辑', _refreshOne: '1', id: row.id }
+    })
   }
 
   // 删除
@@ -114,12 +111,9 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   }
 
   // 显示详情
-  const handleShowInfo = (row: DataArticle) => {
-    state.id = row.id
-  }
+  const handleShowInfo = (row: DataArticle) => {}
 
   return {
-    state,
     btnList,
     handleBtn,
     handleConfirm,

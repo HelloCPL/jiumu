@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :is-edit="id">
+  <PageBox @change-btn="changeBtn" :id="form.id" :is-draft="form.isDraft">
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="文章标题" prop="title">
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
@@ -42,13 +42,13 @@
       <ElFormItem label="附件" prop="attachment">
         <ElRow>
           <Upload
-            v-model="attactmentList"
+            v-model="attachmentList"
             @change="handleChangeAttachment"
             type="files"
             :limit="3"
-            :limited="attactmentList.length"
+            :limited="attachmentList.length"
           ></Upload>
-          <ShowFile v-model="attactmentList" is-delete></ShowFile>
+          <ShowFile v-model="attachmentList" is-delete></ShowFile>
         </ElRow>
       </ElFormItem>
       <ElFormItem label="备注" prop="remarks">
@@ -75,14 +75,13 @@ defineOptions({
 })
 
 const {
-  id,
   formRef,
   form,
   rules,
   handleChangeContent,
   coverImgList,
   handleChangeCoverImg,
-  attactmentList,
+  attachmentList,
   handleChangeAttachment,
   changeBtn
 } = useIndex()

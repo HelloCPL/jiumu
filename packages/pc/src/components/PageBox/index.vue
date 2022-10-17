@@ -26,7 +26,7 @@
 import { pageBoxProps, pageBoxEmits } from './type'
 import FilterButton from '../FilterButton/index.vue'
 import { FilterButtonList } from '../FilterButton/type'
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps(pageBoxProps)
 
@@ -37,15 +37,25 @@ const handleClickBtn = (item: FilterButtonList) => {
 }
 
 const _list = ref<FilterButtonList[]>([])
-onMounted(() => {
+
+// 处理按钮列表
+const handleBtnList = () => {
   if (props.list.length) _list.value = props.list
   else {
-    if (props.isEdit) {
-      _list.value = [
-        { name: '保存', key: 'save', type: 'primary' },
-        { name: '转为草稿', key: 'draft' },
-        { name: '删除', key: 'delete' }
-      ]
+    if (props.id) {
+      if (props.isDraft === '1') {
+        _list.value = [
+          { name: '发布', key: 'save', type: 'primary' },
+          { name: '保存草稿', key: 'draft' },
+          { name: '删除', key: 'delete' }
+        ]
+      } else {
+        _list.value = [
+          { name: '保存', key: 'save', type: 'primary' },
+          { name: '转为草稿', key: 'draft' },
+          { name: '删除', key: 'delete' }
+        ]
+      }
     } else {
       _list.value = [
         { name: '发布', key: 'save', type: 'primary' },
@@ -54,7 +64,31 @@ onMounted(() => {
       ]
     }
   }
-})
+}
+
+watch(
+  () => props.id,
+  () => {
+    handleBtnList()
+  },
+  { immediate: true }
+)
+
+watch(
+  () => props.isDraft,
+  () => {
+    handleBtnList()
+  },
+  { immediate: true }
+)
+
+watch(
+  () => props.list,
+  () => {
+    handleBtnList()
+  },
+  { deep: true }
+)
 </script>
 
 <style lang="scss">

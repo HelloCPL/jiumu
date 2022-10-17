@@ -26,6 +26,9 @@ const _getFileParams = (params: ParamsFileOther) => {
 }
 
 // 删除文件 多个用逗号隔开
-export const deleteFile = async (ids: string): Promise<DataOptions<null>> => {
-  return await post('/pc/file/delete', { ids }).catch((err) => err)
+export const deleteFile = async (
+  ids: string,
+  showErrorMessage: boolean = true
+): Promise<DataOptions<null>> => {
+  return await post('/pc/file/delete', { ids }, { showErrorMessage }).catch((err) => err)
 }

@@ -14,15 +14,20 @@ export const pageBoxProps = buildProps({
     type: Boolean,
     default: true
   },
-  // 是否处于编辑页面
-  isEdit: {
-    type: [String, Boolean],
-    default: ''
-  },
   // 底部按钮列表
   list: {
     type: Array as PropType<FilterButtonList[]>,
     default: () => []
+  },
+  // id 有 为编辑 无 为新增
+  id: {
+    type: String,
+    default: ''
+  },
+  // 是否为草稿
+  isDraft: {
+    type: String as PropType<'1' | '0'>,
+    default: '0'
   }
 } as const)
 

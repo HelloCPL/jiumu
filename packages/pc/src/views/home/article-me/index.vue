@@ -102,7 +102,7 @@ defineOptions({
 
 const { keyword, isSecret, type, classify, pageNo, pageSize, total, data, getDataList, handleReset } =
   useIndex()
-const { state, btnList, handleBtn, handleConfirm, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
+const { btnList, handleBtn, handleConfirm, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })
 </script>

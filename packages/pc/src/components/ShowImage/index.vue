@@ -79,13 +79,14 @@ const handleDelete = (index: number) => {
   Confirm('确定删除这个图片吗？').then(async () => {
     const file = props.modelValue[index]
     if (isObject(file)) {
-      const res = await deleteFile(file.id)
-      if (res.code === 200) {
-        const arr = props.modelValue
-        const item = arr.splice(index, 1)
-        emit('update:modelValue', arr)
-        emit('change', arr, item)
-      }
+      // const res =
+      await deleteFile(file.id, false)
+      // if (res.code === 200) {
+      const arr = props.modelValue
+      const item = arr.splice(index, 1)
+      emit('update:modelValue', arr)
+      emit('change', arr, item)
+      // }
     } else {
       const arr = props.modelValue
       const item = arr.splice(index, 1)
