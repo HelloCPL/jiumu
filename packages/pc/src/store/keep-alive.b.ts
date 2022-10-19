@@ -1,11 +1,5 @@
 import { LocationQuery, RouteMeta, RouteParams, RouteRecordName } from 'vue-router'
 
-export interface KeepAliveState {
-  includes: KeepAliveOption[]
-  excludes: KeepAliveOption[]
-  max: number
-}
-
 export interface KeepAliveOption {
   name: RouteRecordName | null | undefined
   path: string
@@ -14,4 +8,22 @@ export interface KeepAliveOption {
   meta: RouteMeta
   params: RouteParams
   query: LocationQuery
+}
+
+export interface KeepAliveState {
+  includes: KeepAliveOption[]
+  excludes: KeepAliveOption[]
+  max: number
+}
+
+export interface KeepAliveGetters extends ObjectAny {
+  include: (state: KeepAliveState) => RouteRecordName[]
+  exclude: (state: KeepAliveState) => RouteRecordName[]
+}
+
+export interface KeepAliveActions {
+  _push: (to: KeepAliveOption) => void
+  _pop: (to: KeepAliveOption) => void
+  reset: () => void
+  handleKeepAlive: (to: KeepAliveOption, from: KeepAliveOption) => void
 }

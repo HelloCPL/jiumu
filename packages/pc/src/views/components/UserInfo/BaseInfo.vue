@@ -98,17 +98,17 @@ import {
 import { Calendar } from '@element-plus/icons-vue'
 import { formatDate } from '@jiumu/utils'
 import { useUserStore } from '@/store'
-import { storeToRefs } from 'pinia'
 import { reactive, ref } from 'vue'
 import { updateUserBaseSelf } from '@/api/user'
 
-const store = useUserStore()
-const { userInfo } = storeToRefs(store)
+const userStore = useUserStore()
+// const { userInfo } = storeToRefs(userStore)
+const userInfo = <DataUserInfo>userStore.userInfo
 
 const showEdit = ref<boolean>(false)
 
 const form = reactive({
-  username: userInfo.value.username,
+  username: userInfo.username,
   sex: userInfo.value.sex,
   birthday: userInfo.value.birthday,
   professional: userInfo.value.professional,
@@ -138,7 +138,7 @@ const save = async () => {
   }
   const res = await updateUserBaseSelf(params)
   if (res.code === 200) {
-    store.getUser('1')
+    userStore.getUser('1')
   }
   showEdit.value = false
 }

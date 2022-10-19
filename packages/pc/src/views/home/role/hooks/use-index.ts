@@ -48,7 +48,7 @@ export const useIndex = () => {
 
 // 处理角色新增 编辑 查看等逻辑
 export const useIndexInfo = ({ getDataList }: ObjectAny) => {
-  const store = useUserStore()
+  const userStore = useUserStore()
 
   const state = reactive({
     showInfo: false,
@@ -106,7 +106,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const handleConfirm = (type: string) => {
     getDataList()
     state.show = false
-    if (type === 'update') store.getUser('2')
+    if (type === 'update') userStore.getUser('2')
   }
 
   // 显示角色-用户关联

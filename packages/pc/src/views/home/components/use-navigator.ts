@@ -8,7 +8,7 @@ import { onClickOutside } from '@jiumu/utils'
  */
 export const useNavigator = () => {
   // 导航栏菜单
-  const navStore = useNavigationsStore()
+  const navigationsStore = useNavigationsStore()
   const route = useRoute()
   const router = useRouter()
 
@@ -28,17 +28,18 @@ export const useNavigator = () => {
 
   // 点击关闭
   const clickClose = (item: KeepAliveOption, index: number) => {
-    if (navStore.routerName === item.name) {
+    if (navigationsStore.routerName === item.name) {
       let name: string
-      if (navStore.navigations.length - 1 > index) name = navStore.navigations[index + 1].name
-      else name = navStore.navigations[index - 1].name
+      if (navigationsStore.navigations.length - 1 > index)
+        name = <string>navigationsStore.navigations[index + 1].name
+      else name = <string>navigationsStore.navigations[index - 1].name
       router.replace({
         name,
         params: { ...item.params },
         query: { ...item.query }
       })
     } else {
-      navStore._pop(item)
+      navigationsStore._pop(item)
       calculateLeft()
     }
   }
@@ -57,7 +58,7 @@ export const useNavigator = () => {
       if (wWidth > cWidth) {
         maxWidth.value = cWidth - wWidth
         let _left = 0
-        const l = (navStore.routerNameIndex + 1) * 120 - Math.round(cWidth / 2)
+        const l = (navigationsStore.routerNameIndex + 1) * 120 - Math.round(cWidth / 2)
         if (l > 0) _left = -l
         setLeft(_left)
       } else {
@@ -117,12 +118,12 @@ export const useNavigator = () => {
     rightOptions.top = e.clientY + 15
     rightBoxIndex.value = index
     // 再处理选项问题
-    const isCurrent = index === navStore.routerNameIndex
+    const isCurrent = index === navigationsStore.routerNameIndex
     rightOptions.disabled[0] = !isCurrent
-    rightOptions.disabled[1] = navStore.navigations.length > 1 ? false : true
-    rightOptions.disabled[2] = isCurrent && navStore.navigations.length - 1 > index ? false : true
+    rightOptions.disabled[1] = navigationsStore.navigations.length > 1 ? false : true
+    rightOptions.disabled[2] = isCurrent && navigationsStore.navigations.length - 1 > index ? false : true
     rightOptions.disabled[3] = isCurrent && index > 0 ? false : true
-    rightOptions.disabled[4] = isCurrent && navStore.navigations.length > 1 ? false : true
+    rightOptions.disabled[4] = isCurrent && navigationsStore.navigations.length > 1 ? false : true
     // 最后显示
     isShow.value = true
   }
@@ -130,7 +131,7 @@ export const useNavigator = () => {
   // 菜单回调
   const handleChangeRight = (item: KeyValue, index: number) => {
     isShow.value = false
-    const name = navStore.navigations[index].name
+    const name = <string>navigationsStore.navigations[index].name
     switch (item.value) {
       case 'refresh':
         router.push({
@@ -140,25 +141,25 @@ export const useNavigator = () => {
         })
         return
       case 'close':
-        clickClose(navStore.navigations[index], index)
+        clickClose(navigationsStore.navigations[index], index)
         return
       case 'closeRight':
-        for (let i = index + 1; i < navStore.navigations.length; i++) {
-          clickClose(navStore.navigations[i], i)
+        for (let i = index + 1; i < navigationsStore.navigations.length; i++) {
+          clickClose(navigationsStore.navigations[i], i)
           i--
         }
         return
       case 'closeLeft':
         for (let i = 0; i < index; i++) {
-          clickClose(navStore.navigations[i], i)
+          clickClose(navigationsStore.navigations[i], i)
           i--
           index--
         }
         return
       case 'closeOther':
-        for (let i = 0; i < navStore.navigations.length; i++) {
-          if (navStore.navigations[i].name !== name) {
-            clickClose(navStore.navigations[i], i)
+        for (let i = 0; i < navigationsStore.navigations.length; i++) {
+          if (navigationsStore.navigations[i].name !== name) {
+            clickClose(navigationsStore.navigations[i], i)
             i--
           }
         }
@@ -171,7 +172,7 @@ export const useNavigator = () => {
     maxWidth,
     refContainer,
     refWrapper,
-    navStore,
+    navigationsStore,
     clickItem,
     clickClose,
     changeLeft,
@@ -189,7 +190,7 @@ export const useNavigator = () => {
  * 导航栏拖拽处理
  */
 export const useNavigatorDrag = () => {
-  const navStore = useNavigationsStore()
+  const navigationsStore = useNavigationsStore()
   const draggable = ref<boolean>(true)
   const dragIndex = ref<number>(-1)
   let startX = 0
@@ -206,9 +207,9 @@ export const useNavigatorDrag = () => {
   }
   const drop = (e: MouseEvent) => {
     e.preventDefault()
-    navStore.navigations.splice()
+    // navigationsStore.navigations.splice()
     if (startIndex !== -1 && dragIndex.value !== -1 && startIndex !== dragIndex.value)
-      exchangeArr(navStore.navigations, startIndex, dragIndex.value)
+      exchangeArr(navigationsStore.navigations, startIndex, dragIndex.value)
   }
   const dragover = (e: MouseEvent) => {
     const { clientX } = e

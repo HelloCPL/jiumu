@@ -7,7 +7,7 @@
 <template>
   <div class="w-full h-full bg-white">
     <router-view v-slot="{ Component }">
-      <keep-alive :include="store.include" :exclude="store.exclude">
+      <keep-alive :include="keepAliveStore.include" :exclude="keepAliveStore.exclude">
         <component :is="Component"></component>
       </keep-alive>
     </router-view>
@@ -16,5 +16,5 @@
 
 <script lang="ts" setup>
 import { useKeepAliveStore } from '@/store'
-const store = useKeepAliveStore()
+const keepAliveStore = useKeepAliveStore()
 </script>

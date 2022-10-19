@@ -7,3 +7,9 @@ export interface UserState {
   menus: DataMenu[]
   tags: DataTagInfo[]
 }
+
+export interface UserActions {
+  reset: () => void
+  setToken: (params: DataToken) => void
+  getUser: (type?: string) => void
+}

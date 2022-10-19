@@ -19,13 +19,13 @@
         <div
           class="h-full pl-2 pr-5 flex-shrink-0 flex flex-nowrap items-center justify-center relative cursor-pointer nav-item"
           :class="{
-            'nav-item-active': item.name === navStore.routerName,
+            'nav-item-active': item.name === navigationsStore.routerName,
             'nav-item-first': index === 0,
             'nav-item-drag': index === dragIndex
           }"
-          :title="item.meta?.title.length > 4 ? item.meta.title : ''"
-          v-for="(item, index) in navStore.navigations"
-          :key="item.name"
+          :title="item.meta && item.meta.title && item.meta.title.length > 4 ? item.meta.title : ''"
+          v-for="(item, index) in navigationsStore.navigations"
+          :key="(item.name as string)"
           :draggable="draggable"
           @dragstart="dragstart($event, index)"
           @dragend="dragend"
@@ -37,7 +37,7 @@
             color="var(--jm-color-border-darker)"
             :size="themeStore.fontSize + 2"
             class="right-1 g-center-y z-30 nav-item-icon"
-            v-if="navStore.navigations.length > 1"
+            v-if="navigationsStore.navigations.length > 1"
             @click.stop="clickClose(item, index)"
           >
             <CircleCloseFilled />
@@ -90,7 +90,7 @@ const {
   maxWidth,
   refContainer,
   refWrapper,
-  navStore,
+  navigationsStore,
   clickItem,
   clickClose,
   changeLeft,

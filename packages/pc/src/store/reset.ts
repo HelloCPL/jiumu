@@ -4,13 +4,17 @@
  * @create: 2022-07-06 15:13:20
  */
 
-import { defineStore, StoreDefinition } from 'pinia'
+import { defineStore } from 'pinia'
 import { StoreNames } from './store-name'
 import { useKeepAliveStore } from './keep-alive'
 import { useUserStore } from './user'
 import { useNavigationsStore } from './navigations'
 
-export const useResetStore: StoreDefinition = defineStore(StoreNames.RESET, {
+type ResetActions = {
+  reset: () => void
+}
+
+export const useResetStore = defineStore<string, {}, {}, ResetActions>(StoreNames.RESET, {
   actions: {
     // 清除所有公共状态数据
     reset() {

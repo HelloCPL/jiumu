@@ -83,8 +83,8 @@ service.interceptors.response.use(
       } else if (data.code === Code.authLogin) {
         console.log('过期了', data)
         // token 过期需要重新登录 清空数据后跳转到登录页
-        const store = useResetStore()
-        store.reset()
+        const resetStore = useResetStore()
+        resetStore.reset()
         router.replace({
           path: '/login',
           query: {

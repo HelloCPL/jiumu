@@ -6,3 +6,12 @@ export interface ThemeState {
   fontFamily: FontFamilyValue
   colors: KeyValue<string, string>[]
 }
+
+export interface ThemeActions {
+  reset: () => void
+  toggleFontFamily: (family?: FontFamilyValue) => void
+  toggleFontSize: (font?: FontSizeValue) => void
+  getRootFontSize: (size: number) => number
+  toggleTheme: (theme?: ThemeValue) => void
+  getRootColor: (key: string) => string
+}

@@ -30,19 +30,20 @@
 import { ElSwitch, ElImage, ElSelect, ElOption } from 'element-plus'
 import { ref, getCurrentInstance } from 'vue'
 import { useThemeStore } from '@/store'
+import { FontSizeValue } from '@/enumerations'
 
 const { VITE_MODE } = import.meta.env
 
-const store = useThemeStore()
+const themeStore = useThemeStore()
 
 // 主题
-const isLight = ref<boolean>(store.theme === 'light')
+const isLight = ref<boolean>(themeStore.theme === 'light')
 const change = (b: boolean | string | number) => {
-  store.toggleTheme(b ? 'light' : 'drak')
+  themeStore.toggleTheme(b ? 'light' : 'drak')
 }
 
 // 字体大小
-const fontSize = ref<number>(store.fontSize)
+const fontSize = ref<FontSizeValue>(themeStore.fontSize)
 const fontSizes = [
   { key: '特小', value: 12 },
   { key: '小', value: 13 },
@@ -50,8 +51,8 @@ const fontSizes = [
   { key: '大', value: 16 },
   { key: '特大', value: 18 }
 ]
-const changeSelect = (val: number) => {
-  store.toggleFontSize(val)
+const changeSelect = (val: FontSizeValue) => {
+  themeStore.toggleFontSize(val)
 }
 
 const instance = getCurrentInstance()?.appContext.config.globalProperties

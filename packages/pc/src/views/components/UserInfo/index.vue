@@ -74,8 +74,8 @@ import { exitUser } from '@/api/user'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const store = useUserStore()
-const { userInfo, roles, tags } = storeToRefs(store)
+const userStore = useUserStore()
+const { userInfo, roles, tags } = storeToRefs(userStore)
 
 const showPassword = ref<boolean>(false)
 

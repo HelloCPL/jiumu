@@ -30,7 +30,7 @@ export const useIndex = () => {
 
 // 处理菜单新增 编辑 查看等逻辑
 export const useIndexInfo = ({ getDataList }: ObjectAny) => {
-  const store = useUserStore()
+  const userStore = useUserStore()
   const state = reactive({
     showInfo: false,
     show: false,
@@ -96,7 +96,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const handleConfirm = (type: string) => {
     getDataList()
     state.show = false
-    if (type === 'update') store.getUser('4')
+    if (type === 'update') userStore.getUser('4')
   }
 
   // 查看用户

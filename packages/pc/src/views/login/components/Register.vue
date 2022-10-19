@@ -31,7 +31,7 @@ import { useUserStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 
 const { formRef, form, rules, submitValid } = useRegister()
-const store = useUserStore()
+const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -44,12 +44,12 @@ const submit = (el: FormInstance | undefined) => {
     })
     if (res.code === 200) {
       const { data } = res
-      store.setToken({
+      userStore.setToken({
         token: data.token,
         tokenRefresh: data.tokenRefresh
       })
       // 获取用户信息
-      store.getUser()
+      userStore.getUser()
       const redirect = <string>route.query.redirect || '/'
       router.replace({
         path: redirect

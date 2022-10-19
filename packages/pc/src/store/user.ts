@@ -4,9 +4,9 @@
  * @create: 2022-07-06 15:14:23
  */
 
-import { defineStore, StoreDefinition } from 'pinia'
+import { defineStore } from 'pinia'
 import { StoreNames } from './store-name'
-import { UserState } from './user.b'
+import { UserState, UserActions } from './user.b'
 import { storage } from '@jiumu/utils'
 import { getUserSelf } from '@/api/user'
 import { getRoleListAllSelf } from '@/api/role'
@@ -14,8 +14,8 @@ import { getPermissionListAllSelf } from '@/api/permission'
 import { getMenuAllSelf } from '@/api/menu'
 import { getTagAllSelf } from '@/api/tag'
 
-export const useUserStore: StoreDefinition = defineStore(StoreNames.USER, {
-  state: (): UserState => {
+export const useUserStore = defineStore<string, UserState, {}, UserActions>(StoreNames.USER, {
+  state: () => {
     return {
       token: '',
       tokenRefresh: '',

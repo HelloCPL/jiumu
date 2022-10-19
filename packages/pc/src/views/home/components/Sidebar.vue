@@ -76,7 +76,7 @@ const routerPush = (name: string) => {
 // 首次进来跳转路由
 const route = useRoute()
 if (!isHomeRoutes(route.name)) {
-  routerPush(routerName.value)
+  routerPush(<string>routerName.value)
 }
 
 const setCollapse = () => {

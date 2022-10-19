@@ -24,11 +24,11 @@ export const defineDirective = (app: App) => {
   app.directive('code', (el: HTMLElement, binding) => {
     const value = <string>binding.value
     if (!value) return
-    const store = useUserStore()
+    const userStore = useUserStore()
     const values = value.split(',')
     let flag: boolean = true
     values.find((val) => {
-      flag = _findPermissions(val, store.permissions)
+      flag = _findPermissions(val, userStore.permissions)
       if (!flag) return true
     })
     if (!flag) el.style.display = 'none'

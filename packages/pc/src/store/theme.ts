@@ -5,9 +5,9 @@
  */
 
 import { FontFamilyValue, FontSizeValue, ThemeValue } from '@/enumerations'
-import { defineStore, StoreDefinition } from 'pinia'
+import { defineStore } from 'pinia'
 import { StoreNames } from './store-name'
-import { ThemeState } from './theme.b'
+import { ThemeState, ThemeActions } from './theme.b'
 import { kebabCase } from 'lodash-es'
 import { ColorsFile } from '@/style/color.b'
 import { storage } from '@jiumu/utils'
@@ -23,8 +23,8 @@ const fontSizeList: KeyValue<string, number>[] = [
   { key: '--jm-font-size-small-extra', value: 12 }
 ]
 
-export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
-  state: (): ThemeState => {
+export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(StoreNames.THEME, {
+  state: () => {
     return {
       theme: 'light',
       fontSize: 14,
@@ -47,22 +47,22 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
     /**
      * 修改字体类型
      */
-    async toggleFontFamily(family: FontFamilyValue) {
-      family = family || this.fontFamily
+    async toggleFontFamily(family?: FontFamilyValue) {
+      const _family = family || this.fontFamily
       document?.documentElement.style.setProperty('--jm-font-family', `${family}`)
-      this.fontFamily = family
+      this.fontFamily = _family
     },
 
     /**
      * 修改字体大小
      */
-    async toggleFontSize(font: FontSizeValue) {
-      font = font || this.fontSize
+    async toggleFontSize(font?: FontSizeValue) {
+      const _font = font || this.fontSize
       fontSizeList.forEach((item) => {
-        const value = font - 14 + item.value + 'px'
+        const value = _font - 14 + item.value + 'px'
         document?.documentElement.style.setProperty(item.key, value)
       })
-      this.fontSize = font
+      this.fontSize = _font
     },
 
     /**
@@ -78,11 +78,11 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
      * 根据 root key 值获取当前字体大小对应的 fontSize 常用于echarts等js定义的字体大小
      * 修改主题颜色
      */
-    async toggleTheme(theme: ThemeValue) {
-      theme = theme || this.theme
+    async toggleTheme(theme?: ThemeValue) {
+      const _theme = theme || this.theme
       let colorsFile: ColorsFile | null = null
       try {
-        const res = await import(`../style/color-${kebabCase(theme)}.ts`)
+        const res = await import(`../style/color-${kebabCase(_theme)}.ts`)
         colorsFile = res.default || res
       } catch (e) {}
       if (colorsFile) {
@@ -117,7 +117,7 @@ export const useThemeStore: StoreDefinition = defineStore(StoreNames.THEME, {
             colors.push({ key: `--jm-rgb-${key}`, value: item.rgb })
           }
         })
-        this.theme = theme
+        this.theme = _theme
         this.colors = colors
       }
     },

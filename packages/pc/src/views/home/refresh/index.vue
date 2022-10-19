@@ -10,14 +10,15 @@ import { useKeepAliveStore, useNavigationsStore } from '@/store'
 const route = useRoute()
 const router = useRouter()
 const ctx = getCurrentInstance()?.ctx
+
 const keepAliveStore = useKeepAliveStore()
-const navStore = useNavigationsStore()
+const navigationsStore = useNavigationsStore()
 onMounted(() => {
   const __name = <string>route.params.__name
-  const item = navStore._find(__name)
-  keepAliveStore._pop(item)
+  const item = navigationsStore._find(__name)
   ctx.$forceUpdate()
   if (__name && item) {
+    keepAliveStore._pop(item)
     setTimeout(() => {
       router.replace({
         name: __name,
