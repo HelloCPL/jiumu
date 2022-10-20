@@ -17,4 +17,5 @@ export interface NavigaitonActions {
   _find: (name: string) => KeepAliveOption | undefined
   reset: () => void
   handleNavigations: (to: KeepAliveOption, from: KeepAliveOption) => void
+  refreshNavigations: (names: string) => void
 }

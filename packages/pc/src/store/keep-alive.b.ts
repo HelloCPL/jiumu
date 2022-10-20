@@ -24,6 +24,8 @@ export interface KeepAliveGetters extends ObjectAny {
 export interface KeepAliveActions {
   _push: (to: KeepAliveOption) => void
   _pop: (to: KeepAliveOption) => void
+  _find: (name: string) => KeepAliveOption | undefined
   reset: () => void
   handleKeepAlive: (to: KeepAliveOption, from: KeepAliveOption) => void
+  refreshKeepAlive: (names: string) => void
 }

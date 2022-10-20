@@ -1,7 +1,6 @@
 import { Router, RouteLocationNormalized, NavigationGuardNext } from 'vue-router'
 import { useUserStore } from '@/store'
 import { useNavigationsStore } from '@/store'
-import { _getKParams } from './use-router-after-each'
 
 /**
  * 路由 beforeEach 拦截
@@ -13,11 +12,11 @@ export const beforeEach = (router: Router) => {
       // 处理目标页面是否仅更新一次
       const navigationsStore = useNavigationsStore()
       if (to.params._refreshOne === '1') {
+        navigationsStore.refreshNavigations(<string>to.name)
         delete to.params._refreshOne
-        navigationsStore._pop(_getKParams(to))
       } else if (to.query._refreshOne === '1') {
+        navigationsStore.refreshNavigations(<string>to.name)
         delete to.query._refreshOne
-        navigationsStore._pop(_getKParams(to))
       }
 
       // if (to.meta.code) {

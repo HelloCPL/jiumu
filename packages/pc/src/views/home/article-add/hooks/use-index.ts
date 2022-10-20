@@ -12,6 +12,7 @@ import { validateContent } from '@/components/Editor/index'
 import { Confirm, Message } from '@/utils/interaction'
 import { debounce } from 'lodash-es'
 import { addArticle, deleteArticle, getArticleOne, updateArticle } from '@/api/article'
+import { useKeepAliveStore } from '@/store'
 
 export const useIndex = () => {
   const route = useRoute()
@@ -60,8 +61,6 @@ export const useIndex = () => {
   const handleChangeAttachment = (files: DataBaseFile[]) => {
     attachmentList.value = attachmentList.value.concat(files)
     form.attachment = attachmentList.value.map((item) => item.id).join(',')
-    console.log(attachmentList.value)
-    console.log(files)
   }
 
   // 获取文章详情
@@ -82,7 +81,7 @@ export const useIndex = () => {
         coverImgList.value = [data.coverImg]
       }
       if (data.attachment.length) {
-        form.attactment = data.attachment.map((item) => item.id).join(',')
+        form.attachment = data.attachment.map((item) => item.id).join(',')
         attachmentList.value = data.attachment
       }
       if (data.classify.length) {
@@ -113,9 +112,11 @@ export const useIndex = () => {
     handleFinish(res)
   })
 
+  const keepAliveStore = useKeepAliveStore()
   // 处理回调
   const handleFinish = (res: DataOptions<null>) => {
     if (res.code === 200) {
+      keepAliveStore.refreshKeepAlive('ArticleMe,ArticleMeDraft')
       Message({
         message: res.message,
         type: 'success'

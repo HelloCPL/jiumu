@@ -74,6 +74,13 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
         if (i2 === -1) this.excludes.push(to)
       },
 
+      // 寻找某一项缓存
+      _find(name: string): KeepAliveOption | undefined {
+        console.log(this.includes)
+
+        return this.includes.find((item) => item.name === name || item.path === name)
+      },
+
       // 清空缓存集合
       reset() {
         this.includes = []
@@ -123,15 +130,21 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
           if (to.meta.keepAlive === true) this._push(from)
           else if (to.meta.keepAlive === false) this._pop(from)
         }
-      }
+      },
 
       /**
        * 更新指定home的子页面 多个页面是否逗号隔开
-       * target name 或 path
+       * names 路由 name 或 path
        * 这里仅作页面更新处理 不会移除 navigation 导航页面
        * 如需移除 navigation 页面请使用 navigations 的相关方法
        */
-      // refreshHomeTarget(target: string) {}
+      refreshKeepAlive(names: string) {
+        const target = names.split(',')
+        target.forEach((name) => {
+          const k = this._find(name)
+          if (k) this._pop(k)
+        })
+      }
     },
     storage: {
       type: 'session',

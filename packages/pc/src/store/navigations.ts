@@ -84,7 +84,7 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
 
       // 寻找某一项导航栏
       _find(name: string): KeepAliveOption | undefined {
-        return this.navigations.find((item) => item.name === name)
+        return this.navigations.find((item) => item.name === name || item.path === name)
       },
 
       // 清空缓存集合
@@ -115,6 +115,18 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
           this.routerName = to.name
           this._push(to, <string>this.routerName)
         }
+      },
+
+      /**
+       * 移除指定的 navigation 导航页面 多个页面用逗号隔开
+       */
+
+      refreshNavigations(names: string) {
+        const target = names.split(',')
+        target.forEach((name) => {
+          const k = this._find(name)
+          if (k) this._pop(k)
+        })
       }
     },
     storage: {
