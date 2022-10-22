@@ -3,8 +3,8 @@
  */
 
 import { App } from 'vue'
-import { useUserStore } from '@/store'
 import { ElInfiniteScroll } from 'element-plus'
+import { checkPermissionByCode } from './tools'
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
@@ -21,29 +21,12 @@ export const defineGlobal = (app: App) => {
 
 // 定义全局指令
 export const defineDirective = (app: App) => {
+  // 自定义权限
   app.directive('code', (el: HTMLElement, binding) => {
-    const value = <string>binding.value
-    if (!value) return
-    const userStore = useUserStore()
-    const values = value.split(',')
-    let flag: boolean = true
-    values.find((val) => {
-      flag = _findPermissions(val, userStore.permissions)
-      if (!flag) return true
-    })
+    const flag = checkPermissionByCode(binding.value)
     if (!flag) el.style.display = 'none'
   })
 
+  // element-plus 无限滚动
   app.directive('InfiniteScroll', ElInfiniteScroll)
-}
-
-function _findPermissions(val: string, arr: DataPermission[]): boolean {
-  let flag = false
-  arr.find((item) => {
-    if (item.code === val) {
-      flag = true
-      return flag
-    }
-  })
-  return flag
 }

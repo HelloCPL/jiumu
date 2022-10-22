@@ -116,7 +116,7 @@ export const useIndex = () => {
   // 处理回调
   const handleFinish = (res: DataOptions<null>) => {
     if (res.code === 200) {
-      keepAliveStore.refreshKeepAlive('ArticleMe,ArticleMeDraft')
+      keepAliveStore.refreshKeepAlive('Article', 'ArticleMe,ArticleMeDraft')
       Message({
         message: res.message,
         type: 'success'
@@ -165,7 +165,7 @@ export const useIndex = () => {
         })
         return
       case 'delete':
-        Confirm('确定取消吗？').then(() => {
+        Confirm('确定删除吗？').then(() => {
           if (form.id) {
             _delete(form.id)
           } else {

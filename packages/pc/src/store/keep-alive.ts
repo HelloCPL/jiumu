@@ -76,8 +76,6 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
 
       // 寻找某一项缓存
       _find(name: string): KeepAliveOption | undefined {
-        console.log(this.includes)
-
         return this.includes.find((item) => item.name === name || item.path === name)
       },
 

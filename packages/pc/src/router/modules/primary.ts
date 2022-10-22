@@ -13,6 +13,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "Login" */ '@/views/login/index.vue')
   },
   {
+    path: '/article-info',
+    name: 'ArticleInfo',
+    component: () => import(/* webpackChunkName: "ArticleInfo" */ '@/views/home/article-info/index.vue')
+  },
+  {
     path: '/unauthorized',
     name: 'Unauthorized',
     component: () => import(/* webpackChunkName: "Unauthorized" */ '@/views/unauthorized/index.vue')

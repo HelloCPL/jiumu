@@ -4,7 +4,7 @@
  * @update 2022-07-04 01:07:21
  */
 
-import { get, post } from '@/utils/api-methods'
+import { post } from '@/utils/api-methods'
 
 // 获取我的博客文章列表
 export const getArticleListSelf = async (

@@ -87,7 +87,7 @@
 
 <script lang="ts" setup>
 import FilterBox from '@/components/FilterBox/index.vue'
-import { ElFormItem, ElInput, ElSelect, ElOption, ElTableColumn, ElButton } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import FilterButton from '@/components/FilterButton/index.vue'
 import Table from '@/components/Table/index.vue'
@@ -102,7 +102,7 @@ defineOptions({
 
 const { keyword, isSecret, type, classify, pageNo, pageSize, total, data, getDataList, handleReset } =
   useIndex()
-const { btnList, handleBtn, handleConfirm, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
+const { btnList, handleBtn, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })
 </script>
