@@ -63,7 +63,7 @@
 import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { usePreviewPdf } from '../hooks/use-preview-pdf'
-import VuePdfEmbed from 'vue-pdf-Embed'
+import VuePdfEmbed from 'vue-pdf-embed'
 
 const props = defineProps({
   url: {
