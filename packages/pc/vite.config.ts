@@ -10,7 +10,7 @@ const pathSrc = path.resolve(__dirname, 'src')
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const { VITE_MODE } = env
+  const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
   return {
     plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus()],
@@ -19,7 +19,8 @@ export default defineConfig(({ mode }) => {
         '@': pathSrc
       }
     },
-    // publicDir: env.VITE_PUBLIC_PATH,
+    // base: VITE_PUBLIC_PATH,
+    publicDir: VITE_PUBLIC_PATH,
     server: {
       port: 8002,
       proxy: {
