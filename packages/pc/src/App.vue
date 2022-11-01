@@ -10,6 +10,8 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import { useCustomRouter } from '@/hooks/use-custom-router'
 import { useThemeStore } from '@/store'
 
+console.log('App 页面')
+
 // 扩展useRouter
 useCustomRouter()
 // 初始化主题
