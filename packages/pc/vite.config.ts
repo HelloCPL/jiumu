@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => {
         '@': pathSrc
       }
     },
-    // base: VITE_PUBLIC_PATH,
-    publicDir: VITE_PUBLIC_PATH,
+    base: VITE_PUBLIC_PATH,
+    // publicDir: VITE_PUBLIC_PATH,
     server: {
       port: 8002,
       proxy: {
