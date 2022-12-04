@@ -11,18 +11,27 @@
 <script lang="ts" setup>
 import { getRandomId } from '@jiumu/utils'
 import { createEditor, IDomEditor } from '@wangeditor/editor'
-import { nextTick, onMounted, onUnmounted } from 'vue'
+import { nextTick, onUnmounted, watch } from 'vue'
 const props = defineProps({
   value: {
     type: String,
     default: ''
   }
 })
-const id = getRandomId()
+let id = getRandomId()
 let editor: IDomEditor | null = null
+
+const destroyEditor = () => {
+  if (editor) {
+    editor.destroy()
+    editor = null
+    id = getRandomId()
+  }
+}
 // 初始化预览组件
 const initEditorPreview = (html: string) => {
   nextTick(() => {
+    destroyEditor()
     editor = createEditor({
       selector: `#editor-preview-${id}`,
       html,
@@ -33,11 +42,16 @@ const initEditorPreview = (html: string) => {
     })
   })
 }
-onMounted(() => {
-  initEditorPreview(props.value)
-})
+
+watch(
+  () => props.value,
+  (val) => {
+    initEditorPreview(val)
+  },
+  { immediate: true }
+)
 onUnmounted(() => {
-  if (editor) editor.destroy()
+  destroyEditor
 })
 </script>
 

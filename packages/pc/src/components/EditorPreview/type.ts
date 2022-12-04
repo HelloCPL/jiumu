@@ -9,7 +9,7 @@ export const editorPreviewProps = buildProps({
   // 其余参数看对应富文本编辑组件参数
   type: {
     // 编辑器类型 401 富文本编辑器 402 Markdown 编辑器
-    type: String as PropType<'401' | '402'>,
+    type: String as PropType<'401' | '402' | '403'>,
     default: '401'
   },
   value: {
