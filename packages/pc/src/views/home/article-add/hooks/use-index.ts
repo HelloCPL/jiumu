@@ -116,7 +116,7 @@ export const useIndex = () => {
   // 处理回调
   const handleFinish = (res: DataOptions<null>) => {
     if (res.code === 200) {
-      keepAliveStore.refreshKeepAlive('Article', 'ArticleMe,ArticleMeDraft')
+      keepAliveStore.refreshKeepAlive('Article,ArticleMe,ArticleMeDraft')
       Message({
         message: res.message,
         type: 'success'
