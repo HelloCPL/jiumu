@@ -1,6 +1,6 @@
 /**
  * @author chen
- * @description c菜单相关接口
+ * @description 菜单相关接口
  * @update 2022-07-10 13:04:18
  */
 
