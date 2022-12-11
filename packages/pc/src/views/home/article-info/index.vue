@@ -43,11 +43,25 @@
       <ShowFile :model-value="dataInfo.attachment"></ShowFile>
     </div>
     <!-- 点赞收藏 -->
-    点赞收藏
+    <Interation v-model="dataInfo" type="505"></Interation>
     <!-- 评论列表 -->
     评论列表
     <!-- 关于我们 -->
     关于我们
+
+    <!--
+      增加创建者头像
+      文章 列表 默认无 详情 默认有
+      连载 列表 默认无
+      连载章节 列表 默认无 详情 默认有
+      笔记 列表 默认无 详情 默认有
+      问答 列表 默认无 详情 默认有
+      资源 列表 默认无 详情 默认有
+      收藏 列表 默认无
+      评论 列表 默认无
+      点赞 列表 默认无
+      自定义标签 列表 默认无
+    -->
   </div>
 </template>
 
@@ -57,6 +71,7 @@ import EditorPreview from '@/components/EditorPreview/index.vue'
 import ShowFile from '@/components/ShowFile/index.vue'
 import { useIndex } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
+import Interation from '@/components/Interation/index.vue'
 
 defineOptions({
   name: 'ArticleInfo'
