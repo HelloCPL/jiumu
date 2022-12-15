@@ -25,13 +25,13 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="作者" min-width="100">
+      <!-- <ElTableColumn label="作者" min-width="100">
         <template #default="{ row }">
           <span :class="{ 'text-success': row.isSelf === '1' }" @click="handleShowInfo(row)">
             <GRichText :html="row.createUserName" />
           </span>
         </template>
-      </ElTableColumn>
+      </ElTableColumn> -->
       <ElTableColumn prop="typeLabel" label="文章类型" min-width="90" />
       <ElTableColumn label="封面" min-width="140">
         <template #default="{ row }">

@@ -19,6 +19,7 @@ interface DataTagCustom extends DataBase {
 interface ParamsTagCustomList extends ParamsPage {
   keyword?: string
   highlight?: '0' | '1'
+  showUserInfo?: any
 }
 
 // 我的自定义标签列表接口类型
@@ -43,4 +44,10 @@ interface ParamsTagCustomAdd {
   label: string
   sort?: number
   type?: string
+}
+
+// 获取我的指定一个或多个自定义标签
+interface ParamsTagCustomByIdsSelf {
+  ids: string
+  showUserInfo?: any
 }

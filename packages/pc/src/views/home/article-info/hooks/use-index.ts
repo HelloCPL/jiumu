@@ -12,7 +12,7 @@ export const useIndex = () => {
   const route = useRoute()
   const dataInfo = ref<DataArticleInfo | null>()
   const getDataInfo = async (id: string) => {
-    const res = await getArticleOne(id)
+    const res = await getArticleOne({ id })
     if (res.code === 200) {
       dataInfo.value = res.data
     }

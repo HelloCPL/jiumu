@@ -88,7 +88,7 @@ export const useClassifyMeAdd = (props: ClassifyMeAddProps, emit: ClassifyMeAddE
 
   // 获取详情
   const _getOne = async (id: string) => {
-    const res = await getTagCustomByIdsSelf(id, true)
+    const res = await getTagCustomByIdsSelf({ ids: id }, true)
     if (res.code === 200 && res.data.length) {
       const data = res.data[0]
       form.label = data.label

@@ -27,10 +27,10 @@ export const getArticleList = async (params: ParamsArticleList = {}): Promise<Da
 
 // 获取一个文章
 export const getArticleOne = async (
-  id: string,
+  params: ParamsArticleOne,
   isloading?: boolean
 ): Promise<DataOptions<DataArticleInfo>> => {
-  return await post('/pc/article/get/one', { id }, { isloading }).catch((err) => err)
+  return await post('/pc/article/get/one', params, { isloading }).catch((err) => err)
 }
 
 // 新增一个文章

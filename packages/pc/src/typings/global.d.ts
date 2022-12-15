@@ -53,6 +53,7 @@ interface DataBaseFile extends DataBase {
   staticPlace: string
   suffix: string
   createUser: string
+  createUserName?: string
   isSecret: '0' | '1'
   checkValidTime: string
 }

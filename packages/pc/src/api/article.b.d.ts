@@ -9,6 +9,7 @@ interface ParamsArticleList extends ParamsPage {
   keyword?: string
   highlight?: '0' | '1'
   type?: string
+  showUserInfo?: any
 }
 
 // 获取指定用户的文章列表接口类型
@@ -19,6 +20,12 @@ interface ParamsArticleListByUserId extends ParamsArticleList {
 interface ParamsArticleListSelf extends ParamsArticleListByUserId {
   isDraft?: '1' | '0'
   isSecret?: '1' | '0'
+  showUserInfo?: any
+}
+
+interface ParamsArticleOne {
+  id: string
+  showUserInfo?: any
 }
 
 // 文章数据接口类型
@@ -34,7 +41,8 @@ interface DataArticle extends DataBase {
   isTop: '0' | '1'
   sort: number
   createUser: string
-  createUserName: string
+  createUserName?: string
+  createUserAvatar?: DataBaseFile | null
   isLike: '0' | '1'
   likeCount: number
   isCollection: '0' | '1'

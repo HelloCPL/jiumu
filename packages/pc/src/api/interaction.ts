@@ -7,7 +7,7 @@
 import { get } from '@/utils/api-methods'
 
 // 点赞
-export const addLike = async (params: ParamsLikeAdd): Promise<DataOptions<null>> => {
+export const addLike = async (params: ParamsInteractionAdd): Promise<DataOptions<null>> => {
   return await get('/pc/like/add', params).catch((err) => err)
 }
 
@@ -17,7 +17,9 @@ export const deleteLike = async (targetId: string): Promise<DataOptions<null>> =
 }
 
 // 我的点赞列表
-export const getLikeListSelf = async (params: ParamsPage = {}): Promise<DataOptions<DataLike[]>> => {
+export const getLikeListSelf = async (
+  params: ParamsInteractionList = {}
+): Promise<DataOptions<DataLike[]>> => {
   return await get('/pc/like/get/list/self', params).catch((err) => err)
 }
 
@@ -29,7 +31,7 @@ export const getLikeListByUserId = async (
 }
 
 // 收藏
-export const addCollection = async (params: ParamsLikeAdd): Promise<DataOptions<null>> => {
+export const addCollection = async (params: ParamsInteractionAdd): Promise<DataOptions<null>> => {
   return await get('/pc/collection/add', params).catch((err) => err)
 }
 

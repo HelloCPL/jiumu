@@ -27,6 +27,7 @@ export const useIndex = () => {
       keyword: keyword.value,
       type: type.value,
       highlight: '1'
+      // showUserInfo: '1'
     }
     const res = await getArticleList(params)
     if (res.code === 200) {

@@ -65,7 +65,7 @@ export const useIndex = () => {
 
   // 获取文章详情
   const _getOne = async (id: string) => {
-    const res = await getArticleOne(id)
+    const res = await getArticleOne({ id })
     if (res.code === 200) {
       const data = res.data
       form.title = data.title

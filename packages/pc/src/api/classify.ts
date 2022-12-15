@@ -48,8 +48,8 @@ export const deleteTagCustom = async (id: string): Promise<DataOptions<null>> =>
 
 // 获取我的一个自定义标签
 export const getTagCustomByIdsSelf = async (
-  ids: string,
+  params: ParamsTagCustomByIdsSelf,
   isloading?: boolean
 ): Promise<DataOptions<DataTagCustom[]>> => {
-  return await post('/pc/tag/custom/get/byids/self', { ids }, { isloading }).catch((err) => err)
+  return await post('/pc/tag/custom/get/byids/self', params, { isloading }).catch((err) => err)
 }

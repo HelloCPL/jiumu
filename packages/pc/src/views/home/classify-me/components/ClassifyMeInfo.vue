@@ -40,7 +40,7 @@ const props = defineProps(classifyMeAddProps)
 const dataInfo = ref<DataTagCustom | null>()
 // 获取详情
 const _getOne = async (id: string) => {
-  const res = await getTagCustomByIdsSelf(id, true)
+  const res = await getTagCustomByIdsSelf({ ids: id }, true)
   if (res.code === 200 && res.data.length) {
     dataInfo.value = res.data[0]
   }

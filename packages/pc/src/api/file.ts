@@ -2,7 +2,7 @@
  * 文件上传接口
  */
 
-import { postForm, post } from '@/utils/api-methods'
+import { postForm, post, get } from '@/utils/api-methods'
 import { isPlainObject } from 'lodash-es'
 
 // 上传文件
@@ -31,4 +31,9 @@ export const deleteFile = async (
   showErrorMessage: boolean = true
 ): Promise<DataOptions<null>> => {
   return await post('/pc/file/delete', { ids }, { showErrorMessage }).catch((err) => err)
+}
+
+// 获取一个指定的文件
+export const getFileById = async (params: ParamsFileById): Promise<DataOptions<DataBaseFile>> => {
+  return await get('/pc/file/get/post', params).catch((err) => err)
 }

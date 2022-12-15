@@ -8,3 +8,9 @@ interface ParamsFileOther extends ObjectAny {
   staticPlace?: 'files' | 'images' | 'videos' | 'editors'
   remarks?: string
 }
+
+// 获取一个指定的文件参数
+interface ParamsFileById {
+  id: string
+  showUserInfo?: any
+}
