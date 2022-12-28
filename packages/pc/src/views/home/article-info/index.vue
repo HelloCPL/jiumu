@@ -45,7 +45,7 @@
     <!-- 点赞收藏 -->
     <Interation v-model="dataInfo" type="505"></Interation>
     <!-- 评论列表 -->
-    评论列表
+    <Comment :id="dataInfo.id" type="505"></Comment>
     <!-- 关于我们 -->
     关于我们
 
@@ -72,6 +72,7 @@ import ShowFile from '@/components/ShowFile/index.vue'
 import { useIndex } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
+import Comment from '@/components/Comment/index.vue'
 
 defineOptions({
   name: 'ArticleInfo'

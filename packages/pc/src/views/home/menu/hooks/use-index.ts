@@ -96,7 +96,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const handleConfirm = (type: string) => {
     getDataList()
     state.show = false
-    if (type === 'update') userStore.getUser('4')
+    if (type === 'update') userStore.updateUser('4')
   }
 
   // 查看用户

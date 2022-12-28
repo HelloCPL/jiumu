@@ -16,6 +16,11 @@ export const deleteLike = async (targetId: string): Promise<DataOptions<null>> =
   return await get('/pc/like/delete', { targetId }).catch((err) => err)
 }
 
+// 获取指定的一个点赞
+export const getLikeOne = async (params: ParamsInteractionOne): Promise<DataOptions<DataLike>> => {
+  return await get('/pc/like/get/one', params).catch((err) => err)
+}
+
 // 我的点赞列表
 export const getLikeListSelf = async (
   params: ParamsInteractionList = {}
@@ -38,6 +43,13 @@ export const addCollection = async (params: ParamsInteractionAdd): Promise<DataO
 // 取消收藏
 export const deleteCollection = async (targetId: string): Promise<DataOptions<null>> => {
   return await get('/pc/collection/delete', { targetId }).catch((err) => err)
+}
+
+// 获取指定的一个收藏
+export const getCollectionOne = async (
+  params: ParamsInteractionOne
+): Promise<DataOptions<DataCollection>> => {
+  return await get('/pc/collection/get/one', params).catch((err) => err)
 }
 
 // 我的收藏列表
@@ -69,9 +81,12 @@ export const deleteCommentById = async (id: string): Promise<DataOptions<null>> 
   return await get('/pc/comment/delete/byid', { id }).catch((err) => err)
 }
 
+// 获取指定的一个评论
+export const getCommentOne = async (params: ParamsInteractionOne): Promise<DataOptions<DataCommentList>> => {
+  return await get('/pc/comment/get/one', params).catch((err) => err)
+}
+
 // 获取评论列表（资源或某条评论的子评论列表）
-export const getCommentList = async (
-  params: ParamsCommentList
-): Promise<DataOptions<DataCollectionList[]>> => {
+export const getCommentList = async (params: ParamsCommentList): Promise<DataOptions<DataCommentList[]>> => {
   return await get('/pc/comment/get/list', params).catch((err) => err)
 }

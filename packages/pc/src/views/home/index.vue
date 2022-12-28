@@ -42,7 +42,7 @@ defineOptions({
 
 // 初始化用户信息
 const userStore = useUserStore()
-if (userStore.token && !userStore.userInfo) userStore.getUser()
+if (userStore.token && !userStore.userInfo) userStore.updateUser()
 
 const isShowUserInfo = ref<boolean>(false)
 const showUserInfo = () => {

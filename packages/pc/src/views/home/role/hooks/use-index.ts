@@ -106,7 +106,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const handleConfirm = (type: string) => {
     getDataList()
     state.show = false
-    if (type === 'update') userStore.getUser('2')
+    if (type === 'update') userStore.updateUser('2')
   }
 
   // 显示角色-用户关联

@@ -138,7 +138,7 @@ const save = async () => {
   }
   const res = await updateUserBaseSelf(params)
   if (res.code === 200) {
-    userStore.getUser('1')
+    userStore.updateUser('1')
   }
   showEdit.value = false
 }

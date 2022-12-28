@@ -46,7 +46,7 @@ const submit = (el: FormInstance | undefined) => {
         tokenRefresh: data.tokenRefresh
       })
       // 获取用户信息
-      userStore.getUser()
+      userStore.updateUser()
       const redirect = <string>route.query.redirect || '/'
       router.replace({
         path: redirect

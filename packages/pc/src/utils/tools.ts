@@ -28,3 +28,27 @@ function _findPermissions(val: string, arr: DataPermission[]): boolean {
   })
   return flag
 }
+
+interface ParamsTarget extends ObjectAny {
+  id: string
+}
+// 合并数组 去除id相同项
+export const mergeArray = <T extends ParamsTarget[]>(origin: T, target: T): T => {
+  const _find = (id: string) => {
+    let flag = false
+    origin.find((item) => {
+      if (item.id === id) {
+        flag = true
+      }
+      return flag
+    })
+    return flag
+  }
+  if (Array.isArray(target)) {
+    target.forEach((item) => {
+      const flag = _find(item.id)
+      if (!flag) origin.push(item)
+    })
+  }
+  return origin
+}

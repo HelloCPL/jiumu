@@ -11,5 +11,6 @@ export interface UserState {
 export interface UserActions {
   reset: () => void
   setToken: (params: DataToken) => void
-  getUser: (type?: string) => void
+  updateUser: (type?: string) => Promise<any>
+  getUser: (type?: string) => Promise<any>
 }

@@ -15,6 +15,12 @@ interface ParamsInteractionList extends ParamsPage {
   showUserInfo?: any
 }
 
+// 获取指定的一个点赞 收藏 评论 参数
+interface ParamsInteractionOne {
+  id: string
+  showUserInfo?: any
+}
+
 // 获取某用户的点赞列表参数
 interface ParamsLikeListByUserId extends ParamsInteractionList {
   userId: string
@@ -81,6 +87,6 @@ interface DataComment extends DataBase {
   flag: 1 | 2
 }
 
-interface DataCollectionList extends DataComment {
-  children: DataCollectionList[]
+interface DataCommentList extends DataComment {
+  children: DataCommentList[]
 }
