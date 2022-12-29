@@ -45,7 +45,7 @@
     <!-- 点赞收藏 -->
     <Interation v-model="dataInfo" type="505"></Interation>
     <!-- 评论列表 -->
-    <Comment :id="dataInfo.id" type="505"></Comment>
+    <Comment :id="dataInfo.id" type="505" :comment-count="dataInfo.commentCount"></Comment>
     <!-- 关于我们 -->
     关于我们
 

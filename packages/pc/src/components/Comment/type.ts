@@ -15,6 +15,11 @@ export const commentProps = buildProps({
   type: {
     type: String,
     default: ''
+  },
+  commentCount: {
+    // 评论总数
+    type: Number,
+    default: 0
   }
 } as const)
 

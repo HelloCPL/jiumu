@@ -7,7 +7,7 @@
 import { get } from '@/utils/api-methods'
 
 // 点赞
-export const addLike = async (params: ParamsInteractionAdd): Promise<DataOptions<null>> => {
+export const addLike = async (params: ParamsInteractionAdd): Promise<DataOptions<string>> => {
   return await get('/pc/like/add', params).catch((err) => err)
 }
 
@@ -36,7 +36,7 @@ export const getLikeListByUserId = async (
 }
 
 // 收藏
-export const addCollection = async (params: ParamsInteractionAdd): Promise<DataOptions<null>> => {
+export const addCollection = async (params: ParamsInteractionAdd): Promise<DataOptions<string>> => {
   return await get('/pc/collection/add', params).catch((err) => err)
 }
 
@@ -67,7 +67,7 @@ export const getCollectionListByUserId = async (
 }
 
 // 新增评论
-export const addComment = async (params: ParamsCommentAdd): Promise<DataOptions<null>> => {
+export const addComment = async (params: ParamsCommentAdd): Promise<DataOptions<string>> => {
   return await get('/pc/comment/add', params).catch((err) => err)
 }
 

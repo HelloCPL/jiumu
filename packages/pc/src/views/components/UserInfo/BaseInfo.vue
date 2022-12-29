@@ -73,10 +73,10 @@
         <ElFormItem label="备注">
           <ElInput v-model="form.remarks" type="textarea"></ElInput>
         </ElFormItem>
-        <ElFormItem>
+        <!-- <ElFormItem>
           <ElButton type="primary" size="small" @click="save">保存</ElButton>
           <ElButton size="small" @click="showEdit = false">取消</ElButton>
-        </ElFormItem>
+        </ElFormItem> -->
       </ElForm>
     </template>
   </ElRow>
@@ -109,11 +109,11 @@ const showEdit = ref<boolean>(false)
 
 const form = reactive({
   username: userInfo.username,
-  sex: userInfo.value.sex,
-  birthday: userInfo.value.birthday,
-  professional: userInfo.value.professional,
-  address: userInfo.value.address,
-  remarks: userInfo.value.remarks
+  sex: userInfo.sex,
+  birthday: userInfo.birthday,
+  professional: userInfo.professional,
+  address: userInfo.address,
+  remarks: userInfo.remarks
 })
 
 // 去修改

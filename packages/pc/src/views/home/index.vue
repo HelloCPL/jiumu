@@ -46,6 +46,8 @@ if (userStore.token && !userStore.userInfo) userStore.updateUser()
 
 const isShowUserInfo = ref<boolean>(false)
 const showUserInfo = () => {
+  console.log(userStore.userInfo)
+
   if (userStore.userInfo) isShowUserInfo.value = true
 }
 </script>
