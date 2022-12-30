@@ -1,8 +1,8 @@
 /*
  * 评论组件逻辑处理
  */
-import { CommentProps } from './type'
-import { ref, onMounted } from 'vue'
+import { CommentEmit, CommentProps } from './type'
+import { ref } from 'vue'
 import { useUserStore } from '@/store/index'
 import {
   addLike,
@@ -16,7 +16,7 @@ import {
 import { mergeArray } from '@/utils/tools'
 import { Confirm, Message } from '@/utils/interaction'
 
-export const useIndex = (props: CommentProps) => {
+export const useIndex = (props: CommentProps, emit: CommentEmit) => {
   // 判断是否为超级管理员
   const isSuper = ref(false)
   const userStore = useUserStore()
@@ -31,12 +31,6 @@ export const useIndex = (props: CommentProps) => {
     }
   })
 
-  // 评论总数
-  const _commentCount = ref(0)
-  onMounted(() => {
-    _commentCount.value = props.commentCount
-  })
-
   // 请求评论列表
   let pageNo = 1
   const pageSize = 10
@@ -47,7 +41,7 @@ export const useIndex = (props: CommentProps) => {
     const res = await getCommentList({
       pageNo,
       pageSize,
-      targetId: props.id,
+      targetId: props.modelValue.id,
       type: props.type
     })
     if (res.code === 200) {
@@ -96,13 +90,18 @@ export const useIndex = (props: CommentProps) => {
       return
     }
     const res = await addComment({
-      targetId: props.id,
+      targetId: props.modelValue.id,
       type: props.type,
       content: value.value
     })
     if (res.code === 200) {
       total.value += 1
-      _commentCount.value += 1
+      const info = {
+        ...props.modelValue,
+        commentCount: props.modelValue.commentCount + 1
+      }
+      emit('update:modelValue', info)
+      emit('change', info)
       value.value = ''
       const res1 = await getCommentOne({ id: res.data })
       if (res1.code === 200 && res1.data) {
@@ -122,7 +121,12 @@ export const useIndex = (props: CommentProps) => {
         res = await deleteCommentById(item.id)
       }
       if (res && res.code === 200) {
-        _commentCount.value -= 1
+        const info = {
+          ...props.modelValue,
+          commentCount: props.modelValue.commentCount - 1
+        }
+        emit('update:modelValue', info)
+        emit('change', info)
         if (parentIndex === -1) {
           total.value -= 1
           list.value.splice(index, 1)
@@ -183,7 +187,12 @@ export const useIndex = (props: CommentProps) => {
     })
     if (res.code === 200) {
       item._showComment = false
-      _commentCount.value += 1
+      const info = {
+        ...props.modelValue,
+        commentCount: props.modelValue.commentCount + 1
+      }
+      emit('update:modelValue', info)
+      emit('change', info)
       if (parentIndex === -1) {
         item.commentCount += 1
         const res1 = await getCommentOne({ id: res.data })
@@ -201,7 +210,6 @@ export const useIndex = (props: CommentProps) => {
   }
   return {
     isSuper,
-    _commentCount,
     total,
     list,
     handleGetList,

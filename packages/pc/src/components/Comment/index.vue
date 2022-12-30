@@ -5,11 +5,11 @@
 -->
 
 <template>
-  <div class="w-full py-4 border-t-1">
+  <div class="w-full py-4 border-t-1" v-if="modelValue && modelValue.isDraft === '0'">
     <!-- 发表评论  -->
     <div class="text-lg flex items-center">
       <span>评论</span>
-      <span class="ml-2 text-sm text-light">({{ _commentCount }})</span>
+      <span class="ml-2 text-sm text-light">({{ modelValue.commentCount }})</span>
     </div>
     <ElInput
       type="textarea"
@@ -74,15 +74,25 @@
 <script lang="ts" setup>
 import { ElInput, ElButton, ElIcon } from 'element-plus'
 import { ArrowDownBold } from '@element-plus/icons-vue'
-import { commentProps } from './type'
+import { commentEmit } from './type'
 import { useIndex } from './index'
 import CommentItem from './CommentItem.vue'
 
-const props = defineProps(commentProps)
+type CommentProps = {
+  modelValue: {
+    id: string
+    isDraft?: '1' | '0'
+    commentCount: number
+    type: string
+    [x: string]: any
+  }
+  type: string
+}
+const props = defineProps<CommentProps>()
+const emit = defineEmits(commentEmit)
 
 const {
   isSuper,
-  _commentCount,
   total,
   list,
   handleGetList,
@@ -93,5 +103,5 @@ const {
   handleLike,
   showComment,
   handleReply
-} = useIndex(props)
+} = useIndex(props, emit)
 </script>

@@ -37,6 +37,7 @@
       </div>
     </div>
   </div>
+  <AboutUs></AboutUs>
 </template>
 
 <script lang="ts" setup>
@@ -44,6 +45,7 @@ import { ElButton } from 'element-plus'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import { useIndex } from './hooks/use-index'
+import AboutUs from '@/components/AboutUs/index.vue'
 
 const { loginShow, registerShow, toggleShow } = useIndex()
 </script>

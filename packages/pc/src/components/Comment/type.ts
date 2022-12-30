@@ -2,31 +2,22 @@
  * 评论组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { isNumber } from 'lodash-es'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn } from '@jiumu/utils'
 
-export const commentProps = buildProps({
-  id: {
-    type: String,
-    require: true,
-    default: ''
-  },
-  type: {
-    type: String,
-    default: ''
-  },
-  commentCount: {
-    // 评论总数
-    type: Number,
-    default: 0
+export type CommentProps = {
+  modelValue: {
+    id: string
+    isDraft?: '1' | '0'
+    commentCount: number
+    type: string
+    [x: string]: any
   }
-} as const)
-
-export type CommentProps = ExtractPropTypes<typeof commentProps>
+  type: string
+}
 
 export const commentEmit = {
-  change: (total: number) => isNumber(total)
+  'update:modelValue': (info: Info) => true,
+  change: (info: Info) => true
 }
 
 export type CommentEmit = EmitFn<typeof commentEmit>
