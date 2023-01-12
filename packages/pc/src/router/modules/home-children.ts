@@ -160,6 +160,15 @@ const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "Question" */ '@/views/home/question/index.vue')
   },
   {
+    path: '/question-add',
+    name: 'QuestionAdd',
+    meta: {
+      title: '问答新增',
+      code: ''
+    },
+    component: () => import(/* webpackChunkName: "QuestionAdd" */ '@/views/home/question-add/index.vue')
+  },
+  {
     path: '/novel-me-draft',
     name: 'NovelMeDraft',
     meta: {

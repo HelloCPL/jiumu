@@ -4,6 +4,16 @@
  * @create: 2022-07-06 11:53:17
  */
 
+// 添加或编辑权限接口参数
+interface ParamsPermissionAdd {
+  id?: string
+  code: string
+  label: string
+  href?: string
+  sort?: number
+  remarks?: string
+}
+
 // 权限列表接口类型
 interface DataPermission extends DataBase {
   id: string
@@ -22,14 +32,4 @@ interface ParamsPermissionList extends ParamsPage {
   highlight?: '0' | '1'
   userId?: string
   roleId?: string
-}
-
-// 添加权限接口参数
-interface ParamsPermissionAdd {
-  id?: string
-  code: string
-  label: string
-  href?: string
-  sort?: number
-  remarks?: string
 }

@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full px-4 py-3 flex justify-end border-b-1 pagination-container">
+  <div class="w-full px-4 py-3 flex justify-end border-t-1 pagination-container">
     <ElPagination
       v-bind="$attrs"
       :hide-on-single-page="false"

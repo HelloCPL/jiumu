@@ -4,25 +4,23 @@
  * @update 2022-07-04 01:07:21
  */
 
-// 获取所有文章列表接口类型
-interface ParamsArticleList extends ParamsPage {
-  keyword?: string
-  highlight?: '0' | '1'
-  type?: string
-  showUserInfo?: any
-}
-
-// 获取指定用户的文章列表接口类型
-interface ParamsArticleListByUserId extends ParamsArticleList {
+// 新增或编辑文章参数
+interface ParamsArticleAdd {
+  id?: string
+  title: string
+  content: string
+  contentType: '401' | '402' | '403'
+  type: string
+  isDraft: '1' | '0'
+  coverImg?: string
+  attachment?: string
   classify?: string
-}
-
-interface ParamsArticleListSelf extends ParamsArticleListByUserId {
-  isDraft?: '1' | '0'
   isSecret?: '1' | '0'
-  showUserInfo?: any
+  sort?: number
+  remarks?: string
 }
 
+// 获取一个文章参数类型
 interface ParamsArticleOne {
   id: string
   showUserInfo?: any
@@ -59,18 +57,23 @@ interface DataArticleInfo extends DataArticle {
   attachment: DataBaseFile[]
 }
 
-// 新增或编辑文章参数
-interface ParamsArticleAdd {
-  id?: string
-  title: string
-  content: string
-  contentType: '401' | '402' | '403'
-  type: string
-  isDraft: '1' | '0'
-  coverImg?: string
-  attachment?: string
+// 获取所有文章列表接口类型
+interface ParamsArticleList extends ParamsPage {
+  keyword?: string
+  highlight?: '0' | '1'
+  type?: string
+  showUserInfo?: any
+}
+
+// 获取我的文章列表参数类型
+interface ParamsArticleListSelf extends ParamsArticleList {
   classify?: string
+  isDraft?: '1' | '0'
   isSecret?: '1' | '0'
-  sort?: number
-  remarks?: string
+}
+
+// 获取指定用户的文章列表接口类型
+interface ParamsArticleListByUserId extends ParamsArticleList {
+  userId: string
+  classify?: string
 }

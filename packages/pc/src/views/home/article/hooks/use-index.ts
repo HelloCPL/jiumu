@@ -41,7 +41,7 @@ export const useIndex = () => {
   const handleReset = () => {
     keyword.value = ''
     type.value = ''
-    getDataList()
+    getDataList(1)
   }
 
   return {

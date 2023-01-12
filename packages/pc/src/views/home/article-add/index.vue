@@ -25,7 +25,7 @@
         </ElFormItem>
       </ElRow>
       <ElFormItem label="自定义标签" prop="classify">
-        <SelectClassify v-model="form.classify"></SelectClassify>
+        <SelectClassify v-model="form.classify" type="articleClassify"></SelectClassify>
       </ElFormItem>
       <ElFormItem label="封面图" prop="coverImg">
         <ElRow>

@@ -20,6 +20,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "ArticleInfo" */ '@/views/home/article-info/index.vue')
   },
   {
+    // 问答详情
+    path: '/question-info',
+    name: 'QuestionInfo',
+    component: () => import(/* webpackChunkName: "QuestionInfo" */ '@/views/home/question-info/index.vue')
+  },
+  {
     // 用户信息
     path: '/user-info',
     name: 'UserInfo',

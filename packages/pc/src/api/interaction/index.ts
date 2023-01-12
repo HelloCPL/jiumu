@@ -35,7 +35,7 @@ export const getLikeListByUserId = async (
   return await get('/pc/like/get/list', params).catch((err) => err)
 }
 
-// 收藏
+// 新增收藏
 export const addCollection = async (params: ParamsInteractionAdd): Promise<DataOptions<string>> => {
   return await get('/pc/collection/add', params).catch((err) => err)
 }

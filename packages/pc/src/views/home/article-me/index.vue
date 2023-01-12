@@ -60,8 +60,8 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="likeCount" label="点赞" width="70"></ElTableColumn>
-      <ElTableColumn prop="likeCount" label="收藏" width="70"></ElTableColumn>
-      <ElTableColumn prop="likeCount" label="评论" width="70"></ElTableColumn>
+      <ElTableColumn prop="collectionCount" label="收藏" width="70"></ElTableColumn>
+      <ElTableColumn prop="commentCount" label="评论" width="70"></ElTableColumn>
       <ElTableColumn label="更新时间" width="150">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
@@ -102,6 +102,7 @@ defineOptions({
 
 const { keyword, isSecret, type, classify, pageNo, pageSize, total, data, getDataList, handleReset } =
   useIndex()
+
 const { btnList, handleBtn, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })

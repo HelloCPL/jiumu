@@ -10,6 +10,23 @@ interface DataToken {
   tokenRefresh: string
 }
 
+// 修改本用户信息参数
+interface ParamsUpdateUserBaseSelf {
+  username?: string
+  sex?: string
+  birthday?: string
+  avatar?: string
+  professional?: string
+  address?: string
+  remarks?: string
+}
+
+// 修改密码参数
+interface ParamsUpdatePassword {
+  password: string
+  newPassword: string
+}
+
 // 用户接口返回类型
 interface DataUserInfo extends DataBase {
   id: string
@@ -24,6 +41,13 @@ interface DataUserInfo extends DataBase {
   relevanceId?: string
 }
 
+// 获取用户列表接口参数
+interface ParamsUserList extends ParamsPage {
+  keyword?: string
+  highlight?: '0' | '1'
+  simple?: '1' | '0'
+}
+
 // 登录记录列表接口参数
 interface ParamsLoginInfo extends ParamsPage {
   userId: string
@@ -35,28 +59,4 @@ interface DataLoginInfo extends DataBase {
   userId: string
   username: string
   ip: string
-}
-
-// 修改密码参数
-interface ParamsUpdatePassword {
-  password: string
-  newPassword: string
-}
-
-// 修改本用户信息参数
-interface ParamsUpdateUserBaseSelf {
-  username?: string
-  sex?: string
-  birthday?: string
-  avatar?: string
-  professional?: string
-  address?: string
-  remarks?: string
-}
-
-// 获取用户列表接口参数
-interface ParamsUserList extends ParamsPage {
-  keyword?: string
-  highlight?: '0' | '1'
-  simple?: '1' | '0'
 }

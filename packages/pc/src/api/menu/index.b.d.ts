@@ -4,6 +4,16 @@
  * @update 2022-07-04 01:07:21
  */
 
+// 菜单添加或编辑接口参数
+interface ParamsMenuAdd {
+  id?: string
+  code: string
+  label: string
+  parentCode?: string
+  sort?: number
+  remarks?: string
+}
+
 // 菜单数据接口类型
 interface DataMenuInfo extends DataBase {
   id: string
@@ -28,14 +38,4 @@ interface ParamsMenuByParentCode {
   parentCode?: string
   roleId?: string
   userId?: string
-}
-
-// 菜单添加接口参数
-interface ParamsMenuAdd {
-  id?: string
-  code: string
-  label: string
-  parentCode?: string
-  sort?: number
-  remarks?: string
 }

@@ -10,14 +10,14 @@ interface ParamsInteractionAdd {
   type: string
 }
 
-// 我的点赞或收藏列表参数
-interface ParamsInteractionList extends ParamsPage {
-  showUserInfo?: any
-}
-
 // 获取指定的一个点赞 收藏 评论 参数
 interface ParamsInteractionOne {
   id: string
+  showUserInfo?: any
+}
+
+// 我的点赞或收藏列表参数
+interface ParamsInteractionList extends ParamsPage {
   showUserInfo?: any
 }
 

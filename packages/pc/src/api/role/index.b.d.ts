@@ -4,6 +4,14 @@
  * @update 2022-07-04 01:07:21
  */
 
+// 添加或编辑角色接口参数
+interface ParamsRoleAdd {
+  id?: string
+  code: string
+  label: string
+  sort?: number
+  remarks?: string
+}
 
 // 角色数据接口类型
 interface DataRole extends DataBase {
@@ -25,13 +33,4 @@ interface ParamsRoleList extends ParamsPage {
   userId?: string
   permissionId?: string
   menuId?: string
-}
-
-// 添加角色接口参数
-interface ParamsRoleAdd {
-  id?: string
-  code: string
-  label: string
-  sort?: number
-  remarks?: string
 }
