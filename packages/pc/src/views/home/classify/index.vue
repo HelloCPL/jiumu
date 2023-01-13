@@ -6,15 +6,12 @@
 
 <template>
   <div class="g-container">
-    <!-- 筛选框 -->
-    <FilterBox @search="getDataList(1)">
+    <!-- <FilterBox @search="getDataList(1)">
       <ElFormItem label="关键字">
         <ElInput v-model="keyword" type="text" clearable placeholder="请输入关键字"></ElInput>
       </ElFormItem>
     </FilterBox>
-    <!-- 操作盒子 -->
     <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
-    <!-- 列表 -->
     <Table :data="data">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn prop="sort" label="排序" width="60" />
@@ -36,17 +33,16 @@
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" width="100" />
     </Table>
-    <!-- 分页 -->
     <Pagination
       v-model:page-no="pageNo"
       v-model:page-size="pageSize"
       :total="total"
       @change="getDataList"
-    ></Pagination>
+    ></Pagination> -->
   </div>
 </template>
 
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import FilterBox from '@/components/FilterBox/index.vue'
 import FilterButton from '@/components/FilterButton/index.vue'
 import { ElFormItem, ElInput, ElTableColumn } from 'element-plus'
@@ -61,4 +57,4 @@ defineOptions({
 
 const { pageNo, pageSize, total, keyword, data, getDataList } = useIndex()
 const { btnList, handleBtn } = useIndexInfo({})
-</script>
+</script> -->

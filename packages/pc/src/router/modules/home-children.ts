@@ -67,15 +67,15 @@ const routes: RouteRecordRaw[] = [
     },
     component: () => import(/* webpackChunkName: "ClassifyMe" */ '@/views/home/classify-me/index.vue')
   },
-  {
-    path: '/classify',
-    name: 'Classify',
-    meta: {
-      title: '所有自定义标签',
-      code: ''
-    },
-    component: () => import(/* webpackChunkName: "Classify" */ '@/views/home/classify/index.vue')
-  },
+  // {
+  //   path: '/classify',
+  //   name: 'Classify',
+  //   meta: {
+  //     title: '所有自定义标签',
+  //     code: ''
+  //   },
+  //   component: () => import(/* webpackChunkName: "Classify" */ '@/views/home/classify/index.vue')
+  // },
   {
     path: '/article-me-draft',
     name: 'ArticleMeDraft',
