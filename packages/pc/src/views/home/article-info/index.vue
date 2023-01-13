@@ -8,9 +8,15 @@
   <div class="w-full">
     <div class="w-full bg-white shadow p-6 info-container" v-if="dataInfo">
       <div class="text-xl font-bold">{{ dataInfo.title }}</div>
+      <!-- 文章信息 -->
       <div class="w-full border bg py-3 pl-10 pr-3 relative mt-4">
         <div class="text-light">
-          <span class="mr-4 hover:text-primary cursor-pointer">{{ dataInfo.createUserName }}</span>
+          <span
+            class="mr-4 hover:text-primary cursor-pointer"
+            @click="toPage((dataInfo as DataArticleInfo).createUser)"
+          >
+            {{ dataInfo.createUserName }}
+          </span>
         </div>
         <div class="w-full mt-3 flex items-center justify-between text-lighter text-sm">
           <div>
@@ -71,7 +77,8 @@ import AboutUs from '@/components/AboutUs/index.vue'
 defineOptions({
   name: 'ArticleInfo'
 })
-const { dataInfo, iconType, isHot } = useIndex()
+
+const { dataInfo, iconType, isHot, toPage } = useIndex()
 </script>
 
 <style lang="scss" scoped>

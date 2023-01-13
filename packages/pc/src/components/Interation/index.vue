@@ -61,7 +61,6 @@ type Props = {
     isDraft: '1' | '0'
     likeCount: number
     collectionCount: number
-    type: string
     [x: string]: any
   }
   type: string

@@ -1,10 +1,7 @@
-/**
- * @describe: 文章详情处理逻辑
- * @author: cpl
- * @create: 2022-10-23 11:04:25
+/*
+ * 问答详情处理逻辑
  */
-
-import { getArticleOne } from '@/api/article'
+import { getQuestionOne } from '@/api/question'
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -12,9 +9,9 @@ export const useIndex = () => {
   const route = useRoute()
   const router = useRouter()
 
-  const dataInfo = ref<DataArticleInfo | null>(null)
+  const dataInfo = ref<DataQuestion | null>(null)
   const getDataInfo = async (id: string) => {
-    const res = await getArticleOne({ id })
+    const res = await getQuestionOne({ id })
     if (res.code === 200) {
       dataInfo.value = res.data
     }
@@ -26,10 +23,7 @@ export const useIndex = () => {
   // 状态
   const iconType = computed(() => {
     if (dataInfo.value?.isDraft === '1') return '/pc/icons/icon_caogao.png'
-    else if (dataInfo.value?.type === '301') return '/pc/icons/icon_yuanchuang.png'
-    else if (dataInfo.value?.type === '302') return '/pc/icons/icon_zhuanzai.png'
-    else if (dataInfo.value?.type === '303') return '/pc/icons/icon_fanyi.png'
-    else return '/pc/icons/icon_qita.png'
+    return ''
   })
 
   // 是否热门

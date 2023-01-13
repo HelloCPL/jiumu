@@ -1,18 +1,15 @@
-/**
- * @describe: 文章新增处理逻辑
- * @author: cpl
- * @create: 2022-10-15 19:31:42
+/*
+ * 问答新增或编辑
  */
-
-import { FilterButtonList } from '@/components/FilterButton/type'
-import { FormInstance, FormRules } from 'element-plus'
-import { onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { validateContent } from '@/components/Editor/index'
-import { Confirm, Message } from '@/utils/interaction'
+import { onMounted, reactive, ref } from 'vue'
+import { FormInstance, FormRules } from 'element-plus'
+import { validateContent } from '@/components/Editor'
+import { getQuestionOne, addQuestion, updateQuestion, deleteQuestion } from '@/api/question'
 import { debounce } from 'lodash-es'
-import { addArticle, deleteArticle, getArticleOne, updateArticle } from '@/api/article'
 import { useKeepAliveStore } from '@/store'
+import { Confirm, Message } from '@/utils/interaction'
+import { FilterButtonList } from '@/components/FilterButton/type'
 
 export const useIndex = () => {
   const route = useRoute()
@@ -20,15 +17,11 @@ export const useIndex = () => {
 
   // 表单
   const formRef = ref<FormInstance>()
-  const form = reactive<ParamsArticleAdd>({
+  const form = reactive<ParamsQuestionAdd>({
     id: '',
     title: '',
     content: '',
-    contentType: '402',
-    type: '',
     isDraft: '0',
-    coverImg: '',
-    attachment: '',
     classify: '',
     isSecret: '0',
     sort: 1,
@@ -40,8 +33,7 @@ export const useIndex = () => {
     content: [
       { required: true, trigger: 'change', message: '请输入内容' },
       { validator: validateContent, trigger: 'change' }
-    ],
-    type: [{ required: true, trigger: 'change', message: '请选择类型' }]
+    ]
   })
 
   // 处理内容
@@ -49,41 +41,17 @@ export const useIndex = () => {
     if (val.length < 15) formRef.value?.validateField('content')
   }
 
-  // 处理封面图
-  const coverImgList = ref<DataBaseFile[]>([])
-  const handleChangeCoverImg = (files: DataBaseFile[]) => {
-    coverImgList.value = coverImgList.value.concat(files)
-    form.coverImg = coverImgList.value.map((item) => item.id).join(',')
-  }
-
-  // 处理附件
-  const attachmentList = ref<DataBaseFile[]>([])
-  const handleChangeAttachment = (files: DataBaseFile[]) => {
-    attachmentList.value = attachmentList.value.concat(files)
-    form.attachment = attachmentList.value.map((item) => item.id).join(',')
-  }
-
-  // 获取文章详情
+  // 获取问答详情
   const _getOne = async (id: string) => {
-    const res = await getArticleOne({ id })
+    const res = await getQuestionOne({ id })
     if (res.code === 200) {
       const data = res.data
       form.title = data.title
       form.content = data.content
-      form.contentType = data.contentType
-      form.type = data.type
       form.isDraft = data.isDraft
       form.isSecret = data.isSecret
       form.sort = data.sort
       form.remarks = data.remarks
-      if (data.coverImg) {
-        form.coverImg = data.coverImg.id
-        coverImgList.value = [data.coverImg]
-      }
-      if (data.attachment.length) {
-        form.attachment = data.attachment.map((item) => item.id).join(',')
-        attachmentList.value = data.attachment
-      }
       if (data.classify.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
@@ -95,20 +63,20 @@ export const useIndex = () => {
   })
 
   // 新增
-  const _add = debounce(async (params: ParamsArticleAdd) => {
-    const res = await addArticle(params)
+  const _add = debounce(async (params: ParamsQuestionAdd) => {
+    const res = await addQuestion(params)
     handleFinish(res)
   })
 
   // 编辑
-  const _update = debounce(async (params: ParamsArticleAdd) => {
-    const res = await updateArticle(params)
+  const _update = debounce(async (params: ParamsQuestionAdd) => {
+    const res = await updateQuestion(params)
     handleFinish(res)
   })
 
   // 删除
   const _delete = debounce(async (id) => {
-    const res = await deleteArticle(id)
+    const res = await deleteQuestion(id)
     handleFinish(res)
   })
 
@@ -117,13 +85,13 @@ export const useIndex = () => {
   const handleFinish = (res: DataOptions<null | string>) => {
     if (res.code === 200) {
       // 更新指定页面
-      keepAliveStore.refreshKeepAlive('Article,ArticleMe,ArticleMeDraft')
+      keepAliveStore.refreshKeepAlive('Question,QuestionMe,QuestionMeDraft')
       Message({
         message: res.message,
         type: 'success'
       })
-      let name = 'ArticleMe'
-      if (form.isDraft === '1') name = 'ArticleMeDraft'
+      let name = 'QuestionMe'
+      if (form.isDraft === '1') name = 'QuestionMeDraft'
       router.replace({
         name,
         params: { _refreshOne: '1' }
@@ -182,10 +150,6 @@ export const useIndex = () => {
     form,
     rules,
     handleChangeContent,
-    coverImgList,
-    handleChangeCoverImg,
-    attachmentList,
-    handleChangeAttachment,
     changeBtn
   }
 }

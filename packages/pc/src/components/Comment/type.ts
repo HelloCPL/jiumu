@@ -9,7 +9,6 @@ export type CommentProps = {
     id: string
     isDraft?: '1' | '0'
     commentCount: number
-    type: string
     [x: string]: any
   }
   type: string
