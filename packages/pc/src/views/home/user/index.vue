@@ -15,7 +15,9 @@
     <!-- 列表 -->
     <Table :data="data">
       <ElTableColumn type="selection" width="55" />
-      <ElTableColumn type="index" label="序号" width="60" />
+      <ElTableColumn type="index" label="序号" width="60">
+        <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
+      </ElTableColumn>
       <ElTableColumn label="头像" width="100">
         <template #default="{ row }">
           <ElImage class="h-10 rounded-sm" :src="row.avatar.filePath" v-if="row.avatar" />
@@ -112,6 +114,7 @@ import UserRole from './components/UserRole.vue'
 import UserTag from './components/UserTag.vue'
 import UserMenu from './components/UserMenu.vue'
 import UserPermission from './components/UserPermission.vue'
+import { getIndex } from '@/utils/tools'
 
 defineOptions({
   name: 'User'

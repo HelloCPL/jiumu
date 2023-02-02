@@ -196,6 +196,34 @@ const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "Novel" */ '@/views/home/novel/index.vue')
   },
   {
+    path: '/novel-add',
+    name: 'NovelAdd',
+    meta: {
+      title: '连载新增',
+      code: ''
+    },
+    component: () => import(/* webpackChunkName: "NovelAdd" */ '@/views/home/novel-add/index.vue')
+  },
+  {
+    path: '/novel-chapter',
+    name: 'NovelChapter',
+    meta: {
+      title: '章节列表',
+      code: ''
+    },
+    component: () => import(/* webpackChunkName: "NovelChapter" */ '@/views/home/novel-chapter/index.vue')
+  },
+  {
+    path: '/novel-chapter-add',
+    name: 'NovelChapterAdd',
+    meta: {
+      title: '章节新增',
+      code: ''
+    },
+    component: () =>
+      import(/* webpackChunkName: "NovelChapterAdd" */ '@/views/home/novel-chapter-add/index.vue')
+  },
+  {
     path: '/collection-me',
     name: 'CollectionMe',
     meta: {

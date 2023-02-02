@@ -22,6 +22,9 @@
     <!-- 列表 -->
     <Table :data="data">
       <ElTableColumn type="selection" width="55" />
+      <ElTableColumn type="index" label="序号" width="60">
+        <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
+      </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" width="60" />
       <ElTableColumn label="标签" min-width="140">
         <template #default="{ row }">
@@ -71,6 +74,7 @@ import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import ClassifyMeAdd from './components/ClassifyMeAdd.vue'
 import ClassifyMeInfo from './components/ClassifyMeInfo.vue'
+import { getIndex } from '@/utils/tools'
 
 defineOptions({
   name: 'ClassifyMe'

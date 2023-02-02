@@ -17,7 +17,9 @@
     </FilterBox>
     <!-- 列表 -->
     <Table :data="data">
-      <ElTableColumn prop="sort" label="排序" width="60" />
+      <ElTableColumn type="index" label="序号" width="60">
+        <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
+      </ElTableColumn>
       <ElTableColumn label="标题" min-width="150">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
@@ -91,7 +93,7 @@ import Pagination from '@/components/Pagination/index.vue'
 import ShowImage from '@/components/ShowImage/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { checkPermissionByCode } from '@/utils/tools'
+import { checkPermissionByCode, getIndex } from '@/utils/tools'
 
 defineOptions({
   name: 'Article'

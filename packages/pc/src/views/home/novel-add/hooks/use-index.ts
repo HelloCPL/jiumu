@@ -1,53 +1,55 @@
-/*
- * 问答新增或编辑
+/**
+ * 连载新增或编辑逻辑处理
  */
+import { FormInstance, FormRules } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, reactive, ref } from 'vue'
-import { FormInstance, FormRules } from 'element-plus'
-import { validateContent } from '@/components/Editor'
-import { getQuestionOne, addQuestion, updateQuestion, deleteQuestion } from '@/api/question'
+import { getNovelOne, addNovel, updateNovel, deleteNovel } from '@/api/novel'
 import { debounce } from 'lodash-es'
 import { useKeepAliveStore } from '@/store'
-import { Confirm, Message } from '@/utils/interaction'
+import { Message, Confirm } from '@/utils/interaction'
 import { FilterButtonList } from '@/components/FilterButton/type'
 
 export const useIndex = () => {
   const route = useRoute()
   const router = useRouter()
 
+  const list = ref<FilterButtonList[]>([
+    { name: '发布', key: 'save', type: 'primary' },
+    { name: '保存草稿', key: 'draft' },
+    { name: '取消', key: 'delete' }
+  ])
+
   // 表单
   const formRef = ref<FormInstance>()
-  const form = reactive<ParamsQuestionAdd>({
+  const form = reactive<ParamsNovelAdd>({
     id: '',
-    title: '',
-    content: '',
+    name: '',
+    introduce: '',
+    author: '',
     isDraft: '0',
     classify: '',
+    type: '',
     isSecret: '0',
     sort: 1,
     remarks: ''
   })
 
   const rules = reactive<FormRules>({
-    title: [{ required: true, trigger: 'change', message: '请输入标题' }],
-    content: [
-      { required: true, trigger: 'change', message: '请输入内容' },
-      { validator: validateContent, trigger: 'change' }
-    ]
+    name: [{ required: true, trigger: 'change', message: '请输入名称' }],
+    introduce: [{ required: true, trigger: 'change', message: '请输入名称' }],
+    author: [{ required: true, trigger: 'change', message: '请输入作者名称' }]
   })
 
-  // 处理内容
-  const handleChangeContent = (val: string) => {
-    if (val.length < 15) formRef.value?.validateField('content')
-  }
-
-  // 获取问答详情
+  // 获取连载详情
   const _getOne = async (id: string) => {
-    const res = await getQuestionOne({ id })
+    const res = await getNovelOne({ id })
     if (res.code === 200) {
       const data = res.data
-      form.title = data.title
-      form.content = data.content
+      form.name = data.name
+      form.introduce = data.introduce
+      form.author = data.author
+      form.type = data.type
       form.isDraft = data.isDraft
       form.isSecret = data.isSecret
       form.sort = data.sort
@@ -55,6 +57,23 @@ export const useIndex = () => {
       if (data.classify.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
+
+      let _list = []
+      if (data.isDraft === '1') {
+        _list = [
+          { name: '发布', key: 'save', type: 'primary' },
+          { name: '保存草稿', key: 'draft' }
+        ]
+      } else {
+        _list = [
+          { name: '保存', key: 'save', type: 'primary' },
+          { name: '转为草稿', key: 'draft' }
+        ]
+      }
+      if (data.chapterCount === 0) {
+        _list.push({ name: '删除', key: 'delete' })
+      }
+      list.value = _list
     }
   }
   onMounted(() => {
@@ -63,20 +82,20 @@ export const useIndex = () => {
   })
 
   // 新增
-  const _add = debounce(async (params: ParamsQuestionAdd) => {
-    const res = await addQuestion(params)
+  const _add = debounce(async (params: ParamsNovelAdd) => {
+    const res = await addNovel(params)
     handleFinish(res)
   })
 
   // 编辑
-  const _update = debounce(async (params: ParamsQuestionAdd) => {
-    const res = await updateQuestion(params)
+  const _update = debounce(async (params: ParamsNovelAdd) => {
+    const res = await updateNovel(params)
     handleFinish(res)
   })
 
   // 删除
   const _delete = debounce(async (id) => {
-    const res = await deleteQuestion(id)
+    const res = await deleteNovel(id)
     handleFinish(res)
   })
 
@@ -85,13 +104,13 @@ export const useIndex = () => {
   const handleFinish = (res: DataOptions<null | string>) => {
     if (res.code === 200) {
       // 更新指定页面
-      keepAliveStore.refreshKeepAlive('Question,QuestionMe,QuestionMeDraft')
+      keepAliveStore.refreshKeepAlive('Novel,NovelMe,NovelMeDraft')
       Message({
         message: res.message,
         type: 'success'
       })
-      let name = 'QuestionMe'
-      if (form.isDraft === '1') name = 'QuestionMeDraft'
+      let name = 'NovelMe'
+      if (form.isDraft === '1') name = 'NovelMeDraft'
       router.replace({
         name,
         params: { _refreshOne: '1' }
@@ -146,10 +165,10 @@ export const useIndex = () => {
   }
 
   return {
+    list,
     formRef,
     form,
     rules,
-    handleChangeContent,
     changeBtn
   }
 }

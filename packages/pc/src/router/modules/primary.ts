@@ -26,6 +26,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "QuestionInfo" */ '@/views/home/question-info/index.vue')
   },
   {
+    // 连载详情
+    path: '/novel-info',
+    name: 'NovelInfo',
+    component: () => import(/* webpackChunkName: "NovelInfo" */ '@/views/home/novel-info/index.vue')
+  },
+  {
     // 用户信息
     path: '/user-info',
     name: 'UserInfo',

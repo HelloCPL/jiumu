@@ -17,6 +17,9 @@
     <!-- 列表 -->
     <Table :data="data">
       <ElTableColumn type="selection" width="55" />
+      <ElTableColumn type="index" label="序号" width="60">
+        <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
+      </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" width="60" />
       <ElTableColumn label="code" min-width="130">
         <template #default="{ row }">
@@ -92,6 +95,7 @@ import PermissionInfo from './components/PermissionInfo.vue'
 import PermissionUser from './components/PermissionUser.vue'
 import PermissionRole from './components/PermissionRole.vue'
 import { formatDate } from '@jiumu/utils'
+import { getIndex } from '@/utils/tools'
 
 defineOptions({
   name: 'Permission'
