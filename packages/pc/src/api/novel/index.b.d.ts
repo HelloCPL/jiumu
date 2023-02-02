@@ -70,9 +70,7 @@ interface ParamsNovelListByUserId extends ParamsNovelList {
   classify?: string
 }
 
-// 章节添加参数类型
-interface ParamsNovelChapterAdd {
-  novelId: string
+interface ParamsNovelChapterChange {
   title: string
   content: string
   sort: number
@@ -81,15 +79,14 @@ interface ParamsNovelChapterAdd {
   remarks?: string
 }
 
+// 章节添加参数类型
+interface ParamsNovelChapterAdd extends ParamsNovelChapterChange {
+  novelId: string
+}
+
 // 章节编辑参数类型
-interface ParamsNovelChapterEdit {
+interface ParamsNovelChapterEdit  extends ParamsNovelChapterChange {
   id: string
-  title?: string
-  content?: string
-  sort?: number
-  isDraft?: '0' | '1'
-  isSecret?: '0' | '1'
-  remarks?: string
 }
 
 // 章节数据类型
@@ -113,6 +110,7 @@ interface DataNovelChapter {
   collectionCount: number
   isSelf: '0' | '1'
   commentCount: number
+  remarks: string
 }
 
 // 获取指定连载的所有章节参数类型

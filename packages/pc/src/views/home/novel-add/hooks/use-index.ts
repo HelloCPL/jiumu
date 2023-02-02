@@ -37,7 +37,7 @@ export const useIndex = () => {
 
   const rules = reactive<FormRules>({
     name: [{ required: true, trigger: 'change', message: '请输入名称' }],
-    introduce: [{ required: true, trigger: 'change', message: '请输入名称' }],
+    introduce: [{ required: true, trigger: 'change', message: '请输入简介' }],
     author: [{ required: true, trigger: 'change', message: '请输入作者名称' }]
   })
 
@@ -114,11 +114,6 @@ export const useIndex = () => {
       router.replace({
         name,
         params: { _refreshOne: '1' }
-      })
-    } else {
-      Message({
-        message: res.message,
-        type: 'error'
       })
     }
   }

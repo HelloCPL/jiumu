@@ -96,11 +96,6 @@ export const useIndex = () => {
         name,
         params: { _refreshOne: '1' }
       })
-    } else {
-      Message({
-        message: res.message,
-        type: 'error'
-      })
     }
   }
 

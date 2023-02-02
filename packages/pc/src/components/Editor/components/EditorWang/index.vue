@@ -22,7 +22,7 @@
             class="h-full border-l-1"
             :style="{ width: previewStyle.width + '%', opacity: previewStyle.opacity }"
           >
-            哈哈
+            <!-- 哈哈 -->
           </div>
         </div>
       </div>

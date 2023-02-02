@@ -6,7 +6,7 @@ import { getNovelOne, getNovelChapterList, deleteNovelChapter } from '@/api/nove
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { Confirm, Message } from '@/utils/interaction'
 import { debounce } from 'lodash-es'
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 export const useIndex = () => {
@@ -14,6 +14,7 @@ export const useIndex = () => {
   const router = useRouter()
   const id = <string>route.query.id
   const isSelf = ref<boolean>(false)
+  const isDraft = ref<boolean>(false)
 
   const dataInfo = ref<DataNovel | null>(null)
   const getDataInfo = async () => {
@@ -22,6 +23,7 @@ export const useIndex = () => {
     if (res.code === 200) {
       dataInfo.value = res.data
       isSelf.value = res.data.isSelf === '1'
+      isDraft.value = res.data.isDraft === '1'
     }
   }
 
@@ -35,7 +37,6 @@ export const useIndex = () => {
     if (num) pageNo.value = num
     const res = await getNovelChapterList({
       novelId: id,
-      isConcise: '1',
       pageNo: pageNo.value,
       pageSize: pageSize.value
     })
@@ -57,7 +58,7 @@ export const useIndex = () => {
       case 'add':
         router.push({
           name: 'NovelChapterAdd',
-          params: { _metaTitle: '章节新增', _refreshOne: '1' }
+          params: { _metaTitle: '章节新增', _refreshOne: '1', novelId: id }
         })
         return
     }
@@ -67,7 +68,7 @@ export const useIndex = () => {
   const handleEdit = (row: DataNovelChapter) => {
     router.push({
       name: 'NovelChapterAdd',
-      params: { _metaTitle: '章节编辑', _refreshOne: '1', id: row.id }
+      params: { _metaTitle: '章节编辑', _refreshOne: '1', id: row.id, novelId: id }
     })
   }
 
@@ -88,6 +89,7 @@ export const useIndex = () => {
   return {
     dataInfo,
     isSelf,
+    isDraft,
     pageNo,
     pageSize,
     total,

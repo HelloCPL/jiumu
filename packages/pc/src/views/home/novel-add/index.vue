@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :id="form.id" :is-draft="form.isDraft" :list="list">
+  <PageBox @change-btn="changeBtn" :list="list">
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="连载名称" prop="name">
         <ElInput type="text" placeholder="请输入连载名称" v-model="form.name"></ElInput>

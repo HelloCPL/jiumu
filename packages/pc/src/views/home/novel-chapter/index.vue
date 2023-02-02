@@ -46,6 +46,11 @@
           <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
+      <template v-if="!isDraft">
+        <ElTableColumn prop="likeCount" label="点赞" width="70"></ElTableColumn>
+        <ElTableColumn prop="collectionCount" label="收藏" width="70"></ElTableColumn>
+        <ElTableColumn prop="likeCount" label="评论" width="70"></ElTableColumn>
+      </template>
       <ElTableColumn label="更新时间" width="150">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
@@ -72,7 +77,7 @@
 <script lang="ts" setup>
 import { useIndex } from './hooks/use-index'
 import FilterButton from '@/components/FilterButton/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton, ElTag } from 'element-plus'
+import { ElTableColumn, ElButton, ElTag } from 'element-plus'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
@@ -85,6 +90,7 @@ defineOptions({
 const {
   dataInfo,
   isSelf,
+  isDraft,
   pageNo,
   pageSize,
   total,
