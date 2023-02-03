@@ -43,7 +43,7 @@
       <!-- 内容 -->
       <EditorPreview type="402" :value="dataInfo.content" class="mt-4"></EditorPreview>
       <!-- 点赞收藏 -->
-      <Interation v-model="dataInfo" type="505"></Interation>
+      <Interation v-model="dataInfo" type="505" class="mt-4"></Interation>
       <!-- 评论列表 -->
       <Comment
         v-model="dataInfo"
