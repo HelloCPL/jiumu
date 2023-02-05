@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full pt-16 h-80 about-us-container">
+  <div class="w-full pt-16 h-80 about-us-container" v-if="!lock">
     <div class="mb-6 flex justify-center items-center" v-for="(item, index) in dataList" :key="index + 'a'">
       <div
         v-for="(row, i) in item"
@@ -14,7 +14,7 @@
         :class="{ 'cursor-pointer': row.url, 'hover:text-primary-6': row.url }"
         @click="handleClick(row)"
       >
-        <img :src="$STATIC_URL + row.icon" alt="" v-if="row.icon" class="w-4 h-4" />
+        <IconSvg :name="row.iconName" width="14" v-if="row.iconName"></IconSvg>
         <span class="pl-1">{{ row.name }}</span>
       </div>
     </div>
@@ -23,11 +23,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import IconSvg from '@/components/IconSvg'
 
 type Info = {
   name: string
   url?: string
-  icon?: string
+  iconName?: string
 }
 
 // 链接地址
@@ -41,46 +42,46 @@ const dataList = ref<Info[][]>([
     {
       name: '樛木后台管理系统',
       // url: 'https://www.jiumublog.cn/jiumu-pc-prod/',
-      icon: '/pc/icons/icon_pc_management2.png'
+      iconName: 'pcManagement'
     },
     {
       name: '樛木PC网',
       // url: 'https://www.jiumublog.cn/jiumu-web-prod/',
-      icon: '/pc/icons/icon_pc2.png'
+      iconName: 'pc'
     },
     {
       name: '樛木移动端',
       // url: 'https://www.jiumublog.cn/jiumu-mobile-prod/',
-      icon: '/pc/icons/icon_mobile2.png'
+      iconName: 'phone'
     },
     {
       name: '樛木小程序',
       // url: 'https://www.jiumublog.cn/jiumu-wechat-prod/',
-      icon: '/pc/icons/icon_program2.png'
+      iconName: 'program'
     }
   ],
   [
     {
       name: '樛木后台管理系统（测试环境）',
       url: 'https://www.jiumublog.cn/jiumu-pc-test/',
-      icon: '/pc/icons/icon_pc_management2.png'
+      iconName: 'pcManagement'
     },
     {
       name: '樛木PC网（测试环境）',
       // url: 'https://www.jiumublog.cn/jiumu-web-test/',
-      icon: '/pc/icons/icon_pc2.png'
+      iconName: 'pc'
     },
     {
       name: '樛木移动端（测试环境）',
       // url: 'https://www.jiumublog.cn/jiumu-mobile-test/',
-      icon: '/pc/icons/icon_mobile2.png'
+      iconName: 'phone'
     }
   ],
   [
     {
       name: 'github',
       url: 'https://github.com/HelloCPL/',
-      icon: '/pc/icons/icon_github2.png'
+      iconName: 'github'
     }
   ]
 ])
@@ -90,6 +91,11 @@ const handleClick = (item: Info) => {
     window.open(item.url, '_blank')
   }
 }
+
+const lock = ref(true)
+setTimeout(() => {
+  lock.value = false
+}, 1500)
 </script>
 
 <style lang="scss" scoped>

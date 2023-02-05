@@ -8,6 +8,12 @@ import { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
+    // 重定向组件 常用于相同页面间的刷新 比 refresh 刷新组件作用范围广
+    path: '/redirect',
+    name: 'Redirect',
+    component: () => import(/* webpackChunkName: "Redirect" */ '@/views/redirect/index.vue')
+  },
+  {
     // 登录
     path: '/login',
     name: 'Login',
@@ -30,6 +36,16 @@ const routes: RouteRecordRaw[] = [
     path: '/novel-info',
     name: 'NovelInfo',
     component: () => import(/* webpackChunkName: "NovelInfo" */ '@/views/home/novel-info/index.vue')
+  },
+  {
+    path: '/novel-chapter-info',
+    name: 'NovelChapterInfo',
+    meta: {
+      title: '章节详情',
+      code: ''
+    },
+    component: () =>
+      import(/* webpackChunkName: "NovelChapterInfo" */ '@/views/home/novel-chapter-info/index.vue')
   },
   {
     // 用户信息

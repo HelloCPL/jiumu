@@ -91,7 +91,7 @@ interface ParamsNovelChapterEdit  extends ParamsNovelChapterChange {
 }
 
 // 章节数据类型
-interface DataNovelChapter {
+interface DataNovelChapter extends DataBase {
   id: string
   novelId: string
   novelName: string

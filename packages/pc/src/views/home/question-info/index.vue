@@ -27,9 +27,15 @@
               </ElTag>
             </div>
           </div>
-          <div>
-            <span class="mr-4">{{ dataInfo.terminal }}</span>
-            <span class="mr-4">{{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD hh:mm') }}</span>
+          <div class="flex">
+            <span class="flex items-center mr-4">
+              <IconSvg name="time"></IconSvg>
+              <span class="ml-1"> {{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD hh:mm') }}</span>
+            </span>
+            <span class="flex items-center">
+              <IconSvg name="source"></IconSvg>
+              <span class="ml-1">{{ dataInfo.terminal }}</span>
+            </span>
           </div>
         </div>
         <img :src="$STATIC_URL + iconType" alt="" class="absolute left-0 -top-1 w-9" v-if="iconType" />
@@ -65,6 +71,7 @@ import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
 import Comment from '@/components/Comment/index.vue'
 import AboutUs from '@/components/AboutUs/index.vue'
+import IconSvg from '@/components/IconSvg/index'
 
 defineOptions({
   name: 'QuestionInfo'

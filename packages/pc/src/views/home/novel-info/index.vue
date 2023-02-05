@@ -7,10 +7,16 @@
 <template>
   <div class="w-full">
     <div class="w-full bg-white shadow p-6 info-container" v-if="dataInfo">
-      <div class="text-sm text-lighter mb-4 relative">
+      <div class="flex items-baseline text-sm text-lighter mb-4 relative">
         <span class="text text-xl font-bold mr-4">{{ dataInfo.name }}</span>
-        <span class="mr-4">{{ dataInfo.author }}</span>
-        <span>更新时间 {{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
+        <span class="flex items-center mr-4">
+          <IconSvg name="author"></IconSvg>
+          <span class="ml-1">{{ dataInfo.author }}</span>
+        </span>
+        <span class="flex items-center">
+          <IconSvg name="time"></IconSvg>
+          <span class="ml-1">{{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
+        </span>
         <img
           :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
           alt=""
@@ -24,24 +30,66 @@
       </div>
       <div class="text-lighter mb-4">
         <span class="mr-4">类型：{{ dataInfo.typeLabel }}</span>
-        <span class="mr-4">{{ dataInfo.wordCount }}字</span>
-        <span class="mr-4">{{ dataInfo.likeCount + dataInfo.chapterLikeCount }}赞</span>
-        <span>{{ dataInfo.collectionCount + dataInfo.chapterCollectionCount }}收藏</span>
+        <span class="mr-4">
+          <IconSvg name="word"></IconSvg>
+          <span class="ml-1">{{ dataInfo.wordCount }}字</span>
+        </span>
+        <span class="mr-4">
+          <IconSvg name="like" fill="var(--jm-color-primary)"></IconSvg>
+          <span class="ml-1">{{ dataInfo.likeCount + dataInfo.chapterLikeCount }}赞</span>
+        </span>
+        <span>
+          <IconSvg name="collection" fill="var(--jm-color-primary)"></IconSvg>
+          <span class="ml-1">{{ dataInfo.collectionCount + dataInfo.chapterCollectionCount }}收藏</span>
+        </span>
       </div>
       <div class="mb-8 flex justify-between">
-        <ElButton type="primary" class="px-12">开始阅读</ElButton>
-        <span class="text-lighter text-sm">来源：{{ dataInfo.terminal }}</span>
+        <ElButton
+          type="primary"
+          class="px-12"
+          :disabled="dataList.length === 0"
+          @click="handleToChapterIndex(0)"
+          v-if="targetIndex === -1"
+        >
+          开始阅读
+        </ElButton>
+        <ElButton
+          type="primary"
+          class="px-12"
+          :disabled="dataList.length === 0"
+          @click="handleToChapterIndex(targetIndex)"
+          v-else
+        >
+          继续阅读
+        </ElButton>
+        <span class="flex items-center text-lighter text-sm">
+          <IconSvg name="source"></IconSvg>
+          <span class="ml-1">{{ dataInfo.terminal }}</span>
+        </span>
       </div>
       <div class="mb-8">{{ dataInfo.introduce }}</div>
       <div class="mb-8">
         <div class="text-lg mb-4">
           <span class="mr-4">列表({{ dataInfo.chapterCount }}章)</span>
-          <ElButton size="small" type="info" text>上次读到第12章</ElButton>
+          <ElButton
+            size="small"
+            type="info"
+            text
+            v-if="targetIndex !== -1"
+            @click="handleToChapterIndex(targetIndex)"
+          >
+            上次读到第{{ targetIndex + 1 }}章
+          </ElButton>
         </div>
         <div class="w-full flex flex-wrap">
           <div v-for="(item, index) in dataList" :key="item.id" class="w-1/3 mb-4 pr-4 g-line-1">
-            <span class="text-light cursor-pointer hover:text-primary-500">
-              第{{ index + 1 }}章 {{ item.title }}
+            <span
+              class="cursor-pointer hover:text-primary-500"
+              :class="{ 'text-lighter': chapter.ids && chapter.ids.includes(item.id) }"
+              @click="handleToChapter(item)"
+            >
+              <span>第{{ index + 1 }}章</span>
+              <span class="pl-1">{{ item.title }}</span>
             </span>
           </div>
         </div>
@@ -69,12 +117,13 @@ import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
 import Comment from '@/components/Comment/index.vue'
 import AboutUs from '@/components/AboutUs/index.vue'
+import IconSvg from '@/components/IconSvg/index'
 
 defineOptions({
   name: 'NovelInfo'
 })
 
-const { dataInfo, dataList, isHot } = useIndex()
+const { dataInfo, dataList, isHot, handleToChapter, handleToChapterIndex, chapter, targetIndex } = useIndex()
 </script>
 
 <style lang="scss" scoped>

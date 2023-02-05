@@ -35,7 +35,13 @@
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn prop="title" label="标题" min-width="150" />
+      <ElTableColumn label="标题" min-width="150">
+        <template #default="{ row }">
+          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
+            <GRichText :html="row.title" />
+          </span>
+        </template>
+      </ElTableColumn>
       <ElTableColumn label="是否草稿" width="90">
         <template #default="{ row }">
           <span>{{ row.isDraft === '0' ? '是' : '否' }}</span>
@@ -99,6 +105,7 @@ const {
   btnList,
   handleBtn,
   handleEdit,
-  handleDelete
+  handleDelete,
+  handleShowInfo
 } = useIndex()
 </script>

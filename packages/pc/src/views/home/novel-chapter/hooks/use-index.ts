@@ -86,6 +86,18 @@ export const useIndex = () => {
     })
   }
 
+  // 显示详情
+  const handleShowInfo = (row: DataNovelChapter) => {
+    const routeUrl = router.resolve({
+      path: '/novel-chapter-info',
+      query: {
+        novelId: id,
+        id: row.id
+      }
+    })
+    window.open(routeUrl.href, '_blank')
+  }
+
   return {
     dataInfo,
     isSelf,
@@ -98,6 +110,7 @@ export const useIndex = () => {
     btnList,
     handleBtn,
     handleEdit,
-    handleDelete
+    handleDelete,
+    handleShowInfo
   }
 }

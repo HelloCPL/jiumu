@@ -50,35 +50,26 @@
               v-if="target.isSelf === '1' || isSuper"
               @click="$emit('delete', index, parentIndex)"
             >
-              <ElIcon>
-                <Delete />
-              </ElIcon>
+              <IconSvg name="delete" fill="var(--jm-color-danger)"></IconSvg>
               <span class="pl-1">删除</span>
             </span>
             <span
               class="flex items-center ml-4 text-primary cursor-pointer"
               @click="$emit('showComment', index, parentIndex)"
             >
-              <ElIcon>
-                <ChatDotSquare />
-              </ElIcon>
+              <IconSvg name="comment" fill="var(--jm-color-primary)"></IconSvg>
               <span class="pl-1">回复</span>
-              <span v-if="parentIndex === -1 && target.commentCount > 0" class="pl-1"
-                >({{ target.commentCount }})</span
-              >
+              <span v-if="parentIndex === -1 && target.commentCount > 0" class="pl-1">
+                ({{ target.commentCount }})
+              </span>
             </span>
             <span
               class="ml-4 flex items-center cursor-pointer text-lighter"
               :class="{ 'text-primary': target.isLike === '1' }"
               @click="$emit('like', index, parentIndex)"
             >
-              <img
-                :src="$STATIC_URL + '/pc/icons/icon_like5.png'"
-                class="w-4"
-                alt=""
-                v-if="target.isLike === '0'"
-              />
-              <img :src="$STATIC_URL + '/pc/icons/icon_like2.png'" class="w-4" alt="" v-else />
+              <IconSvg name="like" width="14" v-if="target.isLike === '0'"></IconSvg>
+              <IconSvg name="like" width="14" fill="var(--jm-color-primary)" v-else></IconSvg>
               <span class="pl-1">{{ target.isLike === '1' ? '已点赞' : '点赞' }}</span>
               <span class="pl-1" v-if="target.likeCount">({{ target.likeCount }})</span>
             </span>
@@ -107,9 +98,9 @@
 <script lang="ts" setup>
 import { PropType, ref } from 'vue'
 import { formatDate } from '@jiumu/utils'
-import { ElInput, ElButton, ElIcon, ElTag } from 'element-plus'
-import { Delete, ChatDotSquare } from '@element-plus/icons-vue'
+import { ElInput, ElButton, ElTag } from 'element-plus'
 import { useRouter } from 'vue-router'
+import IconSvg from '@/components/IconSvg'
 
 defineProps({
   target: {

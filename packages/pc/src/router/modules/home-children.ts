@@ -8,7 +8,7 @@ import { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
-    // 特殊的刷新页面
+    // 特殊的刷新页面 常用于 home 下的页面刷新
     path: 'refresh',
     name: 'Refresh',
     component: () => import(/* webpackChunkName: "Refresh" */ '@/views/home/refresh/index.vue')

@@ -1,17 +1,17 @@
 <!--
-  @describe: 刷新组件 仅用于 home 下面的页面刷新
-  @params 正常参数 多出 __name __path 两个参数指定返回页面
-    __name 优先级更高 在 params query 挂载均可 如
+  @describe: 重定向组件 用于同页面的刷新 作用于所有页面
+  @params 正常参数 多出 params __name query __path 两个参数指定返回页面 __name 优先级更改 如
     router.push({
-      name: 'Refresh',
+      name: 'Redirect',
       params: {
-        __name: 'Article',
+        __name: 'ArticleInfo',
         ...route.params
       }
     })
-  @author cpl
-  @update 2022-07-16 18:59:15
+  @author: cpl
+  @create: 2023-02-05 15:44:49
 -->
+
 <template>
   <div></div>
 </template>
@@ -26,13 +26,17 @@ const ctx = getCurrentInstance()?.ctx
 
 const keepAliveStore = useKeepAliveStore()
 const navigationsStore = useNavigationsStore()
+
 onMounted(() => {
   const __name = <string>route.params.__name || <string>route.query.__name
   const __path = <string>route.query.__path || <string>route.params.__path
   const item = navigationsStore._find(__name || __path)
-  ctx.$forceUpdate()
-  if ((__name || __path) && item) {
+
+  if (item) {
     keepAliveStore._pop(item)
+  }
+  ctx.$forceUpdate()
+  if (__name || __path) {
     const query = { ...route.query }
     const params = { ...route.params }
     delete query.__path
