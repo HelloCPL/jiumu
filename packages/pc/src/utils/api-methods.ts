@@ -11,11 +11,7 @@ import { AxiosRequestConfig } from 'axios'
 /**
  * get请求
  */
-export const get = (
-  url: string,
-  params?: ObjectAny,
-  config: AxiosRequestConfig = {}
-): Promise<any> => {
+export const get = (url: string, params?: ObjectAny, config: AxiosRequestConfig = {}): Promise<any> => {
   return new Promise((resolve, reject) => {
     service({
       ...config,
@@ -35,11 +31,7 @@ export const get = (
 /**
  * post 请求 key value 形式
  */
-export const post = (
-  url: string,
-  params?: ObjectAny,
-  config: AxiosRequestConfig = {}
-): Promise<any> => {
+export const post = (url: string, params?: ObjectAny, config: AxiosRequestConfig = {}): Promise<any> => {
   return new Promise((resolve, reject) => {
     service
       .post(url, QS.stringify(params), config)
@@ -53,13 +45,9 @@ export const post = (
 }
 
 /**
- * postForm 传递 json 对象 如上次文件
+ * postForm 传递 json 对象 如上传文件
  */
-export const postForm = (
-  url: string,
-  params?: ObjectAny,
-  config: AxiosRequestConfig = {}
-): Promise<any> => {
+export const postForm = (url: string, params?: ObjectAny, config: AxiosRequestConfig = {}): Promise<any> => {
   return new Promise((resolve, reject) => {
     service
       .post(url, params, config)

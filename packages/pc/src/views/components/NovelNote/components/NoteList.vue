@@ -39,7 +39,7 @@ const handleShow = () => {
   .el-drawer__header {
     margin-bottom: 0;
     padding-bottom: var(--el-drawer-padding-primary);
-    border-bottom: 1px solid var(--jm-color-border-lighter);
+    border-bottom: 1px solid var(--jm-color-border);
     color: var(--jm-color-text);
   }
 }
