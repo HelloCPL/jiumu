@@ -16,13 +16,14 @@
       "
       @click="handleClick('like')"
     >
-      <img
-        :src="$STATIC_URL + '/pc/icons/icon_like1.png'"
-        alt=""
-        class="w-5 mr-1"
+      <IconSvg
+        name="like"
+        width="14"
+        class="mr-1"
+        fill="var(--jm-color-basic-white)"
         v-if="modelValue.isLike === '1'"
-      />
-      <img :src="$STATIC_URL + '/pc/icons/icon_like2.png'" alt="" class="w-5 mr-1" v-else />
+      ></IconSvg>
+      <IconSvg name="like" width="14" class="mr-1" fill="var(--jm-color-primary)" v-else></IconSvg>
       <span class="mr-1">{{ modelValue.isLike === '1' ? '已点赞' : '点赞' }}</span>
       <span v-if="modelValue.likeCount">({{ modelValue.likeCount }})</span>
     </div>
@@ -36,13 +37,14 @@
       "
       @click="handleClick('collection')"
     >
-      <img
-        :src="$STATIC_URL + '/pc/icons/icon_collection1.png'"
-        alt=""
-        class="w-5 mr-1"
+      <IconSvg
+        name="collection"
+        width="14"
+        class="mr-1"
+        fill="var(--jm-color-basic-white)"
         v-if="modelValue.isCollection === '1'"
-      />
-      <img :src="$STATIC_URL + '/pc/icons/icon_collection2.png'" alt="" class="w-5 mr-1" v-else />
+      ></IconSvg>
+      <IconSvg name="collection" width="14" class="mr-1" fill="var(--jm-color-primary)" v-else></IconSvg>
       <span class="mr-1">{{ modelValue.isCollection === '1' ? '已收藏' : '收藏' }}</span>
       <span v-if="modelValue.collectionCount">({{ modelValue.collectionCount }})</span>
     </div>
@@ -52,6 +54,7 @@
 <script lang="ts" setup>
 import { watch } from 'vue'
 import { addLike, deleteLike, addCollection, deleteCollection } from '@/api/interaction'
+import IconSvg from '@/components/IconSvg'
 
 type Props = {
   modelValue: {

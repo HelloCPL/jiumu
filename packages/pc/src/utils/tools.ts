@@ -52,3 +52,11 @@ export const mergeArray = <T extends ParamsTarget[]>(origin: T, target: T): T =>
   }
   return origin
 }
+
+// 获取序号
+export const getIndex = (index: number, pageNo?: number, pageSize?: number) => {
+  if (index === -1) return ''
+  let total = index + 1
+  if (pageNo && pageSize) total += (pageNo - 1) * pageSize
+  return total
+}

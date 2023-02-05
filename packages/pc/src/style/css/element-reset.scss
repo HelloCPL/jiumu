@@ -49,4 +49,16 @@ html {
   .el-input--small {
     font-size: var(--jm-font-size-small-extra);
   }
+
+  .el-tag {
+    line-height: 24px;
+  }
+
+  .el-tag--small {
+    line-height: 20px;
+  }
+
+  .el-tag--large {
+    line-height: 32px;
+  }
 }

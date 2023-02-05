@@ -34,8 +34,6 @@ import UserInfo from '../components/UserInfo/index.vue'
 import { useUserStore } from '@/store'
 import { ref } from 'vue'
 
-console.log('Home 页面')
-
 defineOptions({
   name: 'Home'
 })

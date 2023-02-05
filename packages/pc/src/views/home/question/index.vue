@@ -14,7 +14,9 @@
     </FilterBox>
     <!-- 列表 -->
     <Table :data="data">
-      <ElTableColumn prop="sort" label="排序" width="60" />
+      <ElTableColumn type="index" label="序号" width="60">
+        <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
+      </ElTableColumn>
       <ElTableColumn label="标题" min-width="150">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
@@ -73,7 +75,7 @@ import { formatDate } from '@jiumu/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import { useIndex } from './hooks/use-index'
 import { useIndexInfo } from '../question-me/hooks/use-index'
-import { checkPermissionByCode } from '@/utils/tools'
+import { checkPermissionByCode, getIndex } from '@/utils/tools'
 
 defineOptions({
   name: 'Question'

@@ -110,7 +110,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     if (row.isTop === '0') {
       const res = await addTop({
         id: row.id,
-        type: '505'
+        type: '502'
       })
       if (res.code === 200) {
         Message({
@@ -122,7 +122,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     } else {
       const res = await deleteTop({
         id: row.id,
-        type: '505'
+        type: '502'
       })
       if (res.code === 200) {
         Message({

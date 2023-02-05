@@ -96,11 +96,6 @@ export const useIndex = () => {
         name,
         params: { _refreshOne: '1' }
       })
-    } else {
-      Message({
-        message: res.message,
-        type: 'error'
-      })
     }
   }
 
@@ -134,7 +129,7 @@ export const useIndex = () => {
         })
         return
       case 'delete':
-        Confirm('确定删除吗？').then(() => {
+        Confirm(`确定${item.name}吗？`).then(() => {
           if (form.id) {
             _delete(form.id)
           } else {

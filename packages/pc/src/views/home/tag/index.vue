@@ -11,6 +11,9 @@
     <!-- 列表 -->
     <Table :data="data" default-expand-all>
       <ElTableColumn type="selection" width="55" />
+      <ElTableColumn type="index" label="序号" width="60">
+        <template #default="{ $index }">{{ getIndex($index) }}</template>
+      </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" min-width="110" />
       <ElTableColumn label="code" min-width="110">
         <template #default="{ row }">
@@ -86,6 +89,7 @@ import TagAdd from './components/TagAdd.vue'
 import TagInfo from './components/TagInfo.vue'
 import TagUser from './components/TagUser.vue'
 import { formatDate } from '@jiumu/utils'
+import { getIndex } from '@/utils/tools'
 
 defineOptions({
   name: 'Tag'

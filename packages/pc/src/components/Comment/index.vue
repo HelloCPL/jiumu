@@ -77,6 +77,7 @@ import { ArrowDownBold } from '@element-plus/icons-vue'
 import { commentEmit } from './type'
 import { useIndex } from './index'
 import CommentItem from './CommentItem.vue'
+import IconSvg from '@/components/IconSvg'
 
 type CommentProps = {
   modelValue: {
