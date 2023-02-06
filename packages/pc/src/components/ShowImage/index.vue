@@ -15,7 +15,7 @@
       <ElImage class="w-full h-full rounded" :src="item" lazy fit="cover"></ElImage>
       <!-- 遮罩层 -->
       <div
-        class="absolute top-0 left-0 w-full h-full overlay-lighter text-xl text-white-8 items-center justify-center hidden show-image-item"
+        class="absolute top-0 left-0 w-full h-full overlay-lighter text-xl text-white-8 items-center justify-center overflow-hidden show-image-item"
         v-if="isPreview || isDelete"
       >
         <ElIcon class="cursor-pointer" @click="handlePreview(index)" v-if="isPreview">

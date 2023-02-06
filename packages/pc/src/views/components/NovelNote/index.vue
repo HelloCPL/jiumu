@@ -14,24 +14,31 @@
     size="70%"
     :z-index="99"
     :close-on-click-modal="false"
-    title="笔记"
+    :title="_title"
     custom-class="novel-note-container"
     :with-header="true"
   >
-    哈哈
-    <NoteList></NoteList>
+    <NoteList :id="id"></NoteList>
   </ElDrawer>
 </template>
 
 <script lang="ts" setup>
 import { ElButton, ElDrawer } from 'element-plus'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import NoteList from './components/NoteList.vue'
+import { novelNoteProps } from './type'
+
+const props = defineProps(novelNoteProps)
 
 const isShow = ref(false)
 const handleShow = () => {
   isShow.value = !isShow.value
 }
+
+const _title = computed(() => {
+  if (props.title) return `笔记列表(${props.title})`
+  return '笔记列表'
+})
 </script>
 
 <style lang="scss">
@@ -41,6 +48,11 @@ const handleShow = () => {
     padding-bottom: var(--el-drawer-padding-primary);
     border-bottom: 1px solid var(--jm-color-border);
     color: var(--jm-color-text);
+  }
+
+  .el-drawer__body {
+    padding: 0;
+    overflow: hidden;
   }
 }
 </style>

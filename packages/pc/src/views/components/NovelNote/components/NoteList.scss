@@ -1,0 +1,32 @@
+.note-list-content {
+  width: 200px;
+  height: 260px;
+
+  .note-list-header {
+    height: 40px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0px;
+      left: 0;
+      height: 1px;
+      width: 100%;
+      background: var(--jm-color-border-lighter);
+    }
+  }
+  .note-list-tag {
+    top: -21px;
+    right: -68px;
+    width: 140px;
+    height: 48px;
+
+    .note-list-tag-text {
+      transform: scale(0.62);
+    }
+  }
+
+  .note-list-footer {
+    height: 40px;
+  }
+}
