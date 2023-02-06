@@ -6,15 +6,22 @@ import { deleteNovelNote, getNovelNoteList } from '@/api/novel'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { Confirm, Message } from '@/utils/interaction'
 import { debounce } from 'lodash-es'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { NovelNoteProps, NovelNoteEmit } from '../type'
 
 export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
-  const isShow = ref(false)
-  const currentId = ref('')
-  const handleShow = () => {
-    isShow.value = !isShow.value
+  // 控制显隐
+  const isShow = ref(true)
+  const beforeClose = () => {
+    isShow.value = false
+    setTimeout(() => {
+      emit('close', 'close')
+    }, 500)
   }
+  const _title = computed(() => {
+    if (props.title) return `笔记列表(${props.title})`
+    return '笔记列表'
+  })
 
   const keyword = ref<string>('')
   // 自定义标签类型
@@ -34,7 +41,7 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
       keyword: keyword.value,
       classify: classify.value,
       highlight: '1',
-      showUserInfo: '1'
+      showUserInfo: '0'
     }
     const res = await getNovelNoteList(params)
     if (res.code === 200) {
@@ -43,6 +50,8 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
     }
   }, 300)
 
+  getDataList()
+
   // 重置
   const handleReset = () => {
     keyword.value = ''
@@ -50,12 +59,15 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
     getDataList(1)
   }
 
+  // 处理增加 编辑 删除
+  const currentId = ref('')
+  const showAdd = ref(false)
   const btnList: FilterButtonList[] = [{ name: '新增', key: 'add', type: 'primary' }]
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
       case 'add':
-        isShow.value = true
+        showAdd.value = true
         currentId.value = ''
         return
     }
@@ -63,7 +75,7 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
 
   // 点击编辑
   const handleEdit = (row: DataNovelNote) => {
-    isShow.value = true
+    showAdd.value = true
     currentId.value = row.id
   }
 
@@ -81,9 +93,16 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
     })
   }
 
+  const handleClose = (type?: string) => {
+    showAdd.value = false
+    if (type !== 'close') getDataList()
+  }
+
   return {
     isShow,
-    currentId,
+    beforeClose,
+    _title,
+
     keyword,
     classify,
     pageNo,
@@ -93,9 +112,12 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
     getDataList,
     handleReset,
 
+    currentId,
+    showAdd,
     btnList,
     handleBtn,
     handleEdit,
-    handleDelete
+    handleDelete,
+    handleClose
   }
 }

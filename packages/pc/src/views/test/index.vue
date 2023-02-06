@@ -1,7 +1,7 @@
 <template>
   <div class="m-4 box">
-    <NovelNote></NovelNote>
-    
+    <NovelNote :id="id"></NovelNote>
+
   </div>
 </template>
 

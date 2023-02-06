@@ -1,9 +1,9 @@
 .note-list-content {
-  width: 200px;
-  height: 260px;
+  width: 242px;
+  height: 337px;
 
   .note-list-header {
-    height: 40px;
+    height: 32px;
 
     &::before {
       content: '';
@@ -24,9 +24,5 @@
     .note-list-tag-text {
       transform: scale(0.62);
     }
-  }
-
-  .note-list-footer {
-    height: 40px;
   }
 }

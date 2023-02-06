@@ -2,6 +2,7 @@
 
 import { buildProps, EmitFn } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
+import { isString } from 'lodash-es'
 
 export const novelNoteProps = buildProps({
   id: {
@@ -19,7 +20,7 @@ export const novelNoteProps = buildProps({
 export type NovelNoteProps = ExtractPropTypes<typeof novelNoteProps>
 
 export const novelNoteEmit = {
-  close: () => true
+  close: (type?: string) => isString(type)
 }
 
 export type NovelNoteEmit = EmitFn<typeof novelNoteEmit>
