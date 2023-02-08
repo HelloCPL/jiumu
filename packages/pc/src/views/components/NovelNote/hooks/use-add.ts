@@ -2,7 +2,8 @@
  * 笔记新增或编辑逻辑处理
  */
 
-import { ref, computed } from 'vue'
+import { FormInstance } from 'element-plus'
+import { ref, reactive } from 'vue'
 import { NovelNoteProps, NovelNoteEmit } from '../type'
 
 export const useAdd = (props: NovelNoteProps, emit: NovelNoteEmit) => {
@@ -14,6 +15,18 @@ export const useAdd = (props: NovelNoteProps, emit: NovelNoteEmit) => {
       emit('close', 'close')
     }, 500)
   }
+
+  // 表单
+  const formRef = ref<FormInstance>()
+  // const form = reactive<ParamsNovelNoteAdd>({
+  //   id: '',
+  //   title: '',
+  //   content: '',
+  //   classify: '',
+  //   isSecret: '0',
+  //   sort: 1,
+  //   remarks: ''
+  // })
 
   return {
     isShow,
