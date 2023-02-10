@@ -23,6 +23,12 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
     return '笔记列表'
   })
 
+  const targetShare = computed(() => {
+    if (props.share) return props.share
+    else if (props.type === '504') return props.id
+    else return ''
+  })
+
   const keyword = ref<string>('')
   // 自定义标签类型
   const classify = ref<string>('')
@@ -62,7 +68,10 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
   // 处理增加 编辑 删除
   const currentId = ref('')
   const showAdd = ref(false)
-  const btnList: FilterButtonList[] = [{ name: '新增', key: 'add', type: 'primary' }]
+  const btnList: FilterButtonList[] = [
+    { name: '新增', key: 'add', type: 'primary' },
+    { name: '关联', key: 'relevance' }
+  ]
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
@@ -95,13 +104,14 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
 
   const handleClose = (type?: string) => {
     showAdd.value = false
-    if (type !== 'close') getDataList()
+    if (type !== 'close') getDataList(1)
   }
 
   return {
     isShow,
     beforeClose,
     _title,
+    targetShare,
 
     keyword,
     classify,

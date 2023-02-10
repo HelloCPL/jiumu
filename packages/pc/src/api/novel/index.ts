@@ -80,7 +80,7 @@ export const addNovelNote = async (params: ParamsNovelNoteAdd): Promise<DataOpti
 }
 
 // 编辑一个笔记
-export const updateNovelNote = async (params: ParamsNovelNoteAdd): Promise<DataOptions<null>> => {
+export const updateNovelNote = async (params: ParamsNovelNoteEdit): Promise<DataOptions<null>> => {
   return await post('/pc/novel-note/update', params).catch((err) => err)
 }
 
@@ -102,4 +102,30 @@ export const getNovelNoteList = async (
   params: ParamsNovelNoteList
 ): Promise<DataOptions<DataNovelNote[]>> => {
   return await post('/pc/novel-note/get/list', params).catch((err) => err)
+}
+
+// 新增一个笔记关联
+export const addNovelNoteLink = async (params: ParamsNovelNoteLinkAdd): Promise<DataOptions<null>> => {
+  return await post('/pc/novel-note-link/add', params).catch((err) => err)
+}
+
+// 删除一个笔记关联
+export const deleteNovelNoteLink = async (
+  id: string | ParamsNovelNoteLinkDelete
+): Promise<DataOptions<null>> => {
+  const params: ObjectAny = {}
+  if (typeof id === 'string') {
+    params.id = id
+  } else {
+    params.noteId = id.noteId
+    params.targetId = id.targetId
+  }
+  return await post('/pc/novel-note-link/delete', params).catch((err) => err)
+}
+
+// 获取本用户的可共享关联的笔记列表
+export const getNovelNoteLinkList = async (
+  params: ParamsNovelNoteLinkList
+): Promise<DataOptions<DataNovelNoteLink[]>> => {
+  return await post('/pc/novel-note-link/get/list/self', params).catch((err) => err)
 }

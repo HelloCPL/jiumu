@@ -146,7 +146,7 @@ export const useIndex = () => {
             }
           }
         })
-        return
+        break
       case 'draft':
         if (!formRef.value) return
         formRef.value.validate((valid) => {
@@ -159,7 +159,7 @@ export const useIndex = () => {
             }
           }
         })
-        return
+        break
       case 'delete':
         Confirm(`确定${item.name}吗？`).then(() => {
           if (form.id) {
@@ -168,7 +168,7 @@ export const useIndex = () => {
             router.back()
           }
         })
-        return
+        break
     }
   }
 

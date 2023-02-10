@@ -1,6 +1,6 @@
 <template>
   <div class="m-4 box">
-    <NovelNote :id="id"></NovelNote>
+    <NovelNote :id="id" type="504"></NovelNote>
 
   </div>
 </template>

@@ -112,7 +112,8 @@ export const useRolePermission = (props: RoleInfoProps) => {
   }
 
   const active = ref<number>(0)
-  const handleActive = (num: number = 0) => {
+  const handleActive = (num: number) => {
+    if (active.value === num) return
     active.value = num
     if (num === 1) {
       pageNo = 1
@@ -124,7 +125,7 @@ export const useRolePermission = (props: RoleInfoProps) => {
       getDataList2()
     }
   }
-  handleActive(0)
+  getDataList2()
 
   const _label = computed(() => {
     if (!props.label) return ''

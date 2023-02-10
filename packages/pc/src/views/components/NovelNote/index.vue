@@ -6,7 +6,14 @@
 
 <template>
   <ElButton type="primary" size="small" text @click="handleShow">查看笔记</ElButton>
-  <NoteList :id="id" :title="title" v-if="isShow" @close="isShow = false"></NoteList>
+  <NoteList
+    :id="id"
+    :type="type"
+    :title="title"
+    :share="share"
+    v-if="isShow"
+    @close="isShow = false"
+  ></NoteList>
 </template>
 
 <script lang="ts" setup>

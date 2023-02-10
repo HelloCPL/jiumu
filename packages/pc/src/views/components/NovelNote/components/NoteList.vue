@@ -109,7 +109,16 @@
         @change="getDataList"
       ></Pagination>
     </div>
-    <NoteAdd :id="currentId" v-if="showAdd" @close="handleClose"></NoteAdd>
+
+    <!-- 笔记新增  -->
+    <NoteAdd
+      :id="currentId"
+      :target-id="id"
+      :target-type="type"
+      :target-share="targetShare"
+      v-if="showAdd"
+      @close="handleClose"
+    ></NoteAdd>
   </ElDrawer>
 </template>
 
@@ -133,6 +142,8 @@ const {
   isShow,
   beforeClose,
   _title,
+  targetShare,
+
   keyword,
   classify,
   pageNo,

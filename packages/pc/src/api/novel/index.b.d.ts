@@ -124,31 +124,41 @@ interface ParamsNovelChapterList extends ParamsPage {
   showUserInfo?: any
 }
 
-interface ParamsNovelNoteTarget {
-  id: string
-  type: '502' | '503' | '504' | '505' | '507'
-}
 
-interface ParamsNovelNoteTarget2 extends ParamsNovelNoteTarget {
-  title: string
-  typeLabel: string
-}
 
-// 笔记新增或编辑参数类型
-interface ParamsNovelNoteAdd {
-  id?: string
-  target: ParamsNovelNoteTarget[]
-  content: string
+interface ParamsNovelNoteAddBase {
   title?: string
   classify?: string
-  sort?: number
+  sort: number
   isSecret?: '0' | '1'
   remarks?: string
 }
 
+// 笔记新增或编辑参数类型
+interface ParamsNovelNoteAdd extends ParamsNovelNoteAddBase {
+  content: string
+  targetId?: string
+  targetType?: '502' | '503' | '504' | '505' | '507'
+  targetShare?: string
+}
+
+// 笔记编辑参数类型
+interface ParamsNovelNoteEdit extends ParamsNovelNoteAddBase {
+  id: string
+  content?: string
+}
+
+// 笔记目标类型
+interface ParamsNovelNoteTarget {
+  id: string
+  title: string
+  type: '502' | '503' | '504' | '505' | '507'
+  typeLabel: string
+}
+
 interface DataNovelNote extends DataBase {
   id: string
-  target: ParamsNovelNoteTarget2[]
+  target: ParamsNovelNoteTarget[]
   title: string
   content: string
   classify: DataBaseClassify[]
@@ -168,4 +178,33 @@ interface ParamsNovelNoteList extends ParamsPage {
   isSecret?: '0' | '1'
   classify?: string
   showUserInfo?: any
+}
+
+// 新增笔记关联参数
+interface ParamsNovelNoteLinkAdd {
+  noteId: string
+  targetId: string
+  targetType: '502' | '503' | '504' | '505' | '507'
+  share?: string
+}
+
+// 删除关联笔记参数
+type ParamsNovelNoteLinkDelete = {
+  noteId: string
+  targetId: string
+}
+
+// 获取笔记关联列表参数
+interface ParamsNovelNoteLinkList extends ParamsPage {
+  share: string
+}
+
+// 笔记关联列表数据类型
+interface DataNovelNoteLink extends DataBase {
+  id: srting
+  noteId: string
+  noteTitle: string
+  targetId: string
+  targetType: string
+  targetTypeLabel: string
 }
