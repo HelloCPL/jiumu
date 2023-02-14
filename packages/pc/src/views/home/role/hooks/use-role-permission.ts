@@ -20,6 +20,7 @@ export const useRolePermission = (props: RoleInfoProps) => {
       pageNo,
       pageSize: 20,
       keyword: keyword.value,
+      highlight: '1',
       roleId: props.id
     })
     if (res.code === 200) {

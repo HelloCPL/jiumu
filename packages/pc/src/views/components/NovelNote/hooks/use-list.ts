@@ -78,7 +78,10 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
       case 'add':
         showAdd.value = true
         currentId.value = ''
-        return
+        break
+      case 'relevance':
+        showRelevance.value = true
+        break
     }
   }
 
@@ -104,8 +107,11 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
 
   const handleClose = (type?: string) => {
     showAdd.value = false
+    showRelevance.value = false
     if (type !== 'close') getDataList(1)
   }
+
+  const showRelevance = ref<boolean>(false)
 
   return {
     isShow,
@@ -128,6 +134,8 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
     handleBtn,
     handleEdit,
     handleDelete,
-    handleClose
+    handleClose,
+
+    showRelevance
   }
 }

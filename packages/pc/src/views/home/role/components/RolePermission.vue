@@ -6,6 +6,7 @@
 
 <template>
   <Dialog :show-footer="false">
+    <!-- 自定义头部 -->
     <template #header>
       <ElRow class="h-12">
         <ElCol
@@ -71,7 +72,7 @@
             :checked="item._checked"
             @update:model-value="changeCheck($event as boolean, item)"
           >
-            <span>{{ item.label }}</span>
+            <GRichText :html="item.label"></GRichText>
             <span class="pl-2">{{ item.code }}</span>
           </ElCheckbox>
         </div>
