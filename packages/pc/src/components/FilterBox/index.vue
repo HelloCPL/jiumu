@@ -8,8 +8,11 @@
   <div class="w-full filter-box-container">
     <div
       class="w-full pr-4 flex border-b-1 filter-box-content"
-      :class="{ 'justify-between': length > 2, 'filter-box-content-active': length > 2 && height > 62 }"
-      :style="{ height: length > 2 && height > 62 && isShow ? height + 'px' : '60px' }"
+      :class="{
+        'justify-between': length > minLength,
+        'filter-box-content-active': length > minLength && height > 62
+      }"
+      :style="{ height: length > minLength && height > 62 && isShow ? height + 'px' : '60px' }"
     >
       <!-- 筛选项容器 -->
       <ElForm
@@ -17,7 +20,7 @@
         :label-width="83"
         :inline="true"
         class="flex-shrink-0"
-        :class="{ 'flex-1': length > 2 }"
+        :class="{ 'flex-1': length > minLength }"
         @submit.native.prevent
       >
         <div class="w-full" ref="box">
@@ -30,7 +33,7 @@
         <ElButton :icon="Brush" v-if="length > 1" @click="$emit('reset')">重置</ElButton>
         <span
           class="ml-4 h-8 flex items-center cursor-pointer text-lighter hover:text-primary"
-          v-if="length > 2 && height > 62"
+          v-if="length > minLength && height > 62"
           @click="isShow = !isShow"
         >
           <ElIcon size="var(--jm-font-size-medium)">
@@ -48,12 +51,13 @@
 import { ElForm, ElButton, ElIcon } from 'element-plus'
 import { Search, Brush, More, MoreFilled } from '@element-plus/icons-vue'
 import { ref, nextTick, onMounted, onUpdated, onUnmounted } from 'vue'
-import { filterBoxEmits } from './type'
+import { filterBoxProps, filterBoxEmits } from './type'
 
+const props = defineProps(filterBoxProps)
 defineEmits(filterBoxEmits)
 
 const box = ref<HTMLElement>()
-const length = ref<number>(2)
+const length = ref<number>(props.minLength)
 const height = ref<number>(46 + 15)
 const isShow = ref<boolean>(false)
 

@@ -42,6 +42,8 @@
         <ElInput type="textarea" placeholder="请输入备注" v-model="form.remarks"></ElInput>
       </ElFormItem>
     </ElForm>
+    <!-- 笔记  -->
+    <NovelNote :id="form.id" type="504" :share="form.id" v-if="form.id"></NovelNote>
   </PageBox>
 </template>
 
@@ -52,6 +54,7 @@ import { useIndex } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
 import SelectClassify from '@/components/SelectClassify/index.vue'
+import NovelNote from '@/views/components/NovelNote/index.vue'
 
 defineOptions({
   name: 'NovelAdd'

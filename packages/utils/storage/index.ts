@@ -89,7 +89,6 @@ export class storage implements StroageAbstractClass {
   static removeItem(key: string, option?: StorageOption) {
     const ls: Storage = option?.type === 'session' ? sessionStorage : localStorage
     key = _getKey(key, option?.prefix ?? '')
-    console.log('9999', key, option.type, ls)
     ls.removeItem(key)
   }
 

@@ -5,6 +5,7 @@ import { MenuInfoProps } from '../components/type'
 import { ref } from 'vue'
 import { debounce } from 'lodash-es'
 import { getUserByMenuId } from '@/api/role-menu'
+import { getDataDiff } from '@jiumu/utils'
 
 export const useMenuUser = (props: MenuInfoProps) => {
   // 已关联的用户
@@ -19,7 +20,7 @@ export const useMenuUser = (props: MenuInfoProps) => {
       pageSize: 20
     })
     if (res.code === 200) {
-      dataList.value = dataList.value.concat(res.data)
+      dataList.value = getDataDiff(dataList.value, res.data)
       total.value = res.total
       ++pageNo
     }

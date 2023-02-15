@@ -26,7 +26,10 @@
       </div>
       <div class="mb-4" v-if="isHot || dataInfo.isSelf === '1'">
         <ElTag effect="dark" size="small" type="danger" class="mr-4" v-if="isHot">热门</ElTag>
-        <ElTag effect="plain" size="small" v-if="dataInfo.isSelf === '1'">我的</ElTag>
+        <ElTag effect="plain" size="small" class="mr-4" v-if="dataInfo.isSelf === '1'">我的</ElTag>
+        <ElTag effect="plain" size="small" v-for="item in dataInfo.classify" :key="item.id">
+          {{ item.label }}
+        </ElTag>
       </div>
       <div class="text-lighter mb-4">
         <span class="mr-4">类型：{{ dataInfo.typeLabel }}</span>
@@ -94,7 +97,8 @@
           </div>
         </div>
       </div>
-      <div>{{ dataInfo.remarks }}</div>
+      <!-- 备注 -->
+      <div class="text-sm text-lighter">{{ dataInfo.remarks }}</div>
       <!-- 点赞收藏 -->
       <Interation v-model="dataInfo" type="504" class="mt-4"></Interation>
       <!-- 评论列表 -->

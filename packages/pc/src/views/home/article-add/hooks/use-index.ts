@@ -13,6 +13,7 @@ import { Confirm, Message } from '@/utils/interaction'
 import { debounce } from 'lodash-es'
 import { addArticle, deleteArticle, getArticleOne, updateArticle } from '@/api/article'
 import { useKeepAliveStore } from '@/store'
+import { getDataDiff } from '@jiumu/utils'
 
 export const useIndex = () => {
   const route = useRoute()
@@ -52,14 +53,14 @@ export const useIndex = () => {
   // 处理封面图
   const coverImgList = ref<DataBaseFile[]>([])
   const handleChangeCoverImg = (files: DataBaseFile[]) => {
-    coverImgList.value = coverImgList.value.concat(files)
+    coverImgList.value = getDataDiff(coverImgList.value, files)
     form.coverImg = coverImgList.value.map((item) => item.id).join(',')
   }
 
   // 处理附件
   const attachmentList = ref<DataBaseFile[]>([])
   const handleChangeAttachment = (files: DataBaseFile[]) => {
-    attachmentList.value = attachmentList.value.concat(files)
+    attachmentList.value = getDataDiff(attachmentList.value, files)
     form.attachment = attachmentList.value.map((item) => item.id).join(',')
   }
 
@@ -146,7 +147,7 @@ export const useIndex = () => {
             }
           }
         })
-        return
+        break
       case 'draft':
         if (!formRef.value) return
         formRef.value.validate((valid) => {
@@ -159,7 +160,7 @@ export const useIndex = () => {
             }
           }
         })
-        return
+        break
       case 'delete':
         Confirm(`确定${item.name}吗？`).then(() => {
           if (form.id) {
@@ -168,7 +169,7 @@ export const useIndex = () => {
             router.back()
           }
         })
-        return
+        break
     }
   }
 

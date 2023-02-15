@@ -55,6 +55,8 @@
         <div class="text-light mb-2">附件：</div>
         <ShowFile :model-value="dataInfo.attachment"></ShowFile>
       </div>
+      <!-- 备注 -->
+      <div class="mt-4 text-sm text-lighter">{{ dataInfo.remarks }}</div>
       <!-- 点赞收藏 -->
       <Interation v-model="dataInfo" type="505" class="mt-4"></Interation>
       <!-- 评论列表 -->

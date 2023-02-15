@@ -1,10 +1,11 @@
 <!--
   @describe: 重定向组件 用于同页面的刷新 作用于所有页面
-  @params 正常参数 多出 params __name query __path 两个参数指定返回页面 __name 优先级更改 如
+  @params 正常参数 多出 __name __path 两个参数指定返回页面
+    __name 优先级更高 在 params query 挂载均可 如
     router.push({
-      name: 'Redirect',
+      name: 'Refresh',
       params: {
-        __name: 'ArticleInfo',
+        __name: 'Article',
         ...route.params
       }
     })

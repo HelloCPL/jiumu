@@ -86,3 +86,27 @@ export const getRandomId = (prefix = 'jiumu', len = 6): string => {
   }
   return id
 }
+
+// 拼接数据 排除相同的id
+type DataDiff = {
+  id: string
+  [x: string]: any
+}
+export const getDataDiff = <T extends DataDiff>(origin: T[], target: T[]): T[] => {
+  const _find = (data: T[], info: T): boolean => {
+    let flag = false
+    data.find((item) => {
+      if (item.id === info.id) {
+        flag = true
+      }
+      return flag
+    })
+    return flag
+  }
+  target.forEach((item) => {
+    if (!_find(origin, item)) {
+      origin.push(item)
+    }
+  })
+  return origin
+}

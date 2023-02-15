@@ -6,7 +6,7 @@ import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getPermissionList } from '@/api/permission'
 import { addRolePermission, deleteRolePermission, getPermissionByRoleId } from '@/api/role-permission'
-import { getText } from '@jiumu/utils'
+import { getDataDiff, getText } from '@jiumu/utils'
 
 export const useRolePermission = (props: RoleInfoProps) => {
   // 权限列表
@@ -20,10 +20,11 @@ export const useRolePermission = (props: RoleInfoProps) => {
       pageNo,
       pageSize: 20,
       keyword: keyword.value,
+      highlight: '1',
       roleId: props.id
     })
     if (res.code === 200) {
-      dataList.value = dataList.value.concat(res.data)
+      dataList.value = getDataDiff(dataList.value, res.data)
       _setChecked()
       total.value = res.total
       ++pageNo
@@ -92,7 +93,7 @@ export const useRolePermission = (props: RoleInfoProps) => {
       pageSize: 20
     })
     if (res.code === 200) {
-      dataList2.value = dataList2.value.concat(res.data)
+      dataList2.value = getDataDiff(dataList2.value, res.data)
       total2.value = res.total
       ++pageNo2
     }
@@ -112,7 +113,8 @@ export const useRolePermission = (props: RoleInfoProps) => {
   }
 
   const active = ref<number>(0)
-  const handleActive = (num: number = 0) => {
+  const handleActive = (num: number) => {
+    if (active.value === num) return
     active.value = num
     if (num === 1) {
       pageNo = 1
@@ -124,7 +126,7 @@ export const useRolePermission = (props: RoleInfoProps) => {
       getDataList2()
     }
   }
-  handleActive(0)
+  getDataList2()
 
   const _label = computed(() => {
     if (!props.label) return ''

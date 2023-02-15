@@ -30,7 +30,7 @@ const isMounted = ref<boolean>(false)
 
 setTimeout(() => {
   isMounted.value = true
-}, 500)
+}, 1000)
 </script>
 
 <style lang="scss" scoped></style>

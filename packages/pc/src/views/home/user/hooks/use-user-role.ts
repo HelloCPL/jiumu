@@ -5,7 +5,7 @@ import { UserInfoProps } from '../components/type'
 import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getRoleByUserId } from '@/api/user-role'
-import { getText } from '@jiumu/utils'
+import { getDataDiff, getText } from '@jiumu/utils'
 
 export const useUserRole = (props: UserInfoProps) => {
   // 已关联的角色
@@ -20,7 +20,7 @@ export const useUserRole = (props: UserInfoProps) => {
       pageSize: 20
     })
     if (res.code === 200) {
-      dataList.value = dataList.value.concat(res.data)
+      dataList.value = getDataDiff(dataList.value, res.data)
       total.value = res.total
       ++pageNo
     }

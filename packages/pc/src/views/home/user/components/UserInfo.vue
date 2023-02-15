@@ -48,7 +48,8 @@
           <ElCol :span="16">备注：{{ userInfo.remarks }}</ElCol>
         </ElRow>
         <div class="text-sm text-lighter pl-1">
-          注册时间：{{ userInfo.createTime }} 注册终端：{{ userInfo.terminal }}
+          <span class="mr-4">注册时间：{{ userInfo.createTime }}</span>
+          <span>注册终端：{{ userInfo.terminal }}</span>
         </div>
       </ElCol>
       <ElImage

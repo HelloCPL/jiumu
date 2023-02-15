@@ -5,7 +5,7 @@ import { PermissionInfoProps } from '../components/type'
 import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getUserByPermissionId } from '@/api/role-permission'
-import { getText } from '@jiumu/utils'
+import { getDataDiff, getText } from '@jiumu/utils'
 
 export const usePermissionUser = (props: PermissionInfoProps) => {
   // 已关联的用户
@@ -20,7 +20,7 @@ export const usePermissionUser = (props: PermissionInfoProps) => {
       pageSize: 20
     })
     if (res.code === 200) {
-      dataList.value = dataList.value.concat(res.data)
+      dataList.value = getDataDiff(dataList.value, res.data)
       total.value = res.total
       ++pageNo
     }
