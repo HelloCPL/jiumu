@@ -9,12 +9,11 @@ export const novelNoteProps = buildProps({
   // 目标id
   id: {
     type: String,
-    require: true,
-    default: ''
+    require: true
   },
   // 目标类型
   type: {
-    type: String as PropType<'502' | '503' | '504' | '505' | '507'>,
+    type: String as PropType<ParamsNovelNoteTargetType>,
     require: true
   },
   // 标题
@@ -43,7 +42,7 @@ export const novelNoteAddProps = buildProps({
   },
   // 目标类型
   targetType: {
-    type: String as PropType<'502' | '503' | '504' | '505' | '507'>
+    type: String as PropType<ParamsNovelNoteTargetType>
   },
   // 目标共享字段
   targetShare: {
@@ -52,9 +51,30 @@ export const novelNoteAddProps = buildProps({
   }
 } as const)
 
+// 笔记关联类型
+export const novelNoteRelevanceProps = buildProps({
+  // 目标共享字段
+  targetShare: {
+    type: String,
+    require: true
+  },
+  // 目标id 若传则新增时同时添加关联
+  targetId: {
+    type: String,
+    require: true
+  },
+  // 目标类型
+  targetType: {
+    type: String as PropType<ParamsNovelNoteTargetType>,
+    require: true
+  }
+} as const)
+
 export type NovelNoteProps = ExtractPropTypes<typeof novelNoteProps>
 
 export type NovelNoteAddProps = ExtractPropTypes<typeof novelNoteAddProps>
+
+export type NovelNoteRelevanceProps = ExtractPropTypes<typeof novelNoteRelevanceProps>
 
 export const novelNoteEmit = {
   close: (type?: string) => isString(type)

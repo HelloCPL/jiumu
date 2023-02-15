@@ -21,6 +21,7 @@ export const useRoleUser = (props: RoleInfoProps) => {
       pageNo,
       pageSize: 20,
       keyword: keyword.value,
+      highlight: '1',
       simple: '1'
     })
     if (res.code === 200) {

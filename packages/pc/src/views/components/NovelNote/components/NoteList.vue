@@ -119,6 +119,14 @@
       v-if="showAdd"
       @close="handleClose"
     ></NoteAdd>
+    <!-- 笔记关联 -->
+    <NoteRelevance
+      :target-id="id"
+      :target-type="type"
+      :target-share="targetShare"
+      v-if="showRelevance && targetShare"
+      @close="handleClose"
+    ></NoteRelevance>
   </ElDrawer>
 </template>
 
@@ -132,6 +140,7 @@ import SelectType from '@/components/SelectType/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import IconSvg from '@/components/IconSvg/index'
 import NoteAdd from './NoteAdd.vue'
+import NoteRelevance from './NoteRelevance.vue'
 import { getIndex } from '@/utils/tools'
 import { formatDate } from '@jiumu/utils'
 
@@ -158,7 +167,9 @@ const {
   handleBtn,
   handleEdit,
   handleDelete,
-  handleClose
+  handleClose,
+
+  showRelevance
 } = useList(props, emit)
 </script>
 

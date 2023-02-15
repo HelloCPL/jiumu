@@ -138,7 +138,7 @@ interface ParamsNovelNoteAddBase {
 interface ParamsNovelNoteAdd extends ParamsNovelNoteAddBase {
   content: string
   targetId?: string
-  targetType?: '502' | '503' | '504' | '505' | '507'
+  targetType?: ParamsNovelNoteTargetType
   targetShare?: string
 }
 
@@ -148,11 +148,13 @@ interface ParamsNovelNoteEdit extends ParamsNovelNoteAddBase {
   content?: string
 }
 
+type ParamsNovelNoteTargetType = '502' | '503' | '504' | '505' | '507'
+
 // 笔记目标类型
 interface ParamsNovelNoteTarget {
   id: string
   title: string
-  type: '502' | '503' | '504' | '505' | '507'
+  type: ParamsNovelNoteTargetType
   typeLabel: string
 }
 
@@ -184,7 +186,7 @@ interface ParamsNovelNoteList extends ParamsPage {
 interface ParamsNovelNoteLinkAdd {
   noteId: string
   targetId: string
-  targetType: '502' | '503' | '504' | '505' | '507'
+  targetType: ParamsNovelNoteTargetType
   share?: string
 }
 
@@ -197,6 +199,8 @@ type ParamsNovelNoteLinkDelete = {
 // 获取笔记关联列表参数
 interface ParamsNovelNoteLinkList extends ParamsPage {
   share: string
+  keyword?: string
+  highlight?: '0' | '1'
 }
 
 // 笔记关联列表数据类型
