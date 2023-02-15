@@ -34,7 +34,6 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="type" label="类型" min-width="120" />
-      <ElTableColumn prop="createUserName" label="创建者" min-width="100"></ElTableColumn>
       <ElTableColumn label="更新时间" width="150">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>

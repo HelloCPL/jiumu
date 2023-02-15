@@ -5,38 +5,43 @@
 -->
 
 <template>
-  <Dialog :show-footer="false">
-    <!-- 自定义头部 -->
-    <template #header>
-      <ElRow class="h-12">
-        <ElCol
-          :span="12"
-          class="flex items-center pl-4 cursor-pointer border-r-1 text-lg"
-          :class="{ 'role-permission-active': active === 0 }"
-          @click="handleActive(0)"
-        >
-          <span class="g-line-1">已关联笔记</span>
-        </ElCol>
-        <ElCol
-          :span="12"
-          class="flex items-center pl-4 cursor-pointer text-lg"
-          :class="{ 'role-permission-active': active === 1 }"
-          @click="handleActive(1)"
-        >
-          可关联笔记
-        </ElCol>
-      </ElRow>
-    </template>
+  <Dialog :show-footer="false" @close="handleClose">
+    <PopupTwo
+      v-model:keyword="keyword"
+      :more-left="total > dataList.length"
+      :total="total"
+      :span-left="24"
+      :show-right="false"
+      @search="search"
+      @scroll-left="getDataList"
+    >
+      <!-- 左侧 -->
+      <template #left>
+        <div v-for="item in dataList" :key="item.id" class="pl-4">
+          <ElCheckbox
+            :model-value="item._checked"
+            :label="item.id"
+            :checked="item._checked"
+            @update:model-value="changeCheck($event as boolean, item)"
+          >
+            <GRichText :html="item.noteTitle"></GRichText>
+            <span class="text-sm text-lighter pl-4">({{ item.targetTitle }})</span>
+          </ElCheckbox>
+        </div>
+      </template>
+    </PopupTwo>
   </Dialog>
 </template>
 
 <script lang="ts" setup>
 import Dialog from '@/components/Dialog/index.vue'
+import PopupTwo from '@/components/PopupTwo/index.vue'
 import { useRelevance } from '../hooks/use-relevance'
 import { novelNoteRelevanceProps, novelNoteEmit } from '../type'
+import { ElCheckbox } from 'element-plus'
 
 const props = defineProps(novelNoteRelevanceProps)
 const emit = defineEmits(novelNoteEmit)
 
-const {} = useRelevance(props, emit)
+const { keyword, total, dataList, getDataList, search, changeCheck, handleClose } = useRelevance(props, emit)
 </script>

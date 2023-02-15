@@ -27,7 +27,7 @@
 import { ElRow, ElCol } from 'element-plus'
 import { reactive } from 'vue'
 import { getLoginInfoList } from '@/api/user'
-import { formatDate } from '@jiumu/utils'
+import { formatDate, getDataDiff } from '@jiumu/utils'
 import MoreBtn from '@/components/MoreBtn/index.vue'
 
 type Props = {
@@ -57,7 +57,7 @@ const getLoginInfo = async () => {
   }
   const res = await getLoginInfoList(params)
   if (res.code === 200) {
-    state.dataList = state.dataList.concat(res.data)
+    state.dataList = getDataDiff(state.dataList, res.data)
     state.pageNo++
     state.total = res.total
   }

@@ -108,7 +108,7 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
   const handleClose = (type?: string) => {
     showAdd.value = false
     showRelevance.value = false
-    if (type !== 'close') getDataList(1)
+    if (type !== 'close') getDataList()
   }
 
   const showRelevance = ref<boolean>(false)

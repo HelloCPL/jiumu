@@ -7,7 +7,7 @@ import { debounce } from 'lodash-es'
 import { getUserList } from '@/api/user'
 import { addUserRole, deleteUserRole, getUserByRoleId } from '@/api/user-role'
 import { _push, _pop, _find, _relevance } from '@/hooks/use-relevance'
-import { getText } from '@jiumu/utils'
+import { getDataDiff, getText } from '@jiumu/utils'
 
 export const useRoleUser = (props: RoleInfoProps) => {
   // 用户列表
@@ -25,7 +25,7 @@ export const useRoleUser = (props: RoleInfoProps) => {
       simple: '1'
     })
     if (res.code === 200) {
-      dataList.value = dataList.value.concat(res.data)
+      dataList.value = getDataDiff(dataList.value, res.data)
       _relevance(dataList2, dataList)
       total.value = res.total
       ++pageNo

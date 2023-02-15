@@ -36,8 +36,8 @@
       <!-- 右侧头部 -->
       <div class="w-full h-14 absolute right-0 top-0 bg flex items-center border-b-1" v-if="showRightTop">
         <slot name="rightTop">
-          <span class="pl-4 text-lg"
-            >已选择
+          <span class="pl-4 text-lg">
+            <span>已选择</span>
             <span v-if="total">({{ total }})</span>
           </span>
         </slot>
@@ -45,8 +45,9 @@
           class="absolute right-4 text-sm text-lighter hover:text-primary cursor-pointer g-center-y"
           v-if="showDelete"
           @click="$emit('delete')"
-          >清空</span
         >
+          清空
+        </span>
       </div>
       <!-- 右侧内容 -->
       <div class="w-full h-full g-scroll-y" v-infinite-scroll="scrollRight" :infinite-scroll-distance="80">

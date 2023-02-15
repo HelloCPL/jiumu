@@ -206,9 +206,11 @@ interface ParamsNovelNoteLinkList extends ParamsPage {
 // 笔记关联列表数据类型
 interface DataNovelNoteLink extends DataBase {
   id: srting
+  status: '0' | '1'
   noteId: string
   noteTitle: string
   targetId: string
+  targetTitle: string
   targetType: string
   targetTypeLabel: string
 }

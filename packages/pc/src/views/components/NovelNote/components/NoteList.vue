@@ -51,7 +51,7 @@
               </span>
             </header>
             <!-- 内容区滚动 -->
-            <content class="w-full flex-1 g-scroll-y">
+            <content class="w-full flex-1 g-scroll-y relative note-border-right">
               <div class="w-full py-2 pl-2 pr-1">
                 <div class="flex mb-2" v-if="item.target">
                   <span class="mr-2 text-lighter">归属</span>
@@ -94,7 +94,9 @@
                 <div></div>
               </div>
             </content>
-            <footer class="w-full h-8 absolute left-0 bottom-0 flex items-center justify-end pr-4">
+            <footer
+              class="w-full h-8 absolute left-0 bottom-0 flex items-center justify-end pr-4 note-border-right"
+            >
               <ElButton size="small" type="primary" text @click="handleEdit(item)">修改</ElButton>
               <ElButton size="small" type="danger" text @click="handleDelete(item)">删除</ElButton>
             </footer>

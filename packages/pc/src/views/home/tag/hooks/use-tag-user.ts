@@ -7,6 +7,7 @@ import { debounce } from 'lodash-es'
 import { getUserList } from '@/api/user'
 import { addUserTag, deleteUserTag, getUserByTagCode } from '@/api/user-tag'
 import { _push, _pop, _find, _relevance } from '@/hooks/use-relevance'
+import { getDataDiff } from '@jiumu/utils'
 
 export const useTagUser = (props: TagInfoProps) => {
   // 用户列表
@@ -23,7 +24,7 @@ export const useTagUser = (props: TagInfoProps) => {
       simple: '1'
     })
     if (res.code === 200) {
-      dataList.value = dataList.value.concat(res.data)
+      dataList.value = getDataDiff(dataList.value, res.data)
       _relevance(dataList2, dataList)
       total.value = res.total
       ++pageNo

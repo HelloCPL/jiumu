@@ -8,6 +8,7 @@ import { addNovelNoteLink, deleteNovelNoteLink, getNovelNoteLinkList } from '@/a
 import { debounce } from 'lodash-es'
 import { ref } from 'vue'
 import { NovelNoteRelevanceProps, NovelNoteEmit } from '../type'
+import { getDataDiff } from '@jiumu/utils'
 
 export const useRelevance = (props: NovelNoteRelevanceProps, emit: NovelNoteEmit) => {
   // 笔记列表
@@ -25,7 +26,7 @@ export const useRelevance = (props: NovelNoteRelevanceProps, emit: NovelNoteEmit
       pageSize: 20
     })
     if (res.code === 200) {
-      dataList.value = dataList.value.concat(res.data)
+      dataList.value = getDataDiff(dataList.value, res.data)
       _setChecked()
       total.value = res.total
       ++pageNo
@@ -35,6 +36,7 @@ export const useRelevance = (props: NovelNoteRelevanceProps, emit: NovelNoteEmit
     pageNo = 1
     getDataList()
   }
+  getDataList()
 
   // 所有笔记的关联交互
   const changeCheck = (checked: boolean, info: DataNovelNoteLink) => {
@@ -57,30 +59,46 @@ export const useRelevance = (props: NovelNoteRelevanceProps, emit: NovelNoteEmit
       targetId: <string>props.targetId,
       targetType: <ParamsNovelNoteTargetType>props.targetType,
       share: <string>props.targetShare,
-      noteId: info.id
+      noteId: info.noteId
     })
     if (res.code === 200) {
       info._checked = true
+      closeWord = 'add'
     }
   }
 
   // 取消关联
   const _deleteRelevance = async (info: DataNovelNoteLink) => {
     const res = await deleteNovelNoteLink({
-      noteId: info.id,
+      noteId: info.noteId,
       targetId: <string>props.targetId
     })
     if (res.code === 200) {
       info._checked = false
+      closeWord = 'delete'
     }
   }
 
   // 设置关联
   const _setChecked = () => {
     dataList.value.forEach((item) => {
-      item._checked = item.targetId === props.targetId
+      item._checked = item.targetId === props.targetId && item.status === '1'
     })
   }
 
-  return {}
+  // 关闭
+  let closeWord = 'close'
+  const handleClose = () => {
+    emit('close', closeWord)
+  }
+
+  return {
+    keyword,
+    total,
+    dataList,
+    getDataList,
+    search,
+    changeCheck,
+    handleClose
+  }
 }

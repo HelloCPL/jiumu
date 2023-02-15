@@ -37,6 +37,7 @@ export const useAdd = (props: NovelNoteAddProps, emit: NovelNoteEmit) => {
   })
 
   const rules = reactive<FormRules>({
+    title: [{ required: true, trigger: 'change', message: '请输入标题' }],
     content: [{ required: true, trigger: 'change', message: '请输入内容' }],
     sort: [{ required: true, trigger: 'change', message: '请输入排序' }]
   })
