@@ -176,6 +176,8 @@ export const useIndex = () => {
   }
 
   return {
+    id,
+    novelId,
     list,
     formRef,
     form,

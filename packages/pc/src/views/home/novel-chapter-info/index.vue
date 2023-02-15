@@ -70,6 +70,8 @@
           </div>
         </div>
       </div>
+      <!-- 备注 -->
+      <div class="mb-4 text-sm text-lighter">{{ dataInfo.remarks }}</div>
       <div class="flex justify-center">
         <ElButton type="primary" text class="mr-4" :disabled="targetIndex === 0" @click="handleNext(false)">
           上一章

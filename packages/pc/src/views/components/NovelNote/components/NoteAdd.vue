@@ -13,7 +13,7 @@
     size="35%"
     :z-index="99"
     :close-on-click-modal="false"
-    :title="id ? '笔记新增' : '笔记编辑'"
+    :title="id ? '笔记编辑' : '笔记新增'"
     custom-class="novel-note-container"
     :with-header="true"
     :before-close="beforeClose"

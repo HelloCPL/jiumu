@@ -29,6 +29,8 @@
         <ElInput type="textarea" placeholder="请输入备注" v-model="form.remarks"></ElInput>
       </ElFormItem>
     </ElForm>
+    <!-- 笔记  -->
+    <NovelNote :id="id" type="507" :share="novelId" v-if="id"></NovelNote>
   </PageBox>
 </template>
 
@@ -39,6 +41,7 @@ import { useIndex } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
 import EditorWang from '@/components/Editor/components/EditorWang/index.vue'
+import NovelNote from '@/views/components/NovelNote/index.vue'
 
 defineOptions({
   name: 'NovelChapterAdd'
@@ -48,5 +51,5 @@ const toolbarConfig = {
   toolbarKeys: ['undo', 'redo', '|', 'headerSelect', 'fontSize', '|', 'MyButtonTitle', 'MyButtonFullScreen']
 }
 
-const { list, formRef, form, rules, handleChangeContent, changeBtn } = useIndex()
+const { id, novelId, list, formRef, form, rules, handleChangeContent, changeBtn } = useIndex()
 </script>

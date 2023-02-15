@@ -43,7 +43,7 @@
       </ElFormItem>
     </ElForm>
     <!-- 笔记  -->
-    <NovelNote></NovelNote>
+    <NovelNote :id="form.id" type="504" :share="form.id" v-if="form.id"></NovelNote>
   </PageBox>
 </template>
 

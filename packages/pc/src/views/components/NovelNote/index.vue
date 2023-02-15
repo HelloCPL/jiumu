@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <ElButton type="primary" size="small" text @click="handleShow">查看笔记</ElButton>
+  <ElButton type="primary" size="small" text @click="handleShow">笔记</ElButton>
   <NoteList
     :id="id"
     :type="type"

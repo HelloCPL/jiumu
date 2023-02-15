@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog :show-footer="false" @close="handleClose">
+  <Dialog title="笔记关联" :show-footer="false" @close="handleClose">
     <PopupTwo
       v-model:keyword="keyword"
       :more-left="total > dataList.length"
