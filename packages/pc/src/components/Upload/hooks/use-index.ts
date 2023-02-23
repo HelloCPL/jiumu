@@ -38,12 +38,15 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     file.append('file', fileOption.file)
     let params: ParamsFileOther = {}
     if (isPlainObject(props.params)) params = Object.assign(params, props.params)
-    params.staticPlace = props.type
-    const res = await uploadFile(file, params)
-    if (res.code === 200) {
-      emit('change', res.data)
+    if (props.type === 'files_big') {
     } else {
-      Message(res.message)
+      params.staticPlace = props.type
+      const res = await uploadFile(file, params)
+      if (res.code === 200) {
+        emit('change', res.data)
+      } else {
+        Message(res.message)
+      }
     }
   }
 

@@ -37,3 +37,23 @@ export const deleteFile = async (
 export const getFileById = async (params: ParamsFileById): Promise<DataOptions<DataBaseFile>> => {
   return await get('/pc/file/get/post', params).catch((err) => err)
 }
+
+// 上传切片
+export const addFileChunk = async (file: FormData): Promise<DataOptions<200 | 404>> => {
+  return await postForm('/pc/file/chunk/add', file).catch((err) => err)
+}
+
+// 删除指定文件的所有切片
+export const deleteFileChunk = async (fileHash: string): Promise<DataOptions<null>> => {
+  return await post('/pc/file/chunk/delete', { fileHash }).catch((err) => err)
+}
+
+// 切片合并
+export const mergeFileChunk = async (params: ParamsFileChunkMerge): Promise<DataOptions<DataBaseFile>> => {
+  return await post('/pc/file/chunk/merge', params).catch((err) => err)
+}
+
+// 校验大文件是否上传
+export const verifyFileChunk = async (params: ParamsFileChunkVerify): Promise<DataOptions<boolean>> => {
+  return await post('/pc/file/chunk/verify', params).catch((err) => err)
+}

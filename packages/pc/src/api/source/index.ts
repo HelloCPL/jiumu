@@ -25,7 +25,7 @@ export const deleteSource = async (id: string): Promise<DataOptions<null>> => {
 export const getSourceOne = async (
   params: ParamsSourceOne,
   isloading?: boolean
-): Promise<DataOptions<DataSource>> => {
+): Promise<DataOptions<DataSourceInfo>> => {
   return await post('/pc/source/get/one', params, { isloading }).catch((err) => err)
 }
 
@@ -46,4 +46,19 @@ export const getSourceListByUserId = async (
 // 获取所有用户公开的资源文章列表
 export const getSourceList = async (params: ParamsSourceList = {}): Promise<DataOptions<DataSource[]>> => {
   return await post('/pc/source/get/list', params).catch((err) => err)
+}
+
+// 新增一个资源的外部资源信息
+export const addSourceLink = async (params: ParamsSourceLinkAdd): Promise<DataOptions<string>> => {
+  return await post('/pc/source-link/add', params).catch((err) => err)
+}
+
+// 修改一个资源的外部资源信息
+export const updateSourceLink = async (params: ParamsSourceLinkAdd): Promise<DataOptions<null>> => {
+  return await post('/pc/source-link/update', params).catch((err) => err)
+}
+
+// // 删除一个资源的外部资源信息
+export const deleteSourceLink = async (id: string): Promise<DataOptions<null>> => {
+  return await post('/pc/source-link/delete', { id }).catch((err) => err)
 }

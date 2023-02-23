@@ -14,3 +14,20 @@ interface ParamsFileById {
   id: string
   showUserInfo?: any
 }
+
+// 切片合并参数
+interface ParamsFileChunkMerge {
+  fileName: string
+  fileHash: string
+  chunkSize: number
+  chunkLength: number
+  fileSize?: number
+  isSecret?: '0' | '1'
+  remarks?: string
+}
+
+// 校验大文件是否上传参数
+interface ParamsFileChunkVerify {
+  fileName: string
+  fileHash: string
+}

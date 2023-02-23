@@ -26,7 +26,6 @@ interface ParamsSourceOne {
 interface DataSource extends DataBase {
   id: string
   title: string
-  attachment?: Array<DataBaseFile | DataSourceLink>
   classify: DataBaseClassify[]
   isSecret: '0' | '1'
   isTop: '0' | '1'
@@ -42,6 +41,10 @@ interface DataSource extends DataBase {
   collectionCount: number
   isSelf: '0' | '1'
   commentCount: number
+}
+
+interface DataSourceInfo extends DataSource {
+  attachment: Array<DataBaseFile | DataSourceLink>
 }
 
 // 资源的外部资源信息数据接口类型
@@ -73,4 +76,15 @@ interface ParamsSourceListSelf extends ParamsSourceList {
 interface ParamsSourceListByUserId extends ParamsSourceList {
   userId: string
   classify?: string
+}
+
+// 资源的外部资源信息新增或编辑参数类型
+interface ParamsSourceLinkAdd {
+  id?: string
+  title: string
+  link: string
+  coverImg1?: string
+  coverImg2?: string
+  sort?: number
+  remarks?: string
 }

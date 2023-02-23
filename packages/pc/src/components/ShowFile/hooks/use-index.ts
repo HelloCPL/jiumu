@@ -70,7 +70,7 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
 /**
  * 获取文件类型
  */
-type FileType = 'pdf' | 'word' | 'image' | 'ppt' | 'rar' | 'txt' | 'excel' | 'zip' | 'unknown'
+type FileType = 'pdf' | 'word' | 'image' | 'video' | 'ppt' | 'rar' | 'txt' | 'excel' | 'zip' | 'unknown'
 export const getFileType = (suffix: string): FileType => {
   switch (suffix) {
     case 'pdf':
@@ -103,6 +103,19 @@ export const getFileType = (suffix: string): FileType => {
     case 'zip':
     case 'arj':
       return 'zip'
+    case 'mp4':
+    case 'mov':
+    case 'avi':
+    case 'm3u8':
+    case 'flv':
+    case 'wmv':
+    case 'mpg':
+    case 'mpeg':
+    case 'mov':
+    case 'rm':
+    case 'ram':
+    case 'swf':
+      return 'video'
     default:
       return 'unknown'
   }

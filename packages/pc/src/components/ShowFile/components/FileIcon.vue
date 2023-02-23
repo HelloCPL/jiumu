@@ -48,6 +48,8 @@ const getIcon = () => {
     case 'zip':
       icon.value = `${$STATIC_URL}pc/icons/icon_file_zip.png`
       break
+    case 'video':
+      icon.value = `${$STATIC_URL}pc/icons/icon_file_video.png`
     default:
       icon.value = `${$STATIC_URL}pc/icons/icon_file_why.png`
   }

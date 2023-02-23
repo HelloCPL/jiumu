@@ -11,8 +11,8 @@ export const uploadProps = buildProps({
   // 其余参数与 element-plus 保持一致
   ..._uploadProps,
   type: {
-    // 上传类型
-    type: String as PropType<'images' | 'files' | 'videos'>,
+    // 上传类型，其中 files_big 采用断点上传方式
+    type: String as PropType<'images' | 'files' | 'videos' | 'files_big'>,
     default: 'images'
   },
   accept: {
