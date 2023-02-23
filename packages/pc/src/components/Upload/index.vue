@@ -46,6 +46,7 @@
       </template>
     </slot>
   </ElUpload>
+  <UploadFilesBig></UploadFilesBig>
 </template>
 
 <script lang="ts" setup>
@@ -53,6 +54,7 @@ import { ElUpload, ElButton, ElIcon } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import { uploadProps, uploadEmits } from './type'
 import { useIndex } from './hooks/use-index'
+import UploadFilesBig from './components/UploadFilesBig.vue'
 
 defineOptions({
   inheritAttrs: false
