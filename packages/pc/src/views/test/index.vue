@@ -1,6 +1,6 @@
 <template>
   <div class="m-4 box">
-    <Upload @change="handleChange"></Upload>
+    <Upload @change="handleChange" type="files_big"></Upload>
 
   </div>
 </template>

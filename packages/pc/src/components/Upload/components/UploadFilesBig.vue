@@ -6,7 +6,7 @@
 
 <template>
   <div class="w-full border">
-    <div class="flex mt-4 pb-4 border-b-1 border-lighter">
+    <!-- <div class="flex mt-4 pb-4 border-b-1 border-lighter">
       <FileIcon value="xxx.png" class="w-16 h-16 mr-4"></FileIcon>
       <div class="w-1/2 mr-12 big-content">
         <div>
@@ -19,23 +19,21 @@
         <ElButton type="danger">取消</ElButton>
         <ElButton type="primary">暂停上传</ElButton>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 import FileIcon from '@/components/ShowFile/components/FileIcon.vue'
 import { ElButton, ElProgress } from 'element-plus'
-import { ref } from 'vue'
+import { useUploadFilesBig } from '../hooks/use-upload-files-big'
 
-const value = ref(10.01)
-// const fn = () => {
-//   setTimeout(() => {
-//     value.value += 1
-//     fn()
-//   }, 1000)
-// }
-// fn()
+const { handleFileUpload } = useUploadFilesBig()
+
+// 暴露方法
+defineExpose({
+  handleFileUpload
+})
 </script>
 
 <style lang="scss">

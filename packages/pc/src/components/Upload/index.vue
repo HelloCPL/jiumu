@@ -46,7 +46,7 @@
       </template>
     </slot>
   </ElUpload>
-  <UploadFilesBig></UploadFilesBig>
+  <UploadFilesBig ref="refUploadFilesBig"></UploadFilesBig>
 </template>
 
 <script lang="ts" setup>
@@ -62,7 +62,8 @@ defineOptions({
 
 const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
-const { refUpload, _accept, _limit, onChange, onExceed, beforeUpload, httpRequest } = useIndex(props, emit)
+const { refUpload, refUploadFilesBig, _accept, _limit, onChange, onExceed, beforeUpload, httpRequest } =
+  useIndex(props, emit)
 </script>
 
 <style lang="scss">
