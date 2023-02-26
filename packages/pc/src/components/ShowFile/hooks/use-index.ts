@@ -111,7 +111,6 @@ export const getFileType = (suffix: string): FileType => {
     case 'wmv':
     case 'mpg':
     case 'mpeg':
-    case 'mov':
     case 'rm':
     case 'ram':
     case 'swf':

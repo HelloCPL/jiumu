@@ -17,9 +17,9 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   // 接收类型
   const _accept = computed(() => {
     if (props.accept) return props.accept
-    else if (props.type === 'files' || props.type === 'files_big')
-      return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.xlsm,.zip,.rar,.7z'
+    else if (props.type === 'files') return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.xlsm,.zip,.rar,.7z'
     else if (props.type === 'videos') return '.flv,.avi,.mov,.mp4,.wmv'
+    else if (props.type === 'files_big') return '*'
     else return 'image/*'
   })
 

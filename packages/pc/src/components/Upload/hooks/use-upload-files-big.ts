@@ -9,6 +9,8 @@ import sparkMD5 from 'spark-md5'
 import axios, { CancelTokenSource } from 'axios'
 import { Message } from '@/utils/interaction'
 import { addFileChunk, mergeFileChunk, verifyFileChunk } from '@/api/file'
+import { UploadFilesBigProps, UploadEmits } from '../type'
+import { getRandomId } from '@jiumu/utils'
 
 interface ChunkFormDataOption {
   formData: FormData
@@ -21,13 +23,15 @@ interface TaskOption {
   fileHash: string
   file: File
   chunkFormData: ChunkFormDataOption[]
+  id: string
+  status: '1' | '0' // 上传状态 1 上传中 0 暂停上传
 }
 
 const cancelToken = axios.CancelToken
 // 切片大小 100 KB
 const chunkSize = 1024 * 100
 
-export const useUploadFilesBig = () => {
+export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits) => {
   // 创建文件分片
   const createChunkList = (file: File, chunkSize: number): Blob[] => {
     const fileChunkList: Blob[] = []
@@ -51,7 +55,6 @@ export const useUploadFilesBig = () => {
         // @ts-ignore
         spark.append(e.target?.result)
         currentChunk++
-        console.log('spark', spark)
         if (currentChunk < chunks) {
           loadChunk()
         } else {
@@ -102,27 +105,34 @@ export const useUploadFilesBig = () => {
       fileName: file.name,
       fileHash: fileHash
     })
-    if (res.code === 200 && !res.data) {
-      task.value.push({
+    if (res.code === 200 && res.data) {
+      // 文件上传成功
+      emit('change', [res.data])
+    } else {
+      const target: TaskOption = {
         percent: 0,
         fileHash,
         file,
-        chunkFormData
-      })
-      continueUpload(task.value.length - 1)
-    } else {
-      // 文件上传成功
-      console.log(res.data)
+        chunkFormData,
+        id: getRandomId(),
+        status: '0'
+      }
+      task.value.push(target)
+      handleUpload(target)
     }
-
-    console.log('chunkFormData', chunkFormData)
   }
 
+  let lock = false
+  let timeId: any = null
+  const clearTimeId = () => {
+    clearTimeout(timeId)
+    timeId = null
+  }
   // 继续上传
   const continueUpload = (index: number) => {
     const target = task.value[index]
+    target.status = '1'
     const notUploaded = target.chunkFormData.filter((item) => item.percentage === 0)
-    console.log('notUploaded', notUploaded)
     Promise.all(
       notUploaded.map((item) => {
         return new Promise((resolve, reject) => {
@@ -130,46 +140,93 @@ export const useUploadFilesBig = () => {
           addFileChunk(
             item.formData,
             { fileHash: target.fileHash, chunkIndex: item.chunkIndex },
-            { cancelToken: item.cancelToken.token }
+            { cancelToken: item.cancelToken.token, showErrorMessage: false }
           )
             .then((res) => {
-              target.chunkFormData[chunkIndex].percentage = 1
-              console.log('res', res)
-              console.log(1212, item)
-              resolve(res)
+              if (res && res.code === 200) {
+                target.chunkFormData[chunkIndex].percentage = 1
+                handleTargetPercent(index)
+                resolve(res)
+                // @ts-ignore
+              } else if (res && res.code === 'ECONNABORTED') {
+                // 超时处理
+                if (lock) return
+                lock = true
+                clearTimeId()
+                timeId = setTimeout(() => {
+                  continueUpload(index)
+                }, 1000)
+                setTimeout(() => {
+                  lock = false
+                }, 1500)
+              } else {
+                reject(res)
+              }
             })
             .catch((err) => {
-              console.log('err', err)
               reject(err)
             })
         })
       })
     ).then(async (data) => {
       // 所有请求完成 合并切片
-      console.log(999, data)
-      const res = await mergeFileChunk({
-        fileName: target.file.name,
-        fileHash: target.fileHash,
-        chunkSize,
-        chunkLength: target.chunkFormData.length,
-        fileSize: target.file.size
+      let flag = true
+      data.find((item) => {
+        if (!item) flag = false
       })
-      console.log('成功', res)
-      if (res.code === 200) {
+      if (flag) {
+        const res = await mergeFileChunk({
+          fileName: target.file.name,
+          fileHash: target.fileHash,
+          chunkSize,
+          chunkLength: target.chunkFormData.length,
+          fileSize: target.file.size
+        })
+        if (res.code === 200) {
+          target.percent = 100
+          task.value.splice(index, 1)
+          emit('change', [res.data])
+        }
       }
     })
+  }
+
+  // 处理上传进度
+  const handleTargetPercent = (index: number) => {
+    const target = task.value[index]
+    let newPercent =
+      (target.chunkFormData.filter((item) => item.percentage === 1).length / target.chunkFormData.length) *
+      100
+    newPercent = Number(newPercent.toFixed(2))
+    target.percent = newPercent
   }
 
   // 暂停上传
   const stopUpload = (index: number) => {
     const target = task.value[index]
+    target.status = '0'
     target.chunkFormData.forEach((item) => {
-      item.cancelToken.cancel('取消上传')
+      item.cancelToken.cancel('暂停上传')
       item.cancelToken = cancelToken.source()
     })
   }
 
+  const handleUpload = (target: TaskOption) => {
+    let index = -1
+    task.value.find((item, i) => {
+      if (item.id === target.id) {
+        index = i
+        return true
+      }
+    })
+    if (index === -1) return
+    if (target.status === '1') stopUpload(index)
+    else continueUpload(index)
+  }
+
   return {
-    handleFileUpload
+    task,
+    handleFileUpload,
+    handleUpload
   }
 }
