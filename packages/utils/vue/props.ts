@@ -98,30 +98,30 @@ export function buildProp<
   const _validator =
     values || validator
       ? (val: unknown) => {
-          let valid = false
-          let allowedValues: unknown[] = []
+        let valid = false
+        let allowedValues: unknown[] = []
 
-          if (values) {
-            allowedValues = Array.from(values)
-            if (hasOwn(option, 'default')) {
-              allowedValues.push(defaultValue)
-            }
-            valid ||= allowedValues.includes(val)
+        if (values) {
+          allowedValues = Array.from(values)
+          if (hasOwn(option, 'default')) {
+            allowedValues.push(defaultValue)
           }
-          if (validator) valid ||= validator(val)
-
-          if (!valid && allowedValues.length > 0) {
-            const allowValuesText = [...new Set(allowedValues)]
-              .map((value) => JSON.stringify(value))
-              .join(', ')
-            warn(
-              `Invalid prop: validation failed${
-                key ? ` for prop "${key}"` : ''
-              }. Expected one of [${allowValuesText}], got value ${JSON.stringify(val)}.`
-            )
-          }
-          return valid
+          valid ||= allowedValues.includes(val)
         }
+        if (validator) valid ||= validator(val)
+
+        if (!valid && allowedValues.length > 0) {
+          const allowValuesText = [...new Set(allowedValues)]
+            .map((value) => JSON.stringify(value))
+            .join(', ')
+          warn(
+            `Invalid prop: validation failed${
+              key ? ` for prop "${key}"` : ''
+            }. Expected one of [${allowValuesText}], got value ${JSON.stringify(val)}.`
+          )
+        }
+        return valid
+      }
       : undefined
 
   const prop: any = {
@@ -150,8 +150,8 @@ export const buildProps = <
       : never
   }
 >(
-  props: O
-) =>
+    props: O
+  ) =>
   fromPairs(
     Object.entries(props).map(([key, option]) => [key, buildProp(option as any, key)])
   ) as unknown as {

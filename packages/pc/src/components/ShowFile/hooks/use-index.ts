@@ -24,26 +24,26 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
   const handlePreview = (file: DataBaseFile) => {
     const fileType = getFileType(file.suffix)
     switch (fileType) {
-      case 'image':
-        state.urlImage = file.filePath
-        state.showImage = true
-        break
-      case 'pdf':
-        state.urlPdf = file.filePath
-        state.showPdf = true
-        break
-      case 'word':
-        state.urlWord = file.filePath
-        state.showWord = true
-        break
-      case 'excel':
-        state.urlExcel = file.filePath
-        state.showExcel = true
-        break
-      case 'txt':
-        state.urlTxt = file.filePath
-        state.showTxt = true
-        break
+    case 'image':
+      state.urlImage = file.filePath
+      state.showImage = true
+      break
+    case 'pdf':
+      state.urlPdf = file.filePath
+      state.showPdf = true
+      break
+    case 'word':
+      state.urlWord = file.filePath
+      state.showWord = true
+      break
+    case 'excel':
+      state.urlExcel = file.filePath
+      state.showExcel = true
+      break
+    case 'txt':
+      state.urlTxt = file.filePath
+      state.showTxt = true
+      break
     }
   }
   // 删除
@@ -73,51 +73,51 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
 type FileType = 'pdf' | 'word' | 'image' | 'video' | 'ppt' | 'rar' | 'txt' | 'excel' | 'zip' | 'unknown'
 export const getFileType = (suffix: string): FileType => {
   switch (suffix) {
-    case 'pdf':
-      return 'pdf'
-    case 'doc':
-    case 'docx':
-      return 'word'
-    case 'bmp':
-    case 'gif':
-    case 'jpg':
-    case 'pic':
-    case 'png':
-    case 'tif':
-    case 'jpeg':
-      return 'image'
-    case 'ppt':
-    case 'pps':
-    case 'pot':
-    case 'ppa':
-      return 'ppt'
-    case 'rar':
-      return 'rar'
-    case 'txt':
-      return 'txt'
-    case 'xls':
-    case 'xlsx':
-    case 'xlsm':
-    case 'csv':
-      return 'excel'
-    case 'zip':
-    case 'arj':
-      return 'zip'
-    case 'mp4':
-    case 'mov':
-    case 'avi':
-    case 'm3u8':
-    case 'flv':
-    case 'wmv':
-    case 'mpg':
-    case 'mpeg':
-    case 'mov':
-    case 'rm':
-    case 'ram':
-    case 'swf':
-      return 'video'
-    default:
-      return 'unknown'
+  case 'pdf':
+    return 'pdf'
+  case 'doc':
+  case 'docx':
+    return 'word'
+  case 'bmp':
+  case 'gif':
+  case 'jpg':
+  case 'pic':
+  case 'png':
+  case 'tif':
+  case 'jpeg':
+    return 'image'
+  case 'ppt':
+  case 'pps':
+  case 'pot':
+  case 'ppa':
+    return 'ppt'
+  case 'rar':
+    return 'rar'
+  case 'txt':
+    return 'txt'
+  case 'xls':
+  case 'xlsx':
+  case 'xlsm':
+  case 'csv':
+    return 'excel'
+  case 'zip':
+  case 'arj':
+    return 'zip'
+  case 'mp4':
+  case 'mov':
+  case 'avi':
+  case 'm3u8':
+  case 'flv':
+  case 'wmv':
+  case 'mpg':
+  case 'mpeg':
+  case 'mov':
+  case 'rm':
+  case 'ram':
+  case 'swf':
+    return 'video'
+  default:
+    return 'unknown'
   }
 }
 

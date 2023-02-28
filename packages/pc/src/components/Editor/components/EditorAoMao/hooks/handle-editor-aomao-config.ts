@@ -106,21 +106,21 @@ export const handleEditorAoMapConfig = (engine: Ref<EngineInterface | null>): Ed
       [LineHeight.pluginName]: {
         filter: (lineHeight: string) => {
           switch (lineHeight) {
-            case '12px':
-            case '14px':
-              return '1'
-            case '16px':
-            case '18px':
-              return '1.2'
-            case '21px':
-            case '24px':
-              return '1.5'
-            case '29px':
-            case '32px':
-            case '34px':
-              return '2'
-            default:
-              return ['1', '1.2', '1.5', '2'].indexOf(lineHeight) > -1
+          case '12px':
+          case '14px':
+            return '1'
+          case '16px':
+          case '18px':
+            return '1.2'
+          case '21px':
+          case '24px':
+            return '1.5'
+          case '29px':
+          case '32px':
+          case '34px':
+            return '2'
+          default:
+            return ['1', '1.2', '1.5', '2'].indexOf(lineHeight) > -1
           }
         }
       }

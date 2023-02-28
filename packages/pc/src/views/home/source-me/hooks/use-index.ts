@@ -75,12 +75,12 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-      case 'add':
-        router.push({
-          name: 'SourceAdd',
-          params: { _metaTitle: '资源新增', _refreshOne: '1' }
-        })
-        return
+    case 'add':
+      router.push({
+        name: 'SourceAdd',
+        params: { _metaTitle: '资源新增', _refreshOne: '1' }
+      })
+      return
     }
   }
 

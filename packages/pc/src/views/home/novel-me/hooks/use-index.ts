@@ -74,12 +74,12 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-      case 'add':
-        router.push({
-          name: 'NovelAdd',
-          params: { _metaTitle: '连载新增', _refreshOne: '1' }
-        })
-        return
+    case 'add':
+      router.push({
+        name: 'NovelAdd',
+        params: { _metaTitle: '连载新增', _refreshOne: '1' }
+      })
+      return
     }
   }
 
