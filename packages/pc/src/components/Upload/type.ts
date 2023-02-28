@@ -46,7 +46,17 @@ export const uploadProps = buildProps({
   }
 } as const)
 
+export const uploadFilesBigProps = buildProps({
+  type: {
+    // 上传类型，其中 files_big 采用断点上传方式
+    type: String as PropType<'images' | 'files' | 'videos' | 'files_big'>,
+    default: 'files_big'
+  }
+} as const)
+
 export type UploadProps = ExtractPropTypes<typeof uploadProps>
+
+export type UploadFilesBigProps = ExtractPropTypes<typeof uploadFilesBigProps>
 
 export const uploadEmits = {
   change: (files: DataBaseFile[]) => isArray(files)

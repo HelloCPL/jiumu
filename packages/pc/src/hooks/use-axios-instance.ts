@@ -109,7 +109,10 @@ service.interceptors.response.use(
   },
   (error) => {
     hideLoading()
-    _handleError(error, true)
+    let showErrorMessage = true
+    if (error && error.code === 'ERR_CANCELED') showErrorMessage = false
+    else if (error && error.config && error.config) showErrorMessage = error.config.showErrorMessage
+    return _handleError(error, showErrorMessage)
   }
 )
 

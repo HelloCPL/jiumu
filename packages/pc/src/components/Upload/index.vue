@@ -46,7 +46,7 @@
       </template>
     </slot>
   </ElUpload>
-  <UploadFilesBig ref="refUploadFilesBig"></UploadFilesBig>
+  <UploadFilesBig ref="refUploadFilesBig" @change="handleChangeFilesBig"></UploadFilesBig>
 </template>
 
 <script lang="ts" setup>
@@ -64,6 +64,10 @@ const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
 const { refUpload, refUploadFilesBig, _accept, _limit, onChange, onExceed, beforeUpload, httpRequest } =
   useIndex(props, emit)
+
+const handleChangeFilesBig = (files: DataBaseFile[]) => {
+  emit('change', files)
+}
 </script>
 
 <style lang="scss">
