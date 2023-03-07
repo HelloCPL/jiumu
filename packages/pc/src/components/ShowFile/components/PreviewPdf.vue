@@ -36,13 +36,13 @@
           class="text-base cursor-pointer mr-4"
           :class="{ 'preview-page': state.pageNum <= 1 }"
           @click="handleLastPage"
-          >上一页</span
+        >上一页</span
         >
         <span
           class="text-base cursor-pointer"
           :class="{ 'preview-page': state.pageNum >= state.numPages }"
           @click="handleNextPage"
-          >下一页</span
+        >下一页</span
         >
       </span>
       <div class="w-full g-scroll-y-0 preview-pdf-content">

@@ -1,9 +1,11 @@
 /**
- * 我的连载逻辑处理
+ * @description 我的资源列表处理逻辑
+ * @author cpl
+ * @create 2023-02-23 09:49:11
  */
 
 import { addTop, deleteTop } from '@/api/do-top'
-import { getNovelListSelf, deleteNovel } from '@/api/novel'
+import { deleteSource, getSourceListSelf } from '@/api/source'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { Confirm, Message } from '@/utils/interaction'
 import { debounce } from 'lodash-es'
@@ -23,20 +25,19 @@ export const useIndex = () => {
   const total = ref<number>(0)
 
   // 列表数据
-  const data = ref<DataNovel[]>([])
+  const data = ref<DataSource[]>([])
   const getDataList = debounce(async (num?: number) => {
     if (num) pageNo.value = num
-    const params: ParamsNovelListSelf = {
+    const params: ParamsSourceListSelf = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,
       keyword: keyword.value,
       type: type.value,
       classify: classify.value,
       isSecret: isSecret.value,
-      highlight: '1',
-      isDraft: '0'
+      highlight: '1'
     }
-    const res = await getNovelListSelf(params)
+    const res = await getSourceListSelf(params)
     if (res.code === 200) {
       data.value = res.data
       total.value = res.total
@@ -76,25 +77,25 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     switch (item.key) {
     case 'add':
       router.push({
-        name: 'NovelAdd',
-        params: { _metaTitle: '连载新增', _refreshOne: '1' }
+        name: 'SourceAdd',
+        params: { _metaTitle: '资源新增', _refreshOne: '1' }
       })
       return
     }
   }
 
   // 点击编辑
-  const handleEdit = (row: DataNovel) => {
+  const handleEdit = (row: DataSource) => {
     router.push({
-      name: 'NovelAdd',
-      params: { _metaTitle: '连载编辑', _refreshOne: '1', id: row.id }
+      name: 'SourceAdd',
+      params: { _metaTitle: '资源编辑', _refreshOne: '1', id: row.id }
     })
   }
 
   // 删除
-  const handleDelete = (row: DataNovel) => {
+  const handleDelete = (row: DataSource) => {
     Confirm('确定删除这项数据吗？').then(async () => {
-      const res = await deleteNovel(row.id)
+      const res = await deleteSource(row.id)
       if (res.code === 200) {
         Message({
           message: res.message,
@@ -106,17 +107,17 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   }
 
   // 置顶或取消置顶
-  const handleTop = (row: DataNovel) => {
-    const message = row.isTop === '1' ? '确定取消置顶该连载吗？' : '确定置顶该连载吗？'
+  const handleTop = (row: DataSource) => {
+    const message = row.isTop === '1' ? '确定取消置顶该资源吗？' : '确定置顶该资源吗？'
     Confirm(message).then(() => {
       _handleTop(row)
     })
   }
-  const _handleTop = debounce(async (row: DataNovel) => {
+  const _handleTop = debounce(async (row: DataSource) => {
     if (row.isTop === '0') {
       const res = await addTop({
         id: row.id,
-        type: '504'
+        type: '503'
       })
       if (res.code === 200) {
         Message({
@@ -128,7 +129,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     } else {
       const res = await deleteTop({
         id: row.id,
-        type: '504'
+        type: '503'
       })
       if (res.code === 200) {
         Message({
@@ -141,22 +142,14 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   }, 300)
 
   // 显示详情
-  const handleShowInfo = (row: DataNovel) => {
+  const handleShowInfo = (row: DataSource) => {
     const routeUrl = router.resolve({
-      path: '/novel-info',
+      path: '/source-info',
       query: {
         id: row.id
       }
     })
     window.open(routeUrl.href, '_blank')
-  }
-
-  // 查看章节列表
-  const handleShowNovelChapter = (row: DataNovel) => {
-    router.push({
-      name: 'NovelChapter',
-      query: { id: row.id, _refreshOne: '1' }
-    })
   }
 
   return {
@@ -165,7 +158,6 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleEdit,
     handleDelete,
     handleTop,
-    handleShowInfo,
-    handleShowNovelChapter
+    handleShowInfo
   }
 }

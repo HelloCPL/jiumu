@@ -4,6 +4,7 @@
 
 import { postForm, post, get } from '@/utils/api-methods'
 import { isPlainObject } from 'lodash-es'
+import { AxiosRequestConfig } from 'axios'
 
 // 上传文件
 export const uploadFile = async (
@@ -36,4 +37,31 @@ export const deleteFile = async (
 // 获取一个指定的文件
 export const getFileById = async (params: ParamsFileById): Promise<DataOptions<DataBaseFile>> => {
   return await get('/pc/file/get/post', params).catch((err) => err)
+}
+
+// 上传切片
+export const addFileChunk = async (
+  file: FormData,
+  params: ParamsFileChunkAdd,
+  option: AxiosRequestConfig
+): Promise<DataOptions<200 | 404>> => {
+  const query = _getFileParams(params)
+  return await postForm(`/pc/file/chunk/add${query}`, file, option).catch((err) => err)
+}
+
+// 删除指定文件的所有切片
+export const deleteFileChunk = async (fileHash: string): Promise<DataOptions<null>> => {
+  return await post('/pc/file/chunk/delete', { fileHash }).catch((err) => err)
+}
+
+// 切片合并
+export const mergeFileChunk = async (params: ParamsFileChunkMerge): Promise<DataOptions<DataBaseFile>> => {
+  return await post('/pc/file/chunk/merge', params).catch((err) => err)
+}
+
+// 校验大文件是否上传
+export const verifyFileChunk = async (
+  params: ParamsFileChunkVerify
+): Promise<DataOptions<DataBaseFile | null>> => {
+  return await post('/pc/file/chunk/verify', params).catch((err) => err)
 }

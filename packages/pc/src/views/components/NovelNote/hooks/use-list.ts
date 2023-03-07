@@ -75,13 +75,13 @@ export const useList = (props: NovelNoteProps, emit: NovelNoteEmit) => {
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-      case 'add':
-        showAdd.value = true
-        currentId.value = ''
-        break
-      case 'relevance':
-        showRelevance.value = true
-        break
+    case 'add':
+      showAdd.value = true
+      currentId.value = ''
+      break
+    case 'relevance':
+      showRelevance.value = true
+      break
     }
   }
 

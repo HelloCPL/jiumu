@@ -41,7 +41,7 @@
       <ElCol :span="16" class="mb-2">地址：{{ userInfo.address }}</ElCol>
       <ElCol :span="16">备注：{{ userInfo.remarks }}</ElCol>
       <span class="absolute right-1 bottom-1 text-sm text-primary cursor-pointer update-word" @click="toEdit"
-        >修改</span
+      >修改</span
       >
     </template>
     <!-- 基本信息修改 -->

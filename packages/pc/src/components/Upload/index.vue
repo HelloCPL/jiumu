@@ -19,6 +19,7 @@
     :on-exceed="onExceed"
     :before-upload="beforeUpload"
     :http-request="httpRequest"
+    v-bind="$attrs"
   >
     <slot>
       <template v-if="type === 'images'">
@@ -45,6 +46,7 @@
       </template>
     </slot>
   </ElUpload>
+  <UploadFilesBig ref="refUploadFilesBig" :type="type" @change="handleChangeFilesBig"></UploadFilesBig>
 </template>
 
 <script lang="ts" setup>
@@ -52,10 +54,20 @@ import { ElUpload, ElButton, ElIcon } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import { uploadProps, uploadEmits } from './type'
 import { useIndex } from './hooks/use-index'
+import UploadFilesBig from './components/UploadFilesBig.vue'
+
+defineOptions({
+  inheritAttrs: false
+})
 
 const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
-const { refUpload, _accept, _limit, onChange, onExceed, beforeUpload, httpRequest } = useIndex(props, emit)
+const { refUpload, refUploadFilesBig, _accept, _limit, onChange, onExceed, beforeUpload, httpRequest } =
+  useIndex(props, emit)
+
+const handleChangeFilesBig = (files: DataBaseFile[]) => {
+  emit('change', files)
+}
 </script>
 
 <style lang="scss">

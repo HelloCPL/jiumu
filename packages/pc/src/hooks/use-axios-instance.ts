@@ -109,7 +109,10 @@ service.interceptors.response.use(
   },
   (error) => {
     hideLoading()
-    _handleError(error, true)
+    let showErrorMessage = true
+    if (error && error.code === 'ERR_CANCELED') showErrorMessage = false
+    else if (error && error.config && error.config) showErrorMessage = error.config.showErrorMessage
+    return _handleError(error, showErrorMessage)
   }
 )
 
@@ -128,7 +131,7 @@ function _handleError(data: any, showErrorMessage?: boolean, message?: string | 
       message: <string>message || '请求发生错误'
     })
   }
-  console.error(data)
+  if (!(data && data.code === 'ERR_CANCELED')) console.error(data)
   return Promise.reject(data)
 }
 

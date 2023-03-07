@@ -10,14 +10,19 @@ import { getSuffix } from '@jiumu/utils'
 import { uploadFile } from '@/api/file'
 import { isPlainObject } from 'lodash-es'
 
+// 超过 3 M 使用断点上传方式
+const UPLOAD_BIG_SIZE = 1024 * 1024 * 3
+
 export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const refUpload = ref<UploadInstance>()
+  const refUploadFilesBig = ref<any>(null)
 
   // 接收类型
   const _accept = computed(() => {
     if (props.accept) return props.accept
     else if (props.type === 'files') return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.xlsm,.zip,.rar,.7z'
     else if (props.type === 'videos') return '.flv,.avi,.mov,.mp4,.wmv'
+    else if (props.type === 'files_big') return '*'
     else return 'image/*'
   })
 
@@ -34,16 +39,20 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   }
   // 上传
   const httpRequest = async (fileOption: UploadRequestOptions) => {
-    const file = new FormData()
-    file.append('file', fileOption.file)
-    let params: ParamsFileOther = {}
-    if (isPlainObject(props.params)) params = Object.assign(params, props.params)
-    params.staticPlace = props.type
-    const res = await uploadFile(file, params)
-    if (res.code === 200) {
-      emit('change', res.data)
+    if (fileOption.file.size > UPLOAD_BIG_SIZE) {
+      refUploadFilesBig.value.handleFileUpload(fileOption.file)
     } else {
-      Message(res.message)
+      const file = new FormData()
+      file.append('file', fileOption.file)
+      let params: ParamsFileOther = {}
+      if (isPlainObject(props.params)) params = Object.assign(params, props.params)
+      params.staticPlace = props.type
+      const res = await uploadFile(file, params)
+      if (res.code === 200) {
+        emit('change', res.data)
+      } else {
+        Message(res.message)
+      }
     }
   }
 
@@ -78,6 +87,7 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
 
   return {
     refUpload,
+    refUploadFilesBig,
     _accept,
     _limit,
     onChange,

@@ -48,14 +48,14 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-      case 'add':
-        state.id = ''
-        state.parentCode = ''
-        state.show = true
-        return
-      case 'export':
-        // do something
-        return
+    case 'add':
+      state.id = ''
+      state.parentCode = ''
+      state.show = true
+      return
+    case 'export':
+      // do something
+      return
     }
   }
 

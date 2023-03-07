@@ -1,14 +1,16 @@
 <template>
   <div class="m-4 box">
-    <NovelNote :id="id" type="504"></NovelNote>
+    <Upload @change="handleChange" type="files_big"></Upload>
 
   </div>
 </template>
 
 <script setup lang="ts">
-import NovelNote from '@/views/components/NovelNote/index.vue'
+import Upload from '@/components/Upload/index.vue'
 
-const id = '9e232a68-d0db-45bd-8ba7-e29cc1b70921'
+const handleChange = (file) => {
+  console.log(file)
+}
 
 </script>
 

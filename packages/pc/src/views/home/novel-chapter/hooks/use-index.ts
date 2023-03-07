@@ -55,12 +55,12 @@ export const useIndex = () => {
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-      case 'add':
-        router.push({
-          name: 'NovelChapterAdd',
-          params: { _metaTitle: '章节新增', _refreshOne: '1', novelId: id }
-        })
-        return
+    case 'add':
+      router.push({
+        name: 'NovelChapterAdd',
+        params: { _metaTitle: '章节新增', _refreshOne: '1', novelId: id }
+      })
+      return
     }
   }
 
