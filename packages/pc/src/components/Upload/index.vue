@@ -46,7 +46,7 @@
       </template>
     </slot>
   </ElUpload>
-  <UploadFilesBig ref="refUploadFilesBig" @change="handleChangeFilesBig"></UploadFilesBig>
+  <UploadFilesBig ref="refUploadFilesBig" :type="type" @change="handleChangeFilesBig"></UploadFilesBig>
 </template>
 
 <script lang="ts" setup>

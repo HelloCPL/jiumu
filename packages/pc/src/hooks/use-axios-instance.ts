@@ -131,7 +131,7 @@ function _handleError(data: any, showErrorMessage?: boolean, message?: string | 
       message: <string>message || '请求发生错误'
     })
   }
-  console.error(data)
+  if (!(data && data.code === 'ERR_CANCELED')) console.error(data)
   return Promise.reject(data)
 }
 

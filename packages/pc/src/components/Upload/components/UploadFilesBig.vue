@@ -21,7 +21,7 @@
         ></ElProgress>
       </div>
       <div class="pt-2">
-        <ElButton type="danger">取消</ElButton>
+        <ElButton type="danger" @click="handleCancel(item)">取消</ElButton>
         <ElButton type="primary" @click="handleUpload(item)">
           {{ item.status === '1' ? '暂停上传' : '继续上传' }}
         </ElButton>
@@ -40,7 +40,7 @@ import { getFileSize } from '@/components/ShowFile/hooks/use-index'
 const props = defineProps(uploadFilesBigProps)
 const emit = defineEmits(uploadEmits)
 
-const { task, handleFileUpload, handleUpload } = useUploadFilesBig(props, emit)
+const { task, handleFileUpload, handleCancel, handleUpload } = useUploadFilesBig(props, emit)
 
 // 暴露方法
 defineExpose({

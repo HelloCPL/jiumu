@@ -7,8 +7,8 @@
 import { ref } from 'vue'
 import sparkMD5 from 'spark-md5'
 import axios, { CancelTokenSource } from 'axios'
-import { Message } from '@/utils/interaction'
-import { addFileChunk, mergeFileChunk, verifyFileChunk } from '@/api/file'
+import { Loading, Message } from '@/utils/interaction'
+import { addFileChunk, mergeFileChunk, verifyFileChunk, deleteFileChunk } from '@/api/file'
 import { UploadFilesBigProps, UploadEmits } from '../type'
 import { getRandomId } from '@jiumu/utils'
 
@@ -28,10 +28,14 @@ interface TaskOption {
 }
 
 const cancelToken = axios.CancelToken
-// 切片大小 100 KB
-const chunkSize = 1024 * 100
+// 切片大小 200 KB
+const CHUNK_SIZE = 1024 * 200
+// 文件大于 10 M 时显示切片加载
+const LOADING_SIZE = 1024 * 1024 * 10
 
 export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits) => {
+  let loading: any = null
+
   // 创建文件分片
   const createChunkList = (file: File, chunkSize: number): Blob[] => {
     const fileChunkList: Blob[] = []
@@ -80,8 +84,13 @@ export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits)
       Message('请选择文件')
       return
     }
-    const fileChunkList = createChunkList(file, chunkSize)
+    if (file.size > LOADING_SIZE) loading = Loading()
+    const fileChunkList = createChunkList(file, CHUNK_SIZE)
     const fileHash = <string>await createMD5(fileChunkList)
+    if (loading) {
+      loading.close()
+      loading = null
+    }
     const chunkFormData = fileChunkList
       .map((file, index) => {
         return {
@@ -178,9 +187,10 @@ export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits)
         const res = await mergeFileChunk({
           fileName: target.file.name,
           fileHash: target.fileHash,
-          chunkSize,
+          chunkSize: CHUNK_SIZE,
           chunkLength: target.chunkFormData.length,
-          fileSize: target.file.size
+          fileSize: target.file.size,
+          staticPlace: props.type
         })
         if (res.code === 200) {
           target.percent = 100
@@ -224,9 +234,28 @@ export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits)
     else continueUpload(index)
   }
 
+  // 取消上传
+  const handleCancel = async (target: TaskOption) => {
+    let index = -1
+    task.value.find((item, i) => {
+      if (item.id === target.id) {
+        index = i
+        return true
+      }
+    })
+    if (index !== -1) {
+      stopUpload(index)
+      const res = await deleteFileChunk(target.fileHash)
+      if (res.code === 200) {
+        task.value.splice(index, 1)
+      }
+    }
+  }
+
   return {
     task,
     handleFileUpload,
-    handleUpload
+    handleUpload,
+    handleCancel
   }
 }

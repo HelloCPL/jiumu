@@ -10,6 +10,9 @@ import { getSuffix } from '@jiumu/utils'
 import { uploadFile } from '@/api/file'
 import { isPlainObject } from 'lodash-es'
 
+// 超过 3 M 使用断点上传方式
+const UPLOAD_BIG_SIZE = 1024 * 1024 * 3
+
 export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const refUpload = ref<UploadInstance>()
   const refUploadFilesBig = ref<any>(null)
@@ -36,7 +39,7 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   }
   // 上传
   const httpRequest = async (fileOption: UploadRequestOptions) => {
-    if (props.type === 'files_big') {
+    if (fileOption.file.size > UPLOAD_BIG_SIZE) {
       refUploadFilesBig.value.handleFileUpload(fileOption.file)
     } else {
       const file = new FormData()
