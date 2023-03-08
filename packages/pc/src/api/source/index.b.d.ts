@@ -30,7 +30,7 @@ interface DataSource extends DataBase {
   isSecret: '0' | '1'
   isTop: '0' | '1'
   sort: number
-  type: string
+  type: '701' | '702' | '703'
   typeLabel: string
   createUser: string
   createUserName?: string

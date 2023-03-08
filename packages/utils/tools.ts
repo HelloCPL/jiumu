@@ -110,3 +110,40 @@ export const getDataDiff = <T extends DataDiff>(origin: T[], target: T[]): T[] =
   })
   return origin
 }
+
+/*
+ * 数字转中文
+ * 仅支持整数 最大万亿
+ */
+export const toChineseNum = (num: number): string => {
+  console.log(num)
+  let n: number = Number(num)
+  if (n === 0) return '零'
+  if (n) {
+    const list: string[] = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+    const nums: string[] = ['', '十', '百', '千', '万', '十', '百', '千', '亿', '十', '百', '千', '万']
+    let str: string = ''
+    let i = n % 10
+    let u = nums.shift()
+    let j = 1
+    while (n > 9) {
+      if (i === 0) {
+        if ((j - 1) % 4 === 0) {
+          str = u + str
+        } else {
+          str = list[i] + str
+        }
+      } else {
+        str = list[i] + u + str
+      }
+      i = n % 10
+      n = parseInt(n / 10)
+      u = nums.shift()
+      j++
+      console.log(i, n, u)
+    }
+    str = n === 0 ? list[n] + str : list[n] + u + str
+    console.log(str)
+  }
+  return ''
+}

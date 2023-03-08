@@ -3,6 +3,7 @@
  */
 
 import { App } from 'vue'
+import 'mermaid'
 import '@kangc/v-md-editor/lib/theme/style/github.css'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
 import '@kangc/v-md-editor/lib/style/preview-html.css'

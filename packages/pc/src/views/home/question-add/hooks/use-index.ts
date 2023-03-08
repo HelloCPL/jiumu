@@ -38,7 +38,7 @@ export const useIndex = () => {
 
   // 处理内容
   const handleChangeContent = (val: string) => {
-    if (val.length < 15) formRef.value?.validateField('content')
+    if (val.length < 15) formRef.value?.validateField('content').catch(() => {})
   }
 
   // 获取问答详情
@@ -102,41 +102,41 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '0'
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '0'
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'draft':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '1'
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+        })
+        break
+      case 'draft':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '1'
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (form.id) {
-          _delete(form.id)
-        } else {
-          router.back()
-        }
-      })
-      break
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (form.id) {
+            _delete(form.id)
+          } else {
+            router.back()
+          }
+        })
+        break
     }
   }
 

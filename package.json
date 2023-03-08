@@ -90,6 +90,7 @@
         "less": "3.0.4",
         "less-loader": "5.0.0",
         "lint-staged": "12.3.8",
+        "mermaid": "^10.0.2",
         "postcss": "^8.4.14",
         "postcss-nesting": "^10.1.10",
         "prettier": "2.6.2",
