@@ -31,7 +31,7 @@
         </template>
         <!-- 非内部文件 -->
         <template v-else>
-          <UploadSource></UploadSource>
+          <UploadSource v-model="attachmentList2"></UploadSource>
         </template>
       </ElFormItem>
       <ElRow class="flex">

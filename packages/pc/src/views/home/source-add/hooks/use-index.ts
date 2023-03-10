@@ -29,12 +29,13 @@ export const useIndex = () => {
     id: '',
     title: '',
     attachment: '',
-    type: '701',
+    type: '702',
     classify: '',
     isSecret: '0',
     sort: 1,
     remarks: ''
   })
+  const a = 1
 
   const rules = reactive<FormRules>({
     title: [{ required: true, trigger: 'change', message: '请输入标题' }],

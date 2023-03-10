@@ -55,7 +55,7 @@ interface DataSourceLink extends DataBase {
   coverImg1: DataBaseFile | null
   coverImg2: string
   sort: number
-  createUser: string
+  createUser?: string
 }
 
 // 获取所有公开的资源列表接口类型
@@ -79,12 +79,12 @@ interface ParamsSourceListByUserId extends ParamsSourceList {
 }
 
 // 资源的外部资源信息新增或编辑参数类型
-interface ParamsSourceLinkAdd {
+interface ParamsSourceLinkAdd extends ObjectAny {
   id?: string
   title: string
   link: string
   coverImg1?: string
   coverImg2?: string
-  sort?: number
+  sort: number
   remarks?: string
 }

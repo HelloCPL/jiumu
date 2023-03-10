@@ -103,17 +103,17 @@ export function handleTooltip() {
               }
             })
           }
-        },
-        {
-          text: '流程图',
-          action(editor: any) {
-            editor.insert(function () {
-              return {
-                text: '```mermaid\n graph LR\nA --- B\nB -->C[提示]\nB -->D(内容)\n```\n'
-              }
-            })
-          }
         }
+        // {
+        //   text: '流程图',
+        //   action(editor: any) {
+        //     editor.insert(function () {
+        //       return {
+        //         text: '```mermaid\n graph LR\nA --- B\nB -->C[提示]\nB -->D(内容)\n```\n'
+        //       }
+        //     })
+        //   }
+        // }
       ]
     }
   }

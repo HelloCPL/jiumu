@@ -12,24 +12,9 @@
 // const handleChange = (file) => {
 //   console.log(file)
 // }
-import {toChineseNum} from '@jiumu/utils'
 
 const hh = () => {
-  toChineseNum(10)
-  toChineseNum(100)
-  toChineseNum(1000)
-  toChineseNum(10000)
-  toChineseNum(100000)
-  toChineseNum(1000000)
-  toChineseNum(10000000)
-  toChineseNum(100000000)
-  toChineseNum(1000000000)
-  toChineseNum(10000000000)
-  toChineseNum(100000000000)
-  toChineseNum(1000000000000)
-  // toChineseNum(10000000000000)
-  toChineseNum(100000100)
-  toChineseNum(1002000)
+  
 }
 </script>
 

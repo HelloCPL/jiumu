@@ -115,35 +115,32 @@ export const getDataDiff = <T extends DataDiff>(origin: T[], target: T[]): T[] =
  * 数字转中文
  * 仅支持整数 最大万亿
  */
-export const toChineseNum = (num: number): string => {
-  console.log(num)
+export const toChineseNumber = (num: number): string => {
   let n: number = Number(num)
   if (n === 0) return '零'
   if (n) {
-    const list: string[] = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
-    const nums: string[] = ['', '十', '百', '千', '万', '十', '百', '千', '亿', '十', '百', '千', '万']
+    const arr1: string[] = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+    const arr2: string[] = ['', '十', '百', '千', '万', '十', '百', '千', '亿', '十', '百', '千', '万']
     let str: string = ''
-    let i = n % 10
-    let u = nums.shift()
-    let j = 1
+    let i = Math.floor(n % 10)
+    n = Math.floor(n / 10)
+    let u = arr2.shift()
     while (n > 9) {
-      if (i === 0) {
-        if ((j - 1) % 4 === 0) {
-          str = u + str
-        } else {
-          str = list[i] + str
-        }
-      } else {
-        str = list[i] + u + str
-      }
-      i = n % 10
-      n = parseInt(n / 10)
-      u = nums.shift()
-      j++
-      console.log(i, n, u)
+      str = arr1[i] + u + str
+      u = arr2.shift()
+      i = Math.floor(n % 10)
+      n = Math.floor(n / 10)
     }
-    str = n === 0 ? list[n] + str : list[n] + u + str
-    console.log(str)
+    if (n === 0) str = arr1[i] + u + str
+    else str = arr1[n] + arr2.shift() + arr1[i] + u + str
+    str = str
+      .replace(/零[十百千]/g, '零')
+      .replace(/零+/g, '零')
+      .replace(/零万/g, '万')
+      .replace(/零亿/g, '亿')
+      .replace(/^一十/, '十')
+      .replace(/零$/, '')
+    return str
   }
   return ''
 }
