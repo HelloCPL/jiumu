@@ -7,8 +7,9 @@ import { UploadSourceProps, UploadSourceEmit } from '../components/type'
 import { ref, watch } from 'vue'
 import { addSourceLink, updateSourceLink, deleteSourceLink } from '@/api/source'
 import validator from 'validator'
+import { slice, snakeCase } from 'lodash-es'
 
-export const useUploadSource = (props: UploadSourceProps, emit: UploadSourceEmit) => {
+export const useUploadSourceLink = (props: UploadSourceProps, emit: UploadSourceEmit) => {
   // 数据列表
   const dataList = ref<Array<DataSourceLink | ParamsSourceLinkAdd>>([])
 
@@ -21,14 +22,14 @@ export const useUploadSource = (props: UploadSourceProps, emit: UploadSourceEmit
     return i
   }
 
-  const linkTip = ref('请输入资源地址')
-  // 判断资源是否为真 并校验字段
+  const linkTip = ref('请输入链接地址')
+  // 判断链接是否为真 并校验字段
   const judgeSource = (index: number, type?: string): boolean => {
     const target = dataList.value[index]
     const isTitle = !target.title
     const isLink = !target.link || !validator.isURL(target.link)
-    if (!target.link) linkTip.value = '请输入资源地址'
-    else if (!validator.isURL(target.link)) linkTip.value = '资源地址格式错误'
+    if (!target.link) linkTip.value = '请输入链接地址'
+    else if (!validator.isURL(target.link)) linkTip.value = '链接地址格式错误'
     if (type === 'title') {
       target.titleError = isTitle
     } else if (type === 'link') {
@@ -98,6 +99,12 @@ export const useUploadSource = (props: UploadSourceProps, emit: UploadSourceEmit
         link: target.link,
         sort: target.sort
       }
+      const coverImg1 = <DataBaseFile>target.coverImg1
+      if (coverImg1 && coverImg1.id) {
+        params.coverImg1 = <string>coverImg1.id
+      } else if (target.coverImg2) {
+        params.coverImg2 = target.coverImg2
+      }
       if (target.id) {
         params.id = target.id
         const res = await updateSourceLink(params)
@@ -135,9 +142,32 @@ export const useUploadSource = (props: UploadSourceProps, emit: UploadSourceEmit
     { immediate: true, deep: true }
   )
 
+  // 封面图处理
+  const showCoverImg = ref<boolean>(false)
+  const targetCoverImgIndex = ref(0)
+  const handleClickCoverImg = (index: number) => {
+    targetCoverImgIndex.value = index
+    showCoverImg.value = true
+  }
+  const handleConfirmCoverImg = (file: DataBaseFile | string, type: '1' | '2') => {
+    if (type === '1') {
+      dataList.value[targetCoverImgIndex.value].coverImg1 = <DataBaseFile>file
+      dataList.value[targetCoverImgIndex.value].coverImg2 = ''
+    } else {
+      dataList.value[targetCoverImgIndex.value].coverImg1 = null
+      dataList.value[targetCoverImgIndex.value].coverImg2 = <string>file
+    }
+    handleBlur(targetCoverImgIndex.value)
+    showCoverImg.value = false
+  }
+
   return {
     linkTip,
     dataList,
+    showCoverImg,
+    targetCoverImgIndex,
+    handleClickCoverImg,
+    handleConfirmCoverImg,
     handleAddOne,
     handleDeleteOne,
     handleMove,

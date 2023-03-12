@@ -29,7 +29,7 @@ export const useIndex = () => {
     id: '',
     title: '',
     attachment: '',
-    type: '702',
+    type: '703',
     classify: '',
     isSecret: '0',
     sort: 1,
@@ -39,7 +39,7 @@ export const useIndex = () => {
 
   const rules = reactive<FormRules>({
     title: [{ required: true, trigger: 'change', message: '请输入标题' }],
-    attachment: [{ required: true, trigger: 'change', message: '请选择类型' }]
+    attachment: [{ required: true, trigger: 'change', message: '请上传资源' }]
   })
 
   // 处理附件
@@ -61,12 +61,23 @@ export const useIndex = () => {
     }
   }
   const resetAttachment = (data: Array<DataBaseFile | DataSourceLink>) => {
-    form.attachment = data.map((item) => item.id).join(',')
+    form.attachment = data
+      .filter((item) => item.id)
+      .map((item) => item.id)
+      .join(',')
     formRef.value?.validateField('attachment').catch(() => {})
   }
   const handleChangeAttachment1 = (files: Array<DataBaseFile>) => {
     attachmentList1.value = getDataDiff(attachmentList1.value, files)
     resetAttachment(attachmentList1.value)
+  }
+  const handleChangeAttachment2 = (files: Array<DataSourceLink>) => {
+    attachmentList2.value = files
+    resetAttachment(attachmentList2.value)
+  }
+  const handleChangeAttachment3 = (files: Array<DataSourceLink>) => {
+    attachmentList3.value = files
+    resetAttachment(attachmentList3.value)
   }
 
   // 获取文章详情
@@ -174,6 +185,8 @@ export const useIndex = () => {
     handleChangeType,
     resetAttachment,
     handleChangeAttachment1,
+    handleChangeAttachment2,
+    handleChangeAttachment3,
     changeBtn
   }
 }

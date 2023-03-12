@@ -1,5 +1,5 @@
 <!--
-  @describe 外部文件/外部资源
+  @describe 外部文件/外部链接
   @author cpl
   @create 2023-03-08 10:54:37
 -->
@@ -7,7 +7,36 @@
 <template>
   <div class="w-full">
     <div class="flex pt-2 source-box" v-for="(item, index) in dataList" :key="item.id || index">
-      <span class="w-24 text-sm text-lighter pt-3">外部资源{{ toChineseNumber(index + 1) }}</span>
+      <span class="w-24 text-sm text-lighter pt-3">外部链接{{ toChineseNumber(index + 1) }}</span>
+      <div class="pt-3 mr-4">
+        <div
+          class="w-20 h-20 flex flex-col items-center justify-center border-1 border-dashed cursor-pointer"
+          @click="handleClickCoverImg(index)"
+        >
+          <template v-if="item.coverImg1 || item.coverImg2">
+            <ElImage
+              class="w-full h-full rounded"
+              :src="item.coverImg1.filePath"
+              lazy
+              fit="cover"
+              v-if="<DataBaseFile>item.coverImg1 && item.coverImg1.id"
+            ></ElImage>
+            <ElImage
+              class="w-full h-full rounded"
+              :src="item.coverImg2"
+              lazy
+              fit="cover"
+              v-else-if="item.coverImg2"
+            ></ElImage>
+          </template>
+          <template v-else>
+            <ElIcon>
+              <Plus />
+            </ElIcon>
+            <span class="text-xs text-lighter mt-2">封面图</span>
+          </template>
+        </div>
+      </div>
       <div class="w-3/5 mr-4">
         <div class="pb-4 mt-2 relative" :class="{ 'source-box-error': item.titleError }">
           <ElInput
@@ -19,13 +48,13 @@
             @blur="handleBlur(index, 'title')"
           ></ElInput>
           <span class="absolute bottom-0 left-0 text-xs text-danger" v-if="item.titleError">
-            请输入资源标题
+            请输入链接标题
           </span>
         </div>
         <div class="pb-4 mt-2 relative" :class="{ 'source-box-error': item.linkError }">
           <ElInput
             type="text"
-            placeholder="请输入资源地址"
+            placeholder="请输入链接地址"
             :validate-event="false"
             :model-value="item.link"
             @update:model-value="updateModelValue($event, index, 'link')"
@@ -68,21 +97,42 @@
         <span class="ml-1">新增</span>
       </span>
     </div>
+
+    <!-- 封面图上传组件 -->
+    <CoverImg
+      v-if="showCoverImg"
+      :cover-img1="<DataBaseFile>dataList[targetCoverImgIndex].coverImg1"
+      :cover-img2="dataList[targetCoverImgIndex].coverImg2"
+      @close="showCoverImg = false"
+      @confirm="handleConfirmCoverImg"
+    ></CoverImg>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { toChineseNumber } from '@jiumu/utils'
-import { ElIcon, ElInput } from 'element-plus'
-import { RemoveFilled, Top, Bottom, CirclePlusFilled } from '@element-plus/icons-vue'
+import { ElIcon, ElInput, ElImage } from 'element-plus'
+import { Plus, RemoveFilled, Top, Bottom, CirclePlusFilled } from '@element-plus/icons-vue'
 import { uploadSourceProps, uploadSourceEmit } from './type'
-import { useUploadSource } from '../hooks/use-upload-source'
+import { useUploadSourceLink } from '../hooks/use-upload-source-link'
+import CoverImg from './CoverImg.vue'
 
 const props = defineProps(uploadSourceProps)
 const emit = defineEmits(uploadSourceEmit)
 
-const { linkTip, dataList, handleAddOne, handleDeleteOne, handleMove, updateModelValue, handleBlur } =
-  useUploadSource(props, emit)
+const {
+  linkTip,
+  dataList,
+  showCoverImg,
+  targetCoverImgIndex,
+  handleClickCoverImg,
+  handleConfirmCoverImg,
+  handleAddOne,
+  handleDeleteOne,
+  handleMove,
+  updateModelValue,
+  handleBlur
+} = useUploadSourceLink(props, emit)
 </script>
 
 <style lang="scss">

@@ -66,4 +66,12 @@ html {
   .el-tag--large {
     line-height: 32px;
   }
+
+  .el-image__error {
+    font-size: var(--jm-font-size-small-extra);
+  }
+
+  .el-overlay {
+    z-index: 99 !important;
+  }
 }

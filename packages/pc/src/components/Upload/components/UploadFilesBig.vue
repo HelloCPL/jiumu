@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full border">
+  <div :class="{ 'w-full': task.length }">
     <div class="flex mt-4 pb-4 border-b-1 border-lighter" v-for="(item, index) in task" :key="item.id">
       <FileIcon :value="item.file.name" class="w-16 h-16 mr-4"></FileIcon>
       <div class="w-1/2 mr-12 big-content">
@@ -13,12 +13,12 @@
           <div class="text-light">{{ item.file.name }}</div>
           <div class="text-xs text-lighter mt-1">{{ getFileSize(item.file.size) }}</div>
         </div>
-        <ElProgress
-          :text-inside="false"
-          :stroke-width="4"
-          :percentage="item.percent"
-          class="mt-2"
-        ></ElProgress>
+        <ElProgress :text-inside="false" :stroke-width="4" :percentage="item.percent" class="mt-2">
+          <span class="text-sm text-lighter pl-1">
+            <span class="pr-1" v-if="item.status === '0'">已暂停</span>
+            <span>{{ item.percent }}%</span>
+          </span>
+        </ElProgress>
       </div>
       <div class="pt-2">
         <ElButton type="danger" @click="handleCancel(item)">取消</ElButton>

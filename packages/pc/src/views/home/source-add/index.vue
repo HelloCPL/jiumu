@@ -11,6 +11,7 @@
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
       </ElFormItem>
       <ElFormItem label="资源" prop="attachment">
+        <span class="text-sm text-lighter w-20">资源类型</span>
         <ElRadioGroup v-model="form.type" @change="handleChangeType">
           <ElRadio label="701">内部文件</ElRadio>
           <ElRadio label="702">外部资源</ElRadio>
@@ -19,7 +20,6 @@
         <template v-if="form.type === '701'">
           <ElRow class="w-full block mt-2">
             <Upload
-              v-model="attachmentList1"
               @change="handleChangeAttachment1"
               type="files_big"
               :limit="9"
@@ -29,9 +29,13 @@
           </ElRow>
           <ShowFile v-model="attachmentList1" is-delete class="mt-2" @change="resetAttachment"></ShowFile>
         </template>
-        <!-- 非内部文件 -->
-        <template v-else>
-          <UploadSource v-model="attachmentList2"></UploadSource>
+        <!--  外部文件/外部资源 -->
+        <template v-else-if="form.type === '702'">
+          <UploadSource :value="attachmentList2" @change="handleChangeAttachment2"> </UploadSource>
+        </template>
+        <!-- 外部文件/外部链接 -->
+        <template v-else-if="form.type === '703'">
+          <UploadSourceLink :value="attachmentList3" @change="handleChangeAttachment3"> </UploadSourceLink>
         </template>
       </ElFormItem>
       <ElRow class="flex">
@@ -62,6 +66,7 @@ import SelectClassify from '@/components/SelectClassify/index.vue'
 import Upload from '@/components/Upload/index.vue'
 import ShowFile from '@/components/ShowFile/index.vue'
 import UploadSource from './components/UploadSource.vue'
+import UploadSourceLink from './components/UploadSourceLink.vue'
 
 defineOptions({
   name: 'SourceAdd'
@@ -78,6 +83,8 @@ const {
   handleChangeType,
   resetAttachment,
   handleChangeAttachment1,
+  handleChangeAttachment2,
+  handleChangeAttachment3,
   changeBtn
 } = useIndex()
 </script>
