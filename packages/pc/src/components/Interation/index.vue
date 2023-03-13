@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div v-if="modelValue.isDraft === '0'" class="w-full flex items-center py-4">
+  <div v-if="modelValue.isDraft !== '1'" class="w-full flex items-center py-4">
     <!-- 点赞  -->
     <div
       class="flex items-center py-2 px-3 rounded text-sm cursor-pointer mr-8 border-primary border-1"
@@ -61,7 +61,7 @@ type Props = {
     id: string
     isLike: '1' | '0'
     isCollection: '1' | '0'
-    isDraft: '1' | '0'
+    isDraft?: '1' | '0'
     likeCount: number
     collectionCount: number
     [x: string]: any

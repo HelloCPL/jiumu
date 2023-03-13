@@ -14,8 +14,8 @@
         <span class="text-sm text-lighter w-20">资源类型</span>
         <ElRadioGroup v-model="form.type" @change="handleChangeType">
           <ElRadio label="701">内部文件</ElRadio>
-          <ElRadio label="702">外部资源</ElRadio>
           <ElRadio label="703">外部链接</ElRadio>
+          <ElRadio label="702">外部资源</ElRadio>
         </ElRadioGroup>
         <template v-if="form.type === '701'">
           <ElRow class="w-full block mt-2">

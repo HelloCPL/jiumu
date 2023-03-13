@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full py-4 border-t-1" v-if="modelValue && modelValue.isDraft === '0'">
+  <div class="w-full py-4 border-t-1" v-if="modelValue && modelValue.isDraft !== '1'">
     <!-- 发表评论  -->
     <div class="text-lg flex items-center">
       <span>评论</span>

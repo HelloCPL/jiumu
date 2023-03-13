@@ -32,3 +32,10 @@ declare global {
     luckysheet: any
   }
 }
+
+// 全局组件声明
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    GRichText: typeof import('./src/components/global/RichText/index.vue')['default']
+  }
+}

@@ -29,13 +29,12 @@ export const useIndex = () => {
     id: '',
     title: '',
     attachment: '',
-    type: '703',
+    type: '701',
     classify: '',
     isSecret: '0',
     sort: 1,
     remarks: ''
   })
-  const a = 1
 
   const rules = reactive<FormRules>({
     title: [{ required: true, trigger: 'change', message: '请输入标题' }],
@@ -43,7 +42,6 @@ export const useIndex = () => {
   })
 
   // 处理附件
-  const attachmentList = ref<Array<DataBaseFile | DataSourceLink>>([])
   // 内部文件
   const attachmentList1 = ref<Array<DataBaseFile>>([])
   // 外部文件/图片链接来源

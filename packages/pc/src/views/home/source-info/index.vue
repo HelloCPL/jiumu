@@ -5,11 +5,90 @@
 -->
 
 <template>
-  <div>SourceInfo</div>
+  <div class="w-full">
+    <div class="w-full bg-white shadow p-6 info-container" v-if="dataInfo">
+      <div class="text-xl font-bold">{{ dataInfo.title }}标题</div>
+      <!-- 资源信息 -->
+      <div class="w-full border bg py-3 pl-10 pr-3 relative mt-4">
+        <div class="text-light">
+          <span
+            class="mr-4 hover:text-primary cursor-pointer"
+            @click="toPage((dataInfo as DataSource).createUser)"
+          >
+            {{ dataInfo.createUserName }}
+          </span>
+        </div>
+        <div class="w-full mt-3 flex items-center justify-between text-lighter text-sm">
+          <div>
+            <div v-if="dataInfo.classify && dataInfo.classify.length">
+              <span>标签：</span>
+              <ElTag round size="small" class="ml-2" v-for="item in dataInfo.classify" :key="item.id">
+                {{ item.label }}
+              </ElTag>
+            </div>
+          </div>
+          <div class="flex">
+            <span class="flex items-center mr-4">
+              <IconSvg name="time"></IconSvg>
+              <span class="ml-1"> {{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD hh:mm') }}</span>
+            </span>
+            <span class="flex items-center">
+              <IconSvg name="source"></IconSvg>
+              <span class="ml-1">{{ dataInfo.terminal }}</span>
+            </span>
+          </div>
+        </div>
+        <div class="absolute top-0 right-0">
+          <ElTag effect="dark" size="small" disable-transitions type="danger" v-if="isHot">热门</ElTag>
+          <ElTag effect="dark" size="small" disable-transitions class="ml-2" v-if="dataInfo.isTop === '1'">
+            置顶
+          </ElTag>
+        </div>
+      </div>
+      <!-- 文件 -->
+      <ShowFile
+        :model-value="<DataBaseFile[]>dataInfo.attachment"
+        v-if="dataInfo.type === '701'"
+        class="mt-4"
+      ></ShowFile>
+      <!-- 备注 -->
+      <div class="mt-4 text-sm text-lighter">{{ dataInfo.remarks }}对对对</div>
+      <!-- 点赞收藏 -->
+      <Interation v-model="dataInfo" type="503" class="mt-4"></Interation>
+      <!-- 评论列表 -->
+      <Comment
+        v-model="dataInfo"
+        :id="dataInfo.id"
+        type="505"
+        :comment-count="dataInfo.commentCount"
+      ></Comment>
+    </div>
+    <!-- 关于我们 -->
+    <AboutUs></AboutUs>
+  </div>
 </template>
 
 <script lang="ts" setup>
+import { ElTag } from 'element-plus'
+import { useIndex } from './hooks/use-index'
+import { formatDate } from '@jiumu/utils'
+import Interation from '@/components/Interation/index.vue'
+import Comment from '@/components/Comment/index.vue'
+import AboutUs from '@/components/AboutUs/index.vue'
+import IconSvg from '@/components/IconSvg/index'
+import ShowFile from '@/components/ShowFile/index.vue'
+
 defineOptions({
   name: 'SourceInfo'
 })
+
+const { dataInfo, isHot, toPage } = useIndex()
 </script>
+
+<style lang="scss" scoped>
+.info-container {
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+</style>

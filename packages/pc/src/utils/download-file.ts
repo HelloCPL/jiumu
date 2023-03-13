@@ -19,7 +19,9 @@ export const downloadFile = (file: DataBaseFile) => {
 
 // 保存文件
 function _saveFile(blob: Blob, fileName: string) {
+  // @ts-ignore
   if (window.navigator.msSaveOrOpenBlob) {
+    // @ts-ignore
     navigator.msSaveBlob(blob, fileName)
   } else {
     const link: HTMLAnchorElement = document.createElement('a')

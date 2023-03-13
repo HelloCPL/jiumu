@@ -9,7 +9,7 @@
     v-model="isShow"
     append-to-body
     destroy-on-close
-    class="dialog-wrapper shadow-lg"
+    custom-class="dialog-wrapper shadow-lg"
     :draggable="draggable"
     :width="width"
     :open-delay="50"

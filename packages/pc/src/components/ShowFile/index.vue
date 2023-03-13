@@ -41,7 +41,7 @@
         <span
           class="flex items-center cursor-pointer mr-3 text-sm text-lighter hover:text-primary"
           @click="handleDelete(item, index)"
-          v-if="isDelete || true"
+          v-if="isDelete"
         >
           <ElIcon>
             <Delete />

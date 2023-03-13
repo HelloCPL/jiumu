@@ -33,7 +33,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="资源类型" min-width="90" />
+      <ElTableColumn prop="typeLabel" label="资源类型" min-width="170" />
       <ElTableColumn label="标签" min-width="100">
         <template #default="{ row }">
           <span v-if="row.classify">
@@ -97,7 +97,7 @@ defineOptions({
 const { keyword, isSecret, type, classify, pageNo, pageSize, total, data, getDataList, handleReset } =
   useIndex()
 
-const { btnList, handleBtn, handleEdit, handleDelete, handleTop, handleShowInfo } = useIndexInfo({
+const { btnList, handleBtn, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })
 </script>

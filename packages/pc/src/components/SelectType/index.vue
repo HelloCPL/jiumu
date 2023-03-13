@@ -32,36 +32,15 @@
 import { getTagCustomListSelf } from '@/api/classify'
 import { getTagByParentCode } from '@/api/tag'
 import { ElSelect, ElOption } from 'element-plus'
-import { PropType, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+import { selectTypeProps, selectTypeEmit } from './type'
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number, Boolean],
-    default: ''
-  },
-  // 选择类型 type 类型 classify 标签 isSecret 是否公开
-  type: {
-    type: String as PropType<'type' | 'classify' | 'isSecret'>,
-    default: 'type'
-  },
-  // 父级code 仅  type 为 type classify 需要
-  parentCode: {
-    type: String,
-    default: ''
-  },
-  clearable: {
-    type: Boolean,
-    default: true
-  },
-  placeholder: {
-    type: String,
-    default: ''
-  }
-})
-const emit = defineEmits(['update:modelValue'])
+const props = defineProps(selectTypeProps)
+const emit = defineEmits(selectTypeEmit)
 
 const updateModelValue = (val: any) => {
   emit('update:modelValue', val)
+  emit('change', val)
 }
 
 // 类型
@@ -70,9 +49,27 @@ const getTypeList = async () => {
   const type = props.parentCode || '300'
   const res = await getTagByParentCode(type)
   if (res.code === 200) {
-    typeList.value = res.data
+    typeList.value = handleFilterCodes(res.data)
   }
 }
+
+// 过滤指定的codes
+const handleFilterCodes = (data: DataTag[]): DataTag[] => {
+  const codes = props.filterCodes.split(',').filter((val) => val)
+  if (!props.filterCodes || !codes.length) return data
+  const _find = (code: string): boolean => {
+    let flag = false
+    codes.find((val) => {
+      if (val === code) {
+        flag = true
+        return flag
+      }
+    })
+    return flag
+  }
+  return data.filter((item) => _find(item.code))
+}
+
 // 标签
 const classifyList = ref<DataTagCustom[]>([])
 const getClassifyList = async () => {
@@ -96,18 +93,18 @@ const getIsSecretList = () => {
 const _placeholder = ref('')
 onMounted(() => {
   switch (props.type) {
-  case 'type':
-    getTypeList()
-    _placeholder.value = props.placeholder || '请选择类型'
-    break
-  case 'classify':
-    getClassifyList()
-    _placeholder.value = props.placeholder || '请选择标签'
-    break
-  case 'isSecret':
-    getIsSecretList()
-    _placeholder.value = props.placeholder || '请选择是否公开'
-    break
+    case 'type':
+      getTypeList()
+      _placeholder.value = props.placeholder || '请选择类型'
+      break
+    case 'classify':
+      getClassifyList()
+      _placeholder.value = props.placeholder || '请选择标签'
+      break
+    case 'isSecret':
+      getIsSecretList()
+      _placeholder.value = props.placeholder || '请选择是否公开'
+      break
   }
 })
 </script>
