@@ -7,7 +7,7 @@
 <template>
   <div class="w-full">
     <div
-      class="w-full flex items-center mb-3 show-file-wrapper"
+      class="w-full flex items-center mb-4 show-file-wrapper"
       v-for="(item, index) in modelValue"
       :key="item.id"
     >

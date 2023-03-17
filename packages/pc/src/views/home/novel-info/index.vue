@@ -98,7 +98,7 @@
         </div>
       </div>
       <!-- 备注 -->
-      <div class="text-sm text-lighter">{{ dataInfo.remarks }}</div>
+      <div class="text-sm text-lighter" v-if="dataInfo.remarks">{{ dataInfo.remarks }}</div>
       <!-- 点赞收藏 -->
       <Interation v-model="dataInfo" type="504" class="mt-4"></Interation>
       <!-- 评论列表 -->

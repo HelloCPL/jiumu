@@ -51,8 +51,18 @@
         v-if="dataInfo.type === '701'"
         class="mt-4"
       ></ShowFile>
+      <ShowSource
+        v-else-if="dataInfo.type === '702'"
+        :data="<DataSourceLink[]>dataInfo.attachment"
+        class="mt-4"
+      ></ShowSource>
+      <ShowSourceLink
+        v-else-if="dataInfo.type === '703'"
+        :data="<DataSourceLink[]>dataInfo.attachment"
+        class="mt-4"
+      ></ShowSourceLink>
       <!-- 备注 -->
-      <div class="mt-4 text-sm text-lighter">{{ dataInfo.remarks }}对对对</div>
+      <div class="mt-4 text-sm text-lighter" v-if="dataInfo.remarks">{{ dataInfo.remarks }}</div>
       <!-- 点赞收藏 -->
       <Interation v-model="dataInfo" type="503" class="mt-4"></Interation>
       <!-- 评论列表 -->
@@ -77,6 +87,8 @@ import Comment from '@/components/Comment/index.vue'
 import AboutUs from '@/components/AboutUs/index.vue'
 import IconSvg from '@/components/IconSvg/index'
 import ShowFile from '@/components/ShowFile/index.vue'
+import ShowSource from './components/ShowSource.vue'
+import ShowSourceLink from './components/ShowSourceLink.vue'
 
 defineOptions({
   name: 'SourceInfo'

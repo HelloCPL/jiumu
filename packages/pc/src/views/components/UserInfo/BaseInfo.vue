@@ -40,9 +40,9 @@
       <ElCol :span="16" class="mb-2">职业：{{ userInfo.professional }}</ElCol>
       <ElCol :span="16" class="mb-2">地址：{{ userInfo.address }}</ElCol>
       <ElCol :span="16">备注：{{ userInfo.remarks }}</ElCol>
-      <span class="absolute right-1 bottom-1 text-sm text-primary cursor-pointer update-word" @click="toEdit"
-      >修改</span
-      >
+      <span class="absolute right-1 bottom-1 text-sm text-primary cursor-pointer update-word" @click="toEdit">
+        修改
+      </span>
     </template>
     <!-- 基本信息修改 -->
     <template v-else>
@@ -73,10 +73,10 @@
         <ElFormItem label="备注">
           <ElInput v-model="form.remarks" type="textarea"></ElInput>
         </ElFormItem>
-        <!-- <ElFormItem>
+        <ElFormItem>
           <ElButton type="primary" size="small" @click="save">保存</ElButton>
           <ElButton size="small" @click="showEdit = false">取消</ElButton>
-        </ElFormItem> -->
+        </ElFormItem>
       </ElForm>
     </template>
   </ElRow>
@@ -104,6 +104,7 @@ import { updateUserBaseSelf } from '@/api/user'
 const userStore = useUserStore()
 // const { userInfo } = storeToRefs(userStore)
 const userInfo = <DataUserInfo>userStore.userInfo
+console.log('userInfo222', userInfo, userInfo.username)
 
 const showEdit = ref<boolean>(false)
 
@@ -118,12 +119,12 @@ const form = reactive({
 
 // 去修改
 const toEdit = () => {
-  form.username = userInfo.value.username
-  form.sex = userInfo.value.sex
-  form.birthday = userInfo.value.birthday
-  form.professional = userInfo.value.professional
-  form.address = userInfo.value.address
-  form.remarks = userInfo.value.remarks
+  form.username = userInfo.username
+  form.sex = userInfo.sex
+  form.birthday = userInfo.birthday
+  form.professional = userInfo.professional
+  form.address = userInfo.address
+  form.remarks = userInfo.remarks
   showEdit.value = true
 }
 

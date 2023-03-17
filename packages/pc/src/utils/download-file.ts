@@ -8,17 +8,22 @@ import { useUserStore } from '@/store'
 import { isPlainObject } from 'lodash-es'
 import { Message } from './interaction'
 
+interface ParamsFile {
+  filePath: string
+  fileName: string
+}
+
 /**
  * 文件下载
  */
-export const downloadFile = (file: DataBaseFile) => {
+export function downloadFile<T extends ParamsFile = DataBaseFile>(file: T) {
   getFileBlod(file.filePath, {}).then((data) => {
     _saveFile(data, file.fileName)
   })
 }
 
 // 保存文件
-function _saveFile(blob: Blob, fileName: string) {
+export function _saveFile(blob: Blob, fileName: string) {
   // @ts-ignore
   if (window.navigator.msSaveOrOpenBlob) {
     // @ts-ignore

@@ -15,7 +15,7 @@ interface KeyId<T = string, U = string> extends ObjectAny {
   id: U
 }
 
-interface ValueLabel<T = string, U = string> extends ObjectAny {
+interface ValueLabel<T extends any = string, U = string> extends ObjectAny {
   value: T
   label: U
 }
