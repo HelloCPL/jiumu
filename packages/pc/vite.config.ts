@@ -3,6 +3,7 @@ import Vue from '@vitejs/plugin-vue'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const path = require('path')
 const pathSrc = path.resolve(__dirname, 'src')
@@ -13,7 +14,7 @@ export default defineConfig(({ mode }) => {
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
   return {
-    plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus()],
+    plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus(), visualizer()],
     resolve: {
       alias: {
         '@': pathSrc
