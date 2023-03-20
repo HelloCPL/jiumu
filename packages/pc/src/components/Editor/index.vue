@@ -35,7 +35,6 @@
       @change="change"
       v-else-if="type === '402'"
     ></EditorMd>
-    <EditorAoMao v-else-if="type === '403'"></EditorAoMao>
   </div>
 </template>
 
@@ -43,7 +42,6 @@
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import EditorWang from './components/EditorWang/index.vue'
 import EditorMd from './components/EditorMd/index.vue'
-import EditorAoMao from './components/EditorAoMao/index.vue'
 import { editorProps, editorEmits } from './type'
 import { useIndex } from './index'
 

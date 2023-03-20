@@ -4,6 +4,7 @@ import DefineOptions from 'unplugin-vue-define-options/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
+import viteCompression from 'vite-plugin-compression'
 
 const path = require('path')
 const pathSrc = path.resolve(__dirname, 'src')
@@ -14,7 +15,7 @@ export default defineConfig(({ mode }) => {
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
   return {
-    plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus(), visualizer()],
+    plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus(), visualizer(), viteCompression],
     resolve: {
       alias: {
         '@': pathSrc
@@ -56,6 +57,19 @@ export default defineConfig(({ mode }) => {
           javascriptEnabled: true
         }
       }
+    },
+    // 打包优化
+    build: {
+      target: 'esnext'
+      // rollupOptions: {
+      //   output: {
+      //     manualChunks: {
+      //       vue: ['vue', 'vue-router'],
+      //       pinia: ['pinia'],
+      //       elementPlus: ['element-plus']
+      //     }
+      //   }
+      // }
     }
   }
 })

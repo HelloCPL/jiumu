@@ -59,3 +59,9 @@
   - 有关颜色的变量使用遵循 `element-plus` 颜色变量规则
 
 
+- 项目优化
+原始 9.16M
+
+移除 aomao 7.43M (1.73M)
+
+`vite-plugin-compression` 优化 7.41M (0.02M)

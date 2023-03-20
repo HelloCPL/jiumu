@@ -9,7 +9,7 @@ import { ExtractPropTypes, PropType } from 'vue'
 export const editorProps = buildProps({
   // 其余参数看对应富文本编辑组件参数
   type: {
-    // 编辑器类型 401 wangEditor富文本编辑器 402 Markdown 编辑器 403 AoMaoEditor
+    // 编辑器类型 401 wangEditor富文本编辑器 402 Markdown 编辑器 403 AoMaoEditor(已废除)
     type: String as PropType<'401' | '402' | '403'>,
     default: '401'
   },
