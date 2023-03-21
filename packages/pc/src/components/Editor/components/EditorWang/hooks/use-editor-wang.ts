@@ -11,14 +11,7 @@
 7. 增加预览显示
 */
 
-import {
-  IDomEditor,
-  Toolbar,
-  DomEditor,
-  createEditor,
-  createToolbar,
-  IEditorConfig
-} from '@wangeditor/editor'
+import { IDomEditor, Toolbar, createEditor, createToolbar } from '@wangeditor/editor'
 import { onMounted, nextTick, watch, onUnmounted, ref } from 'vue'
 import { EditorWangProps, EditorWangEmits } from '../type'
 import { getToolbarConfig, getEditorConfig } from './handle-editor-wang-config'
@@ -28,7 +21,7 @@ import gsap from 'gsap'
 
 export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id: string) => {
   // 获取配置
-  const toolbarConfig = getToolbarConfig(props.toolbarConfig, id)
+  const toolbarConfig = getToolbarConfig(props.toolbarConfig)
   const { originFiles, editorConfig } = getEditorConfig(props)
 
   let editor: IDomEditor | null = null

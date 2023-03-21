@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
   return {
-    plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus(), visualizer(), viteCompression],
+    plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus(), visualizer(), viteCompression()],
     resolve: {
       alias: {
         '@': pathSrc
@@ -60,16 +60,19 @@ export default defineConfig(({ mode }) => {
     },
     // 打包优化
     build: {
-      target: 'esnext'
-      // rollupOptions: {
-      //   output: {
-      //     manualChunks: {
-      //       vue: ['vue', 'vue-router'],
-      //       pinia: ['pinia'],
-      //       elementPlus: ['element-plus']
-      //     }
-      //   }
-      // }
+      target: 'esnext',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            Vue: ['vue', 'vue-router'],
+            VuePdfEmbed: ['vue-pdf-embed'],
+            Vue3Pdf3: ['vue3-pdfjs'],
+            // DocxPreview: ['docx-preview'],
+            VMdEditor: ['@kangc/v-md-editor'],
+            WangEditor: ['@wangeditor/editor']
+          }
+        }
+      }
     }
   }
 })

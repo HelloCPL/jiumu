@@ -8,7 +8,7 @@ import { EditorWangProps } from '../type'
 import { editorWangCustom } from './editor-wang-custom'
 
 // 工具栏配置
-export const getToolbarConfig = (config: Partial<IToolbarConfig>, id: string): Partial<IToolbarConfig> => {
+export const getToolbarConfig = (config: Partial<IToolbarConfig>): Partial<IToolbarConfig> => {
   const toolbarConfig: Partial<IToolbarConfig> = {
     toolbarKeys: [
       'undo',
