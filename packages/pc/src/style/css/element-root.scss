@@ -88,16 +88,26 @@
   // 字体类型
   --el-font-family: var(--jm-font-family);
 
+  // 宽度
+  .el-radio {
+    --el-radio-input-width: var(--jm-font-size);
+    --el-radio-input-height: var(--jm-font-size);
+  }
+
+
   // 特殊
   .el-pagination {
     --el-pagination-font-size: var(--jm-font-size);
   }
+
   .el-select {
     --el-select-input-font-size: var(--jm-font-size);
   }
+
   .el-dialog {
     --el-dialog-content-font-size: var(--jm-font-size);
   }
+
   .el-tag {
     --el-tag-font-size: var(--jm-font-size-small-extra);
   }

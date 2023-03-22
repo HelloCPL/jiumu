@@ -3,18 +3,25 @@
     <!-- <Upload @change="handleChange" type="files_big"></Upload> -->
     <button @click="hh">按钮</button>
 
+    <!-- 用户信息 -->
+    <UserInfo @close="isShowUserInfo = false" v-if="isShowUserInfo"></UserInfo>
   </div>
 </template>
 
 <script setup lang="ts">
 // import Upload from '@/components/Upload/index.vue'
+import UserInfo from '../components/UserInfo/index.vue'
+import EditBaseInfo from '../components/UserInfo/components/EditBaseInfo.vue'
+import {ref} from 'vue'
+
+const isShowUserInfo = ref<boolean>(false)
 
 // const handleChange = (file) => {
 //   console.log(file)
 // }
 
 const hh = () => {
-  
+  isShowUserInfo.value = true
 }
 </script>
 

@@ -46,7 +46,12 @@
       </template>
     </slot>
   </ElUpload>
-  <UploadFilesBig ref="refUploadFilesBig" :type="type" @change="handleChangeFilesBig"></UploadFilesBig>
+  <UploadFilesBig
+    ref="refUploadFilesBig"
+    :type="type"
+    @change="handleChangeFilesBig"
+    v-if="uploadType === 'files_big' || uploadType === 'auto'"
+  ></UploadFilesBig>
 </template>
 
 <script lang="ts" setup>

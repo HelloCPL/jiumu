@@ -15,6 +15,11 @@ export const uploadProps = buildProps({
     type: String as PropType<'images' | 'files' | 'videos' | 'files_big'>,
     default: 'images'
   },
+  uploadType: {
+    // 文件上传模式 auto 自动 files 普通方式 files_big 断点上传
+    type: String as PropType<'auto' | 'files' | 'files_big'>,
+    default: 'auto'
+  },
   accept: {
     // 文件类型
     type: String,

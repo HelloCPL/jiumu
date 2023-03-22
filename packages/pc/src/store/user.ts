@@ -118,9 +118,8 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
   },
   storage: {
     enabled: true,
-    type: 'local',
     encrypt: true,
-    expire: import.meta.env.VITE_HOME_EXPIRE,
-    keys: ['token', 'tokenRefresh', 'menus']
+    expire: import.meta.env.VITE_HOME_EXPIRE
+    // keys: ['token', 'tokenRefresh', 'menus']
   }
 })

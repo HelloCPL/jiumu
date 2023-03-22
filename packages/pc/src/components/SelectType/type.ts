@@ -28,6 +28,7 @@ export const selectTypeProps = buildProps({
     type: String,
     default: ''
   },
+  // 是否显示清除按钮
   clearable: {
     type: Boolean,
     default: true
@@ -35,6 +36,16 @@ export const selectTypeProps = buildProps({
   placeholder: {
     type: String,
     default: ''
+  },
+  // 显示样式
+  showType: {
+    type: String as PropType<'select' | 'radio'>,
+    default: 'select'
+  },
+  // 自定义选择数据列表 不传时根据 type 采用默认的数据
+  data: {
+    type: Array as PropType<ValueLabel[]>,
+    default: () => []
   }
 } as const)
 

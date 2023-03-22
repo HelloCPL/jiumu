@@ -11,52 +11,33 @@
     <div class="flex items-center">
       <img :src="$STATIC_URL + 'pc/images/jiumu.png'" class="w-10" alt="" />
       <span class="pl-2 text-lg text-white-8">
-        管理系统平台{{ VITE_MODE === 'prod' ? '' : '（测试环境）' }}
+        <span>管理系统平台</span>
+        <span v-if="VITE_MODE !== 'prod'">（测试环境）</span>
       </span>
     </div>
     <div class="flex items-center">
-      <ElSelect v-model="fontSize" class="m-2" placeholder="Select" size="small" @change="changeSelect">
-        <ElOption v-for="item in fontSizes" :key="item.value" :label="item.key" :value="item.value" />
-      </ElSelect>
-      <ElSwitch v-model="isLight" @change="change" class="mr-4" />
-      <span class="mr-4 cursor-pointer">设置</span>
-      <span class="mr-4 cursor-pointer" @click="$emit('showUserInfo')">陈一支</span>
-      <ElImage class="w-8 rounded-full cursor-pointer" :src="avatar" :preview-src-list="[avatar]"> </ElImage>
+      <span class="mr-4 cursor-pointer" @click="$emit('showUserInfo')">{{
+        userStore.userInfo?.username || '昵称'
+      }}</span>
+      <ElImage
+        class="w-8 rounded-full cursor-pointer"
+        :src="userStore.userInfo.avatar.filePath"
+        :preview-src-list="[userStore.userInfo.avatar.filePath]"
+        v-if="userStore.userInfo?.avatar"
+      >
+      </ElImage>
+      <img :src="$STATIC_URL + '/pc/images/avatar2.png'" alt="" class="w-8 h-8 rounded-md" v-else />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ElSwitch, ElImage, ElSelect, ElOption } from 'element-plus'
-import { ref, getCurrentInstance } from 'vue'
-import { useThemeStore } from '@/store'
-import { FontSizeValue } from '@/enumerations'
+import { ElImage } from 'element-plus'
+import { useUserStore } from '@/store'
 
 const { VITE_MODE } = import.meta.env
 
-const themeStore = useThemeStore()
-
-// 主题
-const isLight = ref<boolean>(themeStore.theme === 'light')
-const change = (b: boolean | string | number) => {
-  themeStore.toggleTheme(b ? 'light' : 'drak')
-}
-
-// 字体大小
-const fontSize = ref<FontSizeValue>(themeStore.fontSize)
-const fontSizes = [
-  { key: '特小', value: 12 },
-  { key: '小', value: 13 },
-  { key: '常规', value: 14 },
-  { key: '大', value: 16 },
-  { key: '特大', value: 18 }
-]
-const changeSelect = (val: FontSizeValue) => {
-  themeStore.toggleFontSize(val)
-}
-
-const instance = getCurrentInstance()?.appContext.config.globalProperties
-const avatar = ref(instance?.$STATIC_URL + 'pc/images/avatar1.png')
+const userStore = useUserStore()
 
 defineEmits(['showUserInfo'])
 </script>

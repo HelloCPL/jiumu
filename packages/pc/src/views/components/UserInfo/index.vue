@@ -18,7 +18,7 @@
           {{ item.label }}
         </div>
       </div>
-      <div class="flex-1 h-full g-scroll-y-0">
+      <div class="flex-1 h-full relative g-scroll-y-0">
         <BaseInfo v-if="target === '0'"></BaseInfo>
         <Setting v-else-if="target === '1'"></Setting>
         <Logs v-else-if="target === '2'"></Logs>
@@ -36,7 +36,7 @@ import Logs from './components/Logs.vue'
 import Other from './components/Other.vue'
 import Setting from './components/Setting.vue'
 
-const target = ref('0')
+const target = ref('1')
 const list: ValueLabel[] = [
   { label: '账号设置', value: '0' },
   { label: '设置', value: '1' },

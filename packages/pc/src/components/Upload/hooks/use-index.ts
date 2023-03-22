@@ -38,10 +38,11 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     return false
   }
   // 上传
-  const httpRequest = async (fileOption: UploadRequestOptions) => {
-    if (fileOption.file.size > UPLOAD_BIG_SIZE) {
-      refUploadFilesBig.value.handleFileUpload(fileOption.file)
-    } else {
+  const httpRequest = (fileOption: UploadRequestOptions) => {
+    const up1 = async (fileOption: UploadRequestOptions) => {
+      refUploadFilesBig.value?.handleFileUpload(fileOption.file)
+    }
+    const up2 = async (fileOption: UploadRequestOptions) => {
       const file = new FormData()
       file.append('file', fileOption.file)
       let params: ParamsFileOther = {}
@@ -52,6 +53,17 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
         emit('change', res.data)
       } else {
         Message(res.message)
+      }
+    }
+    if (props.uploadType === 'files_big') {
+      up1(fileOption)
+    } else if (props.uploadType === 'files') {
+      up2(fileOption)
+    } else {
+      if (fileOption.file.size > UPLOAD_BIG_SIZE) {
+        up1(fileOption)
+      } else {
+        up2(fileOption)
       }
     }
   }
