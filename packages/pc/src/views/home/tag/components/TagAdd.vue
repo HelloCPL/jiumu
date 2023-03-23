@@ -6,7 +6,7 @@
 
 <template>
   <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
-    <ElForm :model="form" :rules="rules" ref="formRef" label-width="80px" class="g-popup">
+    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
       <ElFormItem label="code" prop="code">
         <ElInput type="text" placeholder="请输入code" v-model="form.code" class="g-w-240"></ElInput>
       </ElFormItem>
@@ -42,6 +42,7 @@ import { ElForm, ElFormItem, ElInput, ElButton, ElCascader } from 'element-plus'
 import { useTagAdd } from '../hooks/use-tag-add'
 import InputNumber from '@/components/InputNumber/index.vue'
 import { tagAddProps, tagAddEmits } from './type'
+import { getPx } from '@/utils/tools'
 
 const emit = defineEmits(tagAddEmits)
 const props = defineProps(tagAddProps)

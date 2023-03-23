@@ -42,28 +42,28 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="是否草稿" width="90">
+      <ElTableColumn label="是否草稿" :width="getPx(90)">
         <template #default="{ row }">
           <span>{{ row.isDraft === '0' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="是否公开" width="90">
+      <ElTableColumn label="是否公开" :width="getPx(90)">
         <template #default="{ row }">
           <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
       <template v-if="!isDraft">
-        <ElTableColumn prop="likeCount" label="点赞" width="70"></ElTableColumn>
-        <ElTableColumn prop="collectionCount" label="收藏" width="70"></ElTableColumn>
-        <ElTableColumn prop="likeCount" label="评论" width="70"></ElTableColumn>
+        <ElTableColumn prop="likeCount" label="点赞" :width="getPx(70)"></ElTableColumn>
+        <ElTableColumn prop="collectionCount" label="收藏" :width="getPx(70)"></ElTableColumn>
+        <ElTableColumn prop="likeCount" label="评论" :width="getPx(70)"></ElTableColumn>
       </template>
-      <ElTableColumn label="更新时间" width="150">
+      <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="90" />
-      <ElTableColumn label="操作" width="140" fixed="right" v-if="isSelf">
+      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
+      <ElTableColumn label="操作" :width="getPx(140)" fixed="right" v-if="isSelf">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
           <ElButton type="danger" text size="small" @click="handleDelete(row)"> 删除 </ElButton>
@@ -87,7 +87,7 @@ import { ElTableColumn, ElButton, ElTag } from 'element-plus'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
-import { getIndex } from '@/utils/tools'
+import { getIndex, getPx } from '@/utils/tools'
 
 defineOptions({
   name: 'NovelChapter'

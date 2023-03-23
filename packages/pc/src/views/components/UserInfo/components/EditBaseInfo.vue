@@ -12,7 +12,7 @@
     width="500px"
     class-content="pl-4 pb-4 edit-base-info-wrapper"
   >
-    <ElForm :model="form" ref="formRef" label-width="80px" class="g-popup">
+    <ElForm :model="form" ref="formRef" :label-width="getPx(80)" class="g-popup">
       <ElFormItem label="昵称" prop="username" class="g-w-320">
         <ElInput type="text" placeholder="请输入昵称" v-model="form.username"></ElInput>
       </ElFormItem>
@@ -55,6 +55,7 @@ import { debounce } from 'lodash-es'
 import { updateUserBaseSelf } from '@/api/user'
 import { Message } from '@/utils/interaction'
 import SelectType from '@/components/SelectType/index.vue'
+import { getPx } from '@/utils/tools'
 
 const emit = defineEmits({
   confirm: () => true,

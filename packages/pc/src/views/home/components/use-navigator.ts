@@ -3,6 +3,8 @@ import { ref, nextTick, watch, onMounted, onUnmounted, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { KeepAliveOption } from '@/store/keep-alive.b'
 import { onClickOutside } from '@jiumu/utils'
+import { getPx } from '@/utils/tools'
+
 /**
  * 导航栏点击、移动、右击等处理
  */
@@ -13,9 +15,13 @@ export const useNavigator = () => {
   const router = useRouter()
 
   const left = ref<number>(0)
-  const maxWidth = ref<number>(0)
+  // 导航栏容器
   const refContainer = ref<HTMLDivElement>()
+  // 真实导航栏
   const refWrapper = ref<HTMLDivElement>()
+  // 若容器 > 导航栏 此时值 = 容器宽 - 导航栏宽
+  // 若容器 <= 导航栏 此时值 = 0
+  const maxWidth = ref<number>(0)
 
   // 点击每一项
   const clickItem = (item: KeepAliveOption) => {
@@ -58,7 +64,7 @@ export const useNavigator = () => {
       if (wWidth > cWidth) {
         maxWidth.value = cWidth - wWidth
         let _left = 0
-        const l = (navigationsStore.routerNameIndex + 1) * 120 - Math.round(cWidth / 2)
+        const l = (navigationsStore.routerNameIndex + 1) * getPx(119) - Math.round(cWidth / 2)
         if (l > 0) _left = -l
         setLeft(_left)
       } else {
@@ -133,37 +139,37 @@ export const useNavigator = () => {
     isShow.value = false
     const name = <string>navigationsStore.navigations[index].name
     switch (item.value) {
-    case 'refresh':
-      router.push({
-        name: 'Refresh',
-        params: { ...route.params, __name: name },
-        query: { ...route.query }
-      })
-      return
-    case 'close':
-      clickClose(navigationsStore.navigations[index], index)
-      return
-    case 'closeRight':
-      for (let i = index + 1; i < navigationsStore.navigations.length; i++) {
-        clickClose(navigationsStore.navigations[i], i)
-        i--
-      }
-      return
-    case 'closeLeft':
-      for (let i = 0; i < index; i++) {
-        clickClose(navigationsStore.navigations[i], i)
-        i--
-        index--
-      }
-      return
-    case 'closeOther':
-      for (let i = 0; i < navigationsStore.navigations.length; i++) {
-        if (navigationsStore.navigations[i].name !== name) {
+      case 'refresh':
+        router.push({
+          name: 'Refresh',
+          params: { ...route.params, __name: name },
+          query: { ...route.query }
+        })
+        return
+      case 'close':
+        clickClose(navigationsStore.navigations[index], index)
+        return
+      case 'closeRight':
+        for (let i = index + 1; i < navigationsStore.navigations.length; i++) {
           clickClose(navigationsStore.navigations[i], i)
           i--
         }
-      }
-      return
+        return
+      case 'closeLeft':
+        for (let i = 0; i < index; i++) {
+          clickClose(navigationsStore.navigations[i], i)
+          i--
+          index--
+        }
+        return
+      case 'closeOther':
+        for (let i = 0; i < navigationsStore.navigations.length; i++) {
+          if (navigationsStore.navigations[i].name !== name) {
+            clickClose(navigationsStore.navigations[i], i)
+            i--
+          }
+        }
+        return
     }
   }
 
@@ -189,7 +195,7 @@ export const useNavigator = () => {
 /**
  * 导航栏拖拽处理
  */
-export const useNavigatorDrag = () => {
+export const useNavigatorDrag = (option: ObjectAny = {}) => {
   const navigationsStore = useNavigationsStore()
   const draggable = ref<boolean>(true)
   const dragIndex = ref<number>(-1)
@@ -213,7 +219,7 @@ export const useNavigatorDrag = () => {
   }
   const dragover = (e: MouseEvent) => {
     const { clientX } = e
-    const diff = (clientX - startX) / 120
+    const diff = (clientX - startX) / getPx(119)
     let num: number
     if (diff > 0) num = Math.ceil(diff)
     else num = Math.floor(diff)

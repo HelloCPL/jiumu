@@ -5,14 +5,18 @@
 -->
 
 <template>
-  <Dialog title="用户设置" width="600px" :show-footer="false">
-    <div class="w-full flex setting-wrapper">
+  <Dialog title="用户设置" width="600px" :show-footer="false" @close="$emit('close')">
+    <div class="w-full h-full flex setting-wrapper">
       <div class="w-32 h-full bg-white text-sm shadow-sm">
         <div
           v-for="item in list"
           :key="item.value"
           class="w-full h-10 border-b-1 border-lighter flex items-center pl-6 cursor-pointer"
-          :class="{ bg: item.value === target }"
+          :class="{
+            bg: item.value === target,
+            'text-primary': item.value === target,
+            'setting-active': item.value === target
+          }"
           @click="handleClickItem(item)"
         >
           {{ item.label }}
@@ -22,7 +26,7 @@
         <BaseInfo v-if="target === '0'"></BaseInfo>
         <Setting v-else-if="target === '1'"></Setting>
         <Logs v-else-if="target === '2'"></Logs>
-        <Other v-else-if="target === '3'"></Other>
+        <Other v-else-if="target === '3'" @close="$emit('close')"></Other>
       </div>
     </div>
   </Dialog>
@@ -35,6 +39,10 @@ import BaseInfo from './components/BaseInfo.vue'
 import Logs from './components/Logs.vue'
 import Other from './components/Other.vue'
 import Setting from './components/Setting.vue'
+
+defineEmits({
+  close: () => true
+})
 
 const target = ref('1')
 const list: ValueLabel[] = [
@@ -66,5 +74,20 @@ const handleClickItem = (item: ValueLabel) => {
 <style lang="scss" scoped>
 .setting-wrapper {
   height: 600px;
+}
+
+.setting-active {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 2px;
+    height: var(--jm-font-size);
+    transform: translateY(-50%);
+    background: var(--jm-color-primary);
+  }
 }
 </style>

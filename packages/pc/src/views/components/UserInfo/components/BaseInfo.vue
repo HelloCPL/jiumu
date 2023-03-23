@@ -87,9 +87,9 @@
         <ElTooltip content="修改密码" placement="top">
           <ElButton text :icon="Lock" size="small" @click="showPassword = true"></ElButton>
         </ElTooltip>
-        <ElButton type="primary" text :icon="Edit" size="small" @click="showBaseInfo = true"
-          >修改个人信息</ElButton
-        >
+        <ElButton type="primary" text :icon="Edit" size="small" @click="showBaseInfo = true">
+          修改个人信息
+        </ElButton>
       </div>
     </div>
     <!-- 退出登录 -->
@@ -128,7 +128,6 @@ import EditPassword from './EditPassword.vue'
 import EditBaseInfo from './EditBaseInfo.vue'
 
 const userStore = useUserStore()
-console.log(userStore)
 
 // 密码
 const showPassword = ref<boolean>(false)

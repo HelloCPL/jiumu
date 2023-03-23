@@ -5,7 +5,32 @@
 -->
 
 <template>
-  <div>其他</div>
+  <div class="pt-12 pl-12">
+    <div class="mb-4">
+      <ElButton type="primary" text size="small" @click="toCipher">我的口令</ElButton>
+    </div>
+    <div>
+      <ElButton type="primary" text size="small" @click="toAPI">API文档</ElButton>
+    </div>
+  </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ElButton } from 'element-plus'
+import { useRouter } from 'vue-router'
+
+const emit = defineEmits({
+  close: () => true
+})
+
+const router = useRouter()
+
+const toCipher = () => {
+  emit('close')
+  router.push({
+    name: 'CipherMe'
+  })
+}
+
+const toAPI = () => {}
+</script>

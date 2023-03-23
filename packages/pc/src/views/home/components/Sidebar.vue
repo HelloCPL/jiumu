@@ -6,9 +6,9 @@
 
 <template>
   <div
-    class="h-full bg-white select-none shadow-md overflow-hidden relative pb-8 duration-500 sidebar-container"
+    class="h-full bg-white select-none shadow-md overflow-hidden relative pb-10 duration-500 sidebar-container"
     :class="{ 'sidebar-container-active': isCollapse }"
-    :style="{ width: isCollapse ? '64px' : '220px' }"
+    :style="{ width: isCollapse ? '4.57rem' : '15rem' }"
   >
     <div class="h-full g-scroll-y-0">
       <ElMenu :collapse="isCollapse" :default-active="routerName" @select="select">
@@ -16,11 +16,11 @@
       </ElMenu>
     </div>
     <div
-      class="w-full h-8 absolute left-0 bottom-0 bg-white border-t border-default border-solid shadow flex items-center justify-center cursor-pointer"
+      class="w-full h-10 absolute left-0 bottom-0 bg-white border-t border-default border-solid shadow flex items-center justify-center cursor-pointer"
       @click="switchCollapse"
     >
       <ElIcon
-        :size="12"
+        :size="getPx(12)"
         color="var(--jm-color-primary-6)"
         :class="{ 'rotate-180': isCollapse }"
         class="duration-300"
@@ -42,6 +42,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { onMounted, onUnmounted } from 'vue'
 import { isHomeRoutes } from '@/router/routes'
 import { findChildrenFirst } from '@jiumu/utils'
+import { getPx } from '@/utils/tools'
 
 const router = useRouter()
 const userStore = useUserStore()

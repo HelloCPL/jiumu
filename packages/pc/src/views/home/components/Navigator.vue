@@ -23,6 +23,7 @@
             'nav-item-first': index === 0,
             'nav-item-drag': index === dragIndex
           }"
+          :style="{ width: '8.5rem' }"
           :title="item.meta && item.meta.title && item.meta.title.length > 4 ? item.meta.title : ''"
           v-for="(item, index) in navigationsStore.navigations"
           :key="(item.name as string)"

@@ -33,7 +33,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="类型" min-width="90" />
+      <ElTableColumn prop="typeLabel" label="类型" min-width="100" />
       <ElTableColumn label="标签" min-width="100">
         <template #default="{ row }">
           <span v-if="row.classify">
@@ -44,39 +44,39 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="章节总数" prop="chapterCount" width="90"></ElTableColumn>
-      <ElTableColumn label="是否公开" width="90">
+      <ElTableColumn label="章节总数" prop="chapterCount" :width="getPx(90)"></ElTableColumn>
+      <ElTableColumn label="是否公开" :width="getPx(90)">
         <template #default="{ row }">
           <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="是否置顶" width="90">
+      <ElTableColumn label="是否置顶" :width="getPx(90)">
         <template #default="{ row }">
           <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="点赞" width="70">
+      <ElTableColumn label="点赞" :width="getPx(70)">
         <template #default="{ row }">
           <span>{{ row.likeCount + row.chapterLikeCount }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="collectionCount" label="收藏" width="70">
+      <ElTableColumn prop="collectionCount" label="收藏" :width="getPx(70)">
         <template #default="{ row }">
           <span>{{ row.collectionCount + row.chapterCollectionCount }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="commentCount" label="评论" width="70">
+      <ElTableColumn prop="commentCount" label="评论" :width="getPx(70)">
         <template #default="{ row }">
           <span>{{ row.commentCount + row.chapterCommentCount }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="更新时间" width="150">
+      <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="90" />
-      <ElTableColumn label="操作" width="140" fixed="right">
+      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
+      <ElTableColumn label="操作" :width="getPx(140)" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
           <ElButton type="primary" text size="small" @click="handleShowNovelChapter(row)">章节列表</ElButton>
@@ -105,6 +105,7 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
+import { getPx } from '@/utils/tools'
 
 defineOptions({
   name: 'NovelMe'

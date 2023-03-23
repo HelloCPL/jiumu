@@ -44,6 +44,6 @@ defineEmits(['showUserInfo'])
 
 <style lang="scss" scoped>
 .header {
-  height: 55px;
+  height: 3.92rem;
 }
 </style>

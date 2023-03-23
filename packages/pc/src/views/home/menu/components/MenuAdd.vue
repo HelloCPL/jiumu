@@ -6,7 +6,7 @@
 
 <template>
   <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
-    <ElForm :model="form" :rules="rules" ref="formRef" label-width="80px" class="g-popup">
+    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
       <ElFormItem label="code" prop="code">
         <ElInput type="text" placeholder="请输入code" v-model="form.code" class="g-w-240"></ElInput>
         <span class="mt-1 text-sm text-lighter">最外层菜单的code必须与对应页面路由的name保持一致</span>
@@ -43,6 +43,7 @@ import { ElForm, ElFormItem, ElInput, ElButton, ElCascader } from 'element-plus'
 import { useMenuAdd } from '../hooks/use-menu-add'
 import InputNumber from '@/components/InputNumber/index.vue'
 import { menuAddProps, menuAddEmits } from './type'
+import { getPx } from '@/utils/tools'
 
 const emit = defineEmits(menuAddEmits)
 const props = defineProps(menuAddProps)

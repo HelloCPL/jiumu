@@ -11,7 +11,7 @@
       :rules="rules"
       ref="formRef"
       label-position="right"
-      :label-width="80"
+      :label-width="getPx(80)"
       class="mt-4 mx-auto g-w-320"
       @submit.native.prevent
     >
@@ -25,6 +25,7 @@
         <ElInput v-model="form.confirmPassword" type="password" placeholder="请再次输入密码"></ElInput>
       </ElFormItem>
     </ElForm>
+    <div class="text-sm text-lighter pb-4 pl-4">建议3个月修改一次密码，请保管好你的密码！</div>
   </Dialog>
 </template>
 
@@ -34,6 +35,7 @@ import { ElForm, ElFormItem, ElInput, FormRules, FormInstance } from 'element-pl
 import { reactive, ref } from 'vue'
 import { updatePasswordSelf } from '@/api/user'
 import { Message } from '@/utils/interaction'
+import { getPx } from '@/utils/tools'
 
 const emit = defineEmits(['close'])
 

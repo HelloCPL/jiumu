@@ -18,7 +18,7 @@
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
-      <ElTableColumn label="头像" width="100">
+      <ElTableColumn label="头像" :width="getPx(100)">
         <template #default="{ row }">
           <ElImage class="h-10 rounded-sm" :src="row.avatar.filePath" v-if="row.avatar" />
         </template>
@@ -37,20 +37,20 @@
           <GRichText :html="row.username" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="sexLabel" label="性别" width="60" />
+      <ElTableColumn prop="sexLabel" label="性别" :width="getPx(60)" />
       <ElTableColumn label="生日" min-width="110">
         <template #default="{ row }">
           <span>{{ formatDate(row.birthday, 'YYYY-MM-DD') }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="professional" label="职业" min-width="130" />
-      <ElTableColumn label="注册时间" width="150">
+      <ElTableColumn label="注册时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.createTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="注册终端" width="100" />
-      <ElTableColumn label="操作" width="250" fixed="right">
+      <ElTableColumn prop="terminal" label="注册终端" :width="getPx(90)" />
+      <ElTableColumn label="操作" :width="getPx(250)" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleShowUserRole(row)">查看角色</ElButton>
           <ElButton type="primary" text size="small" @click="handleShowUserTag(row)">查看标签</ElButton>
@@ -114,7 +114,7 @@ import UserRole from './components/UserRole.vue'
 import UserTag from './components/UserTag.vue'
 import UserMenu from './components/UserMenu.vue'
 import UserPermission from './components/UserPermission.vue'
-import { getIndex } from '@/utils/tools'
+import { getIndex, getPx } from '@/utils/tools'
 
 defineOptions({
   name: 'User'

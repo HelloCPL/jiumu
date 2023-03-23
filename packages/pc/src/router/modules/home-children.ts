@@ -240,6 +240,15 @@ const routes: RouteRecordRaw[] = [
       code: ''
     },
     component: () => import(/* webpackChunkName: "CollectionMe" */ '@/views/home/collection-me/index.vue')
+  },
+  {
+    path: '/cipher-me',
+    name: 'CipherMe',
+    meta: {
+      title: '我的口令',
+      code: ''
+    },
+    component: () => import(/* webpackChunkName: "CipherMe" */ '@/views/home/cipher-me/index.vue')
   }
 ]
 

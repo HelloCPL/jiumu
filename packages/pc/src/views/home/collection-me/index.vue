@@ -24,13 +24,13 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="收藏类型" min-width="90" />
-      <ElTableColumn label="收藏时间" width="150">
+      <ElTableColumn prop="typeLabel" label="收藏类型" min-width="100" />
+      <ElTableColumn label="收藏时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.createTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="90" />
+      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
     </Table>
     <!-- 分页 -->
     <Pagination
@@ -50,7 +50,7 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { getIndex } from '@/utils/tools'
+import { getIndex, getPx } from '@/utils/tools'
 
 defineOptions({
   name: 'CollectionMe'

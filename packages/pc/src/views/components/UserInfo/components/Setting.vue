@@ -39,8 +39,9 @@
             <span
               class="absolute flex items-end text-lighter font-size-alias"
               :style="{ 'font-size': item.value + 'px' }"
-              >{{ item.alias }}</span
             >
+              {{ item.alias }}
+            </span>
           </span>
         </div>
       </div>

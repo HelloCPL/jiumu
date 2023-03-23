@@ -30,7 +30,7 @@
         <ElButton type="primary" @click="$emit('confirm')">确认</ElButton>
       </slot>
     </template>
-    <div class="w-full g-scroll-y dialog-content" :class="classContent">
+    <div class="w-full h-full g-scroll-y dialog-content" :class="classContent">
       <slot></slot>
     </div>
   </ElDialog>

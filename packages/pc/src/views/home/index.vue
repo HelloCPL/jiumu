@@ -52,7 +52,7 @@ const showUserInfo = () => {
 
 <style lang="scss" scoped>
 .home-wrapper {
-  height: calc(100% - 55px);
+  height: calc(100% - 3.92rem);
 }
 
 .home-content {

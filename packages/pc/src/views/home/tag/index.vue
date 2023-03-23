@@ -26,14 +26,14 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="parentLabel" label="父级标签" min-width="120" />
-      <ElTableColumn label="更新时间" width="150">
+      <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="100" />
+      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
       <ElTableColumn prop="remarks" label="备注" min-width="160" />
-      <ElTableColumn label="操作" width="200" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
           <ElButton type="primary" text size="small" @click="handleAddChild(row)">新增子级</ElButton>
@@ -89,7 +89,7 @@ import TagAdd from './components/TagAdd.vue'
 import TagInfo from './components/TagInfo.vue'
 import TagUser from './components/TagUser.vue'
 import { formatDate } from '@jiumu/utils'
-import { getIndex } from '@/utils/tools'
+import { getIndex, getPx } from '@/utils/tools'
 
 defineOptions({
   name: 'Tag'

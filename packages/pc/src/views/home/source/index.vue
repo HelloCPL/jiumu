@@ -38,21 +38,21 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="是否置顶" width="90">
+      <ElTableColumn label="是否置顶" :width="getPx(90)">
         <template #default="{ row }">
           <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="likeCount" label="点赞" width="70"></ElTableColumn>
-      <ElTableColumn prop="collectionCount" label="收藏" width="70"></ElTableColumn>
-      <ElTableColumn prop="commentCount" label="评论" width="70"></ElTableColumn>
+      <ElTableColumn prop="likeCount" label="点赞" :width="getPx(70)"></ElTableColumn>
+      <ElTableColumn prop="collectionCount" label="收藏" :width="getPx(70)"></ElTableColumn>
+      <ElTableColumn prop="commentCount" label="评论" :width="getPx(70)"></ElTableColumn>
       <ElTableColumn label="更新时间" width="150">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="90" />
-      <ElTableColumn label="操作" width="80" fixed="right" v-if="checkPermissionByCode('super')">
+      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
+      <ElTableColumn label="操作" :width="getPx(80)" fixed="right" v-if="checkPermissionByCode('super')">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleTop(row)" v-if="row.isTop === '0'">
             置顶
@@ -79,7 +79,7 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { checkPermissionByCode, getIndex } from '@/utils/tools'
+import { checkPermissionByCode, getIndex, getPx } from '@/utils/tools'
 import { useIndex } from './hooks/use-index'
 
 defineOptions({

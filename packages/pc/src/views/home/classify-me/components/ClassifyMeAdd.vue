@@ -6,7 +6,7 @@
 
 <template>
   <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
-    <ElForm :model="form" :rules="rules" ref="formRef" label-width="80px" class="g-popup">
+    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
       <ElFormItem label="标签" prop="label" class="g-w-320">
         <ElInput type="text" placeholder="请输入标签" v-model="form.label"></ElInput>
       </ElFormItem>
@@ -36,6 +36,7 @@ import { useClassifyMeAdd } from '../hooks/use-classify-me-add'
 import { classifyMeAddProps, classifyMeAddEmits } from './type'
 import { ElForm, ElFormItem, ElInput, ElAutocomplete, ElButton } from 'element-plus'
 import InputNumber from '@/components/InputNumber/index.vue'
+import { getPx } from '@/utils/tools'
 
 const props = defineProps(classifyMeAddProps)
 const emit = defineEmits(classifyMeAddEmits)

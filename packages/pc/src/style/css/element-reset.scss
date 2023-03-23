@@ -74,4 +74,9 @@ html {
   .el-overlay {
     z-index: 99 !important;
   }
+
+  .el-table .el-table__cell {
+    padding-top: 0.572rem;
+    padding-bottom: 0.572rem;
+  }
 }

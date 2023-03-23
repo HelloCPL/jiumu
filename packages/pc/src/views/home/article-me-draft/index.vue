@@ -30,7 +30,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="文章类型" min-width="90" />
+      <ElTableColumn prop="typeLabel" label="文章类型" min-width="100" />
       <ElTableColumn label="封面" min-width="140">
         <template #default="{ row }">
           <ShowImage class="max-h-24" :model-value="[row.coverImg]" v-if="row.coverImg"></ShowImage>
@@ -46,13 +46,13 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="更新时间" width="150">
+      <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" width="90" />
-      <ElTableColumn label="操作" width="100" fixed="right">
+      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
+      <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
           <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
@@ -80,6 +80,7 @@ import Pagination from '@/components/Pagination/index.vue'
 import ShowImage from '@/components/ShowImage/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
+import { getPx } from '@/utils/tools'
 
 defineOptions({
   name: 'ArticleMeDraft'

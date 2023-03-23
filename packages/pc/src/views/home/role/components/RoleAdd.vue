@@ -6,7 +6,7 @@
 
 <template>
   <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
-    <ElForm :model="form" :rules="rules" ref="formRef" label-width="80px" class="g-popup">
+    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
       <ElFormItem label="code" prop="code" class="g-w-320">
         <ElInput type="text" placeholder="请输入code" v-model="form.code"></ElInput>
       </ElFormItem>
@@ -33,6 +33,7 @@ import { ElForm, ElFormItem, ElInput, ElButton } from 'element-plus'
 import { useRoleAdd } from '../hooks/use-role-add'
 import InputNumber from '@/components/InputNumber/index.vue'
 import { roleAddEmits } from './type'
+import { getPx } from '@/utils/tools'
 
 const emit = defineEmits(roleAddEmits)
 type Props = {
