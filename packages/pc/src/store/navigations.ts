@@ -131,8 +131,7 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
     },
     storage: {
       type: 'session',
-      enabled: true,
-      expire: import.meta.env.VITE_HOME_EXPIRE
+      enabled: true
     }
   }
 )

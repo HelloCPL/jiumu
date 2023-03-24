@@ -21,7 +21,7 @@ export const deleteNovel = async (id: string): Promise<DataOptions<null>> => {
 
 // 获取指定的一个连载
 export const getNovelOne = async (
-  params: ParamsNovelOne,
+  params: ParamsOne,
   isloading?: boolean
 ): Promise<DataOptions<DataNovel>> => {
   return await post('/pc/novel/get/one', params, { isloading }).catch((err) => err)
@@ -61,7 +61,7 @@ export const deleteNovelChapter = async (id: string): Promise<DataOptions<null>>
 
 // 获取指定的一个章节
 export const getNovelChapterOne = async (
-  params: ParamsNovelOne,
+  params: ParamsOne,
   isloading?: boolean
 ): Promise<DataOptions<DataNovelChapter>> => {
   return await post('/pc/novel-chapter/get/one', params, { isloading }).catch((err) => err)
@@ -91,7 +91,7 @@ export const deleteNovelNote = async (id: string): Promise<DataOptions<null>> =>
 
 // 获取指定的一个笔记
 export const getNovelNoteOne = async (
-  params: ParamsNovelOne,
+  params: ParamsOne,
   isloading?: boolean
 ): Promise<DataOptions<DataNovelNote>> => {
   return await post('/pc/novel-note/get/one', params, { isloading }).catch((err) => err)

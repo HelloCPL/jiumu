@@ -44,7 +44,7 @@ defineEmits({
   close: () => true
 })
 
-const target = ref('1')
+const target = ref('0')
 const list: ValueLabel[] = [
   { label: '账号设置', value: '0' },
   { label: '设置', value: '1' },

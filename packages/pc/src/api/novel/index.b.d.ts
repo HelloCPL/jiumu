@@ -16,12 +16,6 @@ interface ParamsNovelAdd {
   remarks?: string
 }
 
-// 获取一个连载参数类型
-interface ParamsNovelOne {
-  id: string
-  showUserInfo?: any
-}
-
 // 连载数据接口类型
 interface DataNovel extends DataBase {
   id: string

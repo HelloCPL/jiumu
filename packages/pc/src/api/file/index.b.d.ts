@@ -9,12 +9,6 @@ interface ParamsFileOther extends ObjectAny {
   remarks?: string
 }
 
-// 获取一个指定的文件参数
-interface ParamsFileById {
-  id: string
-  showUserInfo?: any
-}
-
 // 切片上传参数
 interface ParamsFileChunkAdd {
   fileHash: string

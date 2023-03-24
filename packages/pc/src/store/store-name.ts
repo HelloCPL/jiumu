@@ -5,5 +5,6 @@ export const enum StoreNames {
   KEEP_ALIVE = 'KeepAlive',
   RESET = 'Reset',
   THEME = 'Theme',
-  NAVIGATIONS = 'Navigations'
+  NAVIGATIONS = 'Navigations',
+  CIPHER = 'CIPHER'
 }

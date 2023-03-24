@@ -35,7 +35,7 @@ export const deleteFile = async (
 }
 
 // 获取一个指定的文件
-export const getFileById = async (params: ParamsFileById): Promise<DataOptions<DataBaseFile>> => {
+export const getFileById = async (params: ParamsOne): Promise<DataOptions<DataBaseFile>> => {
   return await get('/pc/file/get/post', params).catch((err) => err)
 }
 

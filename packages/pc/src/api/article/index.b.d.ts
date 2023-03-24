@@ -20,12 +20,6 @@ interface ParamsArticleAdd {
   remarks?: string
 }
 
-// 获取一个文章参数类型
-interface ParamsArticleOne {
-  id: string
-  showUserInfo?: any
-}
-
 // 文章数据接口类型
 interface DataArticle extends DataBase {
   id: string

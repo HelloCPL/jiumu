@@ -16,12 +16,6 @@ interface ParamsSourceAdd {
   remarks?: string
 }
 
-// 获取一个资源参数类型
-interface ParamsSourceOne {
-  id: string
-  showUserInfo?: any
-}
-
 // 资源数据接口类型
 interface DataSource extends DataBase {
   id: string

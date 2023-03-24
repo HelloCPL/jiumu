@@ -23,7 +23,7 @@ export const deleteArticle = async (id: string): Promise<DataOptions<null>> => {
 
 // 获取一个文章
 export const getArticleOne = async (
-  params: ParamsArticleOne,
+  params: ParamsOne,
   isloading?: boolean
 ): Promise<DataOptions<DataArticleInfo>> => {
   return await post('/pc/article/get/one', params, { isloading }).catch((err) => err)

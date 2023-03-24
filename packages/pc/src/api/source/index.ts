@@ -23,7 +23,7 @@ export const deleteSource = async (id: string): Promise<DataOptions<null>> => {
 
 // // 获取一个资源
 export const getSourceOne = async (
-  params: ParamsSourceOne,
+  params: ParamsOne,
   isloading?: boolean
 ): Promise<DataOptions<DataSourceInfo>> => {
   return await post('/pc/source/get/one', params, { isloading }).catch((err) => err)

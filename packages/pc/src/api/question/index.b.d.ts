@@ -14,12 +14,6 @@ interface ParamsQuestionAdd {
   remarks?: string
 }
 
-// 获取一个问答参数类型
-interface ParamsQuestionOne {
-  id: string
-  showUserInfo?: any
-}
-
 // 问答数据接口类型
 interface DataQuestion extends DataBase {
   id: string

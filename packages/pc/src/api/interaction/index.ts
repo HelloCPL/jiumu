@@ -17,7 +17,7 @@ export const deleteLike = async (targetId: string): Promise<DataOptions<null>> =
 }
 
 // 获取指定的一个点赞
-export const getLikeOne = async (params: ParamsInteractionOne): Promise<DataOptions<DataLike>> => {
+export const getLikeOne = async (params: ParamsOne): Promise<DataOptions<DataLike>> => {
   return await get('/pc/like/get/one', params).catch((err) => err)
 }
 
@@ -46,9 +46,7 @@ export const deleteCollection = async (targetId: string): Promise<DataOptions<nu
 }
 
 // 获取指定的一个收藏
-export const getCollectionOne = async (
-  params: ParamsInteractionOne
-): Promise<DataOptions<DataCollection>> => {
+export const getCollectionOne = async (params: ParamsOne): Promise<DataOptions<DataCollection>> => {
   return await get('/pc/collection/get/one', params).catch((err) => err)
 }
 
@@ -82,7 +80,7 @@ export const deleteCommentById = async (id: string): Promise<DataOptions<null>> 
 }
 
 // 获取指定的一个评论
-export const getCommentOne = async (params: ParamsInteractionOne): Promise<DataOptions<DataCommentList>> => {
+export const getCommentOne = async (params: ParamsOne): Promise<DataOptions<DataCommentList>> => {
   return await get('/pc/comment/get/one', params).catch((err) => err)
 }
 

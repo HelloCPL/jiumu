@@ -5,6 +5,7 @@
  */
 import { PiniaPluginContext } from 'pinia'
 import { StorageOption, storage } from '../../storage'
+const { VITE_HOME_EXPIRE } = import.meta.env
 
 type Store = PiniaPluginContext['store']
 type PartialState = Partial<Store['$state']> // 指定state中key值
@@ -36,7 +37,7 @@ export const usePiniaStoragePlugin = ({ store, options }: PiniaPluginContext) =>
     const keys = options.storage?.keys?.length ? options.storage?.keys : defaultKeys
     const config: StorageOption = {
       type: options.storage?.type || 'session',
-      expire: options.storage?.expire || 24 * 60 * 60,
+      expire: options.storage?.expire || VITE_HOME_EXPIRE,
       prefix: options.storage?.prefix || 'pinia',
       encrypt: options.storage?.encrypt
     }

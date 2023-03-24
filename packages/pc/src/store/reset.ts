@@ -9,6 +9,7 @@ import { StoreNames } from './store-name'
 import { useKeepAliveStore } from './keep-alive'
 import { useUserStore } from './user'
 import { useNavigationsStore } from './navigations'
+import { useCipherStore } from './cipher'
 
 type ResetActions = {
   reset: () => void
@@ -21,9 +22,11 @@ export const useResetStore = defineStore<string, {}, {}, ResetActions>(StoreName
       const keepAliveStore = useKeepAliveStore()
       const userStore = useUserStore()
       const navigationsStore = useNavigationsStore()
+      const cipherStore = useCipherStore()
       keepAliveStore.reset()
       userStore.reset()
       navigationsStore.reset()
+      cipherStore.reset()
     }
   }
 })

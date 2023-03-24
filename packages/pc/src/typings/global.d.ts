@@ -71,3 +71,9 @@ interface ParamsPage {
   pageNo?: number
   pageSize?: number
 }
+
+// 获取某个详情参数
+interface ParamsOne {
+  id: string
+  showUserInfo?: any
+}

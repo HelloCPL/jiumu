@@ -93,11 +93,11 @@
       </div>
     </div>
     <!-- 退出登录 -->
-    <div class="mt-24 flex justify-center">
+    <div class="mt-14 flex justify-center">
       <ElButton type="primary" plain class="px-10" @click="exit">退出登录</ElButton>
     </div>
     <div
-      class="flex items-center text-sm text-lighter absolute right-6 bottom-4"
+      class="w-full flex items-center justify-end text-sm text-lighter mt-4"
       v-if="userStore.userInfo?.createTime"
     >
       <IconSvg name="time"></IconSvg>

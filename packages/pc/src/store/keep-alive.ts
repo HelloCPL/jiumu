@@ -146,8 +146,7 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
     },
     storage: {
       type: 'session',
-      enabled: true,
-      expire: import.meta.env.VITE_HOME_EXPIRE
+      enabled: true
     }
   }
 )

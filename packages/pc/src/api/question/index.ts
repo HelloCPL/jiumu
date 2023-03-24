@@ -23,7 +23,7 @@ export const deleteQuestion = async (id: string): Promise<DataOptions<null>> => 
 
 // 获取一个问答
 export const getQuestionOne = async (
-  params: ParamsQuestionOne,
+  params: ParamsOne,
   isloading?: boolean
 ): Promise<DataOptions<DataQuestion>> => {
   return await post('/pc/question/get/one', params, { isloading }).catch((err) => err)
