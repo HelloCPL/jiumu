@@ -17,6 +17,7 @@
           v-model="form.account"
           autocomplete="off"
           :readonly="isReadonly"
+          :show-password="showPassword"
         ></ElInput>
       </ElFormItem>
       <ElFormItem label="密码" prop="cipher" class="g-w-320">
@@ -26,6 +27,7 @@
           v-model="form.cipher"
           autocomplete="off"
           :readonly="isReadonly"
+          :show-password="showPassword"
         ></ElInput>
       </ElFormItem>
       <ElFormItem label="加密等级" prop="type" class="g-w-320 mr-6">
@@ -77,6 +79,7 @@ const {
   form,
   rules,
   confirm,
-  isReadonly
+  isReadonly,
+  showPassword
 } = useCipherAdd(props, emit)
 </script>

@@ -30,6 +30,7 @@ export const useCipherStore = defineStore<string, CipherState, {}, CipherAction>
   },
   storage: {
     enabled: true,
-    encrypt: true
+    encrypt: true,
+    expire: 60 * 60 * 1 // 状态仅保存 1 小时
   }
 })

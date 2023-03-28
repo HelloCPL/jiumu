@@ -31,7 +31,7 @@
           <GRichText :html="row.title" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="类型" min-width="100" />
+      <ElTableColumn prop="typeLabel" label="类型" min-width="80" />
       <ElTableColumn label="标签" min-width="100">
         <template #default="{ row }">
           <span v-if="row.classify">
@@ -42,13 +42,13 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="账号" min-width="150">
+      <ElTableColumn label="账号" min-width="100">
         <template #default="{ row }">
           <span v-if="row.type === '802'">{{ row.show === '1' ? row.account : '******' }}</span>
           <span v-else>{{ row.account }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="密码" min-width="150">
+      <ElTableColumn label="密码" min-width="100">
         <template #default="{ row }">
           <span>{{ row.show === '1' ? row.cipher : '******' }}</span>
         </template>
@@ -66,7 +66,7 @@
               color="var(--jm-color-primary)"
               class="cursor-pointer mr-2"
               v-if="row.show === '1'"
-              @click="handleShowCipher($index, 'hide')"
+              @click="handleShowCipher(row, $index)"
             >
               <Hide />
             </ElIcon>
@@ -74,7 +74,7 @@
               color="var(--jm-color-lighter)"
               class="cursor-pointer mr-2"
               v-else
-              @click="handleShowCipher($index, 'show')"
+              @click="handleShowCipher(row, $index)"
             >
               <View />
             </ElIcon>
@@ -100,6 +100,8 @@
     ></CipherAdd>
     <!-- 口令code -->
     <CipherCodeAdd v-if="state.showCode" @close="state.showCode = false"></CipherCodeAdd>
+    <!-- 口令校验 -->
+    <CipherCodeCheck v-if="showCheck" @close="handleCloseCodeCheck"></CipherCodeCheck>
   </div>
 </template>
 
@@ -116,12 +118,25 @@ import { getIndex, getPx } from '@/utils/tools'
 import SelectType from '@/components/SelectType/index.vue'
 import CipherAdd from './components/CipherAdd.vue'
 import CipherCodeAdd from './components/CipherCodeAdd.vue'
+import CipherCodeCheck from './components/CipherCodeCheck.vue'
 
 defineOptions({
   name: 'CipherMe'
 })
 
-const { keyword, type, classify, pageNo, pageSize, total, data, getDataList, handleReset, handleShowCipher } =
-  useIndex()
+const {
+  keyword,
+  type,
+  classify,
+  pageNo,
+  pageSize,
+  total,
+  data,
+  getDataList,
+  handleReset,
+  showCheck,
+  handleShowCipher,
+  handleCloseCodeCheck
+} = useIndex()
 const { state, btnList, handleBtn, handleEdit, handleDelete, handleConfirm } = useIndexInfo({ getDataList })
 </script>

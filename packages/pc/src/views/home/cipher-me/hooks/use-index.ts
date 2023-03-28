@@ -58,10 +58,61 @@ export const useIndex = () => {
   }
 
   const cipherStore = useCipherStore()
+  const showCheck = ref(false)
+  let targetIndex: number = -1
   // 展示账号
-  const handleShowCipher = (index: number, type: 'show' | 'hide') => {
-    console.log(111, index, type, cipherStore.code)
+  const handleShowCipher = (row: DataCipherInfo, index: number) => {
+    targetIndex = index
+    if (row.type === '802' && !cipherStore.code) {
+      showCheck.value = true
+      return
+    } else {
+      showCipher()
+    }
   }
+
+  const handleCloseCodeCheck = (params: any) => {
+    showCheck.value = false
+    if (params.key === 'refresh') {
+      showCipher()
+    }
+  }
+
+  const showCipher = () => {
+    if (targetIndex !== -1) {
+      const row = data.value[targetIndex]
+      if (row.show === '1') {
+        row.show = '0'
+      } else {
+        if (row._show !== '1') {
+          row._show = '1'
+          if (row.type === '802') {
+            row.account = decrypt(decrypt(row.account, row.keyStr, row.ivStr))
+            row.cipher = decrypt(decrypt(row.cipher, row.keyStr, row.ivStr))
+          } else {
+            row.cipher = decrypt(row.cipher)
+          }
+        }
+        row.show = '1'
+      }
+    }
+  }
+
+  const formatAccount = (val: string): string => {
+    if (val.length < 3) {
+      return '******'
+    } else if (val.length < 5) {
+      return val.substring(0, 1) + '***' + val.substring(val.length - 2, 1)
+    } else {
+      return val.substring(0, 2) + '***' + val.substring(val.length - 3, 2)
+    }
+  }
+
+  console.log(formatAccount('12'))
+  console.log(formatAccount('123'))
+  console.log(formatAccount('1234'))
+  console.log(formatAccount('12345'))
+  console.log(formatAccount('123456'))
 
   return {
     keyword,
@@ -73,7 +124,9 @@ export const useIndex = () => {
     data,
     getDataList,
     handleReset,
-    handleShowCipher
+    showCheck,
+    handleShowCipher,
+    handleCloseCodeCheck
   }
 }
 

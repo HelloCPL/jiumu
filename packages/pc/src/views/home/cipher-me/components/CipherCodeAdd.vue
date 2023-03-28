@@ -9,7 +9,7 @@
     :title="isExist ? '口令code修改' : '口令code新增'"
     width="500px"
     top="30vh"
-    class-content="pt-10 pb-6"
+    class-content="pt-10 pb-4"
     @close="handleClose"
     @confirm="confirm"
   >
@@ -29,12 +29,13 @@
         <ElInput v-model="form.oldCode" type="password" placeholder="请输入oldCode" show-password></ElInput>
       </ElFormItem>
     </ElForm>
-
-    <div class="text-sm text-lighter pb-4 pl-4">
-      <span class="text-danger">注意：</span>
-      <span>口令code新增后不可删除，可修改；请保管好你的口令code！</span>
+    <div class="text-sm text-lighter flex pt-4 pl-4">
+      <span class="text-danger shrink-0">注意：</span>
+      <span class="flex flex-col">
+        <span>口令code新增后不可删除，仅可修改；</span>
+        <span>本系统不会以任何形式存储你的口令code，请保管好你的口令code！</span>
+      </span>
     </div>
-    <ffoc></ffoc>
   </Dialog>
 </template>
 

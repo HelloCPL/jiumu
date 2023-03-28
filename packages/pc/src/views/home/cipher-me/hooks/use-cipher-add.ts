@@ -11,6 +11,7 @@ import { addCipher, existCipherCodeSelf, getCipherOneSelf, updateCipher } from '
 import { decrypt, encrypt } from '@jiumu/utils'
 import { debounce } from 'lodash-es'
 import { Message } from '@/utils/interaction'
+import { useCipherStore } from '@/store'
 
 export const useCipherAdd = (props: CipherAddProps, emit: CipherAddEmits) => {
   const title = ref<string>('口令新增')
@@ -150,6 +151,11 @@ export const useCipherAdd = (props: CipherAddProps, emit: CipherAddEmits) => {
   setTimeout(() => {
     isReadonly.value = false
   }, 1000)
+  const showPassword = ref(false)
+  const cipherStore = useCipherStore()
+  if (cipherStore.code) {
+    showPassword.value = true
+  }
 
   return {
     show,
@@ -162,6 +168,7 @@ export const useCipherAdd = (props: CipherAddProps, emit: CipherAddEmits) => {
     form,
     rules,
     confirm,
-    isReadonly
+    isReadonly,
+    showPassword
   }
 }
