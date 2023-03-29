@@ -7,18 +7,18 @@
 <template>
   <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
     <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
-      <ElFormItem label="code" prop="code" class="g-w-320">
+      <ElFormItem label="code" prop="code" class="g-w-360">
         <ElInput type="text" placeholder="请输入code" v-model="form.code"></ElInput>
         <span class="text-sm text-lighter mt-1">code格式建议：xxx:xx:x</span>
       </ElFormItem>
       <ElFormItem label="权限" prop="label">
-        <ElInput type="text" placeholder="请输入权限" v-model="form.label" class="g-w-240"></ElInput>
+        <ElInput type="text" placeholder="请输入权限" v-model="form.label" class="g-w-280"></ElInput>
         <span class="text-sm text-lighter mt-1">权限命名建议：页面级别、[按钮级别]、(接口级别)</span>
       </ElFormItem>
-      <ElFormItem label="排序" prop="sort" class="g-w-320">
+      <ElFormItem label="排序" prop="sort" class="g-w-360">
         <InputNumber type="number" placeholder="请输入排序" v-model="form.sort"></InputNumber>
       </ElFormItem>
-      <ElFormItem label="关联接口" prop="href" class="g-w-320">
+      <ElFormItem label="关联接口" prop="href" class="g-w-360">
         <ElInput type="text" placeholder="请输入关联接口" v-model="form.href"></ElInput>
         <span class="text-sm text-lighter mt-1">如与接口有关联的权限请填写此项</span>
       </ElFormItem>

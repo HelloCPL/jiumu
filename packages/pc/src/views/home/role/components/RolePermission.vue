@@ -44,7 +44,7 @@
             class="text-lighter w-full justify-between flex items-center mb-4"
           >
             <span class="mr-2">
-              <span class="text">{{ item.label }}</span>
+              <PermissionLabel class="text" :html="item.label"></PermissionLabel>
               <span class="text-sm pl-2">{{ item.code }}</span>
             </span>
             <ElIcon class="cursor-pointer" @click="handleDelete(item, index)">
@@ -72,7 +72,7 @@
             :checked="item._checked"
             @update:model-value="changeCheck($event as boolean, item)"
           >
-            <GRichText :html="item.label"></GRichText>
+            <PermissionLabel :html="item.label"></PermissionLabel>
             <span class="pl-2">{{ item.code }}</span>
           </ElCheckbox>
         </div>
@@ -88,6 +88,7 @@ import { roleInfoProps } from './type'
 import { useRolePermission } from '../hooks/use-role-permission'
 import { ElRow, ElCol, ElCheckbox, ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
+import PermissionLabel from '@/views/home/permission/components/PermissionLabel.vue'
 
 const props = defineProps(roleInfoProps)
 

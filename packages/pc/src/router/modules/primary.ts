@@ -70,6 +70,12 @@ const routes: RouteRecordRaw[] = [
     path: '/test',
     name: 'Test',
     component: () => import(/* webpackChunkName: "Test" */ '@/views/test/index.vue')
+  },
+  {
+    // MD api 文档
+    path: '/mdapi',
+    name: 'Mdapi',
+    component: () => import(/* webpackChunkName: "Mdapi" */ '@/views/mdapi/index.vue')
   }
 ]
 

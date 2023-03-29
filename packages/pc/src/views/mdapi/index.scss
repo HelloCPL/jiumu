@@ -1,0 +1,24 @@
+.mdapi-container {
+  padding-left: 280px;
+
+  .mdapi-aside {
+    width: 240px;
+  }
+
+  .mdapi-active {
+    position: relative;
+    color: var(--jm-color-primary);
+    background: var(--jm-color-primary-50);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 6px;
+      transform: translateY(-50%);
+      width: 2px;
+      height: 50%;
+      background: var(--jm-color-primary);
+    }
+  }
+}

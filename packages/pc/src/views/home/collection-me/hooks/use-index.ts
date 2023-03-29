@@ -55,7 +55,7 @@ export const useIndex = () => {
       const routeUrl = router.resolve({
         name: list[row.type],
         query: {
-          id: row.id
+          id: row.targetId
         }
       })
       window.open(routeUrl.href, '_blank')

@@ -32,5 +32,11 @@ const toCipher = () => {
   })
 }
 
-const toAPI = () => {}
+const toAPI = () => {
+  emit('close')
+  const routeUrl = router.resolve({
+    name: 'Mdapi'
+  })
+  window.open(routeUrl.href, '_blank')
+}
 </script>

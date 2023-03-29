@@ -165,6 +165,11 @@
   background: var(--jm-color-white);
 }
 
+// 灰色背景
+.github-markdown-body table tr:nth-child(2n) {
+  background: var(--jm-color-fill);
+}
+
 // 表格
 .github-markdown-body table tr {
   background: var(--jm-color-white);
@@ -181,4 +186,9 @@
 }
 .github-markdown-body hr {
   height: 1px;
+}
+
+// 代码字体颜色
+.github-markdown-body pre code, .github-markdown-body pre tt {
+  color: var(--jm-color-text-light);
 }

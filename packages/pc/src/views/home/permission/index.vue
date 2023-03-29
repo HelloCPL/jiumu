@@ -30,7 +30,7 @@
       </ElTableColumn>
       <ElTableColumn label="权限" min-width="130">
         <template #default="{ row }">
-          <GRichText :html="row.label" />
+          <PermissionLabel :html="row.label" />
         </template>
       </ElTableColumn>
       <ElTableColumn label="更新时间" :width="getPx(150)">
@@ -96,6 +96,7 @@ import PermissionUser from './components/PermissionUser.vue'
 import PermissionRole from './components/PermissionRole.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
+import PermissionLabel from './components/PermissionLabel.vue'
 
 defineOptions({
   name: 'Permission'
