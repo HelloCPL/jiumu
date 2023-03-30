@@ -29,6 +29,8 @@ import { useRegister } from '../hooks/use-register'
 import { register } from '@/api/user'
 import { useUserStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
+import { encrypt } from '@jiumu/utils'
+const { VITE_MODE } = import.meta.env
 
 const { formRef, form, rules, submitValid } = useRegister()
 const userStore = useUserStore()
@@ -38,10 +40,14 @@ const router = useRouter()
 // 注册
 const submit = (el: FormInstance | undefined) => {
   submitValid(el as FormInstance).then(async (form) => {
-    const res = await register({
+    const params = {
       phone: form.phone,
       password: form.password
-    })
+    }
+    if (VITE_MODE === 'prod') {
+      params.password = encrypt(params.password)
+    }
+    const res = await register(params)
     if (res.code === 200) {
       const { data } = res
       userStore.setToken({
