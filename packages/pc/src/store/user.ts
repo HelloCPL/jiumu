@@ -6,7 +6,7 @@
 
 import { defineStore } from 'pinia'
 import { StoreNames } from './store-name'
-import { UserState, UserActions } from './user.b'
+import { UserState, UserActions, UserInfoType } from './user.b'
 import { storage } from '@jiumu/utils'
 import { getUserSelf } from '@/api/user'
 import { getRoleListAllSelf } from '@/api/role'
@@ -14,7 +14,6 @@ import { getPermissionListAllSelf } from '@/api/permission'
 import { getMenuAllSelf } from '@/api/menu'
 import { getTagAllSelf } from '@/api/tag'
 
-type UserInfoType = '1' | '2' | '3' | '4' | '5'
 export const useUserStore = defineStore<string, UserState, {}, UserActions>(StoreNames.USER, {
   state: () => {
     return {
@@ -117,8 +116,6 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
     }
   },
   storage: {
-    enabled: true,
-    encrypt: true
-    // keys: ['token', 'tokenRefresh', 'menus']
+    enabled: true
   }
 })

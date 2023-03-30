@@ -26,8 +26,6 @@ import { useLogin } from '../hooks/use-login'
 import { login } from '@/api/user'
 import { useUserStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
-import { encrypt } from '@jiumu/utils'
-const { VITE_MODE } = import.meta.env
 
 const { formRef, form, rules, submitValid } = useLogin()
 const userStore = useUserStore()
@@ -40,9 +38,6 @@ const submit = (el: FormInstance | undefined) => {
     const params = {
       phone: form.phone,
       password: form.password
-    }
-    if (VITE_MODE === 'prod') {
-      params.password = encrypt(params.password)
     }
     const res = await login(params)
     if (res.code === 200) {

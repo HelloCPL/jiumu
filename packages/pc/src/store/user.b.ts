@@ -8,9 +8,11 @@ export interface UserState {
   tags: DataTagInfo[]
 }
 
+export type UserInfoType = '1' | '2' | '3' | '4' | '5'
+
 export interface UserActions {
   reset: () => void
   setToken: (params: DataToken) => void
   updateUser: (type?: string) => Promise<any>
-  getUser: (type?: string) => Promise<any>
+  getUser: (type: UserInfoType) => Promise<any>
 }
