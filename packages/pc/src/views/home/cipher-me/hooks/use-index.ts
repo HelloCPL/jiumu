@@ -38,12 +38,13 @@ export const useIndex = () => {
     if (res.code === 200) {
       // 解密
       res.data.forEach((item) => {
-        if (item.type !== '802') {
+        if (item.type === '802') {
+          item.account = decrypt(decrypt(item.account, item.keyStr, item.ivStr))
+        } else {
           item.account = decrypt(item.account)
         }
       })
       data.value = res.data
-      console.log(88, res.data)
       total.value = res.total
     }
   }, 300)
@@ -87,7 +88,6 @@ export const useIndex = () => {
         if (row._show !== '1') {
           row._show = '1'
           if (row.type === '802') {
-            row.account = decrypt(decrypt(row.account, row.keyStr, row.ivStr))
             row.cipher = decrypt(decrypt(row.cipher, row.keyStr, row.ivStr))
           } else {
             row.cipher = decrypt(row.cipher)
@@ -97,22 +97,6 @@ export const useIndex = () => {
       }
     }
   }
-
-  const formatAccount = (val: string): string => {
-    if (val.length < 3) {
-      return '******'
-    } else if (val.length < 5) {
-      return val.substring(0, 1) + '***' + val.substring(val.length - 2, 1)
-    } else {
-      return val.substring(0, 2) + '***' + val.substring(val.length - 3, 2)
-    }
-  }
-
-  console.log(formatAccount('12'))
-  console.log(formatAccount('123'))
-  console.log(formatAccount('1234'))
-  console.log(formatAccount('12345'))
-  console.log(formatAccount('123456'))
 
   return {
     keyword,
@@ -178,7 +162,6 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
 
   // 处理确认回调
   const handleConfirm = () => {
-    console.log(99)
     getDataList()
     state.show = false
   }
@@ -190,5 +173,18 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleEdit,
     handleDelete,
     handleConfirm
+  }
+}
+
+/*
+ * 格式化账号
+ * 1. 长度少于3 返回 *****
+ * 2. 否则 返回 xx***
+ */
+export const formatAccount = (val: string): string => {
+  if (!val || val.length < 3) {
+    return '*****'
+  } else {
+    return val.substring(0, 2) + '***'
   }
 }

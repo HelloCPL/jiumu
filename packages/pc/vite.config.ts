@@ -5,6 +5,8 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
+import OptimizationPersist from 'vite-plugin-optimize-persist'
+import PkgConfig from 'vite-plugin-package-config'
 
 const path = require('path')
 const pathSrc = path.resolve(__dirname, 'src')
@@ -15,7 +17,16 @@ export default defineConfig(({ mode }) => {
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
   return {
-    plugins: [Vue(), DefineOptions(), VueJsx(), ElementPlus(), visualizer(), viteCompression()],
+    plugins: [
+      Vue(),
+      DefineOptions(),
+      VueJsx(),
+      ElementPlus(),
+      visualizer(),
+      viteCompression(),
+      PkgConfig(),
+      OptimizationPersist()
+    ],
     resolve: {
       alias: {
         '@': pathSrc
@@ -60,19 +71,30 @@ export default defineConfig(({ mode }) => {
     },
     // 打包优化
     build: {
-      target: 'esnext',
+      target: 'modules',
+      outDir: 'dist',
+      assetsDir: 'assets',
+      minify: 'terser',
       rollupOptions: {
-        output: {
-          manualChunks: {
-            Vue: ['vue', 'vue-router'],
-            VuePdfEmbed: ['vue-pdf-embed'],
-            Vue3Pdf3: ['vue3-pdfjs'],
-            // DocxPreview: ['docx-preview'],
-            VMdEditor: ['@kangc/v-md-editor'],
-            WangEditor: ['@wangeditor/editor']
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
           }
         }
       }
+      // target: 'esnext',
+      // rollupOptions: {
+      //   output: {
+      //     manualChunks: {
+      //       Vue: ['vue', 'vue-router'],
+      //       VuePdfEmbed: ['vue-pdf-embed'],
+      //       Vue3Pdf3: ['vue3-pdfjs'],
+      //       // DocxPreview: ['docx-preview'],
+      //       VMdEditor: ['@kangc/v-md-editor'],
+      //       WangEditor: ['@wangeditor/editor']
+      //     }
+      //   }
+      // }
     }
   }
 })
