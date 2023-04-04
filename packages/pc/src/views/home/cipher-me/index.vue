@@ -44,13 +44,15 @@
       </ElTableColumn>
       <ElTableColumn label="账号" min-width="100">
         <template #default="{ row }">
-          <span v-if="row.type === '802'">{{ row.show === '1' ? row.account : '******' }}</span>
+          <span v-if="row.type === '802'">
+            {{ row.show === '1' ? row.account : formatAccount(row.account) }}
+          </span>
           <span v-else>{{ row.account }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn label="密码" min-width="100">
         <template #default="{ row }">
-          <span>{{ row.show === '1' ? row.cipher : '******' }}</span>
+          <span>{{ row.show === '1' ? row.cipher : '*****' }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn label="更新时间" :width="getPx(150)">
@@ -112,7 +114,7 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { ElFormItem, ElInput, ElTableColumn, ElButton, ElIcon } from 'element-plus'
 import { View, Hide } from '@element-plus/icons-vue'
-import { useIndex, useIndexInfo } from './hooks/use-index'
+import { useIndex, useIndexInfo, formatAccount } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import SelectType from '@/components/SelectType/index.vue'

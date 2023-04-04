@@ -19,7 +19,7 @@
       </ElRow>
     </div>
     <div class="w-full h-full pb-2 g-scroll-y-0">
-      <ElRow v-for="item in data" class="text-sm text-lighter" :key="item.id">
+      <ElRow v-for="item in data" class="mb-2 text-sm text-lighter" :key="item.id">
         <ElCol :span="11" class="pl-2">{{ item.userAgent }}</ElCol>
         <ElCol :span="5" class="pl-2">{{ item.ip }}</ElCol>
         <ElCol :span="5" class="pl-1">

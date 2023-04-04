@@ -40,7 +40,7 @@
         ></SelectType>
         <div class="mt-2 text-sm text-lighter">
           <span>加权等级需要先添加</span>
-          <span class="text-primary cursor-pointer" @click="handleShowCode">口令code</span>
+          <span class="pl-1 text-primary cursor-pointer" @click="handleShowCode">口令code</span>
         </div>
       </ElFormItem>
       <ElFormItem label="自定义标签" prop="classify">

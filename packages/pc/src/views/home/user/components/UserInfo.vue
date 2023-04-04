@@ -7,16 +7,13 @@
 <template>
   <Dialog title="用户信息" :show-footer="false" class-content="pl-4">
     <ElRow class="pt-3 relative" v-if="userInfo">
-      <ElCol :span="4" class="text-lg">基本信息</ElCol>
+      <ElCol :span="4" class="text-sm text-lighter">基本信息</ElCol>
       <ElCol :span="20" class="text-light pt-1">
-        <div class="mb-2 pl-1">
-          <span class="mr-2">{{ userInfo.phone }}</span>
-        </div>
         <!-- 用户基本信息 -->
         <ElRow class="mb-2">
           <ElCol :span="16" class="mb-2">
             <span class="relative">
-              {{ userInfo.username }}
+              <span class="text-xl">{{ userInfo.username }}</span>
               <img
                 class="absolute top-0 w-4 icon-sex"
                 :src="$STATIC_URL + 'pc/icons/icon_male.png'"
@@ -38,14 +35,24 @@
             </span>
           </ElCol>
           <ElCol :span="16" class="mb-2">
-            <ElIcon size="var(--jm-font-size)">
-              <Calendar />
-            </ElIcon>
-            {{ formatDate(userInfo.birthday, 'YYYY-MM-DD') }}
+            <span>{{ userInfo.phone }}</span>
           </ElCol>
-          <ElCol :span="16" class="mb-2">职业：{{ userInfo.professional }}</ElCol>
-          <ElCol :span="16" class="mb-2">地址：{{ userInfo.address }}</ElCol>
-          <ElCol :span="16">备注：{{ userInfo.remarks }}</ElCol>
+          <ElCol :span="16" class="mb-2" v-if="userInfo.birthday">
+            <IconSvg name="date"></IconSvg>
+            <span class="ml-1">{{ formatDate(userInfo.birthday, 'YYYY-MM-DD') }}</span>
+          </ElCol>
+          <ElCol :span="16" class="mb-2" v-if="userInfo.professional">
+            <IconSvg name="professional"></IconSvg>
+            <span class="ml-1">{{ userInfo.professional }}</span>
+          </ElCol>
+          <ElCol :span="16" class="mb-2" v-if="userInfo.address">
+            <IconSvg name="address"></IconSvg>
+            <span class="ml-1"> {{ userInfo.address }}</span>
+          </ElCol>
+          <ElCol :span="16" v-if="userInfo.remarks">
+            <IconSvg name="remark"></IconSvg>
+            <span class="ml-1">{{ userInfo.remarks }}</span>
+          </ElCol>
         </ElRow>
         <div class="text-sm text-lighter pl-1">
           <span class="mr-4">注册时间：{{ userInfo.createTime }}</span>
@@ -59,19 +66,19 @@
         v-if="userInfo.avatar"
       ></ElImage>
     </ElRow>
-    <ElRow class="pt-3" v-if="roles.length">
-      <ElCol :span="4" class="text-lg">角色信息</ElCol>
+    <ElRow class="pt-3" v-if="rolesLabel">
+      <ElCol :span="4" class="text-sm text-lighter">角色信息</ElCol>
       <ElCol :span="20" class="text-lighter text-sm pt-1">
-        <span v-for="(item, index) in roles" :key="item.id">
-          {{ index !== 0 ? '、' : '' }}{{ item.label }}
+        <span>
+          {{ rolesLabel }}
         </span>
       </ElCol>
     </ElRow>
-    <ElRow class="pt-3" v-if="tags.length">
-      <ElCol :span="4" class="text-lg">标签信息</ElCol>
+    <ElRow class="pt-3" v-if="tagsLabel">
+      <ElCol :span="4" class="text-sm text-lighter">标签信息</ElCol>
       <ElCol :span="20" class="text-lighter text-sm pt-1">
-        <span v-for="(item, index) in tags" :key="item.id">
-          {{ index !== 0 ? '、' : '' }}{{ item.label }}
+        <span>
+          {{ tagsLabel }}
         </span>
       </ElCol>
     </ElRow>
@@ -89,6 +96,7 @@ import { formatDate } from '@jiumu/utils'
 import { getRoleByUserId } from '@/api/user-role'
 import { getTagByUserId } from '@/api/user-tag'
 import { userInfoProps } from './type'
+import IconSvg from '@/components/IconSvg/index'
 
 const props = defineProps(userInfoProps)
 
@@ -103,27 +111,37 @@ const _getOne = async (id: string) => {
 _getOne(props.id)
 
 // 角色信息
-const roles = ref<DataRole[]>([])
+const rolesLabel = ref('')
 const _getRole = async (id: string) => {
   const res = await getRoleByUserId({
     userId: id,
     pageSize: 100
   })
   if (res.code === 200) {
-    roles.value = res.data
+    rolesLabel.value = res.data.reduce((cur, item) => {
+      if (item.label) {
+        return cur ? cur + '、' + item.label : item.label
+      }
+      return cur
+    }, '')
   }
 }
 _getRole(props.id)
 
 // 标签信息
-const tags = ref<DataTagInfo[]>([])
+const tagsLabel = ref('')
 const _getTags = async (id: string) => {
   const res = await getTagByUserId({
     userId: id,
     pageSize: 100
   })
   if (res.code === 200) {
-    tags.value = res.data
+    tagsLabel.value = res.data.reduce((cur, item) => {
+      if (item.label) {
+        return cur ? cur + '、' + item.label : item.label
+      }
+      return cur
+    }, '')
   }
 }
 _getTags(props.id)
