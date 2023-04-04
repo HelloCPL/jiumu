@@ -85,6 +85,8 @@
         "unplugin-vue-define-options": "^0.6.2",
         "vite": "^2.9.9",
         "vite-plugin-compression": "^0.5.1",
+        "vite-plugin-optimize-persist": "^0.1.2",
+        "vite-plugin-package-config": "^0.1.1",
         "vite-plugin-webpackchunkname": "^0.2.4",
         "vue-eslint-parser": "^9.0.3"
     },

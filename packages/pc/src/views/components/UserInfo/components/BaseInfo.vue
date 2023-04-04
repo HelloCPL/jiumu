@@ -47,22 +47,19 @@
       </div>
       <!-- 标签 -->
       <div class="mt-4 flex flex-wrap" v-if="userStore.tags?.length">
-        <ElTag size="small" round class="mr-2 mb-2" v-for="item in userStore.tags" :key="item.id">
-          {{ item.label }}
-        </ElTag>
+        <template v-for="item in userStore.tags" :key="item.id">
+          <ElTag size="small" round class="mr-2 mb-2" v-if="item.label">
+            {{ item.label }}
+          </ElTag>
+        </template>
       </div>
       <!-- 角色  -->
       <div class="mt-2 flex flex-wrap" v-if="userStore.roles?.length">
-        <ElTag
-          size="small"
-          round
-          type="warning"
-          class="mr-2 mb-2"
-          v-for="item in userStore.roles"
-          :key="item.id"
-        >
-          {{ item.label }}
-        </ElTag>
+        <template v-for="item in userStore.roles" :key="item.id">
+          <ElTag size="small" round type="warning" class="mr-2 mb-2" v-if="item.label">
+            {{ item.label }}
+          </ElTag>
+        </template>
       </div>
       <!-- 日期 职业 地址 备注 -->
       <div class="mt-2" v-if="userStore.userInfo?.birthday">

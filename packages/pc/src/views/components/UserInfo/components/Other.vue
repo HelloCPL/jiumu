@@ -9,7 +9,7 @@
     <div class="mb-4">
       <ElButton type="primary" text size="small" @click="toCipher">我的口令</ElButton>
     </div>
-    <div>
+    <div v-if="VITE_MODE !== 'prod'">
       <ElButton type="primary" text size="small" @click="toAPI">API文档</ElButton>
     </div>
   </div>
@@ -18,6 +18,7 @@
 <script lang="ts" setup>
 import { ElButton } from 'element-plus'
 import { useRouter } from 'vue-router'
+const { VITE_MODE } = import.meta.env
 
 const emit = defineEmits({
   close: () => true

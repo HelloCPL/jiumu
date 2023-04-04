@@ -88,6 +88,7 @@ export const useCipherAdd = (props: CipherAddProps, emit: CipherAddEmits) => {
         form.account = decrypt(data.account)
         form.cipher = decrypt(data.cipher)
       }
+      console.log(form)
       // 处理标签
       if (data.classify.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
