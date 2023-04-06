@@ -30,7 +30,7 @@
           <div class="flex">
             <span class="flex items-center mr-4">
               <IconSvg name="time"></IconSvg>
-              <span class="ml-1"> {{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD hh:mm') }}</span>
+              <span class="ml-1"> {{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
             </span>
             <span class="flex items-center">
               <IconSvg name="source"></IconSvg>

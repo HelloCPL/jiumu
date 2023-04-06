@@ -116,6 +116,7 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
     }
   },
   storage: {
-    enabled: true
+    enabled: true,
+    type: 'local'
   }
 })
