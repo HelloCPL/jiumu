@@ -44,7 +44,8 @@
     "types": [
       "vite/client",
       // "vite-plugin-vue-component-preview/client",
-      "unplugin-vue-define-options"
+      "unplugin-vue-define-options",
+      "element-plus/global"
     ],
     // Enable constraints that allow a TypeScript project to be used with project references.
     // "composite": true,
