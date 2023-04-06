@@ -48,7 +48,10 @@ const submit = (el: FormInstance | undefined) => {
       })
       // 获取用户信息
       userStore.updateUser()
-      const redirect = <string>route.query.redirect || '/'
+      let redirect = <string>route.query.redirect || '/'
+      if (redirect.includes('jiumu-pc')) {
+        redirect = redirect.substring(redirect.indexOf('/', 1))
+      }
       router.replace({
         path: redirect
       })
