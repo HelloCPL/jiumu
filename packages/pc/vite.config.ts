@@ -7,6 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
 import OptimizationPersist from 'vite-plugin-optimize-persist'
 import PkgConfig from 'vite-plugin-package-config'
+import Components from 'unplugin-vue-components/vite'
 
 const path = require('path')
 const pathSrc = path.resolve(__dirname, 'src')
@@ -21,7 +22,10 @@ export default defineConfig(({ mode }) => {
       Vue(),
       DefineOptions(),
       VueJsx(),
-      ElementPlus(),
+      ElementPlus({
+        exclude: /style\/css/
+      }),
+      Components(),
       visualizer(),
       viteCompression(),
       PkgConfig(),
