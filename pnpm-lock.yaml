@@ -23,7 +23,7 @@ importers:
       '@wangeditor/editor': ^5.1.15
       ant-design-vue: 3.2.12
       autoprefixer: ^10.4.7
-      axios: ^0.27.2
+      axios: 1.3.4
       crypto-js: ^4.1.1
       cz-conventional-changelog: ^3.3.0
       dayjs: ^1.11.4
@@ -73,7 +73,7 @@ importers:
       '@jiumu/utils': link:packages/utils
       '@kangc/v-md-editor': 2.3.15_vue@3.2.37
       '@wangeditor/editor': 5.1.15
-      axios: 0.27.2
+      axios: 1.3.4
       crypto-js: 4.1.1
       dayjs: 1.11.4
       docx-preview: 0.1.11
@@ -125,7 +125,7 @@ importers:
       prettier: 2.6.2
       rollup-plugin-visualizer: 5.9.0
       sass: 1.53.0
-      tailwindcss: 3.1.4
+      tailwindcss: 3.1.4_postcss@8.4.14
       typescript: 4.7.4
       unplugin-element-plus: 0.4.1_vite@2.9.10
       unplugin-vue-components: 0.24.1_vue@3.2.37
@@ -604,6 +604,7 @@ packages:
   /@commitlint/load/17.4.4:
     resolution: {integrity: sha512-z6uFIQ7wfKX5FGBe1AkOF4l/ShOQsaa1ml/nLMkbW7R/xF8galGS7Zh0yHvzVp/srtfS0brC+0bUfQfmpMPFVQ==}
     engines: {node: '>=v14'}
+    requiresBuild: true
     dependencies:
       '@commitlint/config-validator': 17.4.4
       '@commitlint/execute-rule': 17.4.0
@@ -1926,11 +1927,12 @@ packages:
     dev: true
     optional: true
 
-  /axios/0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+  /axios/1.3.4:
+    resolution: {integrity: sha512-toYm+Bsyl6VC5wSkfkbbNB6ROv7KY93PEBBL6xyDczaIHasAiv4wPqQ/c4RjoQzipxRD2W5g21cOqQulZ7rHwQ==}
     dependencies:
       follow-redirects: 1.15.1
       form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -2338,8 +2340,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      is-text-path: 1.0.1
       JSONStream: 1.3.5
+      is-text-path: 1.0.1
       lodash: 4.17.21
       meow: 8.1.2
       split2: 3.2.2
@@ -5897,6 +5899,10 @@ packages:
     dev: true
     optional: true
 
+  /proxy-from-env/1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: false
+
   /prr/1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
     dev: true
@@ -6599,10 +6605,12 @@ packages:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
     dev: true
 
-  /tailwindcss/3.1.4:
+  /tailwindcss/3.1.4_postcss@8.4.14:
     resolution: {integrity: sha512-NrxbFV4tYsga/hpWbRyUfIaBrNMXDxx5BsHgBS4v5tlyjf+sDsgBg5m9OxjrXIqAS/uR9kicxLKP+bEHI7BSeQ==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
