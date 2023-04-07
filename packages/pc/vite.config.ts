@@ -75,7 +75,7 @@ export default defineConfig(({ mode }) => {
     },
     // 打包优化
     build: {
-      target: 'modules',
+      target: 'esnext',
       outDir: 'dist',
       assetsDir: 'assets',
       minify: 'terser',
