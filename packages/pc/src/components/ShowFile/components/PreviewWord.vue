@@ -34,7 +34,7 @@
         <div ref="refBox">
           <!-- word 容器 -->
           <div
-            class="preview-txt-wrapper"
+            class="preview-word-wrapper"
             :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
             ref="refContent"
           ></div>

@@ -130,7 +130,7 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
       }
     },
     storage: {
-      type: 'session',
+      type: 'local',
       enabled: true
     }
   }

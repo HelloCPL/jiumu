@@ -1,10 +1,13 @@
-import { createApp, App } from 'vue'
+/**
+ * @description 项目入口
+ * @author cpl
+ * @create 2023-04-10 15:42:28
+ */
+
+import { app } from './app'
 import { createPinia, Pinia } from 'pinia'
-import AppComponent from './App.vue'
 import { usePiniaStoragePlugin } from '@jiumu/utils'
 import router from './router'
-import { useMarkdownInit } from './components/Editor/components/EditorMd/hooks/use-markdown-init'
-import { initEditorWangCustomMenus } from './components/Editor/components/EditorWang/hooks/editor-wang-custom-menus'
 // css 处理
 import './style/css/reset.scss'
 import 'element-plus/dist/index.css'
@@ -15,8 +18,6 @@ import './style/css/index.scss'
 
 import { useGlobalComponents } from './components/global'
 import { defineGlobal, defineDirective } from './utils/vue-global'
-
-const app: App = createApp(AppComponent)
 
 // 全局属性或方法
 defineGlobal(app)
@@ -33,9 +34,5 @@ app.use(router)
 
 // 全局组件
 useGlobalComponents(app)
-
-// 富文本编辑器初始化
-useMarkdownInit(app)
-initEditorWangCustomMenus()
 
 app.mount('#app')

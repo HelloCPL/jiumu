@@ -27,13 +27,15 @@
       </div>
     </div>
 
-    <!-- 图片预览 -->
-    <PreviewImage
-      :url-list="list"
-      :initial-index="targetIndex"
-      v-if="isShow"
-      @close="isShow = false"
-    ></PreviewImage>
+    <LazyLoader>
+      <!-- 图片预览 -->
+      <PreviewImage
+        :url-list="list"
+        :initial-index="targetIndex"
+        v-if="isShow"
+        @close="isShow = false"
+      ></PreviewImage>
+    </LazyLoader>
   </div>
 </template>
 
@@ -46,6 +48,7 @@ import { isArray, isObject } from 'lodash-es'
 import PreviewImage from '@/components/ShowFile/components/PreviewImage.vue'
 import { Confirm } from '@/utils/interaction'
 import { deleteFile } from '@/api/file'
+import LazyLoader from '@/components/LazyLoader/index.vue'
 
 const props = defineProps(showImageProps)
 const emit = defineEmits(showImageEmits)

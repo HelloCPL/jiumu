@@ -9,6 +9,10 @@
 </template>
 
 <script lang="ts" setup>
+import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
+
+useMarkdownInit()
+
 defineProps({
   text: {
     type: String,

@@ -48,6 +48,7 @@ const getContent = () => {
       Message('文件读取失败')
       return
     }
+
     window.luckysheet.destroy()
     window.luckysheet.create({
       container: 'preview-excel-wrapper', // 设定DOM容器的id

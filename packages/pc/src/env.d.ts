@@ -30,6 +30,8 @@ declare global {
 
   interface Window {
     luckysheet: any
+    _initEditorWangCustomMenus_: any
+    _initMarkdown_: any
   }
 }
 

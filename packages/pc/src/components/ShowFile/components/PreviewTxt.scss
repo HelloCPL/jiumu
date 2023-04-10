@@ -7,7 +7,7 @@
     height: 44px;
     background-color: var(--jm-color-text-light);
     font-size: 24px;
-    z-index: 50;
+    z-index: 9999;
   }
 
   .preview-txt-bottom {
@@ -24,6 +24,7 @@
     height: calc(100vh - 100px);
     margin-top: 14px;
     width: 100%;
+    color: #333333;
   }
 
   .preview-txt-wrapper {
@@ -31,6 +32,14 @@
     margin: 0 auto;
     min-height: calc(100vh - 100px);
     background: #ffffff;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .preview-word-wrapper {
+    width: 720px;
+    margin: 0 auto;
+    min-height: calc(100vh - 100px);
     line-height: 1.5;
     white-space: pre-wrap;
   }

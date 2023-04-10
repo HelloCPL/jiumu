@@ -23,8 +23,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useMarkdownInit } from './hooks/use-markdown-init'
 import { editorMarkdownProps, editorMarkdownEmits } from './type'
 import { useMarkdownIndex } from './hooks/use-markdown-index'
+
+useMarkdownInit()
 
 const props = defineProps(editorMarkdownProps)
 const emit = defineEmits(editorMarkdownEmits)
