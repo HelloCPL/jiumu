@@ -36,10 +36,12 @@
 import PageBox from '@/components/PageBox/index.vue'
 import { ElForm, ElFormItem, ElInput, ElRow } from 'element-plus'
 import { useIndex } from './hooks/use-index'
-import EditorMd from '@/components/Editor/components/EditorMd/index.vue'
 import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
 import SelectClassify from '@/components/SelectClassify/index.vue'
+import { defineAsyncComponent } from 'vue'
+
+const EditorMd = defineAsyncComponent(() => import('@/components/Editor/components/EditorMd/index.vue'))
 
 defineOptions({
   name: 'QuestionAdd'

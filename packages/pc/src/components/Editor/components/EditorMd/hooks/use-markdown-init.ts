@@ -2,7 +2,8 @@
  * 初始化注册markdown
  */
 
-import { App } from 'vue'
+// import { App } from 'vue'
+import { app } from '@/app'
 // import 'mermaid'
 import '@kangc/v-md-editor/lib/theme/style/github.css'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
@@ -33,11 +34,13 @@ import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
 // 内容定位
 import createAlignPlugin from '@kangc/v-md-editor/lib/plugins/align'
 
-export const useMarkdownInit = (app: App) => {
+export const useMarkdownInit = () => {
+  if (window._initMarkdown_) return
   initMarkdown(VMdEditor)
   app.use(VMdEditor)
   initMarkdown(VMdPreview)
   app.use(VMdPreview)
+  window._initMarkdown_ = '1'
 }
 
 const initMarkdown = (comp: any) => {

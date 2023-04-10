@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
@@ -22,14 +22,13 @@ export default defineConfig(({ mode }) => {
       Vue(),
       DefineOptions(),
       VueJsx(),
-      ElementPlus({
-        exclude: /style\/css/
-      }),
+      PkgConfig(),
+      OptimizationPersist(),
+      splitVendorChunkPlugin(),
+      ElementPlus(),
       Components(),
       visualizer(),
-      viteCompression(),
-      PkgConfig(),
-      OptimizationPersist()
+      viteCompression()
     ],
     resolve: {
       alias: {
@@ -75,30 +74,35 @@ export default defineConfig(({ mode }) => {
     },
     // 打包优化
     build: {
-      target: 'modules',
-      outDir: 'dist',
-      assetsDir: 'assets',
-      minify: 'terser',
-      rollupOptions: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toString()
-          }
-        }
-      }
       // target: 'esnext',
+      // outDir: 'dist',
+      // assetsDir: 'assets',
+      // minify: 'terser',
       // rollupOptions: {
-      //   output: {
-      //     manualChunks: {
-      //       Vue: ['vue', 'vue-router'],
-      //       VuePdfEmbed: ['vue-pdf-embed'],
-      //       Vue3Pdf3: ['vue3-pdfjs'],
-      //       // DocxPreview: ['docx-preview'],
-      //       VMdEditor: ['@kangc/v-md-editor'],
-      //       WangEditor: ['@wangeditor/editor']
+      //   manualChunks(id) {
+      //     if (id.includes('node_modules')) {
+      //       return id.toString().split('node_modules/')[1].split('/')[0].toString()
       //     }
       //   }
       // }
+      target: 'esnext',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            Vue: ['vue', 'vue-router'],
+            VuePdfEmbed: ['vue-pdf-embed'],
+            Vue3Pdf3: ['vue3-pdfjs'],
+            // DocxPreview: ['docx-preview'],
+            VMdEditor: ['@kangc/v-md-editor'],
+            WangEditor: ['@wangeditor/editor'],
+            HighLight: ['highlight.js'],
+            Jquery: ['jquery'],
+            Luckyexcel: ['luckyexcel'],
+            JiumuUtils: ['@jiumu/utils'],
+            GSAP: ['gsap']
+          }
+        }
+      }
     }
   }
 })
