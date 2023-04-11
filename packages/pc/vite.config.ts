@@ -85,24 +85,24 @@ export default defineConfig(({ mode }) => {
       //     }
       //   }
       // }
-      target: 'esnext',
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            Vue: ['vue', 'vue-router'],
-            VuePdfEmbed: ['vue-pdf-embed'],
-            Vue3Pdf3: ['vue3-pdfjs'],
-            // DocxPreview: ['docx-preview'],
-            VMdEditor: ['@kangc/v-md-editor'],
-            WangEditor: ['@wangeditor/editor'],
-            HighLight: ['highlight.js'],
-            Jquery: ['jquery'],
-            Luckyexcel: ['luckyexcel'],
-            JiumuUtils: ['@jiumu/utils'],
-            GSAP: ['gsap']
-          }
-        }
-      }
+      target: 'esnext'
+      // rollupOptions: {
+      //   output: {
+      //     manualChunks: {
+      //       Vue: ['vue', 'vue-router'],
+      //       VuePdfEmbed: ['vue-pdf-embed'],
+      //       Vue3Pdf3: ['vue3-pdfjs'],
+      //       // DocxPreview: ['docx-preview'],
+      //       VMdEditor: ['@kangc/v-md-editor'],
+      //       WangEditor: ['@wangeditor/editor'],
+      //       HighLight: ['highlight.js'],
+      //       Jquery: ['jquery'],
+      //       Luckyexcel: ['luckyexcel'],
+      //       JiumuUtils: ['@jiumu/utils'],
+      //       GSAP: ['gsap']
+      //     }
+      //   }
+      // }
     }
   }
 })
