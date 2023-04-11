@@ -17,19 +17,23 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
+  const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus(), Components()]
+
+  if (VITE_MODE === 'development') {
+    // 本地预加载
+    plugins.push(...[PkgConfig(), OptimizationPersist()])
+  }
+  if (VITE_MODE === 'test') {
+    // 代码分割
+    plugins.push(splitVendorChunkPlugin())
+    // 打包压缩
+    plugins.push(viteCompression())
+    // 生成打包可视化
+    plugins.push(visualizer())
+  }
+
   return {
-    plugins: [
-      Vue(),
-      DefineOptions(),
-      VueJsx(),
-      PkgConfig(),
-      OptimizationPersist(),
-      splitVendorChunkPlugin(),
-      ElementPlus(),
-      Components(),
-      visualizer(),
-      viteCompression()
-    ],
+    plugins,
     resolve: {
       alias: {
         '@': pathSrc
