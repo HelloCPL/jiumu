@@ -50,16 +50,8 @@ const props = defineProps(editorWangProps)
 const emit = defineEmits(editorWangEmits)
 
 const id = getRandomId()
-const {
-  editorId,
-  showCatalog,
-  catalogHeaders,
-  catalogStyle,
-  handleChangeTitle,
-  isPreview,
-  previewStyle,
-  isFullScreen
-} = useEditorWang(props, emit, id)
+const { editorId, showCatalog, catalogHeaders, catalogStyle, handleChangeTitle, previewStyle, isFullScreen } =
+  useEditorWang(props, emit, id)
 </script>
 
 <style lang="scss">

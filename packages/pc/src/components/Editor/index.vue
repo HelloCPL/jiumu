@@ -19,7 +19,6 @@
         </ElRadioGroup>
       </div>
     </div>
-
     <LazyLoader>
       <EditorWang
         :model-value="modelValue"
@@ -31,10 +30,10 @@
         v-if="type === '401'"
       ></EditorWang>
       <EditorMd
-        v-bind="$attrs"
         :model-value="modelValue"
         @update:model-value="updateModelValue"
         @change="change"
+        v-bind="$attrs"
         v-else-if="type === '402'"
       ></EditorMd>
     </LazyLoader>
