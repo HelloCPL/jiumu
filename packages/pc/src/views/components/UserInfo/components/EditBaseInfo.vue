@@ -101,7 +101,6 @@ const confirm = () => {
       const params: ParamsUpdateUserBaseSelf = {
         ...form
       }
-      console.log(111, params)
       _update(params)
     }
   })

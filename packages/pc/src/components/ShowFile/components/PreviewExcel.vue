@@ -28,7 +28,6 @@
 import { ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
 import { onMounted } from 'vue'
-import LuckeExcel from 'luckyexcel'
 import { Message } from '@/utils/interaction'
 
 const props = defineProps({
@@ -43,9 +42,17 @@ defineEmits({
 })
 
 const getContent = () => {
-  LuckeExcel.transformExcelToLuckyByUrl(props.url, '', (json: any) => {
+  if (!window.LuckyExcel) {
+    Message('luckyexcel.umd.js文件缺失')
+    return
+  }
+  window.LuckyExcel.transformExcelToLuckyByUrl(props.url, '', (json: any) => {
     if (json.sheets === null || json.sheets.length === 0) {
       Message('文件读取失败')
+      return
+    }
+    if (!window.luckysheet) {
+      Message('luckysheet.umd.js文件缺失')
       return
     }
 

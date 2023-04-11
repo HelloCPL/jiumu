@@ -32,6 +32,7 @@ declare global {
     luckysheet: any
     _initEditorWangCustomMenus_: any
     _initMarkdown_: any
+    LuckyExcel: any
   }
 }
 

@@ -39,7 +39,6 @@ export const useIndex = () => {
 function initLazyIntersectionObserver(fn: Function) {
   const observer = new IntersectionObserver(
     (entries) => {
-      console.log('entries', entries)
       return entries.forEach((entry) => fn(entry))
     },
     {

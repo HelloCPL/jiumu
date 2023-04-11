@@ -97,7 +97,6 @@ export default defineConfig(({ mode }) => {
       //       WangEditor: ['@wangeditor/editor'],
       //       HighLight: ['highlight.js'],
       //       Jquery: ['jquery'],
-      //       Luckyexcel: ['luckyexcel'],
       //       JiumuUtils: ['@jiumu/utils'],
       //       GSAP: ['gsap']
       //     }
