@@ -28,6 +28,11 @@ export const editorWangProps = buildProps({
   toolbarConfig: {
     type: Object as PropType<Partial<IToolbarConfig>>,
     default: () => ({})
+  },
+  // 初始化完成是否回调 change
+  isEmitMounted: {
+    type: Boolean,
+    default: true
   }
 } as const)
 

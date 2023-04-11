@@ -15,11 +15,14 @@ type insertFnParams = {
 type insertFn = (obj: insertFnParams) => void
 
 export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdownEmits) => {
+  let _isLoaded = false
+
   const value = ref<string>('')
   const refVMdEditor = ref<any>()
 
   // 改变
   const handleChange = (text: string) => {
+    if (!_isLoaded) return
     value.value = text
     emit('update:modelValue', text)
     emit('change', text)
@@ -73,7 +76,17 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
     }
   )
   onMounted(() => {
-    value.value = props.modelValue
+    _isLoaded = true
+    if (props.modelValue === '<p><br></p>') {
+      handleChange('')
+    } else {
+      value.value = props.modelValue.replace(/<\/p><p>/g, '</p>\n<p>')
+      if (props.isEmitMounted) {
+        setTimeout(() => {
+          emit('change', value.value)
+        }, 1000)
+      }
+    }
   })
 
   return {
