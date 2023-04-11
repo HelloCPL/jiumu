@@ -46,6 +46,11 @@ export const editorMarkdownProps = buildProps({
   disabledMenus: {
     type: Array as PropType<string[]>,
     default: () => []
+  },
+  // 初始化完成是否回调 change
+  isEmitMounted: {
+    type: Boolean,
+    default: true
   }
 } as const)
 

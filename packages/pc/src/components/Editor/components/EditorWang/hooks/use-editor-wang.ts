@@ -34,6 +34,9 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
     editorId.value = editor.id
     editor.setHtml(props.modelValue)
     handleEditorEmit(editor)
+    if (props.isEmitMounted) {
+      emit('change', props.modelValue)
+    }
   }
   const onChange = (editor: IDomEditor) => {
     value = editor.getHtml()

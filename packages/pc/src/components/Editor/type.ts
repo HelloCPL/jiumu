@@ -17,6 +17,11 @@ export const editorProps = buildProps({
     // 双向绑定值
     type: String,
     default: ''
+  },
+  // 初始化完成是否回调 change
+  isEmitMounted: {
+    type: Boolean,
+    default: true
   }
 } as const)
 
