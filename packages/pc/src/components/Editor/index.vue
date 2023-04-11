@@ -19,31 +19,37 @@
         </ElRadioGroup>
       </div>
     </div>
-    <EditorWang
-      :model-value="modelValue"
-      @update:model-value="updateModelValue"
-      @change="change"
-      @blur="blur"
-      @focus="focus"
-      v-bind="$attrs"
-      v-if="type === '401'"
-    ></EditorWang>
-    <EditorMd
-      v-bind="$attrs"
-      :model-value="modelValue"
-      @update:model-value="updateModelValue"
-      @change="change"
-      v-else-if="type === '402'"
-    ></EditorMd>
+
+    <LazyLoader>
+      <EditorWang
+        :model-value="modelValue"
+        @update:model-value="updateModelValue"
+        @change="change"
+        @blur="blur"
+        @focus="focus"
+        v-bind="$attrs"
+        v-if="type === '401'"
+      ></EditorWang>
+      <EditorMd
+        v-bind="$attrs"
+        :model-value="modelValue"
+        @update:model-value="updateModelValue"
+        @change="change"
+        v-else-if="type === '402'"
+      ></EditorMd>
+    </LazyLoader>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ElRadioGroup, ElRadio } from 'element-plus'
-import EditorWang from './components/EditorWang/index.vue'
-import EditorMd from './components/EditorMd/index.vue'
 import { editorProps, editorEmits } from './type'
 import { useIndex } from './index'
+import LazyLoader from '@/components/LazyLoader/index.vue'
+import { defineAsyncComponent } from 'vue'
+
+const EditorMd = defineAsyncComponent(() => import('./components/EditorMd/index.vue'))
+const EditorWang = defineAsyncComponent(() => import('./components/EditorWang/index.vue'))
 
 defineOptions({
   inheritAttrs: false

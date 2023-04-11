@@ -36,24 +36,32 @@
           class="text-base cursor-pointer mr-4"
           :class="{ 'preview-page': state.pageNum <= 1 }"
           @click="handleLastPage"
-        >上一页</span
         >
+          上一页
+        </span>
         <span
           class="text-base cursor-pointer"
           :class="{ 'preview-page': state.pageNum >= state.numPages }"
           @click="handleNextPage"
-        >下一页</span
         >
+          下一页
+        </span>
       </span>
       <div class="w-full g-scroll-y-0 preview-pdf-content">
-        <div ref="refBox">
-          <VuePdfEmbed
-            :source="state.source"
-            :page="state.pageNum"
-            class="vue-pdf-embed"
-            :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
-          ></VuePdfEmbed>
-        </div>
+        <LazyLoader>
+          <div ref="refBox">
+            <template v-for="page in state.numPages" :key="page">
+              <VuePdf
+                :src="state.source"
+                :enable-annotations="false"
+                :page="page"
+                class="vue-pdf-embed"
+                :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
+                v-if="page === state.pageNum"
+              ></VuePdf>
+            </template>
+          </div>
+        </LazyLoader>
       </div>
     </div>
   </teleport>
@@ -63,7 +71,8 @@
 import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { usePreviewPdf } from '../hooks/use-preview-pdf'
-import VuePdfEmbed from 'vue-pdf-embed'
+import LazyLoader from '@/components/LazyLoader/index.vue'
+import { VuePdf } from 'vue3-pdfjs'
 
 const props = defineProps({
   url: {

@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
@@ -17,20 +17,23 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
+  const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus(), Components()]
+
+  if (VITE_MODE === 'development') {
+    // 本地预加载
+    plugins.push(...[PkgConfig(), OptimizationPersist()])
+  }
+  if (VITE_MODE === 'test') {
+    // 代码分割
+    plugins.push(splitVendorChunkPlugin())
+    // 打包压缩
+    plugins.push(viteCompression())
+    // 生成打包可视化
+    plugins.push(visualizer())
+  }
+
   return {
-    plugins: [
-      Vue(),
-      DefineOptions(),
-      VueJsx(),
-      ElementPlus({
-        exclude: /style\/css/
-      }),
-      Components(),
-      visualizer(),
-      viteCompression(),
-      PkgConfig(),
-      OptimizationPersist()
-    ],
+    plugins,
     resolve: {
       alias: {
         '@': pathSrc
@@ -75,18 +78,18 @@ export default defineConfig(({ mode }) => {
     },
     // 打包优化
     build: {
-      target: 'modules',
-      outDir: 'dist',
-      assetsDir: 'assets',
-      minify: 'terser',
-      rollupOptions: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toString()
-          }
-        }
-      }
       // target: 'esnext',
+      // outDir: 'dist',
+      // assetsDir: 'assets',
+      // minify: 'terser',
+      // rollupOptions: {
+      //   manualChunks(id) {
+      //     if (id.includes('node_modules')) {
+      //       return id.toString().split('node_modules/')[1].split('/')[0].toString()
+      //     }
+      //   }
+      // }
+      target: 'esnext'
       // rollupOptions: {
       //   output: {
       //     manualChunks: {
@@ -95,7 +98,11 @@ export default defineConfig(({ mode }) => {
       //       Vue3Pdf3: ['vue3-pdfjs'],
       //       // DocxPreview: ['docx-preview'],
       //       VMdEditor: ['@kangc/v-md-editor'],
-      //       WangEditor: ['@wangeditor/editor']
+      //       WangEditor: ['@wangeditor/editor'],
+      //       HighLight: ['highlight.js'],
+      //       Jquery: ['jquery'],
+      //       JiumuUtils: ['@jiumu/utils'],
+      //       GSAP: ['gsap']
       //     }
       //   }
       // }

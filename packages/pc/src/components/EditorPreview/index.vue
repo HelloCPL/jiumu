@@ -6,14 +6,20 @@
 
 <template>
   <div class="w-full">
-    <EditorWangPreview :value="value" v-if="type === '401'"></EditorWangPreview>
-    <EditorMdPreview :text="value" v-else-if="type === '402'"></EditorMdPreview>
+    <LazyLoader>
+      <EditorWangPreview :value="value" v-if="type === '401'"></EditorWangPreview>
+      <EditorMdPreview :text="value" v-else-if="type === '402'"></EditorMdPreview>
+    </LazyLoader>
   </div>
 </template>
 
 <script lang="ts" setup>
-import EditorMdPreview from './components/EditorMdPreview/index.vue'
-import EditorWangPreview from './components/EditorWangPreview/index.vue'
 import { editorPreviewProps } from './type'
+import { defineAsyncComponent } from 'vue'
+import LazyLoader from '@/components/LazyLoader/index.vue'
+
+const EditorMdPreview = defineAsyncComponent(() => import('./components/EditorMdPreview/index.vue'))
+const EditorWangPreview = defineAsyncComponent(() => import('./components/EditorWangPreview/index.vue'))
+
 defineProps(editorPreviewProps)
 </script>

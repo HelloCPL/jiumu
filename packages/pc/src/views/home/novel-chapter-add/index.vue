@@ -40,8 +40,10 @@ import { ElForm, ElFormItem, ElInput, ElRow } from 'element-plus'
 import { useIndex } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
-import EditorWang from '@/components/Editor/components/EditorWang/index.vue'
 import NovelNote from '@/views/components/NovelNote/index.vue'
+import { defineAsyncComponent } from 'vue'
+
+const EditorWang = defineAsyncComponent(() => import('@/components/Editor/components/EditorWang/index.vue'))
 
 defineOptions({
   name: 'NovelChapterAdd'

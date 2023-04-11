@@ -24,6 +24,7 @@ declare module '@vue/runtime-core' {
     FilterButton: typeof import('./src/components/FilterButton/index.vue')['default']
     InputNumber: typeof import('./src/components/InputNumber/index.vue')['default']
     Interation: typeof import('./src/components/Interation/index.vue')['default']
+    LazyLoader: typeof import('./src/components/LazyLoader/index.vue')['default']
     MoreBtn: typeof import('./src/components/MoreBtn/index.vue')['default']
     PageBox: typeof import('./src/components/PageBox/index.vue')['default']
     Pagination: typeof import('./src/components/Pagination/index.vue')['default']

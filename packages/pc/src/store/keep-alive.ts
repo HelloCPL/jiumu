@@ -145,7 +145,7 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
       }
     },
     storage: {
-      type: 'session',
+      type: 'local',
       enabled: true,
       keys: ['includes', 'excludes']
     }

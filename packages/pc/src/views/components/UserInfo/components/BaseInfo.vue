@@ -135,12 +135,10 @@ const showBaseInfo = ref<boolean>(false)
 const avatar = ref<DataBaseFile | null | undefined>(null)
 avatar.value = userStore.userInfo?.avatar
 const handleUploadAvatar = async (files: DataBaseFile[]) => {
-  console.log(123, files)
   if (files.length) {
     const res = await updateUserBaseSelf({
       avatar: files[0].id
     })
-    console.log(123, res)
     if (res.code === 200) {
       avatar.value = files[0]
       userStore.updateUser('1')

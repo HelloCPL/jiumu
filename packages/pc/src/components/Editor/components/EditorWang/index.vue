@@ -38,10 +38,13 @@
 </template>
 
 <script lang="ts" setup>
+import { initEditorWangCustomMenus } from './hooks/editor-wang-custom-menus'
 import { useEditorWang } from './hooks/use-editor-wang'
 import { editorWangProps, editorWangEmits } from './type'
 import TitleCatalog from './components/TitleCatalog.vue'
 import { getRandomId } from '@jiumu/utils'
+
+initEditorWangCustomMenus()
 
 const props = defineProps(editorWangProps)
 const emit = defineEmits(editorWangEmits)

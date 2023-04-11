@@ -9,6 +9,8 @@ import { titleSvg } from '@/assets/svg/index'
 import { fullScreenSvg } from '@/assets/svg/index'
 
 export const initEditorWangCustomMenus = () => {
+  if (window._initEditorWangCustomMenus_) return
+
   const menuButtonPreview = {
     key: 'MyButtonPreview',
     factory() {
@@ -35,4 +37,6 @@ export const initEditorWangCustomMenus = () => {
   }
 
   Boot.registerModule(module)
+
+  window._initEditorWangCustomMenus_ = '1'
 }

@@ -21,11 +21,12 @@ export type CodeType = keyof typeof Code
  */
 export enum Theme {
   '明亮' = 'light',
-  '暗黑' = 'drak',
-  '火红' = 'fireRed'
+  '暗黑' = 'drak'
+  // '火红' = 'fireRed'
 }
 
-export type ThemeValue = 'light' | 'drak' | 'fireRed'
+// export type ThemeValue = 'light' | 'drak' | 'fireRed'
+export type ThemeValue = 'light' | 'drak'
 export type ThemeType = keyof typeof Theme
 
 /**
