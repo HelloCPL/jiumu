@@ -13,6 +13,7 @@ import { getRoleListAllSelf } from '@/api/role'
 import { getPermissionListAllSelf } from '@/api/permission'
 import { getMenuAllSelf } from '@/api/menu'
 import { getTagAllSelf } from '@/api/tag'
+const { VITE_HOME_EXPIRE } = import.meta.env
 
 export const useUserStore = defineStore<string, UserState, {}, UserActions>(StoreNames.USER, {
   state: () => {
@@ -118,6 +119,6 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
   storage: {
     enabled: true,
     type: 'local',
-    expire: import.meta.env.VITE_HOME_EXPIRE * 2
+    expire: VITE_HOME_EXPIRE * 2
   }
 })

@@ -11,6 +11,7 @@ import { ThemeState, ThemeActions } from './theme.b'
 import { kebabCase } from 'lodash-es'
 import { ColorsFile } from '@/style/color.b'
 import { storage } from '@jiumu/utils'
+const { VITE_HOME_EXPIRE } = import.meta.env
 
 // 字体大小集合
 const fontSizeList: KeyValue<string, number>[] = [
@@ -134,6 +135,6 @@ export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(S
     enabled: true,
     type: 'local',
     keys: ['theme', 'fontSize', 'fontFamily'],
-    expire: import.meta.env.VITE_HOME_EXPIRE * 3
+    expire: VITE_HOME_EXPIRE * 3
   }
 })
