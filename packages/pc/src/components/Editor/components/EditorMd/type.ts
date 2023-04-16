@@ -29,7 +29,7 @@ export const editorMarkdownProps = buildProps({
   leftToolbar: {
     type: String,
     default:
-      'undo redo | h bold italic strikethrough ul ol customTip code link image table sync-scroll toc preview fullscreen'
+      'undo redo | customTitle bold italic strikethrough ul ol customTip code link image table sync-scroll toc preview fullscreen'
   },
   rightToolbar: {
     type: String,
