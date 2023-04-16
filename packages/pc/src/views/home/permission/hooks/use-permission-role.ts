@@ -24,7 +24,7 @@ export const usePermissionRole = (props: PermissionInfoProps) => {
       total.value = res.total
       ++pageNo
     }
-  })
+  }, 300)
   getDataList()
 
   const _label = computed(() => {

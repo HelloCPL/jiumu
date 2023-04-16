@@ -18,7 +18,7 @@ export const useUserMenu = (props: UserInfoProps) => {
     if (res.code === 200) {
       dataList.value = <DataMenu[]>res.data
     }
-  })
+  }, 300)
   getDataList()
 
   const _username = computed(() => {

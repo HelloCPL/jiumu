@@ -60,6 +60,6 @@ const getLoginInfo = debounce(async () => {
     pageNo++
     total.value = res.total
   }
-})
+}, 300)
 getLoginInfo()
 </script>

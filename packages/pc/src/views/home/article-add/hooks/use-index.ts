@@ -99,19 +99,19 @@ export const useIndex = () => {
   const _add = debounce(async (params: ParamsArticleAdd) => {
     const res = await addArticle(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 编辑
   const _update = debounce(async (params: ParamsArticleAdd) => {
     const res = await updateArticle(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 删除
   const _delete = debounce(async (id) => {
     const res = await deleteArticle(id)
     handleFinish(res)
-  })
+  }, 300)
 
   const keepAliveStore = useKeepAliveStore()
   // 处理回调
@@ -173,6 +173,26 @@ export const useIndex = () => {
     }
   }
 
+  // 仅保存文本
+  const handleSaveContent = debounce(async () => {
+    if (!form.id) {
+      Message('请保存为草稿或发布后才能保存文本')
+      return
+    } else {
+      const params = {
+        id: form.id,
+        content: form.content
+      }
+      const res = await updateArticle(params)
+      if (res.code === 200) {
+        Message({
+          message: '保存成功',
+          type: 'success'
+        })
+      }
+    }
+  }, 300)
+
   return {
     formRef,
     form,
@@ -182,6 +202,7 @@ export const useIndex = () => {
     handleChangeCoverImg,
     attachmentList,
     handleChangeAttachment,
-    changeBtn
+    changeBtn,
+    handleSaveContent
   }
 }

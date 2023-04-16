@@ -21,6 +21,10 @@ export const useIndex = (props: EditorProps, emit: EditorEmits) => {
     emit('focus', val)
   }
 
+  const save = (val: string) => {
+    emit('save', val)
+  }
+
   const _type = ref('')
   watch(
     () => props.type,
@@ -39,6 +43,7 @@ export const useIndex = (props: EditorProps, emit: EditorEmits) => {
     change,
     blur,
     focus,
+    save,
     _type,
     handleChangeType
   }

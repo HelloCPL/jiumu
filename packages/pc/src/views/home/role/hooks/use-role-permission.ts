@@ -97,7 +97,7 @@ export const useRolePermission = (props: RoleInfoProps) => {
       total2.value = res.total
       ++pageNo2
     }
-  })
+  }, 300)
   // 已关联的权限的交互
   const handleDelete = async (info: DataPermission, index: number) => {
     const flag = dataList2.value.find((item) => item.id === info.id)

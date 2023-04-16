@@ -48,7 +48,7 @@ export const useTagUser = (props: TagInfoProps) => {
       dataList2.value = res.data
       _relevance(dataList2, dataList)
     }
-  })
+  }, 300)
   getDataList2()
 
   // 关联交互

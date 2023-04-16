@@ -11,7 +11,7 @@
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
       </ElFormItem>
       <ElFormItem label="问答内容" prop="content">
-        <EditorMd v-model="form.content" @change="handleChangeContent"></EditorMd>
+        <EditorMd v-model="form.content" @change="handleChangeContent" @save="handleSaveContent"></EditorMd>
       </ElFormItem>
       <ElRow class="flex">
         <ElFormItem label="是否公开" prop="isSecret" class="g-w-280 mr-6">
@@ -47,5 +47,5 @@ defineOptions({
   name: 'QuestionAdd'
 })
 
-const { formRef, form, rules, handleChangeContent, changeBtn } = useIndex()
+const { formRef, form, rules, handleChangeContent, changeBtn, handleSaveContent } = useIndex()
 </script>

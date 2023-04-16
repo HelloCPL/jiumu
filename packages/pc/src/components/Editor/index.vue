@@ -26,6 +26,7 @@
         @change="change"
         @blur="blur"
         @focus="focus"
+        @save="save"
         v-bind="$attrs"
         v-if="type === '401'"
       ></EditorWang>
@@ -33,6 +34,7 @@
         :model-value="modelValue"
         @update:model-value="updateModelValue"
         @change="change"
+        @save="save"
         v-bind="$attrs"
         v-else-if="type === '402'"
       ></EditorMd>
@@ -57,5 +59,5 @@ defineOptions({
 const props = defineProps(editorProps)
 const emit = defineEmits(editorEmits)
 
-const { updateModelValue, change, blur, focus, _type, handleChangeType } = useIndex(props, emit)
+const { updateModelValue, change, blur, focus, save, _type, handleChangeType } = useIndex(props, emit)
 </script>

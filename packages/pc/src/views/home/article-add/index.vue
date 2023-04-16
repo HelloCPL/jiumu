@@ -11,7 +11,12 @@
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
       </ElFormItem>
       <ElFormItem label="文章内容" prop="content">
-        <Editor v-model:type="form.contentType" v-model="form.content" @change="handleChangeContent"></Editor>
+        <Editor
+          v-model:type="form.contentType"
+          v-model="form.content"
+          @change="handleChangeContent"
+          @save="handleSaveContent"
+        ></Editor>
       </ElFormItem>
       <ElRow class="flex">
         <ElFormItem label="文章类型" prop="type" class="g-w-280 mr-6">
@@ -83,6 +88,7 @@ const {
   handleChangeCoverImg,
   attachmentList,
   handleChangeAttachment,
-  changeBtn
+  changeBtn,
+  handleSaveContent
 } = useIndex()
 </script>

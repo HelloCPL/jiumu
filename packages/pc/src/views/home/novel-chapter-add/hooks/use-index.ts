@@ -91,19 +91,19 @@ export const useIndex = () => {
   const _add = debounce(async (params: ParamsNovelChapterAdd) => {
     const res = await addNovelChapter(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 编辑
   const _update = debounce(async (params: ParamsNovelChapterEdit) => {
     const res = await updateNovelChapter(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 删除
   const _delete = debounce(async (id) => {
     const res = await deleteNovelChapter(id)
     handleFinish(res)
-  })
+  }, 300)
 
   const keepAliveStore = useKeepAliveStore()
   // 处理回调
@@ -175,6 +175,26 @@ export const useIndex = () => {
     }
   }
 
+  // 仅保存文本
+  const handleSaveContent = debounce(async () => {
+    if (!id.value) {
+      Message('请保存为草稿或发布后才能保存文本')
+      return
+    } else {
+      const params = {
+        id: id.value,
+        content: form.content
+      }
+      const res = await updateNovelChapter(params)
+      if (res.code === 200) {
+        Message({
+          message: '保存成功',
+          type: 'success'
+        })
+      }
+    }
+  }, 300)
+
   return {
     id,
     novelId,
@@ -183,6 +203,7 @@ export const useIndex = () => {
     form,
     rules,
     handleChangeContent,
-    changeBtn
+    changeBtn,
+    handleSaveContent
   }
 }

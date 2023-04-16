@@ -74,19 +74,19 @@ export const useAdd = (props: NovelNoteAddProps, emit: NovelNoteEmit) => {
   const _add = debounce(async (params: ParamsNovelNoteAdd) => {
     const res = await addNovelNote(params)
     handleFinish(res, 'add')
-  })
+  }, 300)
 
   // 编辑
   const _update = debounce(async (params: ParamsNovelNoteEdit) => {
     const res = await updateNovelNote(params)
     handleFinish(res, 'update')
-  })
+  }, 300)
 
   // 删除
   const _delete = debounce(async (id: string) => {
     const res = await deleteNovelNote(id)
     handleFinish(res, 'delete')
-  })
+  }, 300)
 
   // 处理回调
   const handleFinish = (res: DataOptions<null | string>, type: string) => {
@@ -103,39 +103,39 @@ export const useAdd = (props: NovelNoteAddProps, emit: NovelNoteEmit) => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          if (props.id) {
-            const params: ParamsNovelNoteEdit = {
-              id: props.id,
-              ...form
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            if (props.id) {
+              const params: ParamsNovelNoteEdit = {
+                id: props.id,
+                ...form
+              }
+              _update(params)
+            } else {
+              const params: ParamsNovelNoteAdd = {
+                ...form
+              }
+              if (props.targetId) {
+                params.targetId = props.targetId
+                params.targetType = props.targetType
+                params.targetShare = props.targetShare
+              }
+              _add(params)
             }
-            _update(params)
-          } else {
-            const params: ParamsNovelNoteAdd = {
-              ...form
-            }
-            if (props.targetId) {
-              params.targetId = props.targetId
-              params.targetType = props.targetType
-              params.targetShare = props.targetShare
-            }
-            _add(params)
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (props.id) {
-          _delete(props.id)
-        } else {
-          emit('close', 'close')
-        }
-      })
-      break
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (props.id) {
+            _delete(props.id)
+          } else {
+            emit('close', 'close')
+          }
+        })
+        break
     }
   }
 

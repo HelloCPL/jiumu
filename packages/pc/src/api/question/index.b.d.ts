@@ -14,6 +14,11 @@ interface ParamsQuestionAdd {
   remarks?: string
 }
 
+interface ParamsQuestionAddSaveContent {
+  id: string
+  content: string
+}
+
 // 问答数据接口类型
 interface DataQuestion extends DataBase {
   id: string
