@@ -5,18 +5,18 @@
 -->
 
 <template>
-  <div class="h-full flex-shrink-0 border-l-1" style="width: 200px">
-    <div class="g-scroll-y w-full">
-      <p class="border-b-1 title-catalog">目录导航</p>
-      <p
-        class="px-2 my-2 cursor-pointer"
-        :style="{ paddingLeft: item.paddingLeft, fontSize: item.fontSize }"
+  <div class="h-full flex-shrink-0 flex flex-col border-l-1" style="width: 200px">
+    <div class="border-b-1 title-catalog">目录导航</div>
+    <div class="flex-1 g-scroll-y title-ul">
+      <div
+        class="mb-4 cursor-pointer g-line-1 title-li"
+        :style="{ paddingLeft: item.paddingLeft }"
         v-for="item in titles"
         :key="item.id"
         @click="$emit('change', item)"
       >
         {{ item.text }}
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -38,37 +38,31 @@ type TitlesType = {
   id: string
   type: string
   paddingLeft?: string
-  fontSize?: string
+  indent: number
 }
 const titles = ref<TitlesType[]>([])
 
 const handleTitles = (headers: any[], active: boolean) => {
   if (active) {
     const _title: TitlesType[] = []
+    let min = 4
     headers.forEach((item: any) => {
-      if (item.children && item.children.length) {
+      const h = ['header1', 'header2', 'header3', 'header4', 'header5']
+      let i = h.indexOf(item.type)
+      if (item.children && item.children.length && i !== -1) {
         const obj: TitlesType = {
           text: item.children[0].text,
           id: item.id,
-          type: item.type
-        }
-        if (item.type === 'header1') {
-          obj.paddingLeft = '1rem'
-          obj.fontSize = '2rem'
-        } else if (item.type === 'header2') {
-          obj.paddingLeft = '1.25rem'
-          obj.fontSize = '1.5rem'
-        } else if (item.type === 'header3') {
-          obj.paddingLeft = '1.5rem'
-          obj.fontSize = '1.17rem'
-        } else if (item.type === 'header4') {
-          obj.paddingLeft = '1.75rem'
-        } else {
-          obj.paddingLeft = '2rem'
-          obj.fontSize = '0.83rem'
+          type: item.type,
+          indent: i
         }
         _title.push(obj)
+        if (i < min) min = i
       }
+    })
+    _title.forEach((item) => {
+      item.indent = item.indent - min
+      item.paddingLeft = item.indent * 16 + 'px'
     })
     titles.value = _title
   }
@@ -81,6 +75,8 @@ onMounted(() => {
 watch(
   () => props.headers,
   (val) => {
+    console.log(99, val)
+
     handleTitles(val, true)
   },
   { deep: true, immediate: true }
@@ -94,5 +90,14 @@ watch(
   padding: 0 14px;
   font-weight: 600;
   font-size: var(--jm-font-size-medium);
+}
+
+.title-ul {
+  padding: 8px;
+  padding-left: 14px;
+}
+
+.title-li {
+  line-height: 1;
 }
 </style>

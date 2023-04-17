@@ -5,42 +5,82 @@
 -->
 
 <template>
-  <div class="bg-white w-full flex">
-    <v-md-preview :text="text" class="flex-1 shrink-0" ref="refPreview"></v-md-preview>
-    <div class="affix-md-preview-right" :style="{ width: width + 'px' }" v-if="titleData.length > 3">
+  <div class="bg-white w-full max-w-full flex editor-md-preiview-container">
+    <div :style="{ width: contentWidth }">
+      <v-md-preview :text="text" ref="refPreview"></v-md-preview>
+    </div>
+    <div
+      class="affix-md-preview-right shrink-0"
+      :style="{ width: width + 'px' }"
+      v-if="titleData.length > 3 && !isReload"
+    >
       <ElAffix target=".affix-md-preview-right" :offset="40">
-        <div class="w-full flex flex-col g-scroll-y title-box">
-          <span class="text-lg w-full py-2">目录：</span>
-          <GRichText
-            class="cursor-pointer text-light mb-4"
-            v-for="(item, index) in titleData"
-            :key="index"
-            :html="item.html"
-            @click="handleTitleItem(index)"
-          ></GRichText>
+        <div class="w-full h-full relative title-wrapper">
+          <span
+            class="absolute cursor-pointer title-icon"
+            :class="{ 'title-icon-arrow': width === 0 }"
+            @click="handleClickArrow"
+          >
+            <ElIcon>
+              <ArrowLeftBold></ArrowLeftBold>
+            </ElIcon>
+          </span>
+          <div class="h-full overflow-hidden" :style="{ width: width + 'px' }">
+            <div style="width: 220px" class="h-full flex flex-col">
+              <div class="text-lg w-full h-10 pt-1 bg-white">
+                <span>目录：</span>
+              </div>
+              <div class="flex-1 flex flex-col w-full pt-2 g-scroll-y">
+                <GRichText
+                  class="cursor-pointer text-light mb-4"
+                  v-for="(item, index) in titleData"
+                  :key="index"
+                  :html="item.html"
+                  @click="handleTitleItem(index)"
+                ></GRichText>
+              </div>
+            </div>
+          </div>
         </div>
       </ElAffix>
     </div>
   </div>
-  <div style="height: 1200px">哈哈</div>
 </template>
 
 <script lang="ts" setup>
 import { editorMdPreviewProps } from './type'
 import { useIndex } from './index'
-import { ElAffix } from 'element-plus'
+import { ElAffix, ElIcon } from 'element-plus'
+import { ArrowLeftBold } from '@element-plus/icons-vue'
 
 const props = defineProps(editorMdPreviewProps)
 
-const { refPreview, width, titleData, handleTitleItem } = useIndex(props)
+const { isReload, refPreview, width, contentWidth, titleData, handleTitleItem, handleClickArrow } =
+  useIndex(props)
 </script>
 
 <style lang="scss">
 @import '@/components/Editor/components/EditorMd/index.scss';
+
+.editor-md-preiview-container {
+  .el-affix {
+    width: auto !important;
+  }
+}
 </style>
 
 <style lang="scss" scoped>
-.title-box {
+.title-wrapper {
   max-height: calc(100vh - 50px);
+}
+
+.title-icon {
+  right: 0px;
+  top: 5px;
+  transition: transform ease 0.5s;
+}
+
+.title-icon-arrow {
+  transform: rotate(180deg);
 }
 </style>

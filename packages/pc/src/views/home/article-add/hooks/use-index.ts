@@ -181,7 +181,8 @@ export const useIndex = () => {
     } else {
       const params = {
         id: form.id,
-        content: form.content
+        content: form.content,
+        contentType: form.contentType
       }
       const res = await updateArticle(params)
       if (res.code === 200) {

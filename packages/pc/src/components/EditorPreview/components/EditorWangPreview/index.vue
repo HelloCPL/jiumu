@@ -40,6 +40,11 @@ const initEditorPreview = (html: string) => {
         autoFocus: false
       }
     })
+
+    setTimeout(() => {
+      console.log(11, editor)
+      console.log(editor.getElemsByTypePrefix('header'))
+    }, 2000)
   })
 }
 

@@ -51,7 +51,6 @@ body {
     height: auto;
     margin: 0;
     margin-bottom: 1rem;
-
   }
 
   .v-md-editor__toc-nav-item:hover .v-md-editor__toc-nav-title,
@@ -226,5 +225,9 @@ body {
   .github-markdown-body pre code,
   .github-markdown-body pre tt {
     color: var(--jm-color-text-light);
+  }
+
+  .scrollbar__thumb {
+    background-color: var(--jm-color-black-1);
   }
 }
