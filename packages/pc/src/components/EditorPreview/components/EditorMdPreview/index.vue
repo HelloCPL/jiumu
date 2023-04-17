@@ -5,57 +5,42 @@
 -->
 
 <template>
-  <v-md-preview :text="text" class="bg-white"></v-md-preview>
+  <div class="bg-white w-full flex">
+    <v-md-preview :text="text" class="flex-1 shrink-0" ref="refPreview"></v-md-preview>
+    <div class="affix-md-preview-right" :style="{ width: width + 'px' }" v-if="titleData.length > 3">
+      <ElAffix target=".affix-md-preview-right" :offset="40">
+        <div class="w-full flex flex-col g-scroll-y title-box">
+          <span class="text-lg w-full py-2">目录：</span>
+          <GRichText
+            class="cursor-pointer text-light mb-4"
+            v-for="(item, index) in titleData"
+            :key="index"
+            :html="item.html"
+            @click="handleTitleItem(index)"
+          ></GRichText>
+        </div>
+      </ElAffix>
+    </div>
+  </div>
+  <div style="height: 1200px">哈哈</div>
 </template>
 
 <script lang="ts" setup>
-import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
-import { xss } from '@jiumu/utils'
+import { editorMdPreviewProps } from './type'
+import { useIndex } from './index'
+import { ElAffix } from 'element-plus'
 
-useMarkdownInit()
+const props = defineProps(editorMdPreviewProps)
 
-const props = defineProps({
-  text: {
-    type: String,
-    default: ''
-  }
-})
-
-const handleShowTitle = (text: string) => {
-  // console.log(11, text);
-
-  const arr = text
-    .split('\n')
-    .filter((value) => value.search(/#{1,5}\s+/gi) !== -1)
-    .map((value) => {
-      let _value = value
-      if (value.search(/#{5}\s+/gi) !== -1) {
-        _value = '<h5>' + value.replace(/#{5}\s+/gi, '') + '</h5>'
-      } else if (value.search(/#{4}\s+/gi) !== -1) {
-        console.log('h4', value)
-        _value = '<h4>' + value.replace(/#{4}\s+/gi, '') + '</h4>'
-      } else if (value.search(/#{3}\s+/gi) !== -1) {
-        console.log('h3', value)
-        _value = '<h3>' + value.replace(/#{3}\s+/gi, '') + '</h3>'
-      } else if (value.search(/#{2}\s+/gi) !== -1) {
-        console.log('h2', value)
-        _value = '<h2>' + value.replace(/#{2}\s+/gi, '') + '</h2>'
-      } else if (value.search(/#{1}\s+/gi) !== -1) {
-        console.log('h1', value)
-        _value = '<h1>' + value.replace(/#{1}\s+/gi, '') + '</h1>'
-      }
-      return {
-        value,
-        _value: xss.process(_value)
-      }
-    })
-
-  console.log(22, arr)
-}
-
-handleShowTitle(props.text)
+const { refPreview, width, titleData, handleTitleItem } = useIndex(props)
 </script>
 
 <style lang="scss">
 @import '@/components/Editor/components/EditorMd/index.scss';
+</style>
+
+<style lang="scss" scoped>
+.title-box {
+  max-height: calc(100vh - 50px);
+}
 </style>

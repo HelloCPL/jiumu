@@ -47,6 +47,11 @@ body {
 
   .v-md-editor__toc-nav-item {
     color: var(--jm-color-text);
+    line-height: 1;
+    height: auto;
+    margin: 0;
+    margin-bottom: 1rem;
+
   }
 
   .v-md-editor__toc-nav-item:hover .v-md-editor__toc-nav-title,
@@ -87,9 +92,34 @@ body {
   }
 
   .github-markdown-body h1,
-  .github-markdown-body h2 {
+  .github-markdown-body h2,
+  .github-markdown-body h3,
+  .github-markdown-body h4,
+  .github-markdown-body h5 {
     border: 0;
     padding: 0;
+    line-height: 1.5;
+    margin: 1.7rem 0 0.57rem;
+  }
+
+  .github-markdown-body h1 {
+    font-size: 2rem;
+  }
+
+  .github-markdown-body h2 {
+    font-size: 1.5rem;
+  }
+
+  .github-markdown-body h3 {
+    font-size: 1.17rem;
+  }
+
+  .github-markdown-body h4 {
+    font-size: 1rem;
+  }
+
+  .github-markdown-body h5 {
+    font-size: 0.83rem;
   }
 
   // 提示框

@@ -17,7 +17,7 @@ export const editorPreviewProps = buildProps({
     default: ''
   },
   // 是否展示标题
-  showTitle: {
+  isShowTitle: {
     type: Boolean,
     default: true
   }
