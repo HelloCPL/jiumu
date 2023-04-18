@@ -21,6 +21,7 @@ export const useIndex = (props: EditorMdPreviewProps) => {
 
   const isReload = ref(false)
 
+  // 获取标题数据
   let i = 0
   const titleData = ref<any[]>([])
   const findTitleData = () => {
@@ -36,8 +37,7 @@ export const useIndex = (props: EditorMdPreviewProps) => {
         setTimeout(() => {
           isReload.value = false
         }, 100)
-      }
-      if (!refPreview.value && i < 5) {
+      } else if (!refPreview.value && i < 5) {
         i++
         findTitleData()
       }
@@ -58,8 +58,6 @@ export const useIndex = (props: EditorMdPreviewProps) => {
   // 点击标题
   const handleTitleItem = (index: number) => {
     const dom = titleData.value[index]
-    console.log(index, dom)
-
     dom.el.scrollIntoView({
       behavior: 'smooth'
     })

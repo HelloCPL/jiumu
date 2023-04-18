@@ -22,65 +22,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onMounted } from 'vue'
+import { titleCatalogProps, titleCatalogEmit } from './type'
+import { useTitleCatalog } from '../hooks/use-title-catalog'
 
-const props = defineProps({
-  headers: {
-    // 标题列表
-    type: Array,
-    default: () => []
-  }
-})
-defineEmits(['change'])
+const props = defineProps(titleCatalogProps)
+defineEmits(titleCatalogEmit)
 
-type TitlesType = {
-  text: string
-  id: string
-  type: string
-  paddingLeft?: string
-  indent: number
-}
-const titles = ref<TitlesType[]>([])
-
-const handleTitles = (headers: any[], active: boolean) => {
-  if (active) {
-    const _title: TitlesType[] = []
-    let min = 4
-    headers.forEach((item: any) => {
-      const h = ['header1', 'header2', 'header3', 'header4', 'header5']
-      let i = h.indexOf(item.type)
-      if (item.children && item.children.length && i !== -1) {
-        const obj: TitlesType = {
-          text: item.children[0].text,
-          id: item.id,
-          type: item.type,
-          indent: i
-        }
-        _title.push(obj)
-        if (i < min) min = i
-      }
-    })
-    _title.forEach((item) => {
-      item.indent = item.indent - min
-      item.paddingLeft = item.indent * 16 + 'px'
-    })
-    titles.value = _title
-  }
-}
-
-onMounted(() => {
-  handleTitles(props.headers, true)
-})
-
-watch(
-  () => props.headers,
-  (val) => {
-    console.log(99, val)
-
-    handleTitles(val, true)
-  },
-  { deep: true, immediate: true }
-)
+const { titles } = useTitleCatalog(props)
 </script>
 
 <style lang="scss" scoped>

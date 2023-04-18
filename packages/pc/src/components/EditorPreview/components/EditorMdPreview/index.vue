@@ -5,10 +5,11 @@
 -->
 
 <template>
-  <div class="bg-white w-full max-w-full flex editor-md-preiview-container">
+  <div class="bg-white w-full flex editor-md-preiview-container">
     <div :style="{ width: contentWidth }">
       <v-md-preview :text="text" ref="refPreview"></v-md-preview>
     </div>
+    <!-- 目录  -->
     <div
       class="affix-md-preview-right shrink-0"
       :style="{ width: width + 'px' }"
@@ -16,6 +17,7 @@
     >
       <ElAffix target=".affix-md-preview-right" :offset="40">
         <div class="w-full h-full relative title-wrapper">
+          <!-- 展开收起按钮 -->
           <span
             class="absolute cursor-pointer title-icon"
             :class="{ 'title-icon-arrow': width === 0 }"
@@ -25,6 +27,7 @@
               <ArrowLeftBold></ArrowLeftBold>
             </ElIcon>
           </span>
+          <!-- 目录列表 -->
           <div class="h-full overflow-hidden" :style="{ width: width + 'px' }">
             <div style="width: 220px" class="h-full flex flex-col">
               <div class="text-lg w-full h-10 pt-1 bg-white">

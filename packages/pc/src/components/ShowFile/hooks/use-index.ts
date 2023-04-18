@@ -24,26 +24,26 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
   const handlePreview = (file: DataBaseFile) => {
     const fileType = getFileType(file.suffix)
     switch (fileType) {
-    case 'image':
-      state.urlImage = file.filePath
-      state.showImage = true
-      break
-    case 'pdf':
-      state.urlPdf = file.filePath
-      state.showPdf = true
-      break
-    case 'word':
-      state.urlWord = file.filePath
-      state.showWord = true
-      break
-    case 'excel':
-      state.urlExcel = file.filePath
-      state.showExcel = true
-      break
-    case 'txt':
-      state.urlTxt = file.filePath
-      state.showTxt = true
-      break
+      case 'image':
+        state.urlImage = file.filePath
+        state.showImage = true
+        break
+      case 'pdf':
+        state.urlPdf = file.filePath
+        state.showPdf = true
+        break
+      case 'word':
+        state.urlWord = file.filePath
+        state.showWord = true
+        break
+      case 'excel':
+        state.urlExcel = file.filePath
+        state.showExcel = true
+        break
+      case 'txt':
+        state.urlTxt = file.filePath
+        state.showTxt = true
+        break
     }
   }
   // 删除
@@ -70,7 +70,18 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
 /**
  * 获取文件类型
  */
-type FileType = 'pdf' | 'word' | 'image' | 'video' | 'ppt' | 'rar' | 'txt' | 'excel' | 'zip' | 'unknown'
+type FileType =
+  | 'pdf'
+  | 'word'
+  | 'image'
+  | 'video'
+  | 'ppt'
+  | 'rar'
+  | 'txt'
+  | 'excel'
+  | 'zip'
+  | 'md'
+  | 'unknown'
 export const getFileType = (suffix: string): FileType => {
   switch (suffix) {
     case 'pdf':
@@ -87,6 +98,7 @@ export const getFileType = (suffix: string): FileType => {
     case 'jpeg':
       return 'image'
     case 'ppt':
+    case 'pptx':
     case 'pps':
     case 'pot':
     case 'ppa':
@@ -115,6 +127,8 @@ export const getFileType = (suffix: string): FileType => {
     case 'ram':
     case 'swf':
       return 'video'
+    case 'md':
+      return 'md'
     default:
       return 'unknown'
   }

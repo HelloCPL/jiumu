@@ -50,7 +50,7 @@
             v-model="attachmentList"
             @change="handleChangeAttachment"
             type="files"
-            :limit="3"
+            :limit="9"
             :limited="attachmentList.length"
           ></Upload>
           <ShowFile v-model="attachmentList" is-delete></ShowFile>

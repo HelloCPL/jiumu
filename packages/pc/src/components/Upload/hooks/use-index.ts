@@ -10,8 +10,8 @@ import { getSuffix } from '@jiumu/utils'
 import { uploadFile } from '@/api/file'
 import { isPlainObject } from 'lodash-es'
 
-// 超过 3 M 使用断点上传方式
-const UPLOAD_BIG_SIZE = 1024 * 1024 * 3
+// 超过 2 M 使用断点上传方式
+const UPLOAD_BIG_SIZE = 1024 * 1024 * 2
 
 export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const refUpload = ref<UploadInstance>()
@@ -20,7 +20,8 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   // 接收类型
   const _accept = computed(() => {
     if (props.accept) return props.accept
-    else if (props.type === 'files') return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.xlsm,.zip,.rar,.7z'
+    else if (props.type === 'files')
+      return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.xlsm,.zip,.rar,.7z,.pptx,.ppt,.md'
     else if (props.type === 'videos') return '.flv,.avi,.mov,.mp4,.wmv'
     else if (props.type === 'files_big') return '*'
     else return 'image/*'
@@ -60,6 +61,7 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     } else if (props.uploadType === 'files') {
       up2(fileOption)
     } else {
+      console.log('size', fileOption.file.size)
       if (fileOption.file.size > UPLOAD_BIG_SIZE) {
         up1(fileOption)
       } else {
