@@ -30,7 +30,7 @@
           <FullScreen />
         </ElIcon>
       </span>
-      <div class="w-full g-scroll-y-0 preview-txt-content">
+      <div class="w-full g-scroll-y preview-txt-content">
         <div ref="refBox">
           <div
             class="px-24 py-28 preview-txt-wrapper"
@@ -49,6 +49,8 @@ import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { reactive, ref, nextTick } from 'vue'
 import { getFileText } from '@/utils/download-file'
+import { useLoading } from '@/utils/interaction'
+
 const props = defineProps({
   url: {
     type: String,
@@ -60,10 +62,14 @@ defineEmits({
   close: () => true
 })
 
+const { showLoading, hideLoading } = useLoading()
+
 const content = ref<string>('')
 const getContent = () => {
+  showLoading()
   getFileText(props.url, 'utf-8').then((data: any) => {
     content.value = data
+    hideLoading()
   })
 }
 getContent()

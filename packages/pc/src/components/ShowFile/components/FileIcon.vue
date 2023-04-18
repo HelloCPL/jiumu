@@ -52,6 +52,7 @@ const getIcon = () => {
       icon.value = `${$STATIC_URL}pc/icons/icon_file_video.png`
     case 'md':
       icon.value = `${$STATIC_URL}pc/icons/icon_file_md.png`
+      break
     default:
       icon.value = `${$STATIC_URL}pc/icons/icon_file_why.png`
   }

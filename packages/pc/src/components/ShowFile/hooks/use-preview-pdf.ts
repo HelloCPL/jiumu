@@ -4,6 +4,7 @@
 
 import { ref, reactive, onMounted, nextTick } from 'vue'
 import { createLoadingTask } from 'vue3-pdfjs'
+import { useLoading } from '@/utils/interaction'
 
 export const usePreviewPdf = (props: any) => {
   // 动态计算pdf容器高度
@@ -18,6 +19,8 @@ export const usePreviewPdf = (props: any) => {
       // }
     })
   }
+
+  const { showLoading, hideLoading } = useLoading()
 
   const state = reactive({
     source: props.url,
@@ -57,9 +60,11 @@ export const usePreviewPdf = (props: any) => {
 
   // 获取总页数
   const getTotal = () => {
+    showLoading()
     const loadingTask = createLoadingTask(state.source)
     loadingTask.promise.then((pdf) => {
       state.numPages = pdf.numPages
+      hideLoading()
     })
   }
   onMounted(getTotal)

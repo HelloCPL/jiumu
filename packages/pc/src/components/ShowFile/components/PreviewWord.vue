@@ -30,14 +30,16 @@
           <FullScreen />
         </ElIcon>
       </span>
-      <div class="w-full g-scroll-y-0 preview-txt-content">
+      <div class="w-full g-scroll-y preview-txt-content">
         <div ref="refBox">
           <!-- word 容器 -->
           <div
             class="preview-word-wrapper"
             :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
             ref="refContent"
-          ></div>
+          >
+            <div v-if="isError" class="text-center text-lighter pt-10 text-xl">加载失败!</div>
+          </div>
         </div>
       </div>
     </div>
@@ -50,6 +52,7 @@ import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { reactive, ref, nextTick } from 'vue'
 import { getFileBlod } from '@/utils/download-file'
 import { renderAsync } from 'docx-preview'
+import { useLoading } from '@/utils/interaction'
 
 const props = defineProps({
   url: {
@@ -62,11 +65,23 @@ defineEmits({
   close: () => true
 })
 
+const isError = ref(false)
+
+const { showLoading, hideLoading } = useLoading()
+
 const refContent = ref<HTMLDivElement>()
 const getContent = () => {
+  showLoading()
   getFileBlod(props.url).then((data: any) => {
     nextTick(() => {
       renderAsync(data, refContent.value as HTMLDivElement)
+        .then(() => {
+          hideLoading()
+        })
+        .catch(() => {
+          isError.value = true
+          hideLoading()
+        })
     })
   })
 }

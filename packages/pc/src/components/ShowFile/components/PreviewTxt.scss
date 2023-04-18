@@ -42,6 +42,7 @@
     min-height: calc(100vh - 100px);
     line-height: 1.5;
     white-space: pre-wrap;
+    background: #ffffff;
   }
 
   .preview-excel-content {
@@ -62,8 +63,10 @@
     padding: 0;
   }
 
-  :deep(.docx-wrapper>section.docx) {
-    margin-bottom: 0;
+  :deep(.docx-wrapper > section.docx) {
+    margin-bottom: 0px;
+    width: 100%!important;
+    box-shadow: none;
   }
 
   :deep(.luckysheet-stat-area) {

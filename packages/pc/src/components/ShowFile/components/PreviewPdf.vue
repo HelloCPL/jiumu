@@ -47,19 +47,18 @@
           下一页
         </span>
       </span>
-      <div class="w-full g-scroll-y-0 preview-pdf-content">
+      <div class="w-full g-scroll-y preview-pdf-content">
         <LazyLoader>
-          <div ref="refBox">
-            <template v-for="page in state.numPages" :key="page">
-              <VuePdf
-                :src="state.source"
-                :enable-annotations="false"
-                :page="page"
-                class="vue-pdf-embed"
-                :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
-                v-if="page === state.pageNum"
-              ></VuePdf>
-            </template>
+          <div ref="refBox" class="flex flex-col">
+            <VuePdf
+              v-for="page in state.numPages"
+              :key="page"
+              :src="state.source"
+              :enable-annotations="false"
+              :page="page"
+              class="vue-pdf-embed"
+              :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
+            ></VuePdf>
           </div>
         </LazyLoader>
       </div>

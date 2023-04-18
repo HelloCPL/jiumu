@@ -27,14 +27,16 @@
 
   .preview-pdf-content {
     height: calc(100vh - 100px);
+    width: 720px;
+    margin: 0 auto;
     margin-top: 14px;
-    width: 100%;
+    background: #ffffff;
   }
 
   .vue-pdf-embed {
     text-align: center;
     width: 720px;
     margin: 0 auto;
-    min-height: 100%;
+    min-height: calc(100vh - 200px);
   }
 }
