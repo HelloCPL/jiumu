@@ -34,6 +34,7 @@
     background: #ffffff;
     line-height: 1.5;
     white-space: pre-wrap;
+    transform-origin: 50% 0;
   }
 
   .preview-word-wrapper {
@@ -43,6 +44,7 @@
     line-height: 1.5;
     white-space: pre-wrap;
     background: #ffffff;
+    transform-origin: 50% 0;
   }
 
   .preview-excel-content {
@@ -65,7 +67,7 @@
 
   :deep(.docx-wrapper > section.docx) {
     margin-bottom: 0px;
-    width: 100%!important;
+    width: 100% !important;
     box-shadow: none;
   }
 

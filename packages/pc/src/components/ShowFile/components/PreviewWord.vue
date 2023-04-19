@@ -31,15 +31,9 @@
         </ElIcon>
       </span>
       <div class="w-full g-scroll-y preview-txt-content">
-        <div ref="refBox">
-          <!-- word 容器 -->
-          <div
-            class="preview-word-wrapper"
-            :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
-            ref="refContent"
-          >
-            <div v-if="isError" class="text-center text-lighter pt-10 text-xl">加载失败!</div>
-          </div>
+        <!-- word 容器 -->
+        <div class="preview-word-wrapper" :style="{ transform: `scale(${state.scale}) ` }" ref="refContent">
+          <div v-if="isError" class="text-center text-lighter pt-10 text-xl">加载失败!</div>
         </div>
       </div>
     </div>
@@ -87,17 +81,6 @@ const getContent = () => {
 }
 getContent()
 
-// 动态计算pdf容器高度
-const refBox = ref<HTMLDivElement>()
-const boxH = ref<number>(0)
-const setBox = (s: number) => {
-  nextTick(() => {
-    if (!refBox.value) return
-    if (!boxH.value) boxH.value = refBox.value.offsetHeight || refBox.value.clientHeight
-    state.translateY = boxH.value * (s - 1) * (0.5 / s)
-  })
-}
-
 const state = reactive({
   translateY: 0,
   scale: 1
@@ -107,18 +90,15 @@ const state = reactive({
 const handleZoomOut = () => {
   const s = state.scale - 0.1
   state.scale = s < 0.5 ? 0.5 : s
-  setBox(state.scale)
 }
 // 恢复缩放
 const handleZoom = () => {
   state.scale = 1
-  setBox(state.scale)
 }
 // 放大
 const handleZoomIn = () => {
   const s = state.scale + 0.1
   state.scale = s > 2.5 ? 2.5 : s
-  setBox(state.scale)
 }
 </script>
 

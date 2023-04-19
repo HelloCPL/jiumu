@@ -12,12 +12,13 @@
 
   .preview-pdf-bottom {
     bottom: 30px;
-    width: 320px;
+    width: 220px;
     height: 44px;
     border-radius: 22px;
     padding: 0 24px;
     background-color: var(--jm-color-text-light);
     font-size: 22px;
+    z-index: 99;
 
     .preview-page {
       cursor: default;
@@ -27,16 +28,16 @@
 
   .preview-pdf-content {
     height: calc(100vh - 100px);
-    width: 720px;
-    margin: 0 auto;
+    width: 100%;
     margin-top: 14px;
-    background: #ffffff;
   }
 
-  .vue-pdf-embed {
-    text-align: center;
-    width: 720px;
+  .preview-pdf-wrapper {
     margin: 0 auto;
+    width: 720px;
     min-height: calc(100vh - 200px);
+    background: #ffffff;
+    transform-origin: 50% 0;
   }
+
 }

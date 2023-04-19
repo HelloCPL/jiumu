@@ -31,13 +31,8 @@
         </ElIcon>
       </span>
       <div class="w-full g-scroll-y preview-txt-content">
-        <div ref="refBox">
-          <div
-            class="px-24 py-28 preview-txt-wrapper"
-            :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
-          >
-            {{ content }}
-          </div>
+        <div class="px-24 py-28 preview-txt-wrapper" :style="{ transform: `scale(${state.scale})` }">
+          {{ content }}
         </div>
       </div>
     </div>
@@ -47,7 +42,7 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
-import { reactive, ref, nextTick } from 'vue'
+import { reactive, ref } from 'vue'
 import { getFileText } from '@/utils/download-file'
 import { useLoading } from '@/utils/interaction'
 
@@ -74,19 +69,7 @@ const getContent = () => {
 }
 getContent()
 
-// 动态计算pdf容器高度
-const refBox = ref<HTMLDivElement>()
-const boxH = ref<number>(0)
-const setBox = (s: number) => {
-  nextTick(() => {
-    if (!refBox.value) return
-    if (!boxH.value) boxH.value = refBox.value.offsetHeight || refBox.value.clientHeight
-    state.translateY = boxH.value * (s - 1) * (0.5 / s)
-  })
-}
-
 const state = reactive({
-  translateY: 0,
   scale: 1
 })
 
@@ -94,18 +77,15 @@ const state = reactive({
 const handleZoomOut = () => {
   const s = state.scale - 0.1
   state.scale = s < 0.5 ? 0.5 : s
-  setBox(state.scale)
 }
 // 恢复缩放
 const handleZoom = () => {
   state.scale = 1
-  setBox(state.scale)
 }
 // 放大
 const handleZoomIn = () => {
   const s = state.scale + 0.1
   state.scale = s > 2.5 ? 2.5 : s
-  setBox(state.scale)
 }
 </script>
 
