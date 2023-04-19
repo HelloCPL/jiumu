@@ -18,7 +18,9 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
     showExcel: false,
     urlExcel: '',
     showTxt: false,
-    urlTxt: ''
+    urlTxt: '',
+    showMd: false,
+    urlMd: ''
   })
   // 预览
   const handlePreview = (file: DataBaseFile) => {
@@ -44,8 +46,20 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
         state.urlTxt = file.filePath
         state.showTxt = true
         break
+      case 'md':
+        state.urlMd = file.filePath
+        state.showMd = true
+        break
     }
   }
+
+  const showPreView = (suffix: string) => {
+    const fileType = getFileType(suffix)
+    const types = ['image', 'pdf', 'word', 'excel', 'txt', 'md']
+    if (props.isPreview && types.indexOf(fileType) !== -1) return true
+    return false
+  }
+
   // 删除
   const handleDelete = (file: DataBaseFile, index: number) => {
     Confirm('确定删除这个文件吗？').then(async () => {
@@ -63,7 +77,8 @@ export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {
   return {
     state,
     handlePreview,
-    handleDelete
+    handleDelete,
+    showPreView
   }
 }
 

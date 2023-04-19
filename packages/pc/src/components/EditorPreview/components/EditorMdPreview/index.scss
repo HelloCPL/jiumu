@@ -1,0 +1,63 @@
+/**
+* 固定日间模式主题颜色
+*/
+body {
+  .editor-md-preview-light {
+    background: #ffffff;
+    color: #303133;
+
+    .preview-bg-white {
+      background: #ffffff;
+    }
+
+    .preview-text-light {
+      color: #606266;
+    }
+
+    // 代码块
+    .github-markdown-body code,
+    .github-markdown-body div[class*='v-md-pre-wrapper-'] {
+      background: #f0f2f5;
+    }
+
+    .github-markdown-body tt,
+    .github-markdown-body table tr:nth-child(2n) {
+      background: #f5f7fa;
+    }
+
+    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
+      color: #a8abb2;
+    }
+
+    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
+      background: #f0f2f5;
+      border-color: #dcdfe6;
+    }
+
+    // 图片背景
+    .github-markdown-body img {
+      background: #ffffff;
+    }
+
+    // 表格
+    .github-markdown-body table tr {
+      background: #ffffff;
+      border-color: #dcdfe6;
+    }
+
+    .github-markdown-body table td,
+    .github-markdown-body table th {
+      border-color: #dcdfe6;
+    }
+
+    // 代码字体颜色
+    .github-markdown-body pre code,
+    .github-markdown-body pre tt {
+      color: #606266;
+    }
+
+    .scrollbar__thumb {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}

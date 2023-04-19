@@ -1,24 +1,25 @@
 <!--
-  @describe: txt 预览
-  @author cpl
-  @update 2022-08-07 16:50:39
+  @describe: md 预览
+  @author: cpl
+  @create: 2023-04-19 20:43:26
 -->
 
 <template>
   <teleport to="body">
-    <div class="fixed top-0 left-0 w-screen h-screen preview-txt">
+    <div class="fixed top-0 left-0 w-screen h-screen overlay preview-md">
       <!-- 关闭按钮 -->
       <span
-        class="absolute top-11 right-16 cursor-pointer text-basic-white flex justify-center items-center rounded-full preview-txt-close"
+        class="absolute top-11 right-16 cursor-pointer text-basic-white flex justify-center items-center rounded-full preview-md-close"
         @click="$emit('close')"
       >
         <ElIcon>
           <Close />
         </ElIcon>
       </span>
+
       <!-- 底部按钮 -->
       <span
-        class="g-center-x text-basic-white flex items-center justify-between preview-txt-bottom select-none"
+        class="g-center-x text-basic-white flex items-center justify-between preview-md-bottom select-none"
       >
         <ElIcon class="cursor-pointer" @click="handleZoomOut">
           <ZoomOut />
@@ -31,9 +32,15 @@
         </ElIcon>
       </span>
       <!-- 内容展示 -->
-      <div class="w-full g-scroll-y preview-txt-content">
-        <div class="p-24 pt-28 preview-txt-wrapper" :style="{ transform: `scale(${state.scale})` }">
-          {{ content }}
+      <div class="w-full g-scroll-y preview-md-content">
+        <div class="shadow-lg p-24 pt-28 preview-md-wrapper" :style="{ transform: `scale(${state.scale})` }">
+          <EditorMdPreview
+            :text="content"
+            :is-show-title="false"
+            :is-light="true"
+            v-if="!isError"
+          ></EditorMdPreview>
+          <div v-if="isError" class="text-center text-lighter pt-10 text-xl">加载失败!</div>
         </div>
       </div>
     </div>
@@ -46,6 +53,7 @@ import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { getFileText } from '@/utils/download-file'
 import { useLoading } from '@/utils/interaction'
+import EditorMdPreview from '@/components/EditorPreview/components/EditorMdPreview/index.vue'
 
 const props = defineProps({
   url: {
@@ -60,13 +68,19 @@ defineEmits({
 
 const { showLoading, hideLoading } = useLoading()
 
+const isError = ref(false)
 const content = ref<string>('')
 const getContent = () => {
   showLoading()
-  getFileText(props.url, 'utf-8').then((data: any) => {
-    content.value = data
-    hideLoading()
-  })
+  getFileText(props.url, 'utf-8')
+    .then((data: any) => {
+      content.value = data
+      hideLoading()
+    })
+    .catch(() => {
+      isError.value = true
+      hideLoading()
+    })
 }
 getContent()
 
@@ -91,5 +105,5 @@ const handleZoomIn = () => {
 </script>
 
 <style lang="scss" scoped>
-@import './PreviewTxt.scss';
+@import './PreviewMd.scss';
 </style>

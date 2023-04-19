@@ -1,0 +1,39 @@
+.preview-md {
+  background-color: var(--jm-color-overlay-lighter);
+  z-index: 999;
+
+  .preview-md-close {
+    width: 44px;
+    height: 44px;
+    background-color: var(--jm-color-text-light);
+    font-size: 24px;
+    z-index: 9999;
+  }
+
+  .preview-md-bottom {
+    bottom: 30px;
+    width: 160px;
+    height: 44px;
+    border-radius: 22px;
+    padding: 0 30px;
+    background-color: var(--jm-color-text-light);
+    font-size: 22px;
+  }
+
+  .preview-md-content {
+    height: calc(100vh - 100px);
+    margin-top: 14px;
+    width: 100%;
+  }
+
+  .preview-md-wrapper {
+    width: 720px;
+    margin: 0 auto;
+    min-height: calc(100vh - 100px);
+    background: var(--jm-color-info-400);
+    background-color: #ffffff;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    transform-origin: 50% 0;
+  }
+}

@@ -10,6 +10,10 @@ export const editorMdPreviewProps = buildProps({
   isShowTitle: {
     type: Boolean,
     default: true
+  },
+  isLight: {
+    type: Boolean,
+    default: false
   }
 } as const)
 

@@ -14,7 +14,7 @@ export const useIndex = (props: EditorMdPreviewProps) => {
   useMarkdownInit()
 
   const refPreview = ref<any>(null)
-  const width = ref(220)
+  const width = ref(0)
   const contentWidth = computed(() => {
     return `calc(100% - ${width.value}px)`
   })
@@ -47,6 +47,7 @@ export const useIndex = (props: EditorMdPreviewProps) => {
     () => props.text,
     (val: string) => {
       if (props.isShowTitle && val) {
+        width.value = 220
         findTitleData()
       }
     },
