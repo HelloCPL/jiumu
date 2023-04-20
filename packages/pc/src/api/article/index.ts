@@ -13,7 +13,7 @@ export const addArticle = async (params: ParamsArticleAdd): Promise<DataOptions<
 
 // 修改一个文章
 export const updateArticle = async (
-  params: ParamsArticleAdd | ParamsArticleSaveContent
+  params: ParamsArticleAdd | ParamsArticleSave
 ): Promise<DataOptions<null>> => {
   return await post('/pc/article/update', params).catch((err) => err)
 }

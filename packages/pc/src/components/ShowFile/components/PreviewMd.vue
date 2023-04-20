@@ -54,6 +54,9 @@ import { reactive, ref } from 'vue'
 import { getFileText } from '@/utils/download-file'
 import { useLoading } from '@/utils/interaction'
 import EditorMdPreview from '@/components/EditorPreview/components/EditorMdPreview/index.vue'
+import { useBodyLocked } from './locked'
+
+useBodyLocked()
 
 const props = defineProps({
   url: {

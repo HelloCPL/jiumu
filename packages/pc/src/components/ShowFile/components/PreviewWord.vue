@@ -6,7 +6,7 @@
 
 <template>
   <teleport to="body">
-    <div class="fixed top-0 left-0 w-screen h-screen preview-txt">
+    <div class="fixed top-0 left-0 w-screen h-screen overflow-hidden preview-txt">
       <!-- 关闭按钮 -->
       <span
         class="absolute top-11 right-16 cursor-pointer text-basic-white flex justify-center items-center rounded-full preview-txt-close"
@@ -47,6 +47,9 @@ import { reactive, ref, nextTick } from 'vue'
 import { getFileBlod } from '@/utils/download-file'
 import { renderAsync } from 'docx-preview'
 import { useLoading } from '@/utils/interaction'
+import { useBodyLocked } from './locked'
+
+useBodyLocked()
 
 const props = defineProps({
   url: {

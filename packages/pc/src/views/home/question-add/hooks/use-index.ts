@@ -153,7 +153,7 @@ export const useIndex = () => {
       const res = await updateQuestion(params)
       if (res.code === 200) {
         Message({
-          message: '保存成功',
+          message: '文本保存成功',
           type: 'success'
         })
       }

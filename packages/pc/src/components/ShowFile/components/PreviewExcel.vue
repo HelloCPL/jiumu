@@ -31,6 +31,9 @@ import { ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import { Message, useLoading } from '@/utils/interaction'
+import { useBodyLocked } from './locked'
+
+useBodyLocked()
 
 const props = defineProps({
   url: {

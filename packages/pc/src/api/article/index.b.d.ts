@@ -20,10 +20,8 @@ interface ParamsArticleAdd {
   remarks?: string
 }
 
-interface ParamsArticleSaveContent {
+interface ParamsArticleSave extends ObjectAny {
   id: string
-  content: string
-  contentType: '401' | '402' | '403'
 }
 
 // 文章数据接口类型

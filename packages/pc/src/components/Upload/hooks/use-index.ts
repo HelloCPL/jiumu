@@ -11,7 +11,7 @@ import { uploadFile } from '@/api/file'
 import { isPlainObject } from 'lodash-es'
 
 // 超过 2 M 使用断点上传方式
-const UPLOAD_BIG_SIZE = 1024 * 1024 * 2
+const UPLOAD_BIG_SIZE = 1024 * 1024 * 3
 
 export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const refUpload = ref<UploadInstance>()
@@ -61,7 +61,6 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     } else if (props.uploadType === 'files') {
       up2(fileOption)
     } else {
-      console.log('size', fileOption.file.size)
       if (fileOption.file.size > UPLOAD_BIG_SIZE) {
         up1(fileOption)
       } else {

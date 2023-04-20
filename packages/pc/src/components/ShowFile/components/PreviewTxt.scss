@@ -1,3 +1,8 @@
+body,html {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .preview-txt {
   background-color: var(--jm-color-overlay-lighter);
   z-index: 999;

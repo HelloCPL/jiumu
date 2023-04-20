@@ -37,11 +37,11 @@
           <Upload
             v-model="coverImgList"
             @change="handleChangeCoverImg"
-            :limit="1"
+            :limit="2"
             :limited="coverImgList.length"
             class="mr-6"
           ></Upload>
-          <ShowImage v-model="coverImgList" is-delete></ShowImage>
+          <ShowImage v-model="coverImgList" is-delete @change="handleDeleteCoverImg"></ShowImage>
         </ElRow>
       </ElFormItem>
       <ElFormItem label="附件" prop="attachment">
@@ -50,10 +50,10 @@
             v-model="attachmentList"
             @change="handleChangeAttachment"
             type="files"
-            :limit="9"
+            :limit="5"
             :limited="attachmentList.length"
           ></Upload>
-          <ShowFile v-model="attachmentList" is-delete></ShowFile>
+          <ShowFile v-model="attachmentList" is-delete @change="handleDeleteAttachment"></ShowFile>
         </ElRow>
       </ElFormItem>
       <ElFormItem label="备注" prop="remarks">
@@ -86,8 +86,10 @@ const {
   handleChangeContent,
   coverImgList,
   handleChangeCoverImg,
+  handleDeleteCoverImg,
   attachmentList,
   handleChangeAttachment,
+  handleDeleteAttachment,
   changeBtn,
   handleSaveContent
 } = useIndex()

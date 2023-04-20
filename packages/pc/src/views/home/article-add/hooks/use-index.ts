@@ -53,8 +53,29 @@ export const useIndex = () => {
   // 处理封面图
   const coverImgList = ref<DataBaseFile[]>([])
   const handleChangeCoverImg = (files: DataBaseFile[]) => {
-    coverImgList.value = getDataDiff(coverImgList.value, files)
+    if (files.length) coverImgList.value = [files[0]]
+    else coverImgList.value = []
     form.coverImg = coverImgList.value.map((item) => item.id).join(',')
+    handleSaveCoverImg()
+  }
+  const handleDeleteCoverImg = () => {
+    form.coverImg = coverImgList.value.map((item) => item.id).join(',')
+    handleSaveCoverImg()
+  }
+  const handleSaveCoverImg = async () => {
+    if (form.id) {
+      const params = {
+        id: form.id,
+        coverImg: form.coverImg
+      }
+      const res = await updateArticle(params)
+      if (res.code === 200) {
+        Message({
+          message: '封面图保存成功',
+          type: 'success'
+        })
+      }
+    }
   }
 
   // 处理附件
@@ -62,6 +83,26 @@ export const useIndex = () => {
   const handleChangeAttachment = (files: DataBaseFile[]) => {
     attachmentList.value = getDataDiff(attachmentList.value, files)
     form.attachment = attachmentList.value.map((item) => item.id).join(',')
+    handleSaveAttachmentList()
+  }
+  const handleDeleteAttachment = () => {
+    form.attachment = attachmentList.value.map((item) => item.id).join(',')
+    handleSaveAttachmentList()
+  }
+  const handleSaveAttachmentList = async () => {
+    if (form.id) {
+      const params = {
+        id: form.id,
+        attachment: form.attachment
+      }
+      const res = await updateArticle(params)
+      if (res.code === 200) {
+        Message({
+          message: '附件保存成功',
+          type: 'success'
+        })
+      }
+    }
   }
 
   // 获取文章详情
@@ -187,7 +228,7 @@ export const useIndex = () => {
       const res = await updateArticle(params)
       if (res.code === 200) {
         Message({
-          message: '保存成功',
+          message: '文本保存成功',
           type: 'success'
         })
       }
@@ -201,8 +242,10 @@ export const useIndex = () => {
     handleChangeContent,
     coverImgList,
     handleChangeCoverImg,
+    handleDeleteCoverImg,
     attachmentList,
     handleChangeAttachment,
+    handleDeleteAttachment,
     changeBtn,
     handleSaveContent
   }
