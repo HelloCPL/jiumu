@@ -21,7 +21,7 @@
         <span
           class="flex items-center cursor-pointer mr-3 text-sm text-lighter hover:text-primary"
           @click="handlePreview(item)"
-          v-if="isPreview"
+          v-if="showPreView(item.suffix)"
         >
           <ElIcon>
             <View />
@@ -69,6 +69,8 @@
         v-if="state.showExcel"
         @close="state.showExcel = false"
       ></PreviewExcel>
+      <!-- md 文件预览 -->
+      <PreviewMd :url="state.urlMd" v-if="state.showMd" @close="state.showMd = false"></PreviewMd>
       <!-- 视频预览/播放 -->
     </LazyLoader>
   </div>
@@ -90,10 +92,11 @@ const PreviewPdf = defineAsyncComponent(() => import('./components/PreviewPdf.vu
 const PreviewTxt = defineAsyncComponent(() => import('./components/PreviewTxt.vue'))
 const PreviewWord = defineAsyncComponent(() => import('./components/PreviewWord.vue'))
 const PreviewExcel = defineAsyncComponent(() => import('./components/PreviewExcel.vue'))
+const PreviewMd = defineAsyncComponent(() => import('./components/PreviewMd.vue'))
 
 const props = defineProps(showFileProps)
 const emit = defineEmits(showFileEmits)
-const { state, handlePreview, handleDelete } = useIndex(props, emit)
+const { state, handlePreview, handleDelete, showPreView } = useIndex(props, emit)
 </script>
 
 <style lang="scss" scoped>

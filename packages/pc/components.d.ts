@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     PopupTwo: typeof import('./src/components/PopupTwo/index.vue')['default']
     PreviewExcel: typeof import('./src/components/ShowFile/components/PreviewExcel.vue')['default']
     PreviewImage: typeof import('./src/components/ShowFile/components/PreviewImage.vue')['default']
+    PreviewMd: typeof import('./src/components/ShowFile/components/PreviewMd.vue')['default']
     PreviewPdf: typeof import('./src/components/ShowFile/components/PreviewPdf.vue')['default']
     PreviewTxt: typeof import('./src/components/ShowFile/components/PreviewTxt.vue')['default']
     PreviewWord: typeof import('./src/components/ShowFile/components/PreviewWord.vue')['default']

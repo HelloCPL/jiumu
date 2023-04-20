@@ -6,7 +6,7 @@
 
 <template>
   <teleport to="body">
-    <div class="fixed top-0 left-0 w-screen h-screen preview-txt">
+    <div class="fixed top-0 left-0 w-screen h-screen overflow-hidden preview-txt">
       <!-- 关闭按钮 -->
       <span
         class="absolute top-11 right-16 cursor-pointer text-basic-white flex justify-center items-center rounded-full preview-txt-close"
@@ -30,14 +30,10 @@
           <FullScreen />
         </ElIcon>
       </span>
-      <div class="w-full g-scroll-y-0 preview-txt-content">
-        <div ref="refBox">
-          <!-- word 容器 -->
-          <div
-            class="preview-word-wrapper"
-            :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
-            ref="refContent"
-          ></div>
+      <div class="w-full g-scroll-y preview-txt-content">
+        <!-- word 容器 -->
+        <div class="preview-word-wrapper" :style="{ transform: `scale(${state.scale}) ` }" ref="refContent">
+          <div v-if="isError" class="text-center text-lighter pt-10 text-xl">加载失败!</div>
         </div>
       </div>
     </div>
@@ -50,6 +46,10 @@ import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { reactive, ref, nextTick } from 'vue'
 import { getFileBlod } from '@/utils/download-file'
 import { renderAsync } from 'docx-preview'
+import { useLoading } from '@/utils/interaction'
+import { useBodyLocked } from './locked'
+
+useBodyLocked()
 
 const props = defineProps({
   url: {
@@ -62,26 +62,27 @@ defineEmits({
   close: () => true
 })
 
+const isError = ref(false)
+
+const { showLoading, hideLoading } = useLoading()
+
 const refContent = ref<HTMLDivElement>()
 const getContent = () => {
+  showLoading()
   getFileBlod(props.url).then((data: any) => {
     nextTick(() => {
       renderAsync(data, refContent.value as HTMLDivElement)
+        .then(() => {
+          hideLoading()
+        })
+        .catch(() => {
+          isError.value = true
+          hideLoading()
+        })
     })
   })
 }
 getContent()
-
-// 动态计算pdf容器高度
-const refBox = ref<HTMLDivElement>()
-const boxH = ref<number>(0)
-const setBox = (s: number) => {
-  nextTick(() => {
-    if (!refBox.value) return
-    if (!boxH.value) boxH.value = refBox.value.offsetHeight || refBox.value.clientHeight
-    state.translateY = boxH.value * (s - 1) * (0.5 / s)
-  })
-}
 
 const state = reactive({
   translateY: 0,
@@ -92,18 +93,15 @@ const state = reactive({
 const handleZoomOut = () => {
   const s = state.scale - 0.1
   state.scale = s < 0.5 ? 0.5 : s
-  setBox(state.scale)
 }
 // 恢复缩放
 const handleZoom = () => {
   state.scale = 1
-  setBox(state.scale)
 }
 // 放大
 const handleZoomIn = () => {
   const s = state.scale + 0.1
   state.scale = s > 2.5 ? 2.5 : s
-  setBox(state.scale)
 }
 </script>
 

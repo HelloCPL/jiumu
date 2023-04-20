@@ -14,6 +14,7 @@
         <EditorWang
           v-model="form.content"
           @change="handleChangeContent"
+          @save="handleSaveContent"
           :toolbar-config="toolbarConfig"
         ></EditorWang>
       </ElFormItem>
@@ -53,5 +54,6 @@ const toolbarConfig = {
   toolbarKeys: ['undo', 'redo', '|', 'headerSelect', 'fontSize', '|', 'MyButtonTitle', 'MyButtonFullScreen']
 }
 
-const { id, novelId, list, formRef, form, rules, handleChangeContent, changeBtn } = useIndex()
+const { id, novelId, list, formRef, form, rules, handleChangeContent, changeBtn, handleSaveContent } =
+  useIndex()
 </script>

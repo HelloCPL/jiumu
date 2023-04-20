@@ -84,6 +84,11 @@ interface ParamsNovelChapterEdit  extends ParamsNovelChapterChange {
   id: string
 }
 
+interface ParamsNovelChapterEditSaveContent {
+  id: string
+  content: string
+}
+
 // 章节数据类型
 interface DataNovelChapter extends DataBase {
   id: string

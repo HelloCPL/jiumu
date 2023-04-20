@@ -12,7 +12,9 @@ export const addQuestion = async (params: ParamsQuestionAdd): Promise<DataOption
 }
 
 // 修改一个问答
-export const updateQuestion = async (params: ParamsQuestionAdd): Promise<DataOptions<null>> => {
+export const updateQuestion = async (
+  params: ParamsQuestionAdd | ParamsQuestionAddSaveContent
+): Promise<DataOptions<null>> => {
   return await post('/pc/question/update', params).catch((err) => err)
 }
 

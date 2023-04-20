@@ -53,7 +53,7 @@ export const useClassifyMeAdd = (props: ClassifyMeAddProps, emit: ClassifyMeAddE
       })
       emit('confirm')
     }
-  })
+  }, 300)
 
   // 编辑
   const _update = debounce(async (params: ParamsTagCustomAdd) => {
@@ -65,7 +65,7 @@ export const useClassifyMeAdd = (props: ClassifyMeAddProps, emit: ClassifyMeAddE
       })
       emit('confirm')
     }
-  })
+  }, 300)
 
   const confirm = () => {
     if (!formRef.value) return

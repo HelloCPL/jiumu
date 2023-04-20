@@ -18,7 +18,7 @@
       </span>
       <!-- 底部按钮 -->
       <span
-        class="g-center-x text-basic-white flex items-center justify-between preview-pdf-bottom select-none"
+        class="g-center-x text-basic-white flex items-center justify-between select-none preview-pdf-bottom"
       >
         <ElIcon class="mr-4 cursor-pointer" @click="handleZoomOut">
           <ZoomOut />
@@ -30,36 +30,19 @@
           <FullScreen />
         </ElIcon>
         <span class="text-base flex-1 flex justify-center items-center">
-          {{ state.pageNum }}/{{ state.numPages }}
-        </span>
-        <span
-          class="text-base cursor-pointer mr-4"
-          :class="{ 'preview-page': state.pageNum <= 1 }"
-          @click="handleLastPage"
-        >
-          上一页
-        </span>
-        <span
-          class="text-base cursor-pointer"
-          :class="{ 'preview-page': state.pageNum >= state.numPages }"
-          @click="handleNextPage"
-        >
-          下一页
+          <span>共</span>
+          <span class="px-1">{{ state.numPages }}</span>
+          <span>页</span>
         </span>
       </span>
-      <div class="w-full g-scroll-y-0 preview-pdf-content">
+      <div class="w-full g-scroll-y preview-pdf-content">
         <LazyLoader>
-          <div ref="refBox">
-            <template v-for="page in state.numPages" :key="page">
-              <VuePdf
-                :src="state.source"
-                :enable-annotations="false"
-                :page="page"
-                class="vue-pdf-embed"
-                :style="{ transform: `scale(${state.scale}) translateY(${state.translateY}px)` }"
-                v-if="page === state.pageNum"
-              ></VuePdf>
-            </template>
+          <div
+            ref="refBox"
+            class="flex flex-col preview-pdf-wrapper"
+            :style="{ transform: `scale(${state.scale}) ` }"
+          >
+            <div v-if="state.isError" class="text-center text-lighter pt-10 text-xl">加载失败!</div>
           </div>
         </LazyLoader>
       </div>
@@ -72,21 +55,16 @@ import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { usePreviewPdf } from '../hooks/use-preview-pdf'
 import LazyLoader from '@/components/LazyLoader/index.vue'
-import { VuePdf } from 'vue3-pdfjs'
+import { previewPdfProps, previewPdfEmit } from './type'
+import { useBodyLocked } from './locked'
 
-const props = defineProps({
-  url: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
-defineEmits({
-  close: () => true
-})
+useBodyLocked()
 
-const { refBox, state, handleZoomOut, handleZoomIn, handleZoom, handleLastPage, handleNextPage } =
-  usePreviewPdf(props)
+const props = defineProps(previewPdfProps)
+
+defineEmits(previewPdfEmit)
+
+const { refBox, state, handleZoomOut, handleZoomIn, handleZoom } = usePreviewPdf(props)
 </script>
 
 <style lang="scss" scoped>

@@ -11,7 +11,7 @@
       :key="item.id"
       round
       :type="item.checked ? '' : 'info'"
-      class="mr-3 mb-2 cursor-pointer bg-danger"
+      class="mr-3 mb-2 cursor-pointer bg-danger select-none"
       @click="handleClick(item)"
     >
       {{ item.label }}

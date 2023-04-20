@@ -1,3 +1,8 @@
+body,html {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .preview-txt {
   background-color: var(--jm-color-overlay-lighter);
   z-index: 999;
@@ -34,6 +39,7 @@
     background: #ffffff;
     line-height: 1.5;
     white-space: pre-wrap;
+    transform-origin: 50% 0;
   }
 
   .preview-word-wrapper {
@@ -42,6 +48,8 @@
     min-height: calc(100vh - 100px);
     line-height: 1.5;
     white-space: pre-wrap;
+    background: #ffffff;
+    transform-origin: 50% 0;
   }
 
   .preview-excel-content {
@@ -62,8 +70,12 @@
     padding: 0;
   }
 
-  :deep(.docx-wrapper>section.docx) {
-    margin-bottom: 0;
+  :deep(.docx-wrapper > section.docx) {
+    margin-bottom: 0px;
+    width: 100% !important;
+    box-shadow: none;
+    padding: 7rem 6rem 6rem 6rem !important;
+    box-sizing: border-box;
   }
 
   :deep(.luckysheet-stat-area) {

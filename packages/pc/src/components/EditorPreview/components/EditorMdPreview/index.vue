@@ -5,22 +5,97 @@
 -->
 
 <template>
-  <v-md-preview :text="text" class="bg-white"></v-md-preview>
+  <div class="w-full flex editor-md-preiview-container" :class="{ 'editor-md-preview-light': isLight }">
+    <div :style="{ width: contentWidth }">
+      <v-md-preview :text="text" ref="refPreview"></v-md-preview>
+    </div>
+    <!-- 目录  -->
+    <div
+      class="affix-md-preview-right shrink-0"
+      :style="{ width: width + 'px' }"
+      v-if="titleData.length > 3 && !isReload"
+    >
+      <ElAffix target=".affix-md-preview-right" :offset="40">
+        <div class="w-full h-full relative title-wrapper">
+          <!-- 展开收起按钮 -->
+          <span
+            class="absolute cursor-pointer title-icon"
+            :class="{ 'title-icon-arrow': width === 0 }"
+            @click="handleClickArrow"
+          >
+            <ElIcon>
+              <ArrowLeftBold></ArrowLeftBold>
+            </ElIcon>
+          </span>
+          <!-- 目录列表 -->
+          <div class="h-full overflow-hidden" :style="{ width: width + 'px' }">
+            <div style="width: 220px" class="h-full flex flex-col">
+              <div class="text-lg w-full h-10 pt-1 preview-bg-white">
+                <span>目录：</span>
+              </div>
+              <div class="flex-1 flex flex-col w-full pt-2 g-scroll-y">
+                <GRichText
+                  class="cursor-pointer mb-4 preview-text-light"
+                  v-for="(item, index) in titleData"
+                  :key="index"
+                  :html="item.html"
+                  @click="handleTitleItem(index)"
+                ></GRichText>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ElAffix>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
+import { editorMdPreviewProps } from './type'
+import { useIndex } from './index'
+import { ElAffix, ElIcon } from 'element-plus'
+import { ArrowLeftBold } from '@element-plus/icons-vue'
 
-useMarkdownInit()
+const props = defineProps(editorMdPreviewProps)
 
-defineProps({
-  text: {
-    type: String,
-    default: ''
-  }
-})
+const { isReload, refPreview, width, contentWidth, titleData, handleTitleItem, handleClickArrow } =
+  useIndex(props)
 </script>
 
 <style lang="scss">
 @import '@/components/Editor/components/EditorMd/index.scss';
+@import './index.scss';
+
+.editor-md-preiview-container {
+  background: var(--jm-color-white);
+  color: var(--jm-color-text);
+
+  .el-affix {
+    width: auto !important;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.title-wrapper {
+  max-height: calc(100vh - 50px);
+}
+
+.title-icon {
+  right: 0px;
+  top: 5px;
+  transition: transform ease 0.5s;
+}
+
+.title-icon-arrow {
+  transform: rotate(180deg);
+}
+
+.preview-bg-white {
+  background: var(--jm-color-white);
+}
+
+.preview-text-light {
+  color: var(--jm-color-text-light);
+}
 </style>

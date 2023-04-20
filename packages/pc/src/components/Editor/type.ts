@@ -33,7 +33,8 @@ export const editorEmits = {
   blur: (name: string) => isString(name),
   focus: (name: string) => isString(name),
   'update:type': (name: string) => isString(name),
-  changeType: (name: string) => isString(name)
+  changeType: (name: string) => isString(name),
+  save: (name: string) => isString(name)
 }
 
 export type EditorEmits = EmitFn<typeof editorEmits>

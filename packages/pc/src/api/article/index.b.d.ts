@@ -20,6 +20,10 @@ interface ParamsArticleAdd {
   remarks?: string
 }
 
+interface ParamsArticleSave extends ObjectAny {
+  id: string
+}
+
 // 文章数据接口类型
 interface DataArticle extends DataBase {
   id: string

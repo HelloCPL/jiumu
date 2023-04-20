@@ -53,8 +53,29 @@ export const useIndex = () => {
   // 处理封面图
   const coverImgList = ref<DataBaseFile[]>([])
   const handleChangeCoverImg = (files: DataBaseFile[]) => {
-    coverImgList.value = getDataDiff(coverImgList.value, files)
+    if (files.length) coverImgList.value = [files[0]]
+    else coverImgList.value = []
     form.coverImg = coverImgList.value.map((item) => item.id).join(',')
+    handleSaveCoverImg()
+  }
+  const handleDeleteCoverImg = () => {
+    form.coverImg = coverImgList.value.map((item) => item.id).join(',')
+    handleSaveCoverImg()
+  }
+  const handleSaveCoverImg = async () => {
+    if (form.id) {
+      const params = {
+        id: form.id,
+        coverImg: form.coverImg
+      }
+      const res = await updateArticle(params)
+      if (res.code === 200) {
+        Message({
+          message: '封面图保存成功',
+          type: 'success'
+        })
+      }
+    }
   }
 
   // 处理附件
@@ -62,6 +83,26 @@ export const useIndex = () => {
   const handleChangeAttachment = (files: DataBaseFile[]) => {
     attachmentList.value = getDataDiff(attachmentList.value, files)
     form.attachment = attachmentList.value.map((item) => item.id).join(',')
+    handleSaveAttachmentList()
+  }
+  const handleDeleteAttachment = () => {
+    form.attachment = attachmentList.value.map((item) => item.id).join(',')
+    handleSaveAttachmentList()
+  }
+  const handleSaveAttachmentList = async () => {
+    if (form.id) {
+      const params = {
+        id: form.id,
+        attachment: form.attachment
+      }
+      const res = await updateArticle(params)
+      if (res.code === 200) {
+        Message({
+          message: '附件保存成功',
+          type: 'success'
+        })
+      }
+    }
   }
 
   // 获取文章详情
@@ -99,19 +140,19 @@ export const useIndex = () => {
   const _add = debounce(async (params: ParamsArticleAdd) => {
     const res = await addArticle(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 编辑
   const _update = debounce(async (params: ParamsArticleAdd) => {
     const res = await updateArticle(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 删除
   const _delete = debounce(async (id) => {
     const res = await deleteArticle(id)
     handleFinish(res)
-  })
+  }, 300)
 
   const keepAliveStore = useKeepAliveStore()
   // 处理回调
@@ -173,6 +214,27 @@ export const useIndex = () => {
     }
   }
 
+  // 仅保存文本
+  const handleSaveContent = debounce(async () => {
+    if (!form.id) {
+      Message('请保存为草稿或发布后才能保存文本')
+      return
+    } else {
+      const params = {
+        id: form.id,
+        content: form.content,
+        contentType: form.contentType
+      }
+      const res = await updateArticle(params)
+      if (res.code === 200) {
+        Message({
+          message: '文本保存成功',
+          type: 'success'
+        })
+      }
+    }
+  }, 300)
+
   return {
     formRef,
     form,
@@ -180,8 +242,11 @@ export const useIndex = () => {
     handleChangeContent,
     coverImgList,
     handleChangeCoverImg,
+    handleDeleteCoverImg,
     attachmentList,
     handleChangeAttachment,
-    changeBtn
+    handleDeleteAttachment,
+    changeBtn,
+    handleSaveContent
   }
 }

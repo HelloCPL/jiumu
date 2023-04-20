@@ -29,6 +29,9 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
   let value: string = ''
   const editorId = ref('')
 
+  let _isFocus: boolean = false
+  let _isLoaded: boolean = false
+
   // 富文本创建完成回调
   const onCreated = (editor: IDomEditor) => {
     editorId.value = editor.id
@@ -37,6 +40,7 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
     if (props.isEmitMounted) {
       emit('change', props.modelValue)
     }
+    _isLoaded = true
   }
   const onChange = (editor: IDomEditor) => {
     value = editor.getHtml()
@@ -45,9 +49,11 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
     handleTitle(editor)
   }
   const onFocus = () => {
+    _isFocus = true
     emit('focus', value)
   }
   const onBlur = () => {
+    _isFocus = false
     emit('blur', value)
   }
 
@@ -174,6 +180,20 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
       isFullScreen.value = active
     })
   }
+
+  // 保存
+  const keydown = (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.keyCode === 83 && _isFocus && _isLoaded) {
+      e.preventDefault()
+      emit('save', value)
+    }
+  }
+  onMounted(() => {
+    document.addEventListener('keydown', keydown)
+  })
+  onUnmounted(() => {
+    document.removeEventListener('keydown', keydown)
+  })
 
   return {
     editorId,

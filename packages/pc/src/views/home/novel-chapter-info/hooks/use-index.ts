@@ -40,7 +40,7 @@ export const useIndex = () => {
       data.value = res.data
       handleTargetIndex()
     }
-  })
+  }, 300)
 
   onMounted(() => {
     getDataInfo()

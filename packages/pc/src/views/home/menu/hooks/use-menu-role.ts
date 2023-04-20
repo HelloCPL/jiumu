@@ -24,7 +24,7 @@ export const useMenuRole = (props: MenuInfoProps) => {
       total.value = res.total
       ++pageNo
     }
-  })
+  }, 300)
   getDataList()
 
   return {

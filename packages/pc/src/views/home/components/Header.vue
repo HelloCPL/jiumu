@@ -5,12 +5,10 @@
 -->
 
 <template>
-  <div
-    class="w-full bg-primary-600 flex justify-between items-center pl-2 pr-5 text-white select-none header"
-  >
+  <div class="w-full flex justify-between items-center pl-2 pr-5 select-none header" :class="headerClass">
     <div class="flex items-center">
       <img :src="$STATIC_URL + 'pc/images/jiumu.png'" class="w-10" alt="" />
-      <span class="pl-2 text-lg text-white-8">
+      <span class="pl-2 text-lg">
         <span>管理系统平台</span>
         <span v-if="VITE_MODE !== 'prod'">（测试环境）</span>
       </span>
@@ -33,11 +31,20 @@
 
 <script lang="ts" setup>
 import { ElImage } from 'element-plus'
-import { useUserStore } from '@/store'
+import { useUserStore, useThemeStore } from '@/store'
+import { computed } from 'vue'
 
 const { VITE_MODE } = import.meta.env
 
 const userStore = useUserStore()
+
+const themeStore = useThemeStore()
+const headerClass = computed(() => {
+  if (themeStore.theme === 'drak') {
+    return 'bg-primary-200 text-black-8'
+  }
+  return 'bg-primary-600 text-white-8'
+})
 
 defineEmits(['showUserInfo'])
 </script>

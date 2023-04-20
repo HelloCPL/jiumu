@@ -47,6 +47,10 @@ body {
 
   .v-md-editor__toc-nav-item {
     color: var(--jm-color-text);
+    line-height: 1;
+    height: auto;
+    margin: 0;
+    margin-bottom: 1rem;
   }
 
   .v-md-editor__toc-nav-item:hover .v-md-editor__toc-nav-title,
@@ -87,9 +91,34 @@ body {
   }
 
   .github-markdown-body h1,
-  .github-markdown-body h2 {
+  .github-markdown-body h2,
+  .github-markdown-body h3,
+  .github-markdown-body h4,
+  .github-markdown-body h5 {
     border: 0;
     padding: 0;
+    line-height: 1.5;
+    margin: 1.7rem 0 0.57rem;
+  }
+
+  .github-markdown-body h1 {
+    font-size: 2rem;
+  }
+
+  .github-markdown-body h2 {
+    font-size: 1.5rem;
+  }
+
+  .github-markdown-body h3 {
+    font-size: 1.17rem;
+  }
+
+  .github-markdown-body h4 {
+    font-size: 1rem;
+  }
+
+  .github-markdown-body h5 {
+    font-size: 0.83rem;
   }
 
   // 提示框
@@ -148,10 +177,13 @@ body {
 
   // 代码块
   .github-markdown-body code,
-  .github-markdown-body tt,
-  .github-markdown-body div[class*='v-md-pre-wrapper-'],
-  .github-markdown-body table tr:nth-child(2n) {
+  .github-markdown-body div[class*='v-md-pre-wrapper-'] {
     background: var(--jm-color-fill);
+  }
+
+  .github-markdown-body tt,
+  .github-markdown-body table tr:nth-child(2n) {
+    background: var(--jm-color-fill-light);
   }
 
   .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
@@ -194,4 +226,9 @@ body {
   .github-markdown-body pre tt {
     color: var(--jm-color-text-light);
   }
+
+  .scrollbar__thumb {
+    background-color: var(--jm-color-black-1);
+  }
 }
+

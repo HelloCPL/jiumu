@@ -50,7 +50,9 @@ export const addNovelChapter = async (params: ParamsNovelChapterAdd): Promise<Da
 }
 
 // 编辑一个章节
-export const updateNovelChapter = async (params: ParamsNovelChapterEdit): Promise<DataOptions<null>> => {
+export const updateNovelChapter = async (
+  params: ParamsNovelChapterEdit | ParamsNovelChapterEditSaveContent
+): Promise<DataOptions<null>> => {
   return await post('/pc/novel-chapter/update', params).catch((err) => err)
 }
 

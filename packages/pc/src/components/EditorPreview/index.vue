@@ -7,8 +7,16 @@
 <template>
   <div class="w-full">
     <LazyLoader>
-      <EditorWangPreview :value="value" v-if="type === '401'"></EditorWangPreview>
-      <EditorMdPreview :text="value" v-else-if="type === '402'"></EditorMdPreview>
+      <EditorWangPreview
+        :value="value"
+        :is-show-title="isShowTitle"
+        v-if="type === '401'"
+      ></EditorWangPreview>
+      <EditorMdPreview
+        :text="value"
+        :is-show-title="isShowTitle"
+        v-else-if="type === '402'"
+      ></EditorMdPreview>
     </LazyLoader>
   </div>
 </template>

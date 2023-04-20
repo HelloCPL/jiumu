@@ -19,6 +19,7 @@
     ref="refVMdEditor"
     @change="handleChange"
     @upload-image="handleUploadImage"
+    @save="handleSave"
   ></v-md-editor>
 </template>
 
@@ -32,7 +33,7 @@ useMarkdownInit()
 const props = defineProps(editorMarkdownProps)
 const emit = defineEmits(editorMarkdownEmits)
 
-const { value, refVMdEditor, handleChange, handleUploadImage } = useMarkdownIndex(props, emit)
+const { value, refVMdEditor, handleChange, handleSave, handleUploadImage } = useMarkdownIndex(props, emit)
 </script>
 
 <style lang="scss">

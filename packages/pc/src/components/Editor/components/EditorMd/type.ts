@@ -29,7 +29,7 @@ export const editorMarkdownProps = buildProps({
   leftToolbar: {
     type: String,
     default:
-      'undo redo | h bold italic strikethrough ul ol customTip code link image table sync-scroll toc preview fullscreen'
+      'undo redo | customTitle bold italic strikethrough ul ol customTip code link image table sync-scroll toc preview fullscreen'
   },
   rightToolbar: {
     type: String,
@@ -58,7 +58,8 @@ export type EditorMarkdownProps = ExtractPropTypes<typeof editorMarkdownProps>
 
 export const editorMarkdownEmits = {
   'update:modelValue': (name: string) => isString(name),
-  change: (name: string) => isString(name)
+  change: (name: string) => isString(name),
+  save: (name: string) => isString(name)
 }
 
 export type EditorMarkdownEmits = EmitFn<typeof editorMarkdownEmits>
