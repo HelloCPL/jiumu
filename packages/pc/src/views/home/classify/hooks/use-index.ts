@@ -27,7 +27,7 @@
 //       data.value = res.data
 //       total.value = res.total
 //     }
-//   })
+//   }, 300)
 //   getDataList()
 
 //   return {

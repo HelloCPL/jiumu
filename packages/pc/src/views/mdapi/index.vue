@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full min-h-screen bg-white mdapi-container">
+  <div class="w-full min-h-screen bg-white pr-6 mdapi-container">
     <!-- 目录 -->
     <div class="h-screen fixed left-0 top-0 border-r-1 border-lighter shadow-lg pt-12 mdapi-aside">
       <div
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <EditorPreview type="402" :value="list[targetIndex].value" class="pb-4"></EditorPreview>
+    <EditorPreview type="402" :value="list[targetIndex].value"></EditorPreview>
   </div>
 </template>
 

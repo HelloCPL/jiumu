@@ -2,28 +2,25 @@
  * pdf 预览处理逻辑
  */
 
-import { ref, reactive, onMounted, nextTick } from 'vue'
-import { createLoadingTask } from 'vue3-pdfjs'
+import { ref, reactive, nextTick, watch } from 'vue'
+import { useLoading } from '@/utils/interaction'
+import { PreviewPdfProps } from '../components/type'
+import * as pdfjs from 'pdfjs-dist'
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
+import { PDFDocumentProxy } from 'pdfjs-dist'
 
-export const usePreviewPdf = (props: any) => {
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
+
+export const usePreviewPdf = (props: PreviewPdfProps) => {
   // 动态计算pdf容器高度
   const refBox = ref<HTMLDivElement>()
-  const boxH = ref<number>(0)
-  const setBox = (s: number) => {
-    nextTick(() => {
-      if (!refBox.value) return
-      if (!boxH.value) boxH.value = refBox.value.offsetHeight || refBox.value.clientHeight
-      // if (s >= 1) {
-      state.translateY = boxH.value * (s - 1) * (0.53 / s)
-      // }
-    })
-  }
 
-  const state = reactive({
-    source: props.url,
-    pageNum: 1, // 当前页
+  const { showLoading, hideLoading } = useLoading()
+
+  let pdfCtx: PDFDocumentProxy
+  const state = reactive<any>({
+    isError: false, // 是否出错
     scale: 1,
-    translateY: 0,
     numPages: 0
   })
 
@@ -31,38 +28,84 @@ export const usePreviewPdf = (props: any) => {
   const handleZoomOut = () => {
     const s = state.scale - 0.1
     state.scale = s < 0.5 ? 0.5 : s
-    setBox(state.scale)
   }
   // 放大
   const handleZoomIn = () => {
     const s = state.scale + 0.1
     state.scale = s > 2.5 ? 2.5 : s
-    setBox(state.scale)
   }
   // 恢复缩放
   const handleZoom = () => {
     state.scale = 1
-    setBox(state.scale)
-  }
-  // 上一页
-  const handleLastPage = () => {
-    if (state.pageNum <= 1) return
-    state.pageNum -= 1
-  }
-  // 下一页
-  const handleNextPage = () => {
-    if (state.pageNum >= state.numPages) return
-    state.pageNum += 1
   }
 
-  // 获取总页数
-  const getTotal = () => {
-    const loadingTask = createLoadingTask(state.source)
-    loadingTask.promise.then((pdf) => {
-      state.numPages = pdf.numPages
+  // 加载 pdf 信息
+  const resolvePdf = (url: string) => {
+    showLoading()
+    const loadingTask = pdfjs.getDocument(url)
+    loadingTask.promise
+      .then((pdf) => {
+        pdfCtx = pdf
+        state.numPages = pdf.numPages
+        if (state.numPages >= 1) renderPdf(1)
+      })
+      .catch(() => {
+        state.isError = true
+        hideLoading()
+      })
+  }
+
+  let i = 0
+  const renderPdf = (num: number = 1) => {
+    setTimeout(() => {
+      if (refBox.value) {
+        _renderPdf(num)
+      } else if (i < 5) {
+        i++
+        renderPdf(num)
+      }
+    }, 0)
+  }
+
+  // 渲染 pdf
+  const _renderPdf = (num: number = 1) => {
+    nextTick(() => {
+      pdfCtx
+        .getPage(num)
+        .then((page) => {
+          const canvas = document.createElement('canvas')
+          const ctx = <CanvasRenderingContext2D>canvas.getContext('2d')
+          const viewport = page.getViewport({ scale: 1 })
+          canvas.width = viewport.width
+          canvas.height = viewport.height
+          const box = page.render({
+            canvasContext: ctx,
+            viewport
+          })
+          box.promise
+            .then(() => {
+              refBox.value?.appendChild(canvas)
+              if (num < state.numPages) {
+                setTimeout(() => {
+                  _renderPdf(num + 1)
+                }, 100)
+              }
+              hideLoading()
+            })
+            .catch(hideLoading)
+        })
+        .catch(hideLoading)
     })
   }
-  onMounted(getTotal)
+  watch(
+    () => props.url,
+    (val) => {
+      if (val) {
+        resolvePdf(val)
+      }
+    },
+    { immediate: true }
+  )
 
   return {
     refBox,
@@ -70,7 +113,6 @@ export const usePreviewPdf = (props: any) => {
     handleZoomOut,
     handleZoomIn,
     handleZoom,
-    handleLastPage,
-    handleNextPage
+    renderPdf
   }
 }

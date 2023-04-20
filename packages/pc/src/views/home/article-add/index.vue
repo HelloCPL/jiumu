@@ -11,7 +11,12 @@
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
       </ElFormItem>
       <ElFormItem label="文章内容" prop="content">
-        <Editor v-model:type="form.contentType" v-model="form.content" @change="handleChangeContent"></Editor>
+        <Editor
+          v-model:type="form.contentType"
+          v-model="form.content"
+          @change="handleChangeContent"
+          @save="handleSaveContent"
+        ></Editor>
       </ElFormItem>
       <ElRow class="flex">
         <ElFormItem label="文章类型" prop="type" class="g-w-280 mr-6">
@@ -32,11 +37,11 @@
           <Upload
             v-model="coverImgList"
             @change="handleChangeCoverImg"
-            :limit="1"
+            :limit="2"
             :limited="coverImgList.length"
             class="mr-6"
           ></Upload>
-          <ShowImage v-model="coverImgList" is-delete></ShowImage>
+          <ShowImage v-model="coverImgList" is-delete @change="handleDeleteCoverImg"></ShowImage>
         </ElRow>
       </ElFormItem>
       <ElFormItem label="附件" prop="attachment">
@@ -45,10 +50,10 @@
             v-model="attachmentList"
             @change="handleChangeAttachment"
             type="files"
-            :limit="3"
+            :limit="5"
             :limited="attachmentList.length"
           ></Upload>
-          <ShowFile v-model="attachmentList" is-delete></ShowFile>
+          <ShowFile v-model="attachmentList" is-delete @change="handleDeleteAttachment"></ShowFile>
         </ElRow>
       </ElFormItem>
       <ElFormItem label="备注" prop="remarks">
@@ -81,8 +86,11 @@ const {
   handleChangeContent,
   coverImgList,
   handleChangeCoverImg,
+  handleDeleteCoverImg,
   attachmentList,
   handleChangeAttachment,
-  changeBtn
+  handleDeleteAttachment,
+  changeBtn,
+  handleSaveContent
 } = useIndex()
 </script>

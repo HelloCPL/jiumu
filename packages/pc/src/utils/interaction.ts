@@ -158,3 +158,46 @@ export const Confirm = (message?: string | ElMessageBoxOptions): Promise<Message
   }
   return ElMessageBox.confirm(msg, _options)
 }
+
+/**
+ * 包装加载效果
+ * maxTime 最大加载效果时间 默认 10000 ms
+ */
+export const useLoading = (maxTime: number = 10000) => {
+  let loading: any
+  let count = 0
+  let timeId: any = null
+  const clearTimeId = () => {
+    if (timeId) {
+      count = 0
+      clearTimeout(timeId)
+      timeId = null
+    }
+  }
+
+  const showLoading = () => {
+    if (count <= 0 && !loading) {
+      loading = Loading()
+    }
+    clearTimeId()
+    timeId = setTimeout(() => {
+      hideLoading()
+    }, maxTime)
+    count++
+  }
+
+  const hideLoading = () => {
+    --count
+    if (count <= 0 && loading) {
+      loading.close()
+      loading = null
+      count = 0
+    }
+  }
+
+  return {
+    loading,
+    showLoading,
+    hideLoading
+  }
+}

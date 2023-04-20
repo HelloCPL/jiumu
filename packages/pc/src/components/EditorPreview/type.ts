@@ -15,6 +15,11 @@ export const editorPreviewProps = buildProps({
   value: {
     type: String,
     default: ''
+  },
+  // 是否展示标题
+  isShowTitle: {
+    type: Boolean,
+    default: true
   }
 } as const)
 

@@ -24,7 +24,7 @@ export const useUserPermission = (props: UserInfoProps) => {
       total.value = res.total
       ++pageNo
     }
-  })
+  }, 300)
   getDataList()
 
   const _username = computed(() => {

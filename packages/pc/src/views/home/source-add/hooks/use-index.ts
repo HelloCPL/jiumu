@@ -114,19 +114,19 @@ export const useIndex = () => {
   const _add = debounce(async (params: ParamsSourceAdd) => {
     const res = await addSource(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 编辑
   const _update = debounce(async (params: ParamsSourceAdd) => {
     const res = await updateSource(params)
     handleFinish(res)
-  })
+  }, 300)
 
   // 删除
   const _delete = debounce(async (id) => {
     const res = await deleteSource(id)
     handleFinish(res)
-  })
+  }, 300)
 
   const keepAliveStore = useKeepAliveStore()
   // 处理回调

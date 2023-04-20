@@ -42,7 +42,8 @@ export const editorWangEmits = {
   'update:modelValue': (name: string) => isString(name),
   change: (name: string) => isString(name),
   blur: (name: string) => isString(name),
-  focus: (name: string) => isString(name)
+  focus: (name: string) => isString(name),
+  save: (name: string) => isString(name)
 }
 
 export type EditorWangEmits = EmitFn<typeof editorWangEmits>

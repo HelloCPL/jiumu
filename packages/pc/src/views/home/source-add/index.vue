@@ -22,7 +22,7 @@
             <Upload
               @change="handleChangeAttachment1"
               type="files_big"
-              :limit="9"
+              :limit="20"
               :limited="attachmentList1.length"
               class="block"
             ></Upload>

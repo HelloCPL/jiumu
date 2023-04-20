@@ -89,10 +89,27 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
     }
   })
 
+  // 保存
+  const handleSave = (text: string) => {
+    emit('save', text)
+  }
+  const keydown = (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.keyCode === 83) {
+      e.preventDefault()
+    }
+  }
+  onMounted(() => {
+    document.addEventListener('keydown', keydown)
+  })
+  onUnmounted(() => {
+    document.removeEventListener('keydown', keydown)
+  })
+
   return {
     value,
     refVMdEditor,
     handleChange,
+    handleSave,
     handleUploadImage
   }
 }

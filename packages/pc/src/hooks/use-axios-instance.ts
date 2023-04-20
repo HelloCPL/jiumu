@@ -11,7 +11,7 @@ import { Code } from '@/enumerations'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
 import router from '@/router'
-import { Message, Loading } from '@/utils/interaction'
+import { Message, useLoading } from '@/utils/interaction'
 const { VITE_TIME_OUT, VITE_API_URL } = import.meta.env
 
 // 创建axios实例
@@ -23,22 +23,7 @@ const service: AxiosInstance = axios.create({
   }
 })
 
-// 接口加载效果
-let loading: any
-let requireCount = 0
-const showLoading = (isloading?: boolean) => {
-  if (requireCount <= 0 && !loading && isloading) {
-    loading = Loading()
-  }
-  requireCount++
-}
-const hideLoading = () => {
-  --requireCount
-  if (requireCount <= 0 && loading) {
-    loading.close()
-    loading = null
-  }
-}
+const { showLoading, hideLoading } = useLoading()
 
 /**
  * 请求拦截
@@ -49,7 +34,7 @@ const hideLoading = () => {
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     config.showErrorMessage = config.showErrorMessage !== false
-    showLoading(config.isloading)
+    if (config.isloading) showLoading()
     // 对项目内置的api添加前缀或token
     const userStore = useUserStore()
     if (config.url?.startsWith('/pc/') || config.url?.startsWith('pc/')) {
