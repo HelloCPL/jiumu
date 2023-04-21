@@ -94,8 +94,29 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
     emit('save', text)
   }
   const keydown = (e: KeyboardEvent) => {
+    console.log(e)
     if (e.ctrlKey && e.keyCode === 83) {
       e.preventDefault()
+    } else if (e.ctrlKey && e.keyCode === 88) {
+      console.log(e)
+      e.preventDefault()
+      // editor
+      console.log(11, refVMdEditor)
+      const a = refVMdEditor.value.$refs.editorEgine.getRange()
+      console.log('aa', a)
+      console.log(value.value[a.start], value.value[a.end])
+      value.value = value.value.substring(0, a.s)
+      refVMdEditor.value.$refs.editorEgine.setRange(1, 3)
+    } else if (e.ctrlKey && e.keyCode === 13) {
+      const r = refVMdEditor.value.$refs.editorEgine.getRange()
+      if (r && r.start === r.end) {
+        const start = r.start + 1
+        console.log('start', start)
+        value.value = value.value.substring(0, r.start) + '\n' + value.value.substring(r.start)
+        setTimeout(() => {
+          refVMdEditor.value.$refs.editorEgine.setRange({ start, end: start })
+        }, 30)
+      }
     }
   }
   onMounted(() => {
