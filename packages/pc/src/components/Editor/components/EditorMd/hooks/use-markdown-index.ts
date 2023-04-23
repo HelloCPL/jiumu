@@ -5,6 +5,7 @@ import { debounce, isArray } from 'lodash-es'
 import { nextTick, ref, watch, onMounted, onUnmounted } from 'vue'
 import { EditorMarkdownProps, EditorMarkdownEmits } from '../type'
 import { uploadFile, deleteFile } from '@/api/file'
+import { useMarkdownKeydown } from './use-markdown-keydown'
 
 type insertFnParams = {
   url: string
@@ -93,31 +94,42 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
   const handleSave = (text: string) => {
     emit('save', text)
   }
+  const { ctrlEnter, ctrlX, ctrlC, ctrlV } = useMarkdownKeydown()
   const keydown = (e: KeyboardEvent) => {
-    console.log(e)
+    // console.log(e)
+    // ctrl + s
     if (e.ctrlKey && e.keyCode === 83) {
       e.preventDefault()
-    } else if (e.ctrlKey && e.keyCode === 88) {
-      console.log(e)
-      e.preventDefault()
-      // editor
-      console.log(11, refVMdEditor)
-      const a = refVMdEditor.value.$refs.editorEgine.getRange()
-      console.log('aa', a)
-      console.log(value.value[a.start], value.value[a.end])
-      value.value = value.value.substring(0, a.s)
-      refVMdEditor.value.$refs.editorEgine.setRange(1, 3)
     } else if (e.ctrlKey && e.keyCode === 13) {
-      const r = refVMdEditor.value.$refs.editorEgine.getRange()
-      if (r && r.start === r.end) {
-        const start = r.start + 1
-        console.log('start', start)
-        value.value = value.value.substring(0, r.start) + '\n' + value.value.substring(r.start)
-        setTimeout(() => {
-          refVMdEditor.value.$refs.editorEgine.setRange({ start, end: start })
-        }, 30)
-      }
+      ctrlEnter(e, refVMdEditor, value)
+    } else if (e.ctrlKey && e.keyCode === 88) {
+      ctrlX(e, refVMdEditor, value)
+    } else if (e.ctrlKey && e.keyCode === 67) {
+      ctrlC(e, refVMdEditor, value)
+    } else if (e.ctrlKey && e.keyCode === 86) {
+      ctrlV(e, refVMdEditor, value)
     }
+    //  else if (e.ctrlKey && e.keyCode === 89) {
+    //   console.log(e)
+    //   e.preventDefault()
+    //   // editor
+    //   console.log(11, refVMdEditor)
+    //   const a = refVMdEditor.value.$refs.editorEgine.getRange()
+    //   console.log('aa', a)
+    //   console.log(value.value[a.start], value.value[a.end])
+    //   value.value = value.value.substring(0, a.s)
+    //   refVMdEditor.value.$refs.editorEgine.setRange(1, 3)
+    // } else if (e.ctrlKey && e.keyCode === 13) {
+    //   const r = refVMdEditor.value.$refs.editorEgine.getRange()
+    //   if (r && r.start === r.end) {
+    //     const start = r.start + 1
+    //     console.log('start', start)
+    //     value.value = value.value.substring(0, r.start) + '\n' + value.value.substring(r.start)
+    //     setTimeout(() => {
+    //       refVMdEditor.value.$refs.editorEgine.setRange({ start, end: start })
+    //     }, 30)
+    //   }
+    // }
   }
   onMounted(() => {
     document.addEventListener('keydown', keydown)
