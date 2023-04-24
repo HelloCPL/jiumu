@@ -5,6 +5,7 @@ import { debounce, isArray } from 'lodash-es'
 import { nextTick, ref, watch, onMounted, onUnmounted } from 'vue'
 import { EditorMarkdownProps, EditorMarkdownEmits } from '../type'
 import { uploadFile, deleteFile } from '@/api/file'
+import { useMarkdownKeydown } from './use-markdown-keydown'
 
 type insertFnParams = {
   url: string
@@ -93,9 +94,24 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
   const handleSave = (text: string) => {
     emit('save', text)
   }
+  // 处理键盘快捷键
+  const { ctrlEnter, ctrlX, ctrlC, ctrlV, _tab, _enter } = useMarkdownKeydown()
   const keydown = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.keyCode === 83) {
+      // ctrl + s
       e.preventDefault()
+    } else if (e.ctrlKey && e.keyCode === 13) {
+      ctrlEnter(e, refVMdEditor, value)
+    } else if (e.ctrlKey && e.keyCode === 88) {
+      ctrlX(e, refVMdEditor, value)
+    } else if (e.ctrlKey && e.keyCode === 67) {
+      ctrlC(e, refVMdEditor, value)
+    } else if (e.ctrlKey && e.keyCode === 86) {
+      ctrlV(e, refVMdEditor, value)
+    } else if (e.keyCode === 9) {
+      _tab(e, refVMdEditor, value)
+    } else if (e.keyCode === 13) {
+      _enter(e, refVMdEditor, value)
     }
   }
   onMounted(() => {
