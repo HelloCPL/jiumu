@@ -4,23 +4,88 @@
  * @create 2023-04-23 09:28:55
  */
 import clipboard from 'clipboardy'
+import { getCurrentInstance } from 'vue'
 
 export const useMarkdownKeydown = () => {
-  // 下一行
+  const instance = getCurrentInstance()
+
+  /**
+   * 换行
+   * 若当前行为 空格 或 空格 + [+ - *] + 至少一个空格 开头 下一行自动补全
+   * 若当前行为仅为 空格 + [+] + 至少一个空格 清除当前行内容
+   */
+  const _enter = (e: KeyboardEvent, editor: any, value: any) => {
+    const editorEgine = editor.value.$refs.editorEgine
+    const isFocus = editorEgine.$refs.textarea == document.activeElement
+    if (isFocus) {
+      const { start, end } = editorEgine.getRange()
+      const i1 = value.value.lastIndexOf('\n', start - 1)
+      const i2 = value.value.indexOf('\n', start)
+      const p: string = value.value.substring(i1 + 1, i2 === -1 ? end : i2)
+      const flag1 = p.search(/^\s*\+{1}\s+$/g) !== -1
+      const flag2 = p.search(/^\s*\+{1}\s+/gi) !== -1
+      const flag3 = judgeSpace(p)
+      let len = 0
+      if (flag1 || flag2 || flag3) {
+        e.preventDefault()
+        if (flag1) {
+          if (i1 === -1) {
+            value.value = value.value.substring(0, start) + '\n\n' + value.value.substring(end)
+            len = start + 2
+          } else {
+            value.value =
+              value.value.substring(0, i1 + 1) + '\n' + value.value.substring(i2 === -1 ? end : i2)
+            len = i1 + 2
+          }
+        } else if (flag2) {
+          const val = getSymbolVal(p)
+          value.value = value.value.substring(0, start) + val + value.value.substring(end)
+          len = start + val.length
+        } else if (flag3) {
+          if (p.search(/^\s+$/) !== -1) {
+            let val = ''
+            if (i1 !== -1) val = '\n'
+            value.value =
+              value.value.substring(0, i1 === -1 ? 0 : i1) + val + value.value.substring(i2 === -1 ? end : i2)
+            len = i1 + 1
+          } else {
+            const val = getSymbolVal(p, false)
+            value.value = value.value.substring(0, start) + val + value.value.substring(end)
+            len = start + val.length
+          }
+        }
+        setTimeout(() => {
+          editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+        })
+      }
+    }
+  }
+
+  /**
+   * 下一行
+   * 若当前行为 空格 或 空格 + [+ - *] + 至少一个空格 下一行自动补全
+   */
   const ctrlEnter = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
-    const { start, end } = editorEgine.getRange()
+    const { start } = editorEgine.getRange()
     const isFocus = editorEgine.$refs.textarea == document.activeElement
-    if (start === end && isFocus) {
+    if (isFocus) {
       e.preventDefault()
       const i = value.value.indexOf('\n', start)
+      // 处理特殊的 空格 或 空格 + [+ - *] +
+      const i1 = value.value.lastIndexOf('\n', start - 1)
+      const p: string = value.value.substring(i1 + 1, i === -1 ? start : i)
+      let val = '\n'
+      if (p.search(/^\s*[\*\+-]{1}\s+/g) !== -1 || p.search(/^\s+/g) !== -1) {
+        val = getSymbolVal(p)
+      }
       let len = 0
       if (i !== -1) {
-        value.value = value.value.substring(0, i) + '\n' + value.value.substring(i)
-        len = i + 1
+        value.value = value.value.substring(0, i) + val + value.value.substring(i)
+        len = i + val.length
       } else {
-        value.value += '\n'
-        len = value.value.length
+        value.value += val
+        len = value.value.length + val.length - 1
       }
       setTimeout(() => {
         editor.value.$refs.editorEgine.setRange({ start: len, end: len })
@@ -94,49 +159,23 @@ export const useMarkdownKeydown = () => {
    */
   const ctrlV = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
+    const { start, end } = editorEgine.getRange()
     const isFocus = editorEgine.$refs.textarea == document.activeElement
-    if (isFocus) {
+    if (isFocus && start === end) {
       e.preventDefault()
       clipboard.read().then((copyText) => {
-        const { start, end } = editorEgine.getRange()
         const i1 = copyText.indexOf('\n')
         const i2 = copyText.lastIndexOf('\n')
         const flag = i1 !== -1 && i2 !== -1 && i1 === i2
         let len = 0
-        console.log('start end', i1, i2)
-        console.log('start end222', value.value[start], value.value[end])
-        console.log('copyText', copyText)
-        console.log('copyText', start, end)
         const i = value.value.lastIndexOf('\n', start - 1)
-
-        if (start === end) {
-          if (flag) {
-            console.log('aaa')
-            value.value = value.value.substring(0, i + 1) + copyText + value.value.substring(i + 1)
-            len = copyText.length + start - 1
-          } else {
-            console.log('bbb')
-            value.value = value.value.substring(0, start) + copyText + value.value.substring(start)
-            len = copyText.length + start
-          }
+        if (flag) {
+          value.value = value.value.substring(0, i + 1) + copyText + value.value.substring(i + 1)
+          len = copyText.length + start - 1
         } else {
-          // 直接替换内容
-          if (flag) {
-            // 这个有问题
-            value.value = value.value.substring(0, start) + copyText + value.value.substring(end)
-            len = start + copyText.length - 1
-          } else {
-            value.value = value.value.substring(0, start) + copyText + value.value.substring(end)
-            len = start + copyText.length
-          }
-
-          //   if (flag) {
-          //   console.log('ccc')
-          // } else {
-          //   console.log('ddd')
-          // }
-          // value.value = value.value.substring(0, start) + copyText + value.value.substring(end + 1)
-          // len = start + copyText.length
+          instance?.proxy?.$forceUpdate()
+          value.value = value.value.substring(0, start) + copyText + value.value.substring(start)
+          len = copyText.length + start
         }
         setTimeout(() => {
           editor.value.$refs.editorEgine.setRange({ start: len, end: len })
@@ -145,10 +184,81 @@ export const useMarkdownKeydown = () => {
     }
   }
 
+  // tab 空两格
+  const _tab = (e: KeyboardEvent, editor: any, value: any) => {
+    const editorEgine = editor.value.$refs.editorEgine
+    const { start, end } = editorEgine.getRange()
+    const isFocus = editorEgine.$refs.textarea == document.activeElement
+    if (isFocus) {
+      e.preventDefault()
+      let len = 0
+      value.value = value.value.substring(0, start) + '  ' + value.value.substring(end)
+      len = start + 2
+      setTimeout(() => {
+        editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+      })
+    }
+  }
+
   return {
     ctrlEnter,
     ctrlX,
     ctrlC,
-    ctrlV
+    ctrlV,
+    _tab,
+    _enter
   }
+}
+
+// 获取前缀
+function getSymbolVal(p: string, isPrefix = true): string {
+  let val: string = '\n'
+  let i = -1
+  const sArr = ['*', '-', '+']
+  for (let j = 0; j < p.length; j++) {
+    const flag1 = p[j] === ' '
+    const flag2 = sArr.indexOf(p[j]) !== -1 && isPrefix
+    if (flag2) i = 0
+    if (flag1 && i >= 0) i += 1
+    if (i >= 2) break
+    if (flag1 || flag2) {
+      val += p[j]
+    } else {
+      break
+    }
+  }
+  return val
+}
+
+/**
+ * 判断是否以空格开头，排除指定字符
+ */
+function judgeSpace(str: string): boolean {
+  let flag1 = false
+  let flag2 = true
+  const sArr = ['*', '-', '+']
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      flag1 = true
+    } else {
+      if (sArr.indexOf(str[i]) !== -1) flag2 = false
+      break
+    }
+  }
+  return flag1 && flag2
+}
+
+/**
+ * 判断是否全为空格
+ */
+
+function judgeAllSpace(str: string): boolean {
+  let flag1 = true
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== ' ') {
+      flag1 = false
+      break
+    }
+  }
+  return flag1 && str.length > 0
 }
