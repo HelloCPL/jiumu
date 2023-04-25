@@ -121,13 +121,14 @@ export const getSubstring = (value: string, startIndex: number, endIndex?: numbe
 
 const _regObj: ObjectAny = {
   a1: /^\s*[\*\+-]{1}\s+/g,
-  a2: /^\s*[\*\+-]{1}\s{1}[^ ]/g,
+  a2: /^\s*[\*\+-]{1}\s{1}/g,
   a3: /^\s*[\*\+-]{1}\s+$/g,
   a4: /^\s*[\*\+-]{1}\s{1}$/g,
   b1: /^\s*\+{1}\s+/g,
-  b2: /^\s*\+{1}\s{1}[^ ]/g,
+  b2: /^\s*\+{1}\s{1}/g,
   b3: /^\s*\+{1}\s+$/g,
   b4: /^\s*\+{1}\s{1}$/g,
   c1: /^\s+/g,
-  c2: /^\s+$/g
+  c2: /^\x20+/g, // 纯空格
+  c3: /^\s+$/g
 }
