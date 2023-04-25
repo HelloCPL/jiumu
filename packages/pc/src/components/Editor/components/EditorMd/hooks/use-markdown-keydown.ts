@@ -5,6 +5,14 @@
  */
 import clipboard from 'clipboardy'
 import { getCurrentInstance } from 'vue'
+import {
+  getP,
+  judgeStartReg,
+  judgeStartSpace,
+  getStartReg,
+  getSubstring,
+  clearStartReg
+} from './keydown-tools'
 
 export const useMarkdownKeydown = () => {
   const instance = getCurrentInstance()
@@ -19,47 +27,122 @@ export const useMarkdownKeydown = () => {
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (isFocus) {
       const { start, end } = editorEgine.getRange()
-      const i1 = value.value.lastIndexOf('\n', start - 1)
-      const i2 = value.value.indexOf('\n', start)
-      const p: string = value.value.substring(i1 + 1, i2 === -1 ? end : i2)
-      const flag1 = p.search(/^\s*\+{1}\s+$/g) !== -1
-      const flag2 = p.search(/^\s*\+{1}\s+/gi) !== -1
-      const flag3 = judgeSpace(p)
-      let len = 0
+      const { p, pUp, pDown } = getP(value.value, start)
+      const flag1 = judgeStartReg({ value: p.value, type: 'b4' })
+      const flag2 = judgeStartReg({ value: p.value, type: 'b1' })
+      const flag3 = judgeStartSpace(p.value)
       if (flag1 || flag2 || flag3) {
         e.preventDefault()
+        let len = 0
         if (flag1) {
-          if (i1 === -1) {
-            value.value = value.value.substring(0, start) + '\n\n' + value.value.substring(end)
+          if (!pUp.isExist) {
+            value.value = getSubstring(value.value, 0, start) + '\n\n' + getSubstring(value.value, end)
             len = start + 2
           } else {
             value.value =
-              value.value.substring(0, i1 + 1) + '\n' + value.value.substring(i2 === -1 ? end : i2)
-            len = i1 + 2
+              getSubstring(value.value, 0, p.startIndex) +
+              '\n' +
+              getSubstring(value.value, !p.isEndNewline ? end : p.endIndex + 1)
+            len = p.startIndex + 1
           }
         } else if (flag2) {
-          const val = getSymbolVal(p)
-          value.value = value.value.substring(0, start) + val + value.value.substring(end)
+          const val = getStartReg({ value: p.value, type: 'b1', prefix: '\n' })
+          value.value = getSubstring(value.value, 0, start) + val + getSubstring(value.value, end)
           len = start + val.length
-        } else if (flag3) {
-          if (p.search(/^\s+$/) !== -1) {
-            let val = ''
-            if (i1 !== -1) val = '\n'
-            value.value =
-              value.value.substring(0, i1 === -1 ? 0 : i1) + val + value.value.substring(i2 === -1 ? end : i2)
-            len = i1 + 1
-          } else {
-            const val = getSymbolVal(p, false)
-            value.value = value.value.substring(0, start) + val + value.value.substring(end)
-            len = start + val.length
-          }
         }
+
         setTimeout(() => {
           editor.value.$refs.editorEgine.setRange({ start: len, end: len })
         })
       }
+      // const i1 = value.value.lastIndexOf('\n', start - 1)
+      // const i2 = value.value.indexOf('\n', start)
+      // const p: string = value.value.substring(i1 + 1, i2 === -1 ? end : i2)
+      // const flag1 = p.search(/^\s*\+{1}\s+$/g) !== -1
+      // const flag2 = p.search(/^\s*\+{1}\s+/gi) !== -1
+      // const flag3 = judgeSpace(p)
+      // let len = 0
+      // if (flag1 || flag2 || flag3) {
+      //   e.preventDefault()
+      //   if (flag1) {
+      //     if (i1 === -1) {
+      //       value.value = value.value.substring(0, start) + '\n\n' + value.value.substring(end)
+      //       len = start + 2
+      //     } else {
+      //       value.value =
+      //         value.value.substring(0, i1 + 1) + '\n' + value.value.substring(i2 === -1 ? end : i2)
+      //       len = i1 + 2
+      //     }
+      //   } else if (flag2) {
+      //     const val = getSymbolVal(p)
+      //     value.value = value.value.substring(0, start) + val + value.value.substring(end)
+      //     len = start + val.length
+      //   } else if (flag3) {
+      //     if (p.search(/^\s+$/) !== -1) {
+      //       let val = ''
+      //       if (i1 !== -1) val = '\n'
+      //       value.value =
+      //         value.value.substring(0, i1 === -1 ? 0 : i1) + val + value.value.substring(i2 === -1 ? end : i2)
+      //       len = i1 + 1
+      //     } else {
+      //       const val = getSymbolVal(p, false)
+      //       value.value = value.value.substring(0, start) + val + value.value.substring(end)
+      //       len = start + val.length
+      //     }
+      //   }
+      //   setTimeout(() => {
+      //     editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+      //   })
+      // }
     }
   }
+
+  // const _enter = (e: KeyboardEvent, editor: any, value: any) => {
+  //   const editorEgine = editor.value.$refs.editorEgine
+  //   const isFocus = editorEgine.$refs.textarea == document.activeElement
+  //   if (isFocus) {
+  //     const { start, end } = editorEgine.getRange()
+  //     const i1 = value.value.lastIndexOf('\n', start - 1)
+  //     const i2 = value.value.indexOf('\n', start)
+  //     const p: string = value.value.substring(i1 + 1, i2 === -1 ? end : i2)
+  //     const flag1 = p.search(/^\s*\+{1}\s+$/g) !== -1
+  //     const flag2 = p.search(/^\s*\+{1}\s+/gi) !== -1
+  //     const flag3 = judgeSpace(p)
+  //     let len = 0
+  //     if (flag1 || flag2 || flag3) {
+  //       e.preventDefault()
+  //       if (flag1) {
+  //         if (i1 === -1) {
+  //           value.value = value.value.substring(0, start) + '\n\n' + value.value.substring(end)
+  //           len = start + 2
+  //         } else {
+  //           value.value =
+  //             value.value.substring(0, i1 + 1) + '\n' + value.value.substring(i2 === -1 ? end : i2)
+  //           len = i1 + 2
+  //         }
+  //       } else if (flag2) {
+  //         const val = getSymbolVal(p)
+  //         value.value = value.value.substring(0, start) + val + value.value.substring(end)
+  //         len = start + val.length
+  //       } else if (flag3) {
+  //         if (p.search(/^\s+$/) !== -1) {
+  //           let val = ''
+  //           if (i1 !== -1) val = '\n'
+  //           value.value =
+  //             value.value.substring(0, i1 === -1 ? 0 : i1) + val + value.value.substring(i2 === -1 ? end : i2)
+  //           len = i1 + 1
+  //         } else {
+  //           const val = getSymbolVal(p, false)
+  //           value.value = value.value.substring(0, start) + val + value.value.substring(end)
+  //           len = start + val.length
+  //         }
+  //       }
+  //       setTimeout(() => {
+  //         editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+  //       })
+  //     }
+  //   }
+  // }
 
   /**
    * 下一行
