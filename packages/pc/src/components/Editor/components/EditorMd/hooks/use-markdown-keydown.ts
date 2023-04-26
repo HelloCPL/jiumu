@@ -82,26 +82,27 @@ export const useMarkdownKeydown = () => {
    */
   const ctrlEnter = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
-    const { start } = editorEgine.getRange()
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (isFocus) {
       e.preventDefault()
-      const i = value.value.indexOf('\n', start)
-      // 处理特殊的 空格 或 空格 + [+ - *] +
-      const i1 = value.value.lastIndexOf('\n', start - 1)
-      const p: string = value.value.substring(i1 + 1, i === -1 ? start : i)
-      let val = '\n'
-      if (p.search(/^\s*[\*\+-]{1}\s+/g) !== -1 || p.search(/^\s+/g) !== -1) {
-        val = getSymbolVal(p)
+      const { start } = editorEgine.getRange()
+      const { p, pDown } = getP(value.value, start)
+      const v1 = getSubstring(value.value, 0, p.endIndex)
+      let v2 = '\n'
+      let v3 = ''
+
+      const flag1 = judgeStartReg({ value: p.value, type: 'a1' })
+      const flag2 = judgeStartReg({ value: p.value, type: 'c1' })
+      if (flag1) {
+        v2 = getStartReg({ value: p.value, type: 'a1', prefix: '\n' })
+      } else if (flag2) {
+        v2 = getStartReg({ value: p.value, type: 'c1', prefix: '\n' })
       }
-      let len = 0
-      if (i !== -1) {
-        value.value = value.value.substring(0, i) + val + value.value.substring(i)
-        len = i + val.length
-      } else {
-        value.value += val
-        len = value.value.length + val.length - 1
+      if (pDown.isExist) {
+        v3 = getSubstring(value.value, p.endIndex)
       }
+      const len = p.endIndex + v2.length
+      value.value = v1 + v2 + v3
       setTimeout(() => {
         editor.value.$refs.editorEgine.setRange({ start: len, end: len })
       })
@@ -115,30 +116,25 @@ export const useMarkdownKeydown = () => {
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (start === end && isFocus) {
       e.preventDefault()
-      const i1 = start === 0 ? -1 : value.value.lastIndexOf('\n', start - 1)
-      const i2 = value.value.indexOf('\n', start)
+      const { p, pUp, pDown } = getP(value.value, start)
       let len = 0
-      let copyText = ''
-      if (i1 === -1 && i2 === -1) {
-        copyText = value.value
+      if (!pUp.isExist && !pDown.isExist) {
         value.value = ''
-      } else if (i1 === -1 && i2 !== -1) {
-        copyText = value.value.substring(0, i2)
-        value.value = value.value.substring(i2 + 1)
-      } else if (i1 !== -1 && i2 === -1) {
-        copyText = value.value.substring(i1)
-        value.value = value.value.substring(0, i1)
-        len = i1 + 1
-      } else if (i1 !== -1 && i2 !== -1) {
-        copyText = value.value.substring(i1, i2)
-        value.value = value.value.substring(0, i1) + value.value.substring(i2)
-        len = i1 + 1
+      } else if (!pUp.isExist && pDown.isExist) {
+        value.value = getSubstring(value.value, pDown.startIndex)
+      } else if (pUp.isExist && !pDown.isExist) {
+        value.value = getSubstring(value.value, 0, pUp.endIndex)
+        len = pUp.endIndex
+      } else if (pUp.isExist && pDown.isExist) {
+        value.value = getSubstring(value.value, 0, pUp.endIndex) + getSubstring(value.value, p.endIndex)
+        len = pUp.endIndex + 1
       }
       setTimeout(() => {
         editor.value.$refs.editorEgine.setRange({ start: len, end: len })
       })
+      let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
-      copyText = copyText + '\n'
+      copyText += '\n'
       clipboard.write(copyText)
     }
   }
@@ -150,20 +146,10 @@ export const useMarkdownKeydown = () => {
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (start === end && isFocus) {
       e.preventDefault()
-      const i1 = start === 0 ? -1 : value.value.lastIndexOf('\n', start - 1)
-      const i2 = value.value.indexOf('\n', start)
-      let copyText = ''
-      if (i1 === -1 && i2 === -1) {
-        copyText = value.value
-      } else if (i1 === -1 && i2 !== -1) {
-        copyText = value.value.substring(0, i2)
-      } else if (i1 !== -1 && i2 === -1) {
-        copyText = value.value.substring(i1)
-      } else if (i1 !== -1 && i2 !== -1) {
-        copyText = value.value.substring(i1, i2)
-      }
+      const { p } = getP(value.value, start)
+      let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
-      copyText = copyText + '\n'
+      copyText += '\n'
       clipboard.write(copyText)
     }
   }
@@ -183,9 +169,11 @@ export const useMarkdownKeydown = () => {
         const i2 = copyText.lastIndexOf('\n')
         const flag = i1 !== -1 && i2 !== -1 && i1 === i2
         let len = 0
-        const i = value.value.lastIndexOf('\n', start - 1)
         if (flag) {
-          value.value = value.value.substring(0, i + 1) + copyText + value.value.substring(i + 1)
+          instance?.proxy?.$forceUpdate()
+          const { p } = getP(value.value, start)
+          value.value =
+            getSubstring(value.value, 0, p.startIndex) + copyText + getSubstring(value.value, p.startIndex)
           len = copyText.length + start - 1
         } else {
           instance?.proxy?.$forceUpdate()
@@ -223,24 +211,4 @@ export const useMarkdownKeydown = () => {
     _tab,
     _enter
   }
-}
-
-// 获取前缀
-function getSymbolVal(p: string, isPrefix = true): string {
-  let val: string = '\n'
-  let i = -1
-  const sArr = ['*', '-', '+']
-  for (let j = 0; j < p.length; j++) {
-    const flag1 = p[j] === ' '
-    const flag2 = sArr.indexOf(p[j]) !== -1 && isPrefix
-    if (flag2) i = 0
-    if (flag1 && i >= 0) i += 1
-    if (i >= 2) break
-    if (flag1 || flag2) {
-      val += p[j]
-    } else {
-      break
-    }
-  }
-  return val
 }
