@@ -186,10 +186,6 @@ body {
     background: var(--jm-color-fill-light);
   }
 
-  .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
-    color: var(--jm-color-text-placeholder);
-  }
-
   .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
     background: var(--jm-color-fill);
     border-color: var(--jm-color-border);
@@ -212,27 +208,65 @@ body {
     border-color: var(--jm-color-border);
   }
 
-  // 其他
-  .github-markdown-body a {
-    color: var(--jm-color-primary);
-  }
-
   .github-markdown-body hr {
     height: 1px;
   }
 
   // 代码字体颜色
+  .github-markdown-body a {
+    color: var(--jm-color-primary);
+  }
+
+  .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
+    color: var(--jm-color-text-placeholder);
+  }
+
   .github-markdown-body pre code,
   .github-markdown-body pre tt {
     color: var(--jm-color-text-light);
   }
 
-  .github-markdown-body .hljs-keyword {
+  .github-markdown-body .hljs-tag .hljs-attr,
+  .github-markdown-body .hljs-attribute,
+  .github-markdown-body .hljs-name,
+  .github-markdown-body .hljs-tag,
+  .github-markdown-body .hljs-built_in,
+  .github-markdown-body .hljs-builtin-name {
+    color: var(--jm-color-primary);
+  }
+
+  .github-markdown-body .hljs-keyword,
+  .github-markdown-body .hljs-selector-tag,
+  .github-markdown-body .hljs-subst {
     color: var(--jm-color-purple-600);
   }
 
+  .github-markdown-body .hljs-section,
+  .github-markdown-body .hljs-selector-id,
+  .github-markdown-body .hljs-title {
+    color: var(--jm-color-warning);
+
+  }
+
+  .github-markdown-body .hljs-doctag,
   .github-markdown-body .hljs-string {
     color: var(--jm-color-danger-500);
+  }
+
+  .github-markdown-body .hljs-literal,
+  .github-markdown-body .hljs-number,
+  .github-markdown-body .hljs-template-variable,
+  .github-markdown-body .hljs-variable {
+    color: var(--jm-color-success-500);
+  }
+
+  .github-markdown-body .hljs-meta {
+    color: var(--jm-color-text-lighter);
+  }
+
+  .github-markdown-body .hljs-comment,
+  .github-markdown-body .hljs-quote {
+    color: var(--jm-color-text-placeholder);
   }
 
   .scrollbar__thumb {
