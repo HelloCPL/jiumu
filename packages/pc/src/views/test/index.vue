@@ -13,6 +13,10 @@
 import UserInfo from '../components/UserInfo/index.vue'
 import EditBaseInfo from '../components/UserInfo/components/EditBaseInfo.vue'
 import {ref} from 'vue'
+import {xss} from '@jiumu/utils'
+
+const h = '<div>这是一段文本</div>或多或少`a > 123`'
+console.log('h', xss.process(h))
 
 const isShowUserInfo = ref<boolean>(false)
 
@@ -21,7 +25,8 @@ const isShowUserInfo = ref<boolean>(false)
 // }
 
 const hh = () => {
-  isShowUserInfo.value = true
+  // isShowUserInfo.value = true
+  console.log('h', xss.process(h))
 }
 </script>
 
