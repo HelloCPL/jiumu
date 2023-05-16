@@ -82,5 +82,6 @@ export const onTagAttr = (tag: any, name: any, value: any) => {
 
 export const xss = new FilterXSS({
   css: false,
-  onTagAttr
+  onTagAttr,
+  escapeHtml: (html) => html
 })
