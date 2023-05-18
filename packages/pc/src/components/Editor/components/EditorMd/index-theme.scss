@@ -1,0 +1,299 @@
+body {
+
+  /**
+    主题颜色
+  */
+
+  .v-md-editor {
+    color: var(--jm-color-text);
+    background: var(--jm-color-white);
+    border: 1px solid var(--jm-color-border);
+
+    // 工具栏
+    .v-md-editor__toolbar {
+      border-color: var(--jm-color-border);
+    }
+
+    .v-md-editor__toolbar-item {
+      color: var(--jm-color-text);
+    }
+
+    .v-md-editor__toolbar-item:hover,
+    .v-md-editor__toolbar-item--active,
+    .v-md-editor__toolbar-item--active:hover {
+      background: var(--jm-color-primary-100);
+    }
+
+    .v-md-editor__tooltip {
+      background: var(--jm-color-overlay);
+      color: var(--jm-color-white);
+    }
+
+    .v-md-editor__menu {
+      background: var(--jm-color-white);
+      border: 1px solid var(--jm-color-border);
+    }
+
+    .v-md-editor__menu-item:hover {
+      background: var(--jm-color-primary-100);
+    }
+
+    .v-md-editor__menu-item {
+      color: var(--jm-color-text);
+    }
+
+
+    // 目录导航
+    .v-md-editor__left-area,
+    .v-md-editor__left-area-title:after {
+      border-color: var(--jm-color-border);
+    }
+
+    .v-md-editor__left-area-title {
+      color: var(--jm-color-text);
+    }
+
+    .v-md-editor--left-area-reverse .v-md-editor__left-area,
+    .v-md-editor__left-area-title:after {
+      border-color: var(--jm-color-border);
+    }
+
+    .v-md-editor__toc-nav-item {
+      color: var(--jm-color-text);
+    }
+
+    // 内容区
+    .v-md-textarea-editor pre,
+    .v-md-textarea-editor textarea {
+      color: var(--jm-color-text);
+      background: var(--jm-color-white);
+    }
+
+    .v-md-textarea-editor textarea::placeholder,
+    .v-md-textarea-editor textarea::-webkit-input-placeholder {
+      color: var(--jm-color-text-placeholder);
+    }
+
+  }
+
+  // 提示框
+  .v-md-plugin-tip.tip {
+    background: var(--jm-color-success-50);
+    border-color: var(--jm-color-success);
+    color: var(--jm-color-success);
+  }
+
+  .v-md-plugin-tip .v-md-plugin-tip-title {
+    color: var(--jm-color-success-600);
+  }
+
+  .v-md-plugin-tip.warning {
+    background: var(--jm-color-warning-50);
+    border-color: var(--jm-color-warning);
+    color: var(--jm-color-warning);
+  }
+
+  .v-md-plugin-tip.warning .v-md-plugin-tip-title {
+    color: var(--jm-color-warning-600);
+  }
+
+  .v-md-plugin-tip.danger {
+    background: var(--jm-color-danger-50);
+    border-color: var(--jm-color-danger);
+    color: var(--jm-color-danger);
+  }
+
+  .v-md-plugin-tip.danger .v-md-plugin-tip-title {
+    color: var(--jm-color-danger-600);
+  }
+
+  .v-md-plugin-tip.danger a {
+    color: var(--jm-color-primary);
+  }
+
+  .v-md-plugin-tip.details {
+    background: var(--jm-color-fill);
+    color: var(--jm-color-text);
+  }
+
+  // 任务列表
+  .v-md-editor-preview .v-md-editor__todo-list-checkbox {
+    border-color: var(--jm-color-success) !important;
+    background-color: var(--jm-color-success) !important;
+  }
+
+  .v-md-editor-preview .v-md-editor__todo-list-checkbox--checked:after {
+    border-color: var(--jm-color-white);
+  }
+
+  .v-md-pre-wrapper.copy-code-mode .v-md-copy-code-btn {
+    color: var(--jm-color-text-placeholder);
+    background: var(--jm-color-overlay);
+  }
+
+  // 流程图
+  .v-md-mermaid {
+    .node rect {
+      fill: var(--jm-color-purple-50) !important;
+      stroke: var(--jm-color-purple) !important;
+    }
+
+    .label {
+      color: var(--jm-color-text) !important;
+    }
+  }
+
+  // github主题
+  .github-markdown-body h1,
+  .github-markdown-body h2,
+  .github-markdown-body h3,
+  .github-markdown-body h4,
+  .github-markdown-body h5 {
+    color: var(--jm-color-text);
+  }
+
+
+  .github-markdown-body code,
+  .github-markdown-body div[class*='v-md-pre-wrapper-'] {
+    background: var(--jm-color-fill);
+  }
+
+  .github-markdown-body tt,
+  .github-markdown-body table tr:nth-child(2n) {
+    background: var(--jm-color-fill-light);
+  }
+
+  .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
+    background: var(--jm-color-fill);
+    border-color: var(--jm-color-border);
+  }
+
+  .github-markdown-body div[class*=v-md-pre-wrapper-].line-numbers-mode .line-numbers-wrapper {
+    color: var(--jm-color-text-lighter);
+  }
+
+  .github-markdown-body img {
+    background: var(--jm-color-white);
+  }
+
+  // 表格
+  .github-markdown-body table tr {
+    background: var(--jm-color-white);
+    border-color: var(--jm-color-border);
+  }
+
+  .github-markdown-body table td,
+  .github-markdown-body table th {
+    border-color: var(--jm-color-border);
+  }
+
+  .github-markdown-body hr {
+    background: var(--jm-color-border);
+  }
+
+  .github-markdown-body blockquote {
+    color: var(--jm-color-text-light);
+    border-color: var(--jm-color-border);
+  }
+
+  .github-markdown-body span.frame span span {
+    color: var(--jm-color-text);
+  }
+
+  .github-markdown-body span.frame>span {
+    border-color: var(--jm-color-border);
+  }
+
+  .github-markdown-body .csv-data .blob-num {
+    background: var(--jm-color-white);
+  }
+
+  .github-markdown-body .csv-data th {
+    background: var(--jm-color-fill);
+  }
+
+  .github-markdown-body a {
+    color: var(--jm-color-primary);
+  }
+
+  .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
+    color: var(--jm-color-text-placeholder);
+  }
+
+  .github-markdown-body pre code,
+  .github-markdown-body pre tt {
+    color: var(--jm-color-text-light);
+  }
+
+  .github-markdown-body .hljs {
+    color: var(--jm-color-text);
+  }
+
+  .github-markdown-body .hljs-type,
+
+  .github-markdown-body .hljs-tag .hljs-attr,
+  .github-markdown-body .hljs-attribute,
+  .github-markdown-body .hljs-name,
+  .github-markdown-body .hljs-tag,
+  .github-markdown-body .hljs-built_in,
+  .github-markdown-body .hljs-builtin-name {
+    color: var(--jm-color-primary);
+  }
+
+  .github-markdown-body .hljs-keyword,
+  .github-markdown-body .hljs-selector-tag,
+  .github-markdown-body .hljs-subst {
+    color: var(--jm-color-purple-600);
+  }
+
+  .github-markdown-body .hljs-bullet,
+  .github-markdown-body .hljs-symbol,
+  .github-markdown-body .hljs-section,
+  .github-markdown-body .hljs-selector-id,
+  .github-markdown-body .hljs-class .hljs-title,
+  .github-markdown-body .hljs-title {
+    color: var(--jm-color-warning);
+
+  }
+
+  .github-markdown-body .hljs-deletion,
+  .github-markdown-body .hljs-doctag,
+  .github-markdown-body .hljs-string,
+  .github-markdown-body .absent {
+    color: var(--jm-color-danger-500);
+  }
+
+  .github-markdown-body .hljs-addition,
+  .github-markdown-body .hljs-link,
+  .github-markdown-body .hljs-regexp,
+  .github-markdown-body .hljs-literal,
+  .github-markdown-body .hljs-number,
+  .github-markdown-body .hljs-template-variable,
+  .github-markdown-body .hljs-variable {
+    color: var(--jm-color-success-500);
+  }
+
+  .github-markdown-body .hljs-meta {
+    color: var(--jm-color-text-lighter);
+  }
+
+  .github-markdown-body .hljs-comment,
+  .github-markdown-body .hljs-quote {
+    color: var(--jm-color-text-placeholder);
+  }
+
+  .scrollbar__thumb {
+    background-color: var(--jm-color-black-1);
+  }
+
+
+  .v-md-editor--editable {
+    border-color: var(--jm-color-border);
+
+    .v-md-editor__editor-wrapper {
+      border-color: var(--jm-color-border);
+
+    }
+  }
+
+}

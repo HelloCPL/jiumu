@@ -38,4 +38,5 @@ const { value, refVMdEditor, handleChange, handleSave, handleUploadImage } = use
 
 <style lang="scss">
 @import 'index.scss';
+@import 'index-theme.scss';
 </style>
