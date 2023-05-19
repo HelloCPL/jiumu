@@ -58,8 +58,8 @@ export const updateToken = async (tokenRefresh: string): Promise<DataOptions<Dat
 }
 
 // 退出登录
-export const exitUser = async (): Promise<DataOptions> => {
-  return await post('/pc/user/exit').catch((err) => err)
+export const exitUser = async (TokenRefresh?: string): Promise<DataOptions> => {
+  return await post('/pc/user/exit', { TokenRefresh }, { showErrorMessage: false }).catch((err) => err)
 }
 
 /**

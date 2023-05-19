@@ -59,5 +59,3 @@
   - 有关颜色的变量使用遵循 `element-plus` 颜色变量规则
 
 tab 栏关闭优化
-refreshToken 抽离
-登录过期问题

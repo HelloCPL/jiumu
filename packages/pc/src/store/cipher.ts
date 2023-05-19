@@ -19,7 +19,7 @@ export const useCipherStore = defineStore<string, CipherState, {}, CipherAction>
       this.code = false
       // 清除缓存
       storage.removeItem(StoreNames.CIPHER, {
-        type: 'local',
+        type: 'session',
         prefix: 'pinia'
       })
     },

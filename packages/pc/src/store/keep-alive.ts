@@ -85,7 +85,7 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
         this.excludes = []
         // 清除缓存
         storage.removeItem(StoreNames.KEEP_ALIVE, {
-          type: 'session',
+          type: 'local',
           prefix: 'pinia'
         })
       },
