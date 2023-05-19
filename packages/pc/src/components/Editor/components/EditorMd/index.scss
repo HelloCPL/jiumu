@@ -1,275 +1,93 @@
+.v-md-editor {
+  color: #303133;
+}
+
 body {
+
+  // 编辑器
   .v-md-editor {
     border-radius: 0;
-    background: var(--jm-color-white);
-    border: 1px solid var(--jm-color-border);
     box-shadow: none;
 
     // 工具栏
     .v-md-editor__toolbar {
-      border-color: var(--jm-color-border);
       padding: 8px;
     }
 
     .v-md-editor__toolbar-item {
-      color: var(--jm-color-text);
       border-radius: 1px;
     }
 
-    .v-md-editor__toolbar-item:hover {
-      background: var(--jm-color-primary-100);
-    }
-
-    .v-md-editor__toolbar-item--active,
-    .v-md-editor__toolbar-item--active:hover {
-      background: var(--jm-color-primary-100);
-    }
-
     .v-md-editor__tooltip {
-      background: var(--jm-color-overlay);
-      color: var(--jm-color-white);
       font-size: 0.75em;
       padding: 8px 10px;
       border-radius: 5px;
     }
-  }
 
-  // 目录导航
-  .v-md-editor__left-area-title {
-    color: var(--jm-color-text);
-    font-size: var(--jm-font-size-medium);
-  }
-
-  .v-md-editor--left-area-reverse .v-md-editor__left-area,
-  .v-md-editor__left-area-title:after {
-    border-color: var(--jm-color-border);
-  }
-
-  .v-md-editor__toc-nav-item {
-    color: var(--jm-color-text);
-    line-height: 1;
-    height: auto;
-    margin: 0;
-    margin-bottom: 1rem;
-  }
-
-  .v-md-editor__toc-nav-item:hover .v-md-editor__toc-nav-title,
-  .v-md-editor__toc-nav-title {
-    font-size: var(--jm-font-size-medium);
-  }
-
-  // 内容区
-  .v-md-editor--editable .v-md-editor__editor-wrapper {
-    border-color: var(--jm-color-border);
-  }
-
-  .v-md-textarea-editor pre,
-  .v-md-textarea-editor textarea {
-    color: var(--jm-color-text);
-    background: var(--jm-color-white);
-  }
-
-  .v-md-editor__menu {
-    background: var(--jm-color-white);
-    border: 1px solid var(--jm-color-border);
-  }
-
-  .v-md-editor__menu-item:hover {
-    background: var(--jm-color-primary-100);
-  }
-
-  .v-md-editor__menu-item {
-    color: var(--jm-color-text);
-  }
-
-  .v-md-textarea-editor pre,
-  .v-md-textarea-editor textarea,
-  .github-markdown-body {
-    padding: 12px 16px;
-    box-sizing: border-box;
-    font-size: var(--jm-font-size);
-  }
-
-  .github-markdown-body h1,
-  .github-markdown-body h2,
-  .github-markdown-body h3,
-  .github-markdown-body h4,
-  .github-markdown-body h5 {
-    border: 0;
-    padding: 0;
-    line-height: 1.5;
-    margin: 1.7rem 0 0.57rem;
-  }
-
-  .github-markdown-body h1 {
-    font-size: 2rem;
-  }
-
-  .github-markdown-body h2 {
-    font-size: 1.5rem;
-  }
-
-  .github-markdown-body h3 {
-    font-size: 1.17rem;
-  }
-
-  .github-markdown-body h4 {
-    font-size: 1rem;
-  }
-
-  .github-markdown-body h5 {
-    font-size: 0.83rem;
-  }
-
-  // 提示框
-  .v-md-plugin-tip.tip {
-    background: var(--jm-color-success-50);
-    border-color: var(--jm-color-success);
-    color: var(--jm-color-success);
-  }
-
-  .v-md-plugin-tip .v-md-plugin-tip-title {
-    color: var(--jm-color-success-600);
-  }
-
-  .v-md-plugin-tip.warning {
-    background: var(--jm-color-warning-50);
-    border-color: var(--jm-color-warning);
-    color: var(--jm-color-warning);
-  }
-
-  .v-md-plugin-tip.warning .v-md-plugin-tip-title {
-    color: var(--jm-color-warning-600);
-  }
-
-  .v-md-plugin-tip.danger {
-    background: var(--jm-color-danger-50);
-    border-color: var(--jm-color-danger);
-    color: var(--jm-color-danger);
-  }
-
-  .v-md-plugin-tip.danger .v-md-plugin-tip-title {
-    color: var(--jm-color-danger-600);
-  }
-
-  .v-md-plugin-tip.details {
-    background: var(--jm-color-fill);
-    color: var(--jm-color-text);
-  }
-
-  // 任务列表
-  .v-md-editor-preview .v-md-editor__todo-list-checkbox {
-    border-color: var(--jm-color-success) !important;
-    background-color: var(--jm-color-success) !important;
-  }
-
-  // 流程图
-  .v-md-mermaid {
-    .node rect {
-      fill: var(--jm-color-purple-50) !important;
-      stroke: var(--jm-color-purple) !important;
+    .v-md-editor__left-area-title {
+      font-size: var(--jm-font-size-medium);
     }
 
-    .label {
-      color: var(--jm-color-text) !important;
+    .v-md-editor__toc-nav-item {
+      line-height: 1;
+      height: auto;
+      margin: 0;
+      margin-bottom: 1rem;
     }
-  }
 
-  // 代码块
-  .github-markdown-body code,
-  .github-markdown-body div[class*='v-md-pre-wrapper-'] {
-    background: var(--jm-color-fill);
-  }
+    // 目录导航
+    .v-md-editor__toc-nav-item:hover .v-md-editor__toc-nav-title,
+    .v-md-editor__toc-nav-title {
+      font-size: var(--jm-font-size-medium);
+    }
 
-  .github-markdown-body tt,
-  .github-markdown-body table tr:nth-child(2n) {
-    background: var(--jm-color-fill-light);
-  }
+    // 内容区
+    .v-md-textarea-editor pre,
+    .v-md-textarea-editor textarea,
+    .github-markdown-body {
+      padding: 12px 16px;
+      box-sizing: border-box;
+      font-size: var(--jm-font-size);
+    }
 
-  .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
-    background: var(--jm-color-fill);
-    border-color: var(--jm-color-border);
-    border-radius: 0;
-  }
+    .github-markdown-body h1,
+    .github-markdown-body h2,
+    .github-markdown-body h3,
+    .github-markdown-body h4,
+    .github-markdown-body h5 {
+      border: 0;
+      padding: 0;
+      line-height: 1.5;
+      margin: 1.7rem 0 0.57rem;
+    }
 
-  // 图片背景
-  .github-markdown-body img {
-    background: var(--jm-color-white);
-  }
+    .github-markdown-body h1 {
+      font-size: 2rem;
+    }
 
-  // 表格
-  .github-markdown-body table tr {
-    background: var(--jm-color-white);
-    border-color: var(--jm-color-border);
-  }
+    .github-markdown-body h2 {
+      font-size: 1.5rem;
+    }
 
-  .github-markdown-body table td,
-  .github-markdown-body table th {
-    border-color: var(--jm-color-border);
-  }
+    .github-markdown-body h3 {
+      font-size: 1.17rem;
+    }
 
-  .github-markdown-body hr {
-    height: 1px;
-  }
+    .github-markdown-body h4 {
+      font-size: 1rem;
+    }
 
-  // 代码字体颜色
-  .github-markdown-body a {
-    color: var(--jm-color-primary);
-  }
+    .github-markdown-body h5 {
+      font-size: 0.83rem;
+    }
 
-  .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
-    color: var(--jm-color-text-placeholder);
-  }
+    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
+      border-radius: 0;
+    }
 
-  .github-markdown-body pre code,
-  .github-markdown-body pre tt {
-    color: var(--jm-color-text-light);
-  }
+    .github-markdown-body hr {
+      height: 1px;
+    }
 
-  .github-markdown-body .hljs-tag .hljs-attr,
-  .github-markdown-body .hljs-attribute,
-  .github-markdown-body .hljs-name,
-  .github-markdown-body .hljs-tag,
-  .github-markdown-body .hljs-built_in,
-  .github-markdown-body .hljs-builtin-name {
-    color: var(--jm-color-primary);
-  }
-
-  .github-markdown-body .hljs-keyword,
-  .github-markdown-body .hljs-selector-tag,
-  .github-markdown-body .hljs-subst {
-    color: var(--jm-color-purple-600);
-  }
-
-  .github-markdown-body .hljs-section,
-  .github-markdown-body .hljs-selector-id,
-  .github-markdown-body .hljs-title {
-    color: var(--jm-color-warning);
-
-  }
-
-  .github-markdown-body .hljs-doctag,
-  .github-markdown-body .hljs-string {
-    color: var(--jm-color-danger-500);
-  }
-
-  .github-markdown-body .hljs-literal,
-  .github-markdown-body .hljs-number,
-  .github-markdown-body .hljs-template-variable,
-  .github-markdown-body .hljs-variable {
-    color: var(--jm-color-success-500);
-  }
-
-  .github-markdown-body .hljs-meta {
-    color: var(--jm-color-text-lighter);
-  }
-
-  .github-markdown-body .hljs-comment,
-  .github-markdown-body .hljs-quote {
-    color: var(--jm-color-text-placeholder);
-  }
-
-  .scrollbar__thumb {
-    background-color: var(--jm-color-black-1);
   }
 }

@@ -6,54 +6,77 @@ body {
     background: #ffffff;
     color: #303133;
 
-    .preview-bg-white {
-      background: #ffffff;
+    // 代码字体颜色
+
+    // --jm-color-text
+    .github-markdown-body .hljs,
+    .github-markdown-body span.frame span span,
+    .v-md-plugin-tip.details,
+    .github-markdown-body h1,
+    .github-markdown-body h2,
+    .github-markdown-body h3,
+    .github-markdown-body h4,
+    .github-markdown-body h5 {
+      color: #303133;
+
     }
 
-    .preview-text-light {
+    // --jm-color-text-light
+    .preview-text-light,
+    .github-markdown-body pre code,
+    .github-markdown-body pre tt,
+    .github-markdown-body blockquote {
       color: #606266;
     }
 
-    // 代码块
+    // --jm-color-text-lighter
+    .github-markdown-body div[class*=v-md-pre-wrapper-].line-numbers-mode .line-numbers-wrapper,
+    .github-markdown-body .hljs-meta {
+      color: #909399;
+    }
+
+    // --jm-color-text-placeholder
+    .github-markdown-body .hljs-comment,
+    .github-markdown-body .hljs-quote,
+    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper,
+    .v-md-pre-wrapper.copy-code-mode .v-md-copy-code-btn {
+      color: #A8ABB2;
+    }
+
+    // 边框颜色
+    // --jm-color-border
+    .github-markdown-body span.frame>span,
+    .github-markdown-body blockquote,
+    .github-markdown-body hr,
+    .github-markdown-body table td,
+    .github-markdown-body table th,
+    .github-markdown-body table tr,
+    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
+      border-color: #DCDFE6;
+    }
+
+    // 背景颜色
+    // --jm-color-white
+    .github-markdown-body .csv-data .blob-num,
+    .preview-bg-white,
+    .github-markdown-body img,
+    .github-markdown-body table tr {
+      background: #ffffff;
+    }
+
+    // --jm-color-fill
+    .v-md-plugin-tip.details,
+    .github-markdown-body .csv-data th,
     .github-markdown-body code,
-    .github-markdown-body div[class*='v-md-pre-wrapper-'] {
+    .github-markdown-body div[class*='v-md-pre-wrapper-'],
+    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
       background: #f0f2f5;
     }
 
+    // --jm-color-fill-light
     .github-markdown-body tt,
     .github-markdown-body table tr:nth-child(2n) {
       background: #f5f7fa;
-    }
-
-    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
-      color: #a8abb2;
-    }
-
-    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
-      background: #f0f2f5;
-      border-color: #dcdfe6;
-    }
-
-    // 图片背景
-    .github-markdown-body img {
-      background: #ffffff;
-    }
-
-    // 表格
-    .github-markdown-body table tr {
-      background: #ffffff;
-      border-color: #dcdfe6;
-    }
-
-    .github-markdown-body table td,
-    .github-markdown-body table th {
-      border-color: #dcdfe6;
-    }
-
-    // 代码字体颜色
-    .github-markdown-body pre code,
-    .github-markdown-body pre tt {
-      color: #606266;
     }
 
     .scrollbar__thumb {

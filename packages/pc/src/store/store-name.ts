@@ -2,6 +2,7 @@
 export const enum StoreNames {
   TEST = 'TEST',
   USER = 'User',
+  TOKEN_REFRESH = 'TokenRefresh',
   KEEP_ALIVE = 'KeepAlive',
   RESET = 'Reset',
   THEME = 'Theme',

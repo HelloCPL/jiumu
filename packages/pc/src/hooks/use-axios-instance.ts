@@ -6,7 +6,7 @@
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { toPath } from '@jiumu/utils'
-import { useUserStore, useResetStore } from '@/store'
+import { useUserStore, useTokenRefreshStore, useResetStore } from '@/store'
 import { Code } from '@/enumerations'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
@@ -123,10 +123,10 @@ function _handleError(data: any, showErrorMessage?: boolean, message?: string | 
 // 重发刷新token
 async function _retransmit(response: AxiosResponse): Promise<any> {
   const { config, data } = response
-  const userStore = useUserStore()
-  const res = await updateToken(userStore.tokenRefresh)
+  const tokenRefreshStore = useTokenRefreshStore()
+  const res = await updateToken(tokenRefreshStore.tokenRefresh)
   if (res.code === 200) {
-    userStore.setToken(res.data)
+    tokenRefreshStore.setTokenRefresh(res.data.tokenRefresh)
     ;(config.headers as AxiosRequestHeaders).Authorization = res.data.token
     ;(config.headers as AxiosRequestHeaders).retransmission = '-2-'
     return service({

@@ -11,11 +11,35 @@ import {
   judgeStartSpace,
   getStartReg,
   getSubstring,
-  clearStartReg
+  clearStartReg,
+  findCountReeg
 } from './keydown-tools'
+
+type UOption = {
+  editorEgine: any
+  value: string
+  start: number
+  end: number
+}
 
 export const useMarkdownKeydown = () => {
   const instance = getCurrentInstance()
+
+  let lock = false
+
+  const updateValue = (option: UOption) => {
+    if (lock) return
+    lock = true
+    option.editorEgine.isComposing = false
+    option.editorEgine.handleInput({ target: { value: option.value } })
+    setTimeout(() => {
+      option.editorEgine.clearTimeout()
+      option.editorEgine.textareaEl.dispatchEvent(new Event('input'))
+      option.editorEgine.setRange({ start: option.start, end: option.end })
+      option.editorEgine.saveHistory()
+      lock = false
+    }, 0)
+  }
 
   /**
    * 换行
@@ -68,9 +92,12 @@ export const useMarkdownKeydown = () => {
             len = start + v2.length
           }
         }
-        value.value = v1 + v2 + v3
-        setTimeout(() => {
-          editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+
+        updateValue({
+          editorEgine,
+          value: v1 + v2 + v3,
+          start: len,
+          end: len
         })
       }
     }
@@ -102,9 +129,12 @@ export const useMarkdownKeydown = () => {
         v3 = getSubstring(value.value, p.endIndex)
       }
       const len = p.endIndex + v2.length
-      value.value = v1 + v2 + v3
-      setTimeout(() => {
-        editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+
+      updateValue({
+        editorEgine,
+        value: v1 + v2 + v3,
+        start: len,
+        end: len
       })
     }
   }
@@ -118,20 +148,26 @@ export const useMarkdownKeydown = () => {
       e.preventDefault()
       const { p, pUp, pDown } = getP(value.value, start)
       let len = 0
+      let val = ''
       if (!pUp.isExist && !pDown.isExist) {
-        value.value = ''
+        val = ''
       } else if (!pUp.isExist && pDown.isExist) {
-        value.value = getSubstring(value.value, pDown.startIndex)
+        val = getSubstring(value.value, pDown.startIndex)
       } else if (pUp.isExist && !pDown.isExist) {
-        value.value = getSubstring(value.value, 0, pUp.endIndex)
+        val = getSubstring(value.value, 0, pUp.endIndex)
         len = pUp.endIndex
       } else if (pUp.isExist && pDown.isExist) {
-        value.value = getSubstring(value.value, 0, pUp.endIndex) + getSubstring(value.value, p.endIndex)
+        val = getSubstring(value.value, 0, pUp.endIndex) + getSubstring(value.value, p.endIndex)
         len = pUp.endIndex + 1
       }
-      setTimeout(() => {
-        editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+
+      updateValue({
+        editorEgine,
+        value: val,
+        start: len,
+        end: len
       })
+
       let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
       copyText += '\n'
@@ -165,23 +201,26 @@ export const useMarkdownKeydown = () => {
     if (isFocus && start === end) {
       e.preventDefault()
       clipboard.read().then((copyText) => {
-        const i1 = copyText.indexOf('\n')
-        const i2 = copyText.lastIndexOf('\n')
-        const flag = i1 !== -1 && i2 !== -1 && i1 === i2
+        const flag = copyText && copyText.indexOf('\n') === copyText.length - 1
         let len = 0
+        let val = ''
         if (flag) {
           instance?.proxy?.$forceUpdate()
           const { p } = getP(value.value, start)
-          value.value =
+          val =
             getSubstring(value.value, 0, p.startIndex) + copyText + getSubstring(value.value, p.startIndex)
           len = copyText.length + start - 1
         } else {
           instance?.proxy?.$forceUpdate()
-          value.value = value.value.substring(0, start) + copyText + value.value.substring(start)
-          len = copyText.length + start
+          val = value.value.substring(0, start) + copyText + value.value.substring(start)
+          len = copyText.length + start - findCountReeg(copyText)
         }
-        setTimeout(() => {
-          editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+
+        updateValue({
+          editorEgine,
+          value: val,
+          start: len,
+          end: len
         })
       })
     }
@@ -194,11 +233,14 @@ export const useMarkdownKeydown = () => {
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (isFocus) {
       e.preventDefault()
-      let len = 0
-      value.value = value.value.substring(0, start) + '  ' + value.value.substring(end)
-      len = start + 2
-      setTimeout(() => {
-        editor.value.$refs.editorEgine.setRange({ start: len, end: len })
+      const len = start + 2
+      const val = value.value.substring(0, start) + '  ' + value.value.substring(end)
+
+      updateValue({
+        editorEgine,
+        value: val,
+        start: len,
+        end: len
       })
     }
   }

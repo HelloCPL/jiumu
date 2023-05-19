@@ -93,7 +93,7 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
         this.routerName = ''
         // 清除缓存
         storage.removeItem(StoreNames.NAVIGATIONS, {
-          type: 'session',
+          type: 'local',
           prefix: 'pinia'
         })
       },

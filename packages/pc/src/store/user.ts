@@ -19,7 +19,6 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
   state: () => {
     return {
       token: '',
-      tokenRefresh: '',
       userInfo: null,
       roles: [],
       permissions: [
@@ -34,7 +33,6 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
   actions: {
     reset() {
       this.token = ''
-      this.tokenRefresh = ''
       this.userInfo = null
       this.roles = []
       this.permissions = []
@@ -47,9 +45,8 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
       })
     },
     // 设置token
-    setToken(params: DataToken) {
-      this.token = params.token
-      this.tokenRefresh = params.tokenRefresh
+    setToken(token: string) {
+      this.token = token
     },
 
     // 统一更新用户信息 1 用户信息 2 用户角色 3 用户权限 4 用户拥有菜单 5 用户特殊标签
