@@ -115,7 +115,7 @@ import { ElIcon, ElTag, ElButton, ElTooltip } from 'element-plus'
 import { QuestionFilled, Edit, Lock } from '@element-plus/icons-vue'
 import Upload from '@/components/Upload/index.vue'
 import IconSvg from '@/components/IconSvg/index'
-import { useUserStore, useResetStore } from '@/store'
+import { useUserStore, useResetStore, useTokenRefreshStore } from '@/store'
 import { formatDate } from '@jiumu/utils'
 import { Confirm } from '@/utils/interaction'
 import { exitUser, updateUserBaseSelf } from '@/api/user'
@@ -150,17 +150,16 @@ const handleUploadAvatar = async (files: DataBaseFile[]) => {
 const router = useRouter()
 const exit = () => {
   Confirm('确认退出登录吗').then(async () => {
-    const res = await exitUser()
-    if (res.code === 200) {
-      const resetStore = useResetStore()
-      resetStore.reset()
-      router.replace({
-        path: '/login',
-        query: {
-          redirect: location.pathname + location.search
-        }
-      })
-    }
+    const tokenRefreshStore = useTokenRefreshStore()
+    await exitUser(tokenRefreshStore.tokenRefresh)
+    const resetStore = useResetStore()
+    resetStore.reset()
+    router.replace({
+      path: '/login',
+      query: {
+        redirect: location.pathname + location.search
+      }
+    })
   })
 }
 </script>

@@ -27,11 +27,12 @@
 import { ElForm, ElFormItem, ElInput, ElButton, FormInstance } from 'element-plus'
 import { useRegister } from '../hooks/use-register'
 import { register } from '@/api/user'
-import { useUserStore } from '@/store'
+import { useTokenRefreshStore, useUserStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
 
 const { formRef, form, rules, submitValid } = useRegister()
 const userStore = useUserStore()
+const tokenRefreshStore = useTokenRefreshStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -45,10 +46,8 @@ const submit = (el: FormInstance | undefined) => {
     const res = await register(params)
     if (res.code === 200) {
       const { data } = res
-      userStore.setToken({
-        token: data.token,
-        tokenRefresh: data.tokenRefresh
-      })
+      userStore.setToken(data.token)
+      tokenRefreshStore.setTokenRefresh(data.tokenRefresh)
       // 获取用户信息
       userStore.updateUser()
       let redirect = <string>route.query.redirect || '/'
