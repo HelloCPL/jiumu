@@ -119,6 +119,15 @@ export const getSubstring = (value: string, startIndex: number, endIndex?: numbe
   return value.substring(startIndex)
 }
 
+/*
+ * 查找指定字符出现次数
+ */
+export const findCountReeg = (value: string, reg = /\n/gi): number => {
+  const arr = value.match(reg)
+  if (arr && arr.length) return arr.length
+  return 0
+}
+
 const _regObj: ObjectAny = {
   a1: /^\s*[\*\+-]{1}\s+/g,
   a2: /^\s*[\*\+-]{1}\s{1}/g,
