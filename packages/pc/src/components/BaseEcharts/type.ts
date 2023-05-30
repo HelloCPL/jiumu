@@ -27,4 +27,4 @@ export const baseEchartsEmit = {
   change: (chart) => true
 }
 
-export type DialogEmits = EmitFn<typeof baseEchartsEmit>
+export type BaseEchartsEmit = EmitFn<typeof baseEchartsEmit>
