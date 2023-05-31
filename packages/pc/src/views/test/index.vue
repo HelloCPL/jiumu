@@ -37,8 +37,13 @@ let count = 1
 const  handle2 = () => {
   count = count === 1 ? 2 : 1
   const box: any = document.getElementById('box2')
-  const div = `<div style="position: absolute; top: 50px; left: 50px; width: 50px; height: 50px; background: ${count === 1 ? 'red' : 'green'}"><div>`
-  box.innerHTML = div
+  // const div = `<div style=" background: ${count === 1 ? 'red' : 'green'}"><div>`
+  const div = `<div class="ww2"><div>`
+  if(box.innerHTML) {
+    box.innerHTML = null
+  } else {
+    box.innerHTML = div
+  }
 }
 
 
@@ -57,5 +62,18 @@ const  handle2 = () => {
   width: 300px;
   height: 300px;
   position: relative;
+}
+
+
+</style>
+
+<style>
+.ww2 {
+  position: absolute; 
+  top: 50px; 
+  left: 50px; 
+  width: 50px;
+   height: 50px;
+   background: pink;
 }
 </style>
