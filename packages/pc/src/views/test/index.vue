@@ -4,6 +4,7 @@
 
     <div class="wrapp bg-danger" id="box1" @click="handle1"> </div>
     <div class="wrapp bg-primary" id="box2" @click="handle2"> </div>
+    <div class="wrapp bg-primary" id="box3" @click="handle3"> </div>
   </div>
 </template>
 
@@ -46,6 +47,14 @@ const  handle2 = () => {
   }
 }
 
+let count2 = 1
+const  handle3 = () => {
+  count2 = count2 === 1 ? 2 : 1
+  const box: any = document.getElementById('box3')
+  const div = `<div class="ww2" style=" background: ${count2 === 1 ? 'red' : 'green'}"><div>`
+    box.innerHTML = div
+}
+
 
 </script>
 
@@ -59,8 +68,8 @@ const  handle2 = () => {
 
 .wrapp {
   margin-top: 20px;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   position: relative;
 }
 
