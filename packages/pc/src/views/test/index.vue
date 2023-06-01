@@ -1,10 +1,13 @@
 <template>
   <div class=" box">
-    <BaseEcharts :option="option"></BaseEcharts>
+    <button @click="handleClick" style="z-index: 99999">安安</button>
+    <!-- <BaseEcharts :option="option"></BaseEcharts> -->
 
-    <div class="wrapp bg-danger" id="box1" @click="handle1"> </div>
-    <div class="wrapp bg-primary" id="box2" @click="handle2"> </div>
-    <div class="wrapp bg-primary" id="box3" @click="handle3"> </div>
+    <div class="wrapp bg-danger" id="box1" @click="handle1"> 一推文字</div>
+    一推文字一推文字一推文字
+    <div class="wrapp bg-primary" id="box2" @click="handle2">一推文字 </div>
+    一推文字一推文字一推文字
+    <div class="wrapp bg-primary" id="box3" @click="handle3">一推文字 </div>
   </div>
 </template>
 
@@ -12,12 +15,31 @@
 import {ref} from 'vue'
 import BaseEcharts from '@/components/BaseEcharts/index.vue'
 import {getBarData} from './data'
+// import UserInfo from '@/views/components/UserInfo/index.vue'
+// import {useComponentByjs} from '@/hooks/use-component-byjs'
+
+// const handleClick = () => {
+//   useComponentByjs(UserInfo, {name: 'user-info', single: false, isInitRouter: true})
+// }
+
+// setTimeout(() => {
+//   handleClick()
+// }, 3000)
+
+// setTimeout(() => {
+//   handleClick()
+
+// }, 6000)
+
+// setTimeout(() => {
+//   handleClick()
+
+// }, 9000)
 
 const option = ref({})
 
 setTimeout(() => {
   const o = getBarData()
-  console.log('o', o);
   option.value = o
 
 }, 1000)
