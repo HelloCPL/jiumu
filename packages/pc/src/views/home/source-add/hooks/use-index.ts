@@ -88,13 +88,13 @@ export const useIndex = () => {
       form.isSecret = data.isSecret
       form.sort = data.sort
       form.remarks = data.remarks
-      if (data.attachment.length) {
+      if (data.attachment?.length) {
         form.attachment = data.attachment.map((item) => item.id).join(',')
         if (form.type === '701') attachmentList1.value = <DataBaseFile[]>data.attachment
         else if (form.type === '702') attachmentList2.value = <DataSourceLink[]>data.attachment
         else if (form.type === '703') attachmentList3.value = <DataSourceLink[]>data.attachment
       }
-      if (data.classify.length) {
+      if (data.classify?.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
     }

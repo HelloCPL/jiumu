@@ -89,7 +89,7 @@ export const useCipherAdd = (props: CipherAddProps, emit: CipherAddEmits) => {
         form.cipher = decrypt(data.cipher)
       }
       // 处理标签
-      if (data.classify.length) {
+      if (data.classify?.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
     }

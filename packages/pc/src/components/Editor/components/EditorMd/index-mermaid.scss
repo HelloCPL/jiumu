@@ -3,87 +3,87 @@ body {
     svg {
       font-size: var(--jm-font-size) !important;
       fill: var(--jm-color-text) !important;
+    }
 
-      .error-icon {
-        fill: var(--jm-color-danger-100) !important;
-      }
+    .error-icon {
+      fill: var(--jm-color-danger-100) !important;
+    }
 
-      .error-text {
-        fill: var(--jm-color-danger-100) !important;
-        stroke: var(--jm-color-danger-100) !important;
-      }
+    .error-text {
+      fill: var(--jm-color-danger-100) !important;
+      stroke: var(--jm-color-danger-100) !important;
+    }
 
-      .marker.cross,
-      .edgePath .path {
-        stroke: var(--jm-color-text) !important;
-      }
+    .marker.cross,
+    .edgePath .path {
+      stroke: var(--jm-color-text) !important;
+    }
 
-      .marker {
-        fill: var(--jm-color-primary-400) !important;
-        stroke: var(--jm-color-primary-400) !important;
-      }
+    .marker {
+      fill: var(--jm-color-primary-400) !important;
+      stroke: var(--jm-color-primary-400) !important;
+    }
 
-      .flowchart-link {
-        stroke: var(--jm-color-primary-400) !important;
-      }
+    .flowchart-link {
+      stroke: var(--jm-color-primary-400) !important;
+    }
 
-      .label,
-      .cluster-label span,
-      .cluster span,
-      p {
-        color: var(--jm-color-text) !important;
-      }
+    .label,
+    .cluster-label span,
+    .cluster span,
+    p {
+      color: var(--jm-color-text) !important;
+    }
 
-      .cluster-label text,
-      .arrowheadPath,
-      .cluster text {
-        fill: var(--jm-color-text) !important;
-      }
+    .cluster-label text,
+    .arrowheadPath,
+    .cluster text {
+      fill: var(--jm-color-text) !important;
+    }
 
-      .label text,
-      span,
-      p {
-        fill: var(--jm-color-text) !important;
-        color: var(--jm-color-text) !important;
-      }
+    .label text,
+    span,
+    p {
+      fill: var(--jm-color-text) !important;
+      color: var(--jm-color-text) !important;
+    }
 
-      .node rect,
-      .node circle,
-      .node ellipse,
-      .node polygon,
-      .node path {
-        fill: var(--jm-color-purple-50) !important;
-        stroke: var(--jm-color-purple) !important;
-      }
+    .node rect,
+    .node circle,
+    .node ellipse,
+    .node polygon,
+    .node path {
+      fill: var(--jm-color-purple-50) !important;
+      stroke: var(--jm-color-purple) !important;
+    }
 
-      .edgeLabel,
-      .edgeLabel rect {
-        background-color: var(--jm-color-fill) !important;
-      }
+    .edgeLabel,
+    .edgeLabel rect {
+      background-color: var(--jm-color-fill) !important;
+    }
 
-      .edgeLabel rect {
-        fill: var(--jm-color-fill) !important;
-      }
+    .edgeLabel rect {
+      fill: var(--jm-color-fill) !important;
+    }
 
-      .labelBkg {
-        background-color: var(--jm-color-bg) !important;
-      }
+    .labelBkg {
+      background-color: var(--jm-color-bg) !important;
+    }
 
-      .cluster rect {
-        fill: var(--jm-color-warning-50) !important;
-        stroke: var(--jm-color-warning) !important;
-      }
+    .cluster rect {
+      fill: var(--jm-color-warning-50) !important;
+      stroke: var(--jm-color-warning) !important;
+    }
 
-      div.mermaidTooltip {
-        font-size: var(--jm-font-size-small-extra) !important;
-        background: var(--jm-color-fill) !important;
-        border: 1px solid var(--jm-color-warning-300) !important;
-      }
+    div.mermaidTooltip {
+      font-size: var(--jm-font-size-small-extra) !important;
+      background: var(--jm-color-fill) !important;
+      border: 1px solid var(--jm-color-warning-300) !important;
+    }
 
-      .flowchartTitleText {
-        font-size: var(--jm-font-size-large) !important;
-        fill: var(--jm-color-text) !important;
-      }
+    .flowchartTitleText {
+      font-size: var(--jm-font-size-large) !important;
+      fill: var(--jm-color-text) !important;
     }
   }
 }
