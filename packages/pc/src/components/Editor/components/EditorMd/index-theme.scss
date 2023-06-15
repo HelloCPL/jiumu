@@ -1,5 +1,4 @@
 body {
-
   /**
     主题颜色
   */
@@ -42,7 +41,6 @@ body {
       color: var(--jm-color-text);
     }
 
-
     // 目录导航
     .v-md-editor__left-area,
     .v-md-editor__left-area-title:after {
@@ -73,7 +71,6 @@ body {
     .v-md-textarea-editor textarea::-webkit-input-placeholder {
       color: var(--jm-color-text-placeholder);
     }
-
   }
 
   // 提示框
@@ -131,18 +128,6 @@ body {
     background: var(--jm-color-overlay);
   }
 
-  // 流程图
-  .v-md-mermaid {
-    .node rect {
-      fill: var(--jm-color-purple-50) !important;
-      stroke: var(--jm-color-purple) !important;
-    }
-
-    .label {
-      color: var(--jm-color-text) !important;
-    }
-  }
-
   // github主题
   .github-markdown-body h1,
   .github-markdown-body h2,
@@ -151,7 +136,6 @@ body {
   .github-markdown-body h5 {
     color: var(--jm-color-text);
   }
-
 
   .github-markdown-body code,
   .github-markdown-body div[class*='v-md-pre-wrapper-'] {
@@ -168,7 +152,7 @@ body {
     border-color: var(--jm-color-border);
   }
 
-  .github-markdown-body div[class*=v-md-pre-wrapper-].line-numbers-mode .line-numbers-wrapper {
+  .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper {
     color: var(--jm-color-text-lighter);
   }
 
@@ -200,7 +184,7 @@ body {
     color: var(--jm-color-text);
   }
 
-  .github-markdown-body span.frame>span {
+  .github-markdown-body span.frame > span {
     border-color: var(--jm-color-border);
   }
 
@@ -230,7 +214,6 @@ body {
   }
 
   .github-markdown-body .hljs-type,
-
   .github-markdown-body .hljs-tag .hljs-attr,
   .github-markdown-body .hljs-attribute,
   .github-markdown-body .hljs-name,
@@ -253,7 +236,6 @@ body {
   .github-markdown-body .hljs-class .hljs-title,
   .github-markdown-body .hljs-title {
     color: var(--jm-color-warning);
-
   }
 
   .github-markdown-body .hljs-deletion,
@@ -286,14 +268,13 @@ body {
     background-color: var(--jm-color-black-1);
   }
 
-
   .v-md-editor--editable {
     border-color: var(--jm-color-border);
 
     .v-md-editor__editor-wrapper {
       border-color: var(--jm-color-border);
-
     }
   }
-
 }
+
+

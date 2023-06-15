@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog title="用户设置" width="600px" :show-footer="false" @close="$emit('close')">
+  <Dialog title="用户设置" width="600px" :show-footer="false" @close="handleCLose">
     <div class="w-full h-full flex setting-wrapper">
       <div class="w-32 h-full bg-white text-sm shadow-sm">
         <div
@@ -40,9 +40,21 @@ import Logs from './components/Logs.vue'
 import Other from './components/Other.vue'
 import Setting from './components/Setting.vue'
 
-defineEmits({
+const emit = defineEmits({
   close: () => true
 })
+
+const props = defineProps({
+  unmount: {
+    type: Function,
+    default: () => {}
+  }
+})
+
+const handleCLose = () => {
+  props.unmount()
+  emit('close')
+}
 
 const target = ref('0')
 const list: ValueLabel[] = [

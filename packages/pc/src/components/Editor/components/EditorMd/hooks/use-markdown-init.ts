@@ -18,8 +18,8 @@ import { onTagAttr } from '@jiumu/utils'
 import createTipPlugin from '@kangc/v-md-editor/lib/plugins/tip/index'
 import '@kangc/v-md-editor/lib/plugins/tip/tip.css'
 // 引入流程图mermaid插件 注意：需要在index.html引入mermaid.min.js资源
-// import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn'
-// import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css'
+import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn'
+import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css'
 // 引入任务列表插件
 import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index'
 import '@kangc/v-md-editor/lib/plugins/todo-list/todo-list.css'
@@ -53,7 +53,7 @@ const initMarkdown = (comp: any) => {
   // 扩展tip插件
   comp.use(createTipPlugin())
   // 扩展mermaid流程图
-  // comp.use(createMermaidPlugin())
+  comp.use(createMermaidPlugin())
   // 扩展任务列表
   comp.use(createTodoListPlugin())
   // 扩展代码行号

@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AboutUs: typeof import('./src/components/AboutUs/index.vue')['default']
+    BaseEcharts: typeof import('./src/components/BaseEcharts/index.vue')['default']
     Comment: typeof import('./src/components/Comment/index.vue')['default']
     CommentItem: typeof import('./src/components/Comment/CommentItem.vue')['default']
     Dialog: typeof import('./src/components/Dialog/index.vue')['default']

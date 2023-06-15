@@ -41,4 +41,8 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     GRichText: typeof import('./src/components/global/RichText/index.vue')['default']
   }
+
+  export interface App {
+    __unmount?: Function
+  }
 }
