@@ -42,7 +42,7 @@
             text
             size="small"
             @click="handleDelete(row)"
-            v-if="!(row.children && row.children.length)"
+            v-if="!(row.children && row.children?.length)"
           >
             删除
           </ElButton>

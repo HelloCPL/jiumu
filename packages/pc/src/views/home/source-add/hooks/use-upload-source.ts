@@ -120,7 +120,7 @@ export const useUploadSource = (props: UploadSourceProps, emit: UploadSourceEmit
 
   // 初始化
   const initValue = (data: Array<DataSourceLink | ParamsSourceLinkAdd>) => {
-    if (!data.length && !dataList.value.length) {
+    if (!data?.length && !dataList.value?.length) {
       handleAddOne()
     } else {
       dataList.value = data

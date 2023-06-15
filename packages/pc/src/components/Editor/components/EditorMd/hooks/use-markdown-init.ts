@@ -53,7 +53,17 @@ const initMarkdown = (comp: any) => {
   // 扩展tip插件
   comp.use(createTipPlugin())
   // 扩展mermaid流程图
-  comp.use(createMermaidPlugin())
+  comp.use(
+    createMermaidPlugin({
+      mermaidInitializeOptions: {
+        // startOnLoad: true,
+        // deterministicIds: true,
+        // deterministicIDSeed: 'base',
+        // fontSize: 36,
+        // sectionFontSize: 36
+      }
+    })
+  )
   // 扩展任务列表
   comp.use(createTodoListPlugin())
   // 扩展代码行号

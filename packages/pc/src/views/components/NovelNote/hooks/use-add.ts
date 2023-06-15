@@ -54,7 +54,7 @@ export const useAdd = (props: NovelNoteAddProps, emit: NovelNoteEmit) => {
       form.sort = data.sort
       form.remarks = data.remarks
 
-      if (data.classify.length) {
+      if (data.classify?.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
     }
