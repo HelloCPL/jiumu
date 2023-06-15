@@ -66,7 +66,7 @@ const handleChangeImg2 = (file: string[]) => {
 
 const disabled = computed(() => {
   const flag =
-    (type.value === '1' && _coverImg1.value.length) || (type.value === '2' && _coverImg2.value.length)
+    (type.value === '1' && _coverImg1.value?.length) || (type.value === '2' && _coverImg2.value?.length)
   if (flag) return false
   return true
 })
@@ -93,7 +93,7 @@ watch(
 watch(
   () => props.coverImg2,
   (val) => {
-    if (val && !_coverImg1.value.length) {
+    if (val && !_coverImg1.value?.length) {
       type.value = '2'
       _coverImg2.value = [val]
       img2.value = val

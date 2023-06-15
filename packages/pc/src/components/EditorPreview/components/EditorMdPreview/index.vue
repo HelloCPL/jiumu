@@ -65,6 +65,7 @@ const { isReload, refPreview, width, contentWidth, titleData, handleTitleItem, h
 <style lang="scss">
 @import '@/components/Editor/components/EditorMd/index.scss';
 @import '@/components/Editor/components/EditorMd/index-theme.scss';
+@import '@/components/Editor/components/EditorMd/index-mermaid.scss';
 @import './index.scss';
 
 .editor-md-preiview-container {

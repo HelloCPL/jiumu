@@ -53,7 +53,7 @@ export const useIndex = () => {
   // 处理封面图
   const coverImgList = ref<DataBaseFile[]>([])
   const handleChangeCoverImg = (files: DataBaseFile[]) => {
-    if (files.length) coverImgList.value = [files[0]]
+    if (files?.length) coverImgList.value = [files[0]]
     else coverImgList.value = []
     form.coverImg = coverImgList.value.map((item) => item.id).join(',')
     handleSaveCoverImg()
@@ -122,11 +122,11 @@ export const useIndex = () => {
         form.coverImg = data.coverImg.id
         coverImgList.value = [data.coverImg]
       }
-      if (data.attachment.length) {
+      if (data.attachment?.length) {
         form.attachment = data.attachment.map((item) => item.id).join(',')
         attachmentList.value = data.attachment
       }
-      if (data.classify.length) {
+      if (data.classify?.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
     }

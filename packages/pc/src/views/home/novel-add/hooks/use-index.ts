@@ -54,7 +54,7 @@ export const useIndex = () => {
       form.isSecret = data.isSecret
       form.sort = data.sort
       form.remarks = data.remarks
-      if (data.classify.length) {
+      if (data.classify?.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
 
