@@ -23,6 +23,7 @@ declare module '@vue/runtime-core' {
     FileIcon: typeof import('./src/components/ShowFile/components/FileIcon.vue')['default']
     FilterBox: typeof import('./src/components/FilterBox/index.vue')['default']
     FilterButton: typeof import('./src/components/FilterButton/index.vue')['default']
+    Index2: typeof import('./src/components/Editor/components/EditorMd/index2.vue')['default']
     InputNumber: typeof import('./src/components/InputNumber/index.vue')['default']
     Interation: typeof import('./src/components/Interation/index.vue')['default']
     LazyLoader: typeof import('./src/components/LazyLoader/index.vue')['default']

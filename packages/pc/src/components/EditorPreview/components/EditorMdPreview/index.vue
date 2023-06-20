@@ -1,103 +1,35 @@
-<!--
-  @describe: markdown 预览
-  @author: cpl
-  @create: 2022-10-07 19:49:51
--->
-
 <template>
-  <div class="w-full flex editor-md-preiview-container" :class="{ 'editor-md-preview-light': isLight }">
-    <div :style="{ width: contentWidth }">
-      <v-md-preview :text="text" ref="refPreview"></v-md-preview>
-    </div>
-    <!-- 目录  -->
-    <div
-      class="affix-md-preview-right shrink-0"
-      :style="{ width: width + 'px' }"
-      v-if="titleData.length > 3 && !isReload"
-    >
-      <ElAffix target=".affix-md-preview-right" :offset="40">
-        <div class="w-full h-full relative title-wrapper">
-          <!-- 展开收起按钮 -->
-          <span
-            class="absolute cursor-pointer title-icon"
-            :class="{ 'title-icon-arrow': width === 0 }"
-            @click="handleClickArrow"
-          >
-            <ElIcon>
-              <ArrowLeftBold></ArrowLeftBold>
-            </ElIcon>
-          </span>
-          <!-- 目录列表 -->
-          <div class="h-full overflow-hidden" :style="{ width: width + 'px' }">
-            <div style="width: 220px" class="h-full flex flex-col">
-              <div class="text-lg w-full h-10 pt-1 preview-bg-white">
-                <span>目录：</span>
-              </div>
-              <div class="flex-1 flex flex-col w-full pt-2 g-scroll-y">
-                <GRichText
-                  class="cursor-pointer mb-4 preview-text-light"
-                  v-for="(item, index) in titleData"
-                  :key="index"
-                  :html="item.html"
-                  @click="handleTitleItem(index)"
-                ></GRichText>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ElAffix>
-    </div>
-  </div>
+  <Index2 v-if="show" v-bind="$attrs"></Index2>
 </template>
 
-<script lang="ts" setup>
-import { editorMdPreviewProps } from './type'
-import { useIndex } from './index'
-import { ElAffix, ElIcon } from 'element-plus'
-import { ArrowLeftBold } from '@element-plus/icons-vue'
+<script setup lang="ts">
+import Index2 from './index2.vue'
+import { ref } from 'vue'
+import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
 
-const props = defineProps(editorMdPreviewProps)
+const show = ref(false)
 
-const { isReload, refPreview, width, contentWidth, titleData, handleTitleItem, handleClickArrow } =
-  useIndex(props)
-</script>
+const loadMermaid = () => {
+  if (window._initMarkdownMermaidStart) return
+  import('../../../../assets/lib/mermaid.min.js')
+  window._initMarkdownMermaidStart = '1'
+}
+loadMermaid()
 
-<style lang="scss">
-@import '@/components/Editor/components/EditorMd/index.scss';
-@import '@/components/Editor/components/EditorMd/index-theme.scss';
-@import '@/components/Editor/components/EditorMd/index-mermaid.scss';
-@import './index.scss';
-
-.editor-md-preiview-container {
-  background: var(--jm-color-white);
-  color: var(--jm-color-text);
-
-  .el-affix {
-    width: auto !important;
+let count = 0
+const judgeMermaid = async () => {
+  if (window.mermaid?.initialize || count >= 30) {
+    const createMermaidPlugin = await import('@kangc/v-md-editor/lib/plugins/mermaid/cdn')
+    if (createMermaidPlugin && createMermaidPlugin.default) {
+      useMarkdownInit(createMermaidPlugin.default)
+    }
+    show.value = true
+  } else if (count < 30) {
+    count++
+    setTimeout(() => {
+      judgeMermaid()
+    }, 300)
   }
 }
-</style>
-
-<style lang="scss" scoped>
-.title-wrapper {
-  max-height: calc(100vh - 50px);
-}
-
-.title-icon {
-  right: 0px;
-  top: 5px;
-  transition: transform ease 0.5s;
-}
-
-.title-icon-arrow {
-  transform: rotate(180deg);
-}
-
-.preview-bg-white {
-  background: var(--jm-color-white);
-}
-
-.preview-text-light {
-  color: var(--jm-color-text-light);
-}
-</style>
+judgeMermaid()
+</script>
