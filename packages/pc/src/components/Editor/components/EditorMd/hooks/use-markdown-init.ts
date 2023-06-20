@@ -18,7 +18,7 @@ import { onTagAttr } from '@jiumu/utils'
 import createTipPlugin from '@kangc/v-md-editor/lib/plugins/tip/index'
 import '@kangc/v-md-editor/lib/plugins/tip/tip.css'
 // 引入流程图mermaid插件 注意：需要在index.html引入mermaid.min.js资源
-import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn'
+// import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn'
 import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css'
 // 引入任务列表插件
 import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index'
@@ -34,16 +34,17 @@ import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
 // 内容定位
 import createAlignPlugin from '@kangc/v-md-editor/lib/plugins/align'
 
-export const useMarkdownInit = () => {
+export const useMarkdownInit = (createMermaidPlugin: any) => {
   if (window._initMarkdown_) return
-  initMarkdown(VMdEditor)
+
+  initMarkdown(VMdEditor, createMermaidPlugin)
   app.use(VMdEditor)
-  initMarkdown(VMdPreview)
+  initMarkdown(VMdPreview, createMermaidPlugin)
   app.use(VMdPreview)
   window._initMarkdown_ = '1'
 }
 
-const initMarkdown = (comp: any) => {
+const initMarkdown = async (comp: any, createMermaidPlugin: any) => {
   comp.use(githubTheme, {
     Hljs: hljs,
     codeHighlightExtensionMap: {

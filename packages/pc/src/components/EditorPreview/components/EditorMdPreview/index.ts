@@ -4,14 +4,14 @@
  * @create 2023-04-17 09:25:39
  */
 
-import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
+// import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
 import { ref, computed, watch } from 'vue'
 import { xss } from '@jiumu/utils'
 import { EditorMdPreviewProps } from './type'
 import gsap from 'gsap'
 
 export const useIndex = (props: EditorMdPreviewProps) => {
-  useMarkdownInit()
+  // useMarkdownInit()
 
   const refPreview = ref<any>(null)
   const width = ref(0)
@@ -32,6 +32,7 @@ export const useIndex = (props: EditorMdPreviewProps) => {
         refPreview.value?.$el?.children[0].children
       ) {
         const children: any[] = refPreview.value?.$el?.children[0].children || []
+
         titleData.value = getDomsData(children)
         isReload.value = true
         setTimeout(() => {
@@ -92,7 +93,8 @@ function getDomsData(doms: any[]): any[] {
   const arr: any[] = []
   const h = ['h1', 'h2', 'h3', 'h4', 'h5']
   let min = 4
-  doms.forEach((item) => {
+  for (let index = 0, len = doms.length; index < len; index++) {
+    const item = doms[index]
     const i = h.indexOf(item.localName)
     if (i !== -1) {
       arr.push({
@@ -102,7 +104,7 @@ function getDomsData(doms: any[]): any[] {
       })
       if (i < min) min = i
     }
-  })
+  }
   arr.forEach((item) => {
     item.indent = item.indent - min
     item.html = `<span style="padding-left: ${item.indent * 16}px">${item.html}</span>`
