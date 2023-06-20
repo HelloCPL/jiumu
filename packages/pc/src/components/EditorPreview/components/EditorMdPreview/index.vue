@@ -18,16 +18,17 @@ loadMermaid()
 
 let count = 0
 const judgeMermaid = async () => {
-  if (window.mermaid?.initialize) {
-    const a = await import('@kangc/v-md-editor/lib/plugins/mermaid/cdn')
-    const createMermaidPlugin = a.default
-    useMarkdownInit(createMermaidPlugin)
+  if (window.mermaid?.initialize || count >= 30) {
+    const createMermaidPlugin = await import('@kangc/v-md-editor/lib/plugins/mermaid/cdn')
+    if (createMermaidPlugin && createMermaidPlugin.default) {
+      useMarkdownInit(createMermaidPlugin.default)
+    }
     show.value = true
-  } else if (count < 10) {
+  } else if (count < 30) {
     count++
     setTimeout(() => {
       judgeMermaid()
-    }, 200)
+    }, 300)
   }
 }
 judgeMermaid()

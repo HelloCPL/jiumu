@@ -34,7 +34,7 @@ import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
 // 内容定位
 import createAlignPlugin from '@kangc/v-md-editor/lib/plugins/align'
 
-export const useMarkdownInit = (createMermaidPlugin: any) => {
+export const useMarkdownInit = (createMermaidPlugin?: any) => {
   if (window._initMarkdown_) return
 
   initMarkdown(VMdEditor, createMermaidPlugin)
@@ -44,7 +44,7 @@ export const useMarkdownInit = (createMermaidPlugin: any) => {
   window._initMarkdown_ = '1'
 }
 
-const initMarkdown = async (comp: any, createMermaidPlugin: any) => {
+const initMarkdown = async (comp: any, createMermaidPlugin?: any) => {
   comp.use(githubTheme, {
     Hljs: hljs,
     codeHighlightExtensionMap: {
@@ -54,17 +54,19 @@ const initMarkdown = async (comp: any, createMermaidPlugin: any) => {
   // 扩展tip插件
   comp.use(createTipPlugin())
   // 扩展mermaid流程图
-  comp.use(
-    createMermaidPlugin({
-      mermaidInitializeOptions: {
-        // startOnLoad: true,
-        // deterministicIds: true,
-        // deterministicIDSeed: 'base',
-        // fontSize: 36,
-        // sectionFontSize: 36
-      }
-    })
-  )
+  if (createMermaidPlugin) {
+    comp.use(
+      createMermaidPlugin({
+        mermaidInitializeOptions: {
+          // startOnLoad: true,
+          // deterministicIds: true,
+          // deterministicIDSeed: 'base',
+          // fontSize: 36,
+          // sectionFontSize: 36
+        }
+      })
+    )
+  }
   // 扩展任务列表
   comp.use(createTodoListPlugin())
   // 扩展代码行号
