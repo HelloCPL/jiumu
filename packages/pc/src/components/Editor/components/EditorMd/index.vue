@@ -1,43 +1,34 @@
-<!--
-  @describe: markdown 编辑器
-  @author: cpl
-  @create: 2022-09-04 14:13:26
--->
-
 <template>
-  <!-- <div class="">markdown 编辑器</div> -->
-  <v-md-editor
-    v-model="value"
-    :height="height + 'px'"
-    :placeholder="placeholder"
-    :toc-nav-position-right="true"
-    :include-level="includeLevel"
-    :left-toolbar="leftToolbar"
-    :right-toolbar="rightToolbar"
-    :toolbar="toolbar"
-    :disabled-menus="disabledMenus"
-    ref="refVMdEditor"
-    @change="handleChange"
-    @upload-image="handleUploadImage"
-    @save="handleSave"
-  ></v-md-editor>
+  <Index2 v-if="show" v-bind="$attrs"></Index2>
 </template>
 
-<script lang="ts" setup>
-import { useMarkdownInit } from './hooks/use-markdown-init'
-import { editorMarkdownProps, editorMarkdownEmits } from './type'
-import { useMarkdownIndex } from './hooks/use-markdown-index'
+<script setup lang="ts">
+import Index2 from './index2.vue'
+import { ref } from 'vue'
+import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
 
-useMarkdownInit()
+const show = ref(false)
 
-const props = defineProps(editorMarkdownProps)
-const emit = defineEmits(editorMarkdownEmits)
+const loadMermaid = () => {
+  if (window._initMarkdownMermaidStart) return
+  import('../../../../assets/lib/mermaid.min.js')
+  window._initMarkdownMermaidStart = '1'
+}
+loadMermaid()
 
-const { value, refVMdEditor, handleChange, handleSave, handleUploadImage } = useMarkdownIndex(props, emit)
+let count = 0
+const judgeMermaid = async () => {
+  if (window.mermaid?.initialize) {
+    const a = await import('@kangc/v-md-editor/lib/plugins/mermaid/cdn')
+    const createMermaidPlugin = a.default
+    useMarkdownInit(createMermaidPlugin)
+    show.value = true
+  } else if (count < 10) {
+    count++
+    setTimeout(() => {
+      judgeMermaid()
+    }, 200)
+  }
+}
+judgeMermaid()
 </script>
-
-<style lang="scss">
-@import 'index.scss';
-@import 'index-theme.scss';
-@import 'index-mermaid.scss';
-</style>
