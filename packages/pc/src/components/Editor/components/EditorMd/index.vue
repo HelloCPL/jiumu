@@ -1,20 +1,14 @@
 <template>
-  <Index2 v-if="show" v-bind="$attrs"></Index2>
+  <IndexEditor v-if="show" v-bind="$attrs"></IndexEditor>
 </template>
 
 <script setup lang="ts">
-import Index2 from './index2.vue'
+import IndexEditor from './index2.vue'
 import { ref } from 'vue'
 import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
+import '@/assets/lib/mermaid.min.js'
 
 const show = ref(false)
-
-const loadMermaid = () => {
-  if (window._initMarkdownMermaidStart) return
-  import('../../../../assets/lib/mermaid.min.js')
-  window._initMarkdownMermaidStart = '1'
-}
-loadMermaid()
 
 let count = 0
 const judgeMermaid = async () => {
