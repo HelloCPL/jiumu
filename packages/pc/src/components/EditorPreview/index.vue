@@ -12,11 +12,11 @@
         :is-show-title="isShowTitle"
         v-if="type === '401'"
       ></EditorWangPreview>
-      <EditorMdPreview
+      <!-- <EditorMdPreview
         :text="value"
         :is-show-title="isShowTitle"
         v-else-if="type === '402'"
-      ></EditorMdPreview>
+      ></EditorMdPreview> -->
     </LazyLoader>
   </div>
 </template>
@@ -26,7 +26,7 @@ import { editorPreviewProps } from './type'
 import { defineAsyncComponent } from 'vue'
 import LazyLoader from '@/components/LazyLoader/index.vue'
 
-const EditorMdPreview = defineAsyncComponent(() => import('./components/EditorMdPreview/index.vue'))
+// const EditorMdPreview = defineAsyncComponent(() => import('./components/EditorMdPreview/index.vue'))
 const EditorWangPreview = defineAsyncComponent(() => import('./components/EditorWangPreview/index.vue'))
 
 defineProps(editorPreviewProps)
