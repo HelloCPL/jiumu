@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "test": "node --max_old_space_size=15300 ../../node_modules/vite/bin/vite.js build --mode test",
-    "build": "node --max_old_space_size=15300 ../../node_modules/vite/bin/vite.js build --mode prod",
+    "test": "vite build --mode test",
+    "build": "vite build --mode prod",
     "preview": "vite preview"
   },
   "dependencies": {
