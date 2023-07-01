@@ -30,14 +30,14 @@
         v-bind="$attrs"
         v-if="type === '401'"
       ></EditorWang>
-      <!-- <EditorMd
+      <EditorMd
         :model-value="modelValue"
         @update:model-value="updateModelValue"
         @change="change"
         @save="save"
         v-bind="$attrs"
         v-else-if="type === '402'"
-      ></EditorMd> -->
+      ></EditorMd>
     </LazyLoader>
   </div>
 </template>
@@ -49,7 +49,7 @@ import { useIndex } from './index'
 import LazyLoader from '@/components/LazyLoader/index.vue'
 import { defineAsyncComponent } from 'vue'
 
-// const EditorMd = defineAsyncComponent(() => import('./components/EditorMd/index.vue'))
+const EditorMd = defineAsyncComponent(() => import('./components/EditorMd/index.vue'))
 const EditorWang = defineAsyncComponent(() => import('./components/EditorWang/index.vue'))
 
 defineOptions({
