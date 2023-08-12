@@ -23,17 +23,19 @@
           测试账号：test/123456，该账号仅提供浏览所用，且仅包含浏览部分页面的权限！
         </p>
       </div>
-      <div class="h-full w-1/2 bg-white relative overflow-hidden login-right">
-        <Login
-          class="absolute"
-          :style="{ top: loginShow.top + '%', opacity: loginShow.opacity }"
-          v-if="loginShow.show"
-        />
-        <Register
-          class="absolute"
-          :style="{ top: registerShow.top + '%', opacity: registerShow.opacity }"
-          v-if="registerShow.show"
-        ></Register>
+      <div class="h-full w-1/2 relative bg-white overflow-hidden login-right">
+        <div class="absolute bg-white login-content">
+          <Login
+            class="absolute"
+            :style="{ top: loginShow.top + '%', opacity: loginShow.opacity }"
+            v-if="loginShow.show"
+          />
+          <Register
+            class="absolute"
+            :style="{ top: registerShow.top + '%', opacity: registerShow.opacity }"
+            v-if="registerShow.show"
+          ></Register>
+        </div>
       </div>
     </div>
   </div>
@@ -51,17 +53,5 @@ const { loginShow, registerShow, toggleShow } = useIndex()
 </script>
 
 <style lang="scss" scoped>
-.login-wrapper {
-  width: 540px;
-  height: 320px;
-  top: 48%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-
-  .login-btn {
-    width: 100px;
-    margin-left: 50%;
-    transform: translate(-50%);
-  }
-}
+@import './index.scss';
 </style>
