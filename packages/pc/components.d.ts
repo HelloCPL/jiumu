@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     MoreBtn: typeof import('./src/components/MoreBtn/index.vue')['default']
     PageBox: typeof import('./src/components/PageBox/index.vue')['default']
     Pagination: typeof import('./src/components/Pagination/index.vue')['default']
+    Particle: typeof import('./src/components/Particle/index.vue')['default']
     PopupTwo: typeof import('./src/components/PopupTwo/index.vue')['default']
     PreviewExcel: typeof import('./src/components/ShowFile/components/PreviewExcel.vue')['default']
     PreviewImage: typeof import('./src/components/ShowFile/components/PreviewImage.vue')['default']

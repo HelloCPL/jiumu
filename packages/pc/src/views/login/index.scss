@@ -1,7 +1,7 @@
 .login-wrapper {
   width: 540px;
   height: 320px;
-  top: 48%;
+  top: 56%;
   left: 40%;
   transform: translate(-50%, -50%);
 
@@ -56,5 +56,11 @@
 
 .login-right::after {
   animation-delay: -3s;
+}
+
+.particle-box {
+  bottom: calc(44% + 160px);
+  left: 40%;
+  transform: translate(-50%);
 }
 

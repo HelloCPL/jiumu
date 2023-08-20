@@ -38,6 +38,8 @@
         </div>
       </div>
     </div>
+    <!-- 粒子时间组件 -->
+    <Particle class="absolute particle-box" :width="540 * 1.5"></Particle>
   </div>
   <AboutUs></AboutUs>
 </template>
@@ -48,6 +50,7 @@ import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import { useIndex } from './hooks/use-index'
 import AboutUs from '@/components/AboutUs/index.vue'
+import Particle from '@/components/Particle/index.vue'
 
 const { loginShow, registerShow, toggleShow } = useIndex()
 </script>
