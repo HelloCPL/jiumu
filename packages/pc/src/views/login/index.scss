@@ -1,0 +1,66 @@
+.login-wrapper {
+  width: 540px;
+  height: 320px;
+  top: 56%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+
+  .login-btn {
+    width: 100px;
+    margin-left: 50%;
+    transform: translate(-50%);
+  }
+}
+
+.login-content {
+  width: 266px;
+  height: 316px;
+  top: 2px;
+  left: 2px;
+  z-index: 2;
+}
+
+// 动画
+
+@keyframes mybox {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.login-right::after,
+.login-right::before
+{
+  content: '';
+  position: absolute;
+  display: block;
+  top: -50%;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    var(--jm-color-purple-6),
+    var(--jm-color-purple-6),
+    var(--jm-color-purple-6)
+  );
+  // z-index: 1;
+  transform-origin: bottom right;
+  animation: mybox 6s linear infinite;
+}
+
+.login-right::after {
+  animation-delay: -3s;
+}
+
+.particle-box {
+  bottom: calc(44% + 160px);
+  left: 40%;
+  transform: translate(-50%);
+}
+
