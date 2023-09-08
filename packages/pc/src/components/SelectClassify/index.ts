@@ -89,12 +89,35 @@ export const useIndex = (props: SelectClassifyProps, emit: SelectClassifyEmits) 
   const getClassifyOne = debounce(async (label: string) => {
     const res = await addTagCustom({
       label,
-      type: props.type
+      type: props.type,
+      sort: getClassifySort()
     })
     if (res.code === 200) {
       getClassifyList(label)
     }
   }, 300)
+
+  // 获取一个排序
+  const sortList = {
+    articleClassify: 1000,
+    questionClassify: 2000,
+    sourceClassify: 3000,
+    novelClassify: 4000,
+    cipherClassify: 5000
+  }
+  const getClassifySort = (): number => {
+    let sort = sortList[props.type] || props.sort
+    const len = classifyList.value.length
+    if (len) {
+      let maxSort = 1
+      for (let i = 0; i < len; i++) {
+        if (classifyList.value[i].sort > maxSort) maxSort = classifyList.value[i].sort
+      }
+      if (maxSort >= sort) sort = maxSort + 1
+    }
+    return sort
+  }
+
   const handleInputConfirm = () => {
     showInput.value = false
     if (inputValue.value) {

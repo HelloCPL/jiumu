@@ -22,6 +22,11 @@ export const selectClassifyProps = buildProps({
   maxLength: {
     type: Number,
     default: 3
+  },
+  // 新增时默认排序
+  sort: {
+    type: Number,
+    default: 1
   }
 } as const)
 

@@ -35,14 +35,14 @@ export const useNavigator = () => {
   // 点击关闭
   const clickClose = (item: KeepAliveOption, index: number) => {
     if (navigationsStore.routerName === item.name) {
-      let name: string
-      if (navigationsStore.navigations.length - 1 > index)
-        name = <string>navigationsStore.navigations[index + 1].name
-      else name = <string>navigationsStore.navigations[index - 1].name
+      let _index = index
+      if (navigationsStore.navigations.length - 1 > index) _index = index + 1
+      else _index = index - 1
+      const _item = navigationsStore.navigations[_index]
       router.replace({
-        name,
-        params: { ...item.params },
-        query: { ...item.query }
+        name: <string>_item.name,
+        params: { ..._item.params },
+        query: { ..._item.query }
       })
     } else {
       navigationsStore._pop(item)
