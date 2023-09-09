@@ -25,7 +25,7 @@
             @update:model-value="changeCheck($event as boolean, item)"
           >
             <GRichText :html="item.noteTitle"></GRichText>
-            <span class="text-sm text-lighter pl-4">({{ item.targetTitle }})</span>
+            <span class="text-sm text-lighter pl-4">(所属：{{ item.targetTitle }})</span>
           </ElCheckbox>
         </div>
       </template>

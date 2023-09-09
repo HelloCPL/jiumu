@@ -76,12 +76,12 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'add':
-      router.push({
-        name: 'ArticleAdd',
-        params: { _metaTitle: '文章新增', _refreshOne: '1' }
-      })
-      return
+      case 'add':
+        router.push({
+          name: 'ArticleAdd',
+          params: { _metaTitle: '文章新增' }
+        })
+        return
     }
   }
 
@@ -89,7 +89,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const handleEdit = (row: DataArticle) => {
     router.push({
       name: 'ArticleAdd',
-      params: { _metaTitle: '文章编辑', _refreshOne: '1', id: row.id }
+      params: { _metaTitle: '文章编辑', id: row.id }
     })
   }
 

@@ -29,8 +29,8 @@ onMounted(() => {
   const __name = <string>route.params.__name || <string>route.query.__name
   const __path = <string>route.query.__path || <string>route.params.__path
   const item = navigationsStore._find(__name || __path)
-  const ctx = getCurrentInstance()?.ctx
-  if (ctx) ctx.$forceUpdate()
+  const instance: any = getCurrentInstance()
+  if (instance?.ctx && instance?.ctx?.$forceUpdate instanceof Function) instance.ctx.$forceUpdate()
   if ((__name || __path) && item) {
     keepAliveStore._pop(item)
     const query = { ...route.query }
