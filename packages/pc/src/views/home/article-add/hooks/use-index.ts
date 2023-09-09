@@ -6,8 +6,8 @@
 
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { FormInstance, FormRules } from 'element-plus'
-import { onMounted, reactive, ref, watch } from 'vue'
-import { useRoute, useRouter, onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+import { reactive, ref, watch } from 'vue'
+import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { validateContent } from '@/components/Editor/index'
 import { Confirm, Message } from '@/utils/interaction'
 import { debounce, clone, throttle } from 'lodash-es'
@@ -157,11 +157,6 @@ export const useIndex = () => {
       setOriginData()
     }
   }
-  // onMounted(() => {
-  //   form.id = <string | undefined>route.params.id
-  //   if (form.id) _getOne(form.id)
-  //   else setOriginData()
-  // })
 
   // 新增
   const _add = debounce(async (params: ParamsArticleAdd, option?: StatusOption) => {
