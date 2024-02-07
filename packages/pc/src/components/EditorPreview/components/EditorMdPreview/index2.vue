@@ -7,7 +7,7 @@
 <template>
   <div class="w-full flex editor-md-preiview-container" :class="{ 'editor-md-preview-light': isLight }">
     <div :style="{ width: contentWidth }">
-      <v-md-preview :text="text" ref="refPreview"></v-md-preview>
+      <v-md-preview :text="text" ref="refPreview" @copy-code-success="handleCopySuccess"></v-md-preview>
     </div>
     <!-- 目录  -->
     <div
@@ -58,8 +58,16 @@ import { ArrowLeftBold } from '@element-plus/icons-vue'
 
 const props = defineProps(editorMdPreviewProps)
 
-const { isReload, refPreview, width, contentWidth, titleData, handleTitleItem, handleClickArrow } =
-  useIndex(props)
+const {
+  isReload,
+  refPreview,
+  width,
+  contentWidth,
+  titleData,
+  handleTitleItem,
+  handleClickArrow,
+  handleCopySuccess
+} = useIndex(props)
 </script>
 
 <style lang="scss">
