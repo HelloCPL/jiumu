@@ -9,6 +9,7 @@ import { ref, computed, watch } from 'vue'
 import { xss } from '@jiumu/utils'
 import { EditorMdPreviewProps } from './type'
 import gsap from 'gsap'
+import { Message } from '@/utils/interaction'
 
 export const useIndex = (props: EditorMdPreviewProps) => {
   // useMarkdownInit()
@@ -77,6 +78,10 @@ export const useIndex = (props: EditorMdPreviewProps) => {
     }
   }
 
+  const handleCopySuccess = () => {
+    Message({ message: '复制成功', type: 'success' })
+  }
+
   return {
     isReload,
     refPreview,
@@ -84,7 +89,8 @@ export const useIndex = (props: EditorMdPreviewProps) => {
     contentWidth,
     titleData,
     handleTitleItem,
-    handleClickArrow
+    handleClickArrow,
+    handleCopySuccess
   }
 }
 

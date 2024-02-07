@@ -6,7 +6,7 @@
 
 <template>
   <div :class="{ 'w-full': task.length }">
-    <div class="flex mt-4 pb-4 border-b-1 border-lighter" v-for="(item, index) in task" :key="item.id">
+    <div class="flex mt-4 pb-4 border-b-1 border-lighter" v-for="item in task" :key="item.id">
       <FileIcon :value="item.file.name" class="w-16 h-16 mr-4"></FileIcon>
       <div class="w-1/2 mr-12 big-content">
         <div>

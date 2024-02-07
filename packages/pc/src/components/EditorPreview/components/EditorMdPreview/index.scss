@@ -18,7 +18,6 @@ body {
     .github-markdown-body h4,
     .github-markdown-body h5 {
       color: #303133;
-
     }
 
     // --jm-color-text-light
@@ -30,7 +29,7 @@ body {
     }
 
     // --jm-color-text-lighter
-    .github-markdown-body div[class*=v-md-pre-wrapper-].line-numbers-mode .line-numbers-wrapper,
+    .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper,
     .github-markdown-body .hljs-meta {
       color: #909399;
     }
@@ -40,19 +39,19 @@ body {
     .github-markdown-body .hljs-quote,
     .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode .line-numbers-wrapper,
     .v-md-pre-wrapper.copy-code-mode .v-md-copy-code-btn {
-      color: #A8ABB2;
+      color: #a8abb2;
     }
 
     // 边框颜色
     // --jm-color-border
-    .github-markdown-body span.frame>span,
+    .github-markdown-body span.frame > span,
     .github-markdown-body blockquote,
     .github-markdown-body hr,
     .github-markdown-body table td,
     .github-markdown-body table th,
     .github-markdown-body table tr,
     .github-markdown-body div[class*='v-md-pre-wrapper-'].line-numbers-mode:after {
-      border-color: #DCDFE6;
+      border-color: #dcdfe6;
     }
 
     // 背景颜色
@@ -82,5 +81,10 @@ body {
     .scrollbar__thumb {
       background-color: rgba(0, 0, 0, 0.1);
     }
+  }
+
+  .github-markdown-body h1,
+  .github-markdown-body h2 {
+    border: 0;
   }
 }
