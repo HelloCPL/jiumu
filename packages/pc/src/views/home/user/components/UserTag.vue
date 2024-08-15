@@ -17,7 +17,9 @@
       <!-- 左侧 -->
       <template #left>
         <div class="px-4 pt-3">
-          <span
+          <Card v-for="item in dataList" :key="item.id" :title="item.code" :sub-title="item.label" class="mb-3">
+          </Card>
+          <!-- <span
             v-for="item in dataList"
             :key="item.id"
             class="text-lighter w-full justify-between flex items-center mb-2"
@@ -26,7 +28,7 @@
               <span>{{ item.label }}</span>
               <span class="pl-2">{{ item.code }}</span>
             </span>
-          </span>
+          </span> -->
         </div>
       </template>
     </PopupTwo>
@@ -38,6 +40,7 @@ import Dialog from '@/components/Dialog/index.vue'
 import PopupTwo from '@/components/PopupTwo/index.vue'
 import { userInfoProps } from './type'
 import { useUserTag } from '../hooks/use-user-tag'
+import Card from '@/components/Card/index.vue'
 
 const props = defineProps(userInfoProps)
 

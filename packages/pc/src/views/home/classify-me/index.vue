@@ -26,14 +26,14 @@
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" :width="getPx(60)" />
-      <ElTableColumn label="标签" min-width="140">
+      <ElTableColumn label="标签" :min-width="getPx(140)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.label" />
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="type" label="类型" min-width="120" />
+      <ElTableColumn prop="type" label="类型" :min-width="getPx(120)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>

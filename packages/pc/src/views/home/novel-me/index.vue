@@ -26,15 +26,15 @@
     <!-- 列表 -->
     <Table :data="data">
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn label="名称" min-width="150">
+      <ElTableColumn label="名称" :min-width="getPx(150)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.name" />
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="类型" min-width="100" />
-      <ElTableColumn label="标签" min-width="100">
+      <ElTableColumn prop="typeLabel" label="类型" :min-width="getPx(100)" />
+      <ElTableColumn label="标签" :min-width="getPx(100)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">

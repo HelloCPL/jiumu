@@ -26,13 +26,13 @@
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn label="标题" min-width="150">
+      <ElTableColumn label="标题" :min-width="getPx(150)">
         <template #default="{ row }">
           <GRichText :html="row.title" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="类型" min-width="80" />
-      <ElTableColumn label="标签" min-width="100">
+      <ElTableColumn prop="typeLabel" label="类型" :min-width="getPx(80)" />
+      <ElTableColumn label="标签" :min-width="getPx(100)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">
@@ -42,7 +42,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="账号" min-width="100">
+      <ElTableColumn label="账号" :min-width="getPx(100)">
         <template #default="{ row }">
           <span v-if="row.type === '802'">
             {{ row.show === '1' ? row.account : formatAccount(row.account) }}
@@ -50,7 +50,7 @@
           <span v-else>{{ row.account }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="密码" min-width="100">
+      <ElTableColumn label="密码" :min-width="getPx(100)">
         <template #default="{ row }">
           <span>{{ row.show === '1' ? row.cipher : '*****' }}</span>
         </template>

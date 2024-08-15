@@ -20,15 +20,15 @@
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
-      <ElTableColumn label="标题" min-width="150">
+      <ElTableColumn label="标题" :min-width="getPx(150)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.title" />
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="资源类型" min-width="170" />
-      <ElTableColumn label="标签" min-width="100">
+      <ElTableColumn prop="typeLabel" label="资源类型" :min-width="getPx(170)" />
+      <ElTableColumn label="标签" :min-width="getPx(100)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">
@@ -46,7 +46,7 @@
       <ElTableColumn prop="likeCount" label="点赞" :width="getPx(70)"></ElTableColumn>
       <ElTableColumn prop="collectionCount" label="收藏" :width="getPx(70)"></ElTableColumn>
       <ElTableColumn prop="commentCount" label="评论" :width="getPx(70)"></ElTableColumn>
-      <ElTableColumn label="更新时间" width="150">
+      <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>

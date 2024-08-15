@@ -14,25 +14,25 @@
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index) }}</template>
       </ElTableColumn>
-      <ElTableColumn prop="sort" label="排序" min-width="110" />
-      <ElTableColumn label="code" min-width="110">
+      <ElTableColumn prop="sort" label="排序" :min-width="getPx(110)" />
+      <ElTableColumn label="code" :min-width="getPx(110)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="标签" min-width="120">
+      <ElTableColumn label="标签" :min-width="getPx(120)">
         <template #default="{ row }">
           <GRichText :html="row.label" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="parentLabel" label="父级标签" min-width="120" />
+      <ElTableColumn prop="parentLabel" label="父级标签" :min-width="getPx(120)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
-      <ElTableColumn prop="remarks" label="备注" min-width="160" />
+      <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>

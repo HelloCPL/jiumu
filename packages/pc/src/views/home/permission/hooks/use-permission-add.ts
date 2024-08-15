@@ -98,3 +98,151 @@ export const usePermissionAdd = (props: any, emit: PermissionAddEmits) => {
     confirm
   }
 }
+
+/**
+ * 权限输入智能提示
+ */
+export const usePermissionTip = (form: ParamsPermissionAdd) => {
+  const words: ObjectAny = {
+    pc: 'pc管理端',
+    mobile: '移动端',
+    web: 'web端',
+    user: '用户',
+    role: '角色',
+    tag: '标签',
+    menu: '菜单',
+    permission: '权限',
+    view: '查看',
+    get: '获取',
+    base: '某个',
+    one: '某个',
+    bycode: '某个',
+    list: '列表',
+    byparent: '所有',
+    byparentcode: '所有',
+    add: '新增',
+    update: '修改',
+    delete: '删除',
+    self: '我的',
+    public: '公开',
+    all: '所有',
+    draft: '草稿箱',
+    custom: '自定义',
+    top: '置顶',
+    export: '导出',
+    info: '详情',
+    relevant: '关联',
+    btn: '按钮',
+    page: '页面',
+    child: '子级',
+    me: '我的',
+    link: '链接',
+    detail: '详情',
+    code: '密码'
+  }
+
+  const list = ['list:self']
+
+  const modules = {
+    article: '文章',
+    source: '资源',
+    question: '问答',
+    novel: '连载',
+    chapter: '章节',
+    note: '笔记',
+    classify: '自定义标签',
+    collection: '收藏',
+    cipher: '口令'
+  }
+
+  const init = () => {
+    Object.entries(modules).forEach((item) => {
+      list.push(`${item[0]}:public`)
+      list.push(`${item[0]}:all`)
+      list.push(`${item[0]}:me`)
+      words[item[0]] = item[1]
+    })
+  }
+  init()
+
+  // 交换指定位置
+  const interchange = (str: string) => {
+    const _do = (index: number) => {
+      const value = list[index].split(':').reverse().join(':')
+      str = str.replace(list[index], value)
+    }
+    list.forEach((value, i) => {
+      if (str.includes(value)) {
+        _do(i)
+      }
+    })
+    return str
+  }
+
+  const translate = (keys: string) => {
+    const arr = keys.split(':')
+    let str: string = ''
+    arr.forEach((key) => {
+      if (words[key]) str += words[key]
+      else str += key
+    })
+    return str
+  }
+
+  const handleLabel = () => {
+    if (form.code.includes(':')) {
+      const code = form.code
+      const label = translate(interchange(code))
+      if (code.endsWith(':btn')) {
+        form.label = `[${label}]`
+      } else if (code.endsWith(':page')) {
+        form.label = label
+      } else {
+        // 默认 API
+        form.label = `(${label})`
+      }
+    }
+  }
+
+  const handleRemarks = () => {
+    if (form.code.includes(':')) {
+      form.remarks = translate(interchange(form.code)) + '权限'
+    }
+  }
+
+  const handleHref = () => {
+    if (form.code.includes(':') && !form.href) {
+      const code = form.code
+      const flag1 = code.includes(':btn')
+      const flag2 = code.includes(':page')
+      if (flag1 || flag2) {
+        form.href = '#'
+      } else {
+        const href = code.replace(/:/g, '/')
+        form.href = href.startsWith('/') ? href : '/' + href
+      }
+    }
+  }
+
+  const handleBlurCode = () => {
+    if (!form.label) {
+      handleLabel()
+    }
+    if (!form.remarks) {
+      handleRemarks()
+    }
+    handleHref()
+  }
+  const handleKeyupCode = (e) => {
+    if (e.keyCode === 13) {
+      handleLabel()
+      handleRemarks()
+      handleHref()
+    }
+  }
+
+  return {
+    handleBlurCode,
+    handleKeyupCode
+  }
+}

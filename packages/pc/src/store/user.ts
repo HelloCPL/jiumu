@@ -14,6 +14,7 @@ import { getPermissionListAllSelf } from '@/api/permission'
 import { getMenuAllSelf } from '@/api/menu'
 import { getTagAllSelf } from '@/api/tag'
 const { VITE_HOME_EXPIRE } = import.meta.env
+import { updateHomesMetaByMenus } from '@/router/routes'
 
 export const useUserStore = defineStore<string, UserState, {}, UserActions>(StoreNames.USER, {
   state: () => {
@@ -77,6 +78,7 @@ export const useUserStore = defineStore<string, UserState, {}, UserActions>(Stor
           getMenuAllSelf().then((res) => {
             if (res.code === 200) {
               this.menus = res.data
+              updateHomesMetaByMenus(res.data)
               resolve(res.data)
             }
           })

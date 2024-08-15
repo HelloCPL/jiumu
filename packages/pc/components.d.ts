@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AboutUs: typeof import('./src/components/AboutUs/index.vue')['default']
     BaseEcharts: typeof import('./src/components/BaseEcharts/index.vue')['default']
+    Card: typeof import('./src/components/Card/index.vue')['default']
     Comment: typeof import('./src/components/Comment/index.vue')['default']
     CommentItem: typeof import('./src/components/Comment/CommentItem.vue')['default']
     Dialog: typeof import('./src/components/Dialog/index.vue')['default']
@@ -23,6 +24,7 @@ declare module '@vue/runtime-core' {
     FileIcon: typeof import('./src/components/ShowFile/components/FileIcon.vue')['default']
     FilterBox: typeof import('./src/components/FilterBox/index.vue')['default']
     FilterButton: typeof import('./src/components/FilterButton/index.vue')['default']
+    IconSvg: typeof import('./src/components/IconSvg/index.vue')['default']
     Index2: typeof import('./src/components/Editor/components/EditorMd/index2.vue')['default']
     InputNumber: typeof import('./src/components/InputNumber/index.vue')['default']
     Interation: typeof import('./src/components/Interation/index.vue')['default']

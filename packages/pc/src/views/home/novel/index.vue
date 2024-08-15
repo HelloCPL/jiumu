@@ -19,15 +19,15 @@
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
-      <ElTableColumn label="名称" min-width="150">
+      <ElTableColumn label="名称" :min-width="getPx(150)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.name" />
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="类型" min-width="100" />
-      <ElTableColumn label="作者" min-width="90">
+      <ElTableColumn prop="typeLabel" label="类型" :min-width="getPx(100)" />
+      <ElTableColumn label="作者" :min-width="getPx(90)">
         <template #default="{ row }">
           <GRichText :html="row.author" />
         </template>

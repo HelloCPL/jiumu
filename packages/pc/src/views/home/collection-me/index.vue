@@ -17,14 +17,14 @@
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
-      <ElTableColumn label="标题" min-width="180">
+      <ElTableColumn label="标题" :min-width="getPx(180)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.title" />
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="收藏类型" min-width="100" />
+      <ElTableColumn prop="typeLabel" label="收藏类型" :min-width="getPx(100)" />
       <ElTableColumn label="收藏时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.createTime, 'YYYY-MM-DD HH:mm') }}</span>

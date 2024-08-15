@@ -23,20 +23,20 @@
     <!-- 列表 -->
     <Table :data="data">
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn label="标题" min-width="150">
+      <ElTableColumn label="标题" :min-width="getPx(150)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.title" />
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="文章类型" min-width="100" />
-      <ElTableColumn label="封面" min-width="140">
+      <ElTableColumn prop="typeLabel" label="文章类型" :min-width="getPx(100)" />
+      <ElTableColumn label="封面" :min-width="getPx(140)">
         <template #default="{ row }">
           <ShowImage class="max-h-24" :model-value="[row.coverImg]" v-if="row.coverImg"></ShowImage>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="标签" min-width="100">
+      <ElTableColumn label="标签" :min-width="getPx(100)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">

@@ -61,6 +61,7 @@ module.exports = defineConfig({
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-unused-vars': ['warn'],
+    "@typescript-eslint/no-implicit-any": "warn",
     // vue3
     'vue/custom-event-name-casing': 'off',
     'vue/html-closing-bracket-newline': 'off',

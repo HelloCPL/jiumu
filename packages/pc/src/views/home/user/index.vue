@@ -23,7 +23,7 @@
           <ElImage class="h-10 rounded-sm" :src="row.avatar.filePath" v-if="row.avatar" />
         </template>
       </ElTableColumn>
-      <ElTableColumn label="账号" min-width="120">
+      <ElTableColumn label="账号" :min-width="getPx(120)">
         <template #default="{ row }">
           <GRichText
             class="cursor-pointer hover:text-primary"
@@ -32,18 +32,18 @@
           />
         </template>
       </ElTableColumn>
-      <ElTableColumn label="昵称" min-width="120">
+      <ElTableColumn label="昵称" :min-width="getPx(120)">
         <template #default="{ row }">
           <GRichText :html="row.username" />
         </template>
       </ElTableColumn>
       <ElTableColumn prop="sexLabel" label="性别" :width="getPx(60)" />
-      <ElTableColumn label="生日" min-width="110">
+      <ElTableColumn label="生日" :min-width="getPx(110)">
         <template #default="{ row }">
           <span>{{ formatDate(row.birthday, 'YYYY-MM-DD') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="professional" label="职业" min-width="130" />
+      <ElTableColumn prop="professional" label="职业" :min-width="getPx(130)" />
       <ElTableColumn label="注册时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.createTime, 'YYYY-MM-DD HH:mm') }}</span>

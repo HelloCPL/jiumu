@@ -35,7 +35,7 @@
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn label="标题" min-width="150">
+      <ElTableColumn label="标题" :min-width="getPx(150)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.title" />

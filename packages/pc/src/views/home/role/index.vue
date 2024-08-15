@@ -18,12 +18,12 @@
     <Table :data="data">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn label="code" min-width="100">
+      <ElTableColumn label="code" :min-width="getPx(100)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="角色" min-width="120">
+      <ElTableColumn label="角色" :min-width="getPx(120)">
         <template #default="{ row }">
           <GRichText :html="row.label" />
         </template>
@@ -34,7 +34,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
-      <ElTableColumn prop="remarks" label="备注" min-width="160" />
+      <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(255)" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
