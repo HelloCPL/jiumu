@@ -5,6 +5,7 @@
  */
 
 import { useUserStore, useThemeStore } from '@/store'
+import { isString } from 'lodash-es'
 
 /*
  * 查找是否code权限 多个用逗号隔开
@@ -72,7 +73,23 @@ export const getIndex = (index: number, pageNo?: number, pageSize?: number) => {
 /*
  * 按比例获取 px 大小
  */
-export const getPx = (size: number): number => {
+export const getPx = (size: number | string): number | string => {
   const themeStore = useThemeStore()
-  return (size * themeStore.fontSize) / 14
+  const suffixs = ['px', 'rem', 'em']
+  let index = -1
+  if (isString(size)) {
+    suffixs.find((suffix, i) => {
+      if ((size as string).endsWith(suffix)) {
+        index = i
+        size = (size as string).replace(suffix, '')
+        return true
+      }
+      return false
+    })
+  }
+  size = Number(size) || 0
+  if (!size) return size
+  size = (size * themeStore.fontSize) / 14
+  if (index === -1) return size
+  return size + suffixs[index]
 }

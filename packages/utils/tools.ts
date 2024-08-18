@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { isArray, isFunction } from 'lodash-es'
 
 /**
  * 返回格式后的路径
@@ -143,4 +144,27 @@ export const toChineseNumber = (num: number): string => {
     return str
   }
   return ''
+}
+
+/**
+ * 获取目标索引
+ */
+export const findIndex = (arr: any[], value: any): number => {
+  let targetIndex = -1
+  if (isArray(arr)) {
+    if (!isFunction(value)) {
+      const _value = value
+      value = (item: any) => {
+        return item === _value
+      }
+    }
+    arr.find((item: any, index) => {
+      if (value(item)) {
+        targetIndex = index
+        return true
+      }
+      return false
+    })
+  }
+  return targetIndex
 }

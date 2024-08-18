@@ -48,6 +48,7 @@ const { _label, dataList, refTree, changeCheck } = useRoleMenu(props)
   .el-tree {
     background-color: var(--jm-color-bg);
   }
+
   .el-tree-node:focus > .el-tree-node__content,
   .el-tree-node__content:hover {
     background-color: var(--jm-color-bg);

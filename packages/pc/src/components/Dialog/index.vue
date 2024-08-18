@@ -9,9 +9,9 @@
     v-model="isShow"
     append-to-body
     destroy-on-close
-    custom-class="dialog-wrapper shadow-lg"
+    class="dialog-wrapper shadow-lg"
     :draggable="draggable"
-    :width="width"
+    :width="getPx(width)"
     :open-delay="50"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
@@ -40,6 +40,7 @@
 import { ElDialog, ElButton } from 'element-plus'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { dialogProps, dialogEmit } from './type'
+import { getPx } from '@/utils/tools'
 
 const isShow = ref<boolean>(false)
 onMounted(() => {

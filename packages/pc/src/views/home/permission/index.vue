@@ -21,25 +21,26 @@
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" :width="getPx(60)" />
-      <ElTableColumn label="code" min-width="130">
+      <ElTableColumn label="code" :min-width="getPx(130)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
             <GRichText :html="row.code" />
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="权限" min-width="130">
+      <ElTableColumn label="权限" :min-width="getPx(160)">
         <template #default="{ row }">
           <PermissionLabel :html="row.label" />
         </template>
       </ElTableColumn>
+      <ElTableColumn prop="href" label="关联接口" show-overflow-tooltip :min-width="getPx(120)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn prop="remarks" label="备注" min-width="160" />
+      <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
@@ -55,31 +56,18 @@
     </Table>
     <!-- 分页 -->
 
-    <Pagination
-      v-model:pageNo="pageNo"
-      v-model:pageSize="pageSize"
-      :total="total"
-      @change="getDataList"
-    ></Pagination>
+    <Pagination v-model:pageNo="pageNo" v-model:pageSize="pageSize" :total="total" @change="getDataList"></Pagination>
     <!-- 权限新增或编辑 -->
     <PermissionAdd :id="state.id" v-if="state.show" @close="state.show = false" @confirm="handleConfirm">
     </PermissionAdd>
     <!-- 权限信息 -->
     <PermissionInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"> </PermissionInfo>
     <!-- 查看权限-用户关联 -->
-    <PermissionUser
-      :id="state.id"
-      :label="state.label"
-      v-if="state.showPermissionUser"
-      @close="state.showPermissionUser = false"
-    ></PermissionUser>
+    <PermissionUser :id="state.id" :label="state.label" v-if="state.showPermissionUser"
+      @close="state.showPermissionUser = false"></PermissionUser>
     <!-- 查看权限-角色关联 -->
-    <PermissionRole
-      :id="state.id"
-      :label="state.label"
-      v-if="state.showPermissionRole"
-      @close="state.showPermissionRole = false"
-    ></PermissionRole>
+    <PermissionRole :id="state.id" :label="state.label" v-if="state.showPermissionRole"
+      @close="state.showPermissionRole = false"></PermissionRole>
   </div>
 </template>
 

@@ -31,19 +31,16 @@
       <!-- 右侧 -->
       <template #right>
         <div class="px-4 pt-3">
-          <span
+          <Card
+            :title="item.username"
+            :sub-title="item.phone"
+            show-close
             v-for="item in dataList2"
             :key="item.id"
-            class="text-lighter w-full justify-between flex items-center mb-2"
+            class="mb-3"
+            @close="deleteRelevance(item)"
           >
-            <span class="mr-2">
-              <GRichText :html="item.username"></GRichText>
-              <UsernameShow :text="item.phone" class="pl-2"></UsernameShow>
-            </span>
-            <ElIcon class="cursor-pointer" @click="deleteRelevance(item)">
-              <Close />
-            </ElIcon>
-          </span>
+          </Card>
         </div>
       </template>
     </PopupTwo>
@@ -55,9 +52,9 @@ import Dialog from '@/components/Dialog/index.vue'
 import PopupTwo from '@/components/PopupTwo/index.vue'
 import { roleInfoProps } from './type'
 import { useRoleUser } from '../hooks/use-role-user'
-import { ElCheckbox, ElIcon } from 'element-plus'
-import { Close } from '@element-plus/icons-vue'
+import { ElCheckbox } from 'element-plus'
 import UsernameShow from '@/components/UsernameShow/index.vue'
+import Card from '@/components/Card/index.vue'
 
 const props = defineProps(roleInfoProps)
 

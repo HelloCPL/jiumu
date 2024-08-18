@@ -1,7 +1,10 @@
-import { toPath } from '@jiumu/utils'
+import { findIndex, toPath } from '@jiumu/utils'
 import { RouteRecordName, RouteRecordRaw } from 'vue-router'
 import homeChildrenRoutes from './modules/home-children'
 import primaryRoutes from './modules/primary'
+import { isArray } from 'lodash-es'
+import { useNavigationsStore } from '@/store'
+import { KeepAliveOption } from '@/store/keep-alive.b'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -64,4 +67,47 @@ export const isHomeRoutes = (name: any): boolean => {
     }
   })
   return flag
+}
+
+type CodeLabel = {
+  code: string
+  label: string
+}
+
+/**
+ * 根据菜单管理动态修改 home 子路由的名称
+ */
+export const updateHomesMetaByMenus = (menus: DataMenu[]) => {
+  const getMenus = (list: CodeLabel[], menus: DataMenu[]) => {
+    if (isArray(menus)) {
+      for (let i = 0; i < menus.length; i++) {
+        const menu = menus[i]
+        const index = findIndex(list, (item) => item.code === menu.code)
+        if (index == -1) {
+          list.push({
+            code: menu.code,
+            label: menu.label
+          })
+        }
+        if (isArray(menu.children) && menu.children.length) {
+          getMenus(list, menu.children)
+        }
+      }
+    }
+  }
+  const list: CodeLabel[] = []
+  getMenus(list, menus)
+  const handleRoutes = (list: CodeLabel[], routes: Array<RouteRecordRaw | KeepAliveOption>) => {
+    list.forEach((item) => {
+      const index = findIndex(routes, (row) => row.name === item.code)
+      if (index !== -1 && routes[index].meta) {
+        routes[index].meta.title = item.label
+      }
+    })
+  }
+  // 更新 home 子路由
+  handleRoutes(list, routes[0].children as RouteRecordRaw[])
+  // 更新中间导航栏菜单名称
+  const navigationsStore = useNavigationsStore()
+  handleRoutes(list, navigationsStore.navigations)
 }

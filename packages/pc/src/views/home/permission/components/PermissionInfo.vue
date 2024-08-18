@@ -13,7 +13,9 @@
       </ElRow>
       <ElRow class="mb-3">
         <ElCol :span="4" class="text-right pr-2">权限：</ElCol>
-        <ElCol :span="20" class="text-lighter">{{ dataInfo?.label }}</ElCol>
+        <ElCol :span="20" class="text-lighter">
+          <PermissionLabel :html="dataInfo?.label" />
+        </ElCol>
       </ElRow>
       <ElRow class="mb-3">
         <ElCol :span="4" class="text-right pr-2">排序：</ElCol>
@@ -39,6 +41,7 @@ import { ref } from 'vue'
 import { getPermissionOne } from '@/api/permission'
 import { ElRow, ElCol } from 'element-plus'
 import { permissionInfoProps } from './type'
+import PermissionLabel from './PermissionLabel.vue'
 
 const props = defineProps(permissionInfoProps)
 

@@ -6,13 +6,8 @@
 
 <template>
   <Dialog width="500px" :title="'查看用户-权限关联' + _username" :show-footer="false">
-    <PopupTwo
-      :more-left="total > dataList.length"
-      :show-right="false"
-      :span-left="24"
-      height="60vh"
-      @scroll-left="getDataList"
-    >
+    <PopupTwo :more-left="total > dataList.length" :show-right="false" :span-left="24" height="60vh"
+      @scroll-left="getDataList">
       <template #leftTop>
         <p class="px-4 text-sm text-lighter">
           <span class="text-danger">注意：</span>
@@ -22,16 +17,18 @@
       <!-- 左侧 -->
       <template #left>
         <div class="px-4 pt-3">
-          <span
-            v-for="item in dataList"
-            :key="item.id"
-            class="text-lighter w-full justify-between flex items-center mb-2"
-          >
-            <span class="mr-2">
-              <span>{{ item.label }}</span>
-              <span class="pl-2">{{ item.code }}</span>
-            </span>
-          </span>
+          <Card v-for="item in dataList" :key="item.id" :title="item.code" :sub-title="item.label" class="mb-3">
+            <div class="text-sm text-lighter">
+              <div v-if="item.href && item.href !== '#'" class="pb-2">
+                <span>关联接口：</span>
+                <span>{{ item.href }}</span>
+              </div>
+              <div v-if="item.remarks" class="pb-2">
+                <span>备注：</span>
+                <span>{{ item.remarks }}</span>
+              </div>
+            </div>
+          </Card>
         </div>
       </template>
     </PopupTwo>
@@ -43,6 +40,7 @@ import Dialog from '@/components/Dialog/index.vue'
 import PopupTwo from '@/components/PopupTwo/index.vue'
 import { userInfoProps } from './type'
 import { useUserPermission } from '../hooks/use-user-permission'
+import Card from '@/components/Card/index.vue'
 
 const props = defineProps(userInfoProps)
 

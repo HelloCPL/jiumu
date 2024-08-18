@@ -10,12 +10,8 @@
       <div class="text-xl font-bold mb-4 relative">
         <span>第{{ targetIndex + 1 }}章</span>
         <span class="ml-2">{{ dataInfo.title }}</span>
-        <img
-          :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
-          alt=""
-          class="absolute right-0 top-1 w-9"
-          v-if="dataInfo.isDraft === '1'"
-        />
+        <img :src="$STATIC_URL + '/pc/icons/icon_caogao.png'" alt="" class="absolute right-0 top-1 w-9"
+          v-if="dataInfo.isDraft === '1'" />
       </div>
       <div class="flex justify-between items-center text-sm text-lighter mb-4">
         <div class="flex">
@@ -53,16 +49,11 @@
           </div>
           <div class="h-full g-scroll-y-0">
             <div class="w-full flex flex-col">
-              <span
-                v-for="(item, index) in data"
-                class="text-sm cursor-pointer mb-2 hover:text-primary g-line-1"
+              <span v-for="(item, index) in data" class="text-sm cursor-pointer mb-2 hover:text-primary g-line-1"
                 :class="{
                   'text-lighter': chapter.ids && chapter.ids.includes(item.id),
                   'text-primary': item.id === id
-                }"
-                :key="item.id"
-                @click="handleToOther(item)"
-              >
+                }" :key="item.id" @click="handleToOther(item)">
                 <span>第{{ index + 1 }}章</span>
                 <span class="pl-2">{{ item.title }}</span>
               </span>
@@ -84,12 +75,7 @@
       <!-- 点赞收藏 -->
       <Interation v-model="dataInfo" type="507" class="mt-4"></Interation>
       <!-- 评论列表 -->
-      <Comment
-        v-model="dataInfo"
-        :id="dataInfo.id"
-        type="507"
-        :comment-count="dataInfo.commentCount"
-      ></Comment>
+      <Comment v-model="dataInfo" :id="dataInfo.id" type="507" :comment-count="dataInfo.commentCount"></Comment>
     </div>
     <!-- 关于我们 -->
     <AboutUs></AboutUs>
@@ -105,12 +91,13 @@ import Comment from '@/components/Comment/index.vue'
 import AboutUs from '@/components/AboutUs/index.vue'
 import EditorPreview from '@/components/EditorPreview/index.vue'
 import IconSvg from '@/components/IconSvg/index'
+import { getPx } from '@/utils/tools'
 
 defineOptions({
   name: 'NovelChapterInfo'
 })
 
-const width = 180
+const width = getPx(180)
 
 const { dataInfo, data, handleToOther, id, targetIndex, handleNext, chapter } = useIndex()
 </script>
