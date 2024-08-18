@@ -88,7 +88,7 @@
         "unplugin-element-plus": "^0.4.1",
         "unplugin-vue-components": "^0.24.1",
         "unplugin-vue-define-options": "^0.6.2",
-        "vite": "2.9.14",
+        "vite": "2.9.18",
         "vite-plugin-compression": "^0.5.1",
         "vite-plugin-optimize-persist": "^0.1.2",
         "vite-plugin-package-config": "^0.1.1",
