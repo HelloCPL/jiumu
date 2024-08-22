@@ -13,7 +13,8 @@
       </ElFormItem>
       <ElFormItem label="类型">
         <SelectType v-model="type" parent-code="300"></SelectType>
-      </ElFormItem> </FilterBox
+      </ElFormItem>
+    </FilterBox
     ><!-- 列表 -->
     <Table :data="data">
       <ElTableColumn type="index" label="序号" width="60">

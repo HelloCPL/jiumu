@@ -125,53 +125,53 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-      case 'save':
-        if (!formRef.value) return
-        formRef.value.validate((valid) => {
-          if (valid) {
-            form.isDraft = '0'
-            if (id.value) {
-              _update({
-                id: id.value,
-                ...form
-              })
-            } else {
-              _add({
-                novelId: novelId.value,
-                ...form
-              })
-            }
-          }
-        })
-        break
-      case 'draft':
-        if (!formRef.value) return
-        formRef.value.validate((valid) => {
-          if (valid) {
-            form.isDraft = '1'
-            if (id.value) {
-              _update({
-                id: id.value,
-                ...form
-              })
-            } else {
-              _add({
-                novelId: novelId.value,
-                ...form
-              })
-            }
-          }
-        })
-        break
-      case 'delete':
-        Confirm(`确定${item.name}吗？`).then(() => {
+    case 'save':
+      if (!formRef.value) return
+      formRef.value.validate((valid) => {
+        if (valid) {
+          form.isDraft = '0'
           if (id.value) {
-            _delete(id.value)
+            _update({
+              id: id.value,
+              ...form
+            })
           } else {
-            router.back()
+            _add({
+              novelId: novelId.value,
+              ...form
+            })
           }
-        })
-        break
+        }
+      })
+      break
+    case 'draft':
+      if (!formRef.value) return
+      formRef.value.validate((valid) => {
+        if (valid) {
+          form.isDraft = '1'
+          if (id.value) {
+            _update({
+              id: id.value,
+              ...form
+            })
+          } else {
+            _add({
+              novelId: novelId.value,
+              ...form
+            })
+          }
+        }
+      })
+      break
+    case 'delete':
+      Confirm(`确定${item.name}吗？`).then(() => {
+        if (id.value) {
+          _delete(id.value)
+        } else {
+          router.back()
+        }
+      })
+      break
     }
   }
 

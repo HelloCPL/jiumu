@@ -48,6 +48,15 @@ html {
   // 字体大小
   .el-table {
     font-size: var(--jm-font-size);
+
+    .el-table__cell {
+      padding-top: 0.572rem;
+      padding-bottom: 0.572rem;
+    }
+    
+    thead th {
+      font-weight: normal;
+    }
   }
 
   .el-sub-menu .el-sub-menu__icon-arrow,

@@ -6,7 +6,8 @@
 
 <template>
   <Dialog width="500px" :title="'查看用户-角色关联' + _username" :show-footer="false">
-    <PopupTwo :more-left="total > dataList.length" :show-left-top="false" :show-right="false" :span-left="24"
+    <PopupTwo
+      :more-left="total > dataList.length" :show-left-top="false" :show-right="false" :span-left="24"
       height="60vh" @scroll-left="getDataList">
       <!-- 左侧 -->
       <template #left>

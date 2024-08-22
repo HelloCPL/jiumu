@@ -10,7 +10,8 @@
       <div class="text-xl font-bold mb-4 relative">
         <span>第{{ targetIndex + 1 }}章</span>
         <span class="ml-2">{{ dataInfo.title }}</span>
-        <img :src="$STATIC_URL + '/pc/icons/icon_caogao.png'" alt="" class="absolute right-0 top-1 w-9"
+        <img
+          :src="$STATIC_URL + '/pc/icons/icon_caogao.png'" alt="" class="absolute right-0 top-1 w-9"
           v-if="dataInfo.isDraft === '1'" />
       </div>
       <div class="flex justify-between items-center text-sm text-lighter mb-4">
@@ -49,7 +50,8 @@
           </div>
           <div class="h-full g-scroll-y-0">
             <div class="w-full flex flex-col">
-              <span v-for="(item, index) in data" class="text-sm cursor-pointer mb-2 hover:text-primary g-line-1"
+              <span
+                v-for="(item, index) in data" class="text-sm cursor-pointer mb-2 hover:text-primary g-line-1"
                 :class="{
                   'text-lighter': chapter.ids && chapter.ids.includes(item.id),
                   'text-primary': item.id === id
