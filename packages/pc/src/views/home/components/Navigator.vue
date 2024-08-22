@@ -8,7 +8,8 @@
   <div class="w-full h-10 flex-shrink-0 bg-white px-5 overflow-hidden pt-2 relative naviagtor">
     <div class="w-full h-full relative" ref="refContainer">
       <!-- 导航栏容器 -->
-      <div class="absolute bottom-0 left-0 h-full flex flex-nowrap duration-200" :style="{ left: left + 'px' }"
+      <div
+        class="absolute bottom-0 left-0 h-full flex flex-nowrap duration-200" :style="{ left: left + 'px' }"
         ref="refWrapper" @drop="drop" @dragover="dragover">
         <!-- 每一项 -->
         <div
@@ -32,7 +33,8 @@
           >
             <CircleCloseFilled />
           </ElIcon> -->
-          <IconSvg name="closeFull" fill="var(--jm-color-border-darker)" hover-fill="var(--jm-color-danger)" :size="themeStore.fontSize + 2"
+          <IconSvg
+            name="closeFull" fill="var(--jm-color-border-darker)" hover-fill="var(--jm-color-danger)" :size="themeStore.fontSize + 2"
             class="right-1 g-center-y z-30 nav-item-icon" v-if="navigationsStore.navigations.length > 1"
             @click.stop="clickClose(item, index)"></IconSvg>
         </div>
@@ -42,13 +44,15 @@
     <NavigatorRight :options="rightOptions" :index="rightBoxIndex" v-if="isShow" @change="handleChangeRight">
     </NavigatorRight>
     <!-- 左右两侧按钮 -->
-    <span class="bg-white absolute left-0 top-0 h-full w-5 flex items-center justify-center cursor-pointer z-40"
+    <span
+      class="bg-white absolute left-0 top-0 h-full w-5 flex items-center justify-center cursor-pointer z-40"
       v-if="left < 0" @click="changeLeft(250)">
       <ElIcon>
         <ArrowLeftBold color="var(--jm-color-text-placeholder)" :size="themeStore.fontSize + 2" />
       </ElIcon>
     </span>
-    <span class="bg-white absolute right-0 top-0 h-full w-5 flex items-center justify-center cursor-pointer z-40"
+    <span
+      class="bg-white absolute right-0 top-0 h-full w-5 flex items-center justify-center cursor-pointer z-40"
       v-if="left > maxWidth" @click="changeLeft(-250)">
       <ElIcon>
         <ArrowRightBold color="var(--jm-color-text-placeholder)" :size="themeStore.fontSize + 2" />

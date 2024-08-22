@@ -5,11 +5,13 @@
 -->
 
 <template>
-  <span :class="{ 'cursor-pointer': hoverFill }" @mouseenter.prevent="mouseenter" @mouseleave="mouseleave"
+  <span
+    :class="{ 'cursor-pointer': hoverFill }" @mouseenter.prevent="mouseenter" @mouseleave="mouseleave"
     style="font-size: 0;">
     <IconSvg :name="name" :width="width" :height="height" :size="size" :fill="fill" v-if="!isHover" :key="'a' + key1">
     </IconSvg>
-    <IconSvg :name="name" :width="width" :height="height" :size="size" :fill="hoverFill || fill" v-else
+    <IconSvg
+      :name="name" :width="width" :height="height" :size="size" :fill="hoverFill || fill" v-else
       :key="'b' + key2">
     </IconSvg>
   </span>

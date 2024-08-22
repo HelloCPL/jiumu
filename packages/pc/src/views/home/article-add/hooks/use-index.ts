@@ -201,42 +201,42 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList, option?: StatusOption) => {
     switch (item.key) {
-      case 'save':
-        if (!formRef.value) return
-        formRef.value.validate((valid) => {
-          if (valid) {
-            form.isDraft = '0'
-            if (form.id) {
-              _update({ ...form }, option)
-            } else {
-              _add({ ...form }, option)
-            }
-          }
-        })
-        break
-      case 'draft':
-        if (!formRef.value) return
-        formRef.value.validate((valid) => {
-          if (valid) {
-            form.isDraft = '1'
-            if (form.id) {
-              _update({ ...form }, option)
-            } else {
-              _add({ ...form }, option)
-            }
-          }
-        })
-        break
-      case 'delete':
-        Confirm(`确定${item.name}吗？`).then(() => {
+    case 'save':
+      if (!formRef.value) return
+      formRef.value.validate((valid) => {
+        if (valid) {
+          form.isDraft = '0'
           if (form.id) {
-            _delete(form.id)
+            _update({ ...form }, option)
           } else {
-            setOriginData()
-            router.back()
+            _add({ ...form }, option)
           }
-        })
-        break
+        }
+      })
+      break
+    case 'draft':
+      if (!formRef.value) return
+      formRef.value.validate((valid) => {
+        if (valid) {
+          form.isDraft = '1'
+          if (form.id) {
+            _update({ ...form }, option)
+          } else {
+            _add({ ...form }, option)
+          }
+        }
+      })
+      break
+    case 'delete':
+      Confirm(`确定${item.name}吗？`).then(() => {
+        if (form.id) {
+          _delete(form.id)
+        } else {
+          setOriginData()
+          router.back()
+        }
+      })
+      break
     }
   }
 

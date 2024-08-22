@@ -6,7 +6,8 @@
 
 <template>
   <Dialog width="500px" :title="'查看用户-权限关联' + _username" :show-footer="false">
-    <PopupTwo :more-left="total > dataList.length" :show-right="false" :span-left="24" height="60vh"
+    <PopupTwo
+      :more-left="total > dataList.length" :show-right="false" :span-left="24" height="60vh"
       @scroll-left="getDataList">
       <template #leftTop>
         <p class="px-4 text-sm text-lighter">

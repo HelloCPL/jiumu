@@ -1043,9 +1043,6 @@ app.use(Loading)
 
 `element-plus` 具体使用看其官方文档
 
-`ant-design-vue` 具体使用看其官方文档
-
-
 
 > scoped 和样式穿透
 

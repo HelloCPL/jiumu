@@ -63,10 +63,12 @@
     <!-- 权限信息 -->
     <PermissionInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"> </PermissionInfo>
     <!-- 查看权限-用户关联 -->
-    <PermissionUser :id="state.id" :label="state.label" v-if="state.showPermissionUser"
+    <PermissionUser
+      :id="state.id" :label="state.label" v-if="state.showPermissionUser"
       @close="state.showPermissionUser = false"></PermissionUser>
     <!-- 查看权限-角色关联 -->
-    <PermissionRole :id="state.id" :label="state.label" v-if="state.showPermissionRole"
+    <PermissionRole
+      :id="state.id" :label="state.label" v-if="state.showPermissionRole"
       @close="state.showPermissionRole = false"></PermissionRole>
   </div>
 </template>
