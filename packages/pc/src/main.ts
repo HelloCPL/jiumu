@@ -17,8 +17,6 @@ import './style/css/index.scss'
 import { useGlobalComponents } from './components/global'
 import { defineGlobal, defineDirective, definePinia } from './utils/vue-global'
 
-// import '@/assets/lib/mermaid.min.js'
-
 // 全局属性或方法
 defineGlobal(app)
 

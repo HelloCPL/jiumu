@@ -47,7 +47,7 @@ import { reactive, ref, nextTick } from 'vue'
 import { getFileBlod } from '@/utils/download-file'
 import { renderAsync } from 'docx-preview'
 import { useLoading } from '@/utils/interaction'
-import { useBodyLocked } from './locked'
+import { useBodyLocked } from '@/hooks/use-body-locked'
 
 useBodyLocked()
 

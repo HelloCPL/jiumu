@@ -44,16 +44,16 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 8002,
       proxy: {
-        // '/jiumu-koa2-ts-test/': {
-        //   target: 'https://www.jiumublog.cn/',
-        //   changeOrigin: true
-        // },
-        // 使用本地服务
         '/jiumu-koa2-ts-test/': {
-          target: 'http://localhost:3030/',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/jiumu-koa2-ts-test/g, '')
+          target: 'https://www.jiumublog.cn/',
+          changeOrigin: true
         },
+        // 使用本地服务
+        // '/jiumu-koa2-ts-test/': {
+        //   target: 'http://localhost:3030/',
+        //   changeOrigin: true,
+        //   rewrite: (path) => path.replace(/^\/jiumu-koa2-ts-test/g, '')
+        // },
         '/jiumu-static-test/': {
           target: 'https://www.jiumublog.cn/',
           changeOrigin: true
@@ -90,23 +90,37 @@ export default defineConfig(({ mode }) => {
       //   }
       // }
       target: 'esnext',
+      chunkSizeWarningLimit: 600,
       rollupOptions: {
         output: {
-          manualChunks: {
-            Echarts: ['echarts']
-            // Vue: ['vue', 'vue-router'],
-            // VuePdfEmbed: ['vue-pdf-embed'],
-            // Vue3Pdf3: ['vue3-pdfjs'],
-            // // DocxPreview: ['docx-preview'],
-            // VMdEditor: ['@kangc/v-md-editor'],
-            // WangEditor: ['@wangeditor/editor'],
-            // HighLight: ['highlight.js'],
-            // Jquery: ['jquery'],
-            // JiumuUtils: ['@jiumu/utils'],
-            // GSAP: ['gsap']
-          }
+          manualChunks
+          // manualChunks: {
+          //   Echarts: ['echarts']
+          //   // Vue: ['vue', 'vue-router'],
+          //   // VuePdfEmbed: ['vue-pdf-embed'],
+          //   // Vue3Pdf3: ['vue3-pdfjs'],
+          //   // // DocxPreview: ['docx-preview'],
+          //   // VMdEditor: ['@kangc/v-md-editor'],
+          //   // WangEditor: ['@wangeditor/editor'],
+          //   // HighLight: ['highlight.js'],
+          //   // Jquery: ['jquery'],
+          //   // JiumuUtils: ['@jiumu/utils'],
+          //   // GSAP: ['gsap']
+          // }
         }
       }
     }
   }
 })
+
+function manualChunks(id) {
+  if (id.includes('node_modules')) {
+    if (id.includes('echarts')) {
+      return 'vendor-echarts'
+    }
+    if (id.includes('mermaid')) {
+      return 'vendor-mermaid'
+    }
+    // return 'vendor-other';
+  }
+}
