@@ -7,22 +7,28 @@ import IndexPreview from './preview.vue'
 import { ref } from 'vue'
 import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
 import { loadMermaid } from '@/utils/scripts'
+import { useLoading } from '@/utils/interaction'
 
 const show = ref(false)
 
-const judgeMermaid = async () => {
+const initMermaid = async () => {
+  const createMermaidPlugin = await import('@kangc/v-md-editor/lib/plugins/mermaid/cdn')
+  if (createMermaidPlugin && createMermaidPlugin.default) {
+    useMarkdownInit(createMermaidPlugin.default)
+  }
+  show.value = true
+}
+
+const { showLoading, hideLoading } = useLoading()
+const load = async () => {
   if (window.mermaid?.initialize) {
-    const createMermaidPlugin = await import('@kangc/v-md-editor/lib/plugins/mermaid/cdn')
-    if (createMermaidPlugin && createMermaidPlugin.default) {
-      useMarkdownInit(createMermaidPlugin.default)
-    }
-    show.value = true
+    initMermaid()
   } else {
+    showLoading()
     await loadMermaid()
-    setTimeout(() => {
-      judgeMermaid()
-    }, 100)
+    hideLoading()
+    initMermaid()
   }
 }
-judgeMermaid()
+load()
 </script>
