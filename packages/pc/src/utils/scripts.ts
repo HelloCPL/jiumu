@@ -1,6 +1,8 @@
 /**
  * 动态引入 public 的资源
  */
+import { toPath } from '@jiumu/utils'
+const { VITE_PUBLIC_PATH } = import.meta.env
 
 /**
  * 动态加载 script 标签
@@ -9,7 +11,7 @@
  */
 export function dynamicScriptLoader(url: string, callback?: Function) {
   const script = document.createElement('script')
-  script.src = url
+  script.src = toPath(VITE_PUBLIC_PATH, url)
   // script.async = true
   script.onload = () => {
     callback && callback()
@@ -23,7 +25,7 @@ export function dynamicScriptLoader(url: string, callback?: Function) {
 export function dynamicLinkLoader(url: string, callback?: Function) {
   const link = document.createElement('link')
   link.rel = 'stylesheet'
-  link.href = url
+  link.href = toPath(VITE_PUBLIC_PATH, url)
   link.media = 'print'
   link.onload = () => {
     link.media = 'all' // 更改 media 属性以应用样式
