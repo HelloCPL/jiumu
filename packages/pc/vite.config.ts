@@ -90,23 +90,37 @@ export default defineConfig(({ mode }) => {
       //   }
       // }
       target: 'esnext',
+      chunkSizeWarningLimit: 600,
       rollupOptions: {
         output: {
-          manualChunks: {
-            Echarts: ['echarts']
-            // Vue: ['vue', 'vue-router'],
-            // VuePdfEmbed: ['vue-pdf-embed'],
-            // Vue3Pdf3: ['vue3-pdfjs'],
-            // // DocxPreview: ['docx-preview'],
-            // VMdEditor: ['@kangc/v-md-editor'],
-            // WangEditor: ['@wangeditor/editor'],
-            // HighLight: ['highlight.js'],
-            // Jquery: ['jquery'],
-            // JiumuUtils: ['@jiumu/utils'],
-            // GSAP: ['gsap']
-          }
+          manualChunks
+          // manualChunks: {
+          //   Echarts: ['echarts']
+          //   // Vue: ['vue', 'vue-router'],
+          //   // VuePdfEmbed: ['vue-pdf-embed'],
+          //   // Vue3Pdf3: ['vue3-pdfjs'],
+          //   // // DocxPreview: ['docx-preview'],
+          //   // VMdEditor: ['@kangc/v-md-editor'],
+          //   // WangEditor: ['@wangeditor/editor'],
+          //   // HighLight: ['highlight.js'],
+          //   // Jquery: ['jquery'],
+          //   // JiumuUtils: ['@jiumu/utils'],
+          //   // GSAP: ['gsap']
+          // }
         }
       }
     }
   }
 })
+
+function manualChunks(id) {
+  if (id.includes('node_modules')) {
+    if (id.includes('echarts')) {
+      return 'vendor-echarts'
+    }
+    if (id.includes('mermaid')) {
+      return 'vendor-mermaid'
+    }
+    // return 'vendor-other';
+  }
+}

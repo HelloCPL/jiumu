@@ -32,6 +32,7 @@ declare module 'vue' {
     Pagination: typeof import('./src/components/Pagination/index.vue')['default']
     Particle: typeof import('./src/components/Particle/index.vue')['default']
     PopupTwo: typeof import('./src/components/PopupTwo/index.vue')['default']
+    Preview: typeof import('./src/components/EditorPreview/components/EditorMdPreview/preview.vue')['default']
     PreviewExcel: typeof import('./src/components/ShowFile/components/PreviewExcel.vue')['default']
     PreviewImage: typeof import('./src/components/ShowFile/components/PreviewImage.vue')['default']
     PreviewMd: typeof import('./src/components/ShowFile/components/PreviewMd.vue')['default']

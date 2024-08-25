@@ -6,11 +6,10 @@
 import IndexEditor from './index2.vue'
 import { ref } from 'vue'
 import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
-import '@/assets/lib/mermaid.min.js'
+import { loadMermaid } from '@/utils/scripts'
 
 const show = ref(false)
 
-let count = 0
 const judgeMermaid = async () => {
   if (window.mermaid?.initialize) {
     const createMermaidPlugin = await import('@kangc/v-md-editor/lib/plugins/mermaid/cdn')
@@ -18,11 +17,11 @@ const judgeMermaid = async () => {
       useMarkdownInit(createMermaidPlugin.default)
     }
     show.value = true
-  } else if (count < 10) {
-    count++
+  } else {
+    await loadMermaid()
     setTimeout(() => {
       judgeMermaid()
-    }, 200)
+    }, 100)
   }
 }
 judgeMermaid()

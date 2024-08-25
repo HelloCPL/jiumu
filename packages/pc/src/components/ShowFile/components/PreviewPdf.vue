@@ -56,7 +56,7 @@ import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { usePreviewPdf } from '../hooks/use-preview-pdf'
 import LazyLoader from '@/components/LazyLoader/index.vue'
 import { previewPdfProps, previewPdfEmit } from './type'
-import { useBodyLocked } from './locked'
+import { useBodyLocked } from '@/hooks/use-body-locked'
 
 useBodyLocked()
 

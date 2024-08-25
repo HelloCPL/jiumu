@@ -9,6 +9,7 @@ import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { useCustomRouter } from '@/hooks/use-custom-router'
 import { useThemeStore } from '@/store'
+import { loadLuckysheetLinks } from '@/utils/scripts'
 
 // 扩展useRouter
 useCustomRouter()
@@ -17,6 +18,8 @@ const themeStore = useThemeStore()
 themeStore.toggleTheme()
 themeStore.toggleFontFamily()
 themeStore.toggleFontSize()
+
+loadLuckysheetLinks()
 </script>
 
 <style>

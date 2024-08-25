@@ -29,9 +29,10 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
-import { onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import { Message, useLoading } from '@/utils/interaction'
-import { useBodyLocked } from './locked'
+import { useBodyLocked } from '@/hooks/use-body-locked'
+import { loadLuckysheetScripts, loadLuckyexcel } from '@/utils/scripts'
 
 useBodyLocked()
 
@@ -92,7 +93,15 @@ const getContent = () => {
     hideLoading()
   })
 }
-onMounted(getContent)
+// onMounted(getContent)
+const initLuckysheet = async () => {
+  await loadLuckysheetScripts()
+  await loadLuckyexcel()
+  nextTick(() => {
+    getContent()
+  })
+}
+initLuckysheet()
 </script>
 
 <style lang="scss" scoped>
