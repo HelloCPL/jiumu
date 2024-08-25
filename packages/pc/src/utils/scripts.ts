@@ -64,43 +64,56 @@ export const loadMermaid = (): Promise<boolean> => {
 const luckysheetLinks = [
   {
     isLoad: false,
-    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/css/pluginsCss.css'
+    url: '/lib/luckysheet/plugins/css/pluginsCss.css'
   },
   {
     isLoad: false,
-    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/plugins.css'
+    url: '/lib/luckysheet/plugins/plugins.css'
   },
   {
     isLoad: false,
-    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/css/luckysheet.css'
+    url: '/lib/luckysheet/css/luckysheet.css'
   },
   {
     isLoad: false,
-    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/assets/iconfont/iconfont.css'
+    url: '/lib/luckysheet/assets/iconfont/iconfont.css'
   }
 ]
 /**
  * 动态加载 luckysheet link 资源
  */
-export const loadLuckysheetLinks = () => {
-  for (let i = 0; i < luckysheetLinks.length; i++) {
-    const item = luckysheetLinks[i]
-    if (!item.isLoad) {
-      dynamicLinkLoader(item.url, () => {
-        item.isLoad = true
-      })
+export const loadLuckysheetLinks = (): Promise<number> => {
+  return new Promise((resolve) => {
+    let total = 0
+    const r = () => {
+      if (total >= luckysheetLinks.length) {
+        resolve(total)
+      }
     }
-  }
+    for (let i = 0; i < luckysheetLinks.length; i++) {
+      const item = luckysheetLinks[i]
+      if (!item.isLoad) {
+        dynamicLinkLoader(item.url, () => {
+          item.isLoad = true
+          ++total
+          r()
+        })
+      } else {
+        ++total
+        r()
+      }
+    }
+  })
 }
 
 const luckysheetScripts = [
   {
     isLoad: false,
-    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/js/plugin.js'
+    url: '/lib/luckysheet/plugins/js/plugin.js'
   },
   {
     isLoad: false,
-    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/luckysheet.umd.js'
+    url: '/lib/luckysheet/luckysheet.umd.js'
   }
 ]
 /**
@@ -137,7 +150,7 @@ let isLoadLuckyexcel = false
 export const loadLuckyexcel = (): Promise<boolean> => {
   return new Promise((resolve) => {
     if (!isLoadLuckyexcel) {
-      dynamicScriptLoader('https://cdn.jsdelivr.net/npm/luckyexcel/dist/luckyexcel.umd.js', () => {
+      dynamicScriptLoader('/lib/luckyexcel/luckyexcel.umd.js', () => {
         isLoadLuckyexcel = true
         const flag = window.LuckyExcel ? true : false
         resolve(flag)
