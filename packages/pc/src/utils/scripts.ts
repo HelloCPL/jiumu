@@ -11,7 +11,11 @@ const { VITE_PUBLIC_PATH } = import.meta.env
  */
 export function dynamicScriptLoader(url: string, callback?: Function) {
   const script = document.createElement('script')
-  script.src = toPath(VITE_PUBLIC_PATH, url)
+  if (url.startsWith('http')) {
+    script.src = url
+  } else {
+    script.src = toPath(VITE_PUBLIC_PATH, url)
+  }
   // script.async = true
   script.onload = () => {
     callback && callback()
@@ -25,7 +29,11 @@ export function dynamicScriptLoader(url: string, callback?: Function) {
 export function dynamicLinkLoader(url: string, callback?: Function) {
   const link = document.createElement('link')
   link.rel = 'stylesheet'
-  link.href = toPath(VITE_PUBLIC_PATH, url)
+  if (url.startsWith('http')) {
+    link.href = url
+  } else {
+    link.href = toPath(VITE_PUBLIC_PATH, url)
+  }
   link.media = 'print'
   link.onload = () => {
     link.media = 'all' // 更改 media 属性以应用样式
@@ -40,7 +48,7 @@ let isLoadMermaid = false
  */
 export const loadMermaid = (): Promise<boolean> => {
   return new Promise((resolve) => {
-    if (!isLoadMermaid) {
+    if (!isLoadMermaid && !window.mermaid?.initialize) {
       dynamicScriptLoader('/lib/mermaid.min.js', () => {
         isLoadMermaid = true
         const flag = window.mermaid?.initialize ? true : false
@@ -56,19 +64,19 @@ export const loadMermaid = (): Promise<boolean> => {
 const luckysheetLinks = [
   {
     isLoad: false,
-    url: '/lib/luckysheet/plugins/css/pluginsCss.css'
+    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/css/pluginsCss.css'
   },
   {
     isLoad: false,
-    url: '/lib/luckysheet/plugins/plugins.css'
+    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/plugins.css'
   },
   {
     isLoad: false,
-    url: '/lib/luckysheet/css/luckysheet.css'
+    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/css/luckysheet.css'
   },
   {
     isLoad: false,
-    url: '/lib/luckysheet/assets/iconfont/iconfont.css'
+    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/assets/iconfont/iconfont.css'
   }
 ]
 /**
@@ -88,11 +96,11 @@ export const loadLuckysheetLinks = () => {
 const luckysheetScripts = [
   {
     isLoad: false,
-    url: '/lib/luckysheet/plugins/js/plugin.js'
+    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/plugins/js/plugin.js'
   },
   {
     isLoad: false,
-    url: '/lib/luckysheet/luckysheet.umd.js'
+    url: 'https://cdn.jsdelivr.net/npm/luckysheet/dist/luckysheet.umd.js'
   }
 ]
 /**
@@ -129,7 +137,7 @@ let isLoadLuckyexcel = false
 export const loadLuckyexcel = (): Promise<boolean> => {
   return new Promise((resolve) => {
     if (!isLoadLuckyexcel) {
-      dynamicScriptLoader('/lib/luckyexcel/luckyexcel.umd.js', () => {
+      dynamicScriptLoader('https://cdn.jsdelivr.net/npm/luckyexcel/dist/luckyexcel.umd.js', () => {
         isLoadLuckyexcel = true
         const flag = window.LuckyExcel ? true : false
         resolve(flag)
