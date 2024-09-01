@@ -126,12 +126,12 @@ export const data: MDAPIOption[] = [
   },
   {
     title: '笔记',
-    url: '/novels-note/index.md',
+    url: '/note/index.md',
     value: ''
   },
   {
     title: '笔记关联',
-    url: '/novels-note-link/index.md',
+    url: '/note-link/index.md',
     value: ''
   },
   {

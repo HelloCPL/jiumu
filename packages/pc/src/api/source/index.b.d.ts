@@ -11,7 +11,7 @@ interface ParamsSourceAdd {
   attachment: string
   type: '701' | '702' | '703'
   classify?: string
-  isSecret?: '0' | '1'
+  isSecret?: DataBaseStatus
   sort?: number
   remarks?: string
 }
@@ -21,19 +21,19 @@ interface DataSource extends DataBase {
   id: string
   title: string
   classify: DataBaseClassify[]
-  isSecret: '0' | '1'
-  isTop: '0' | '1'
+  isSecret: DataBaseStatus
+  isTop: DataBaseStatus
   sort: number
   type: '701' | '702' | '703'
   typeLabel: string
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
-  isLike: '0' | '1'
+  isLike: DataBaseStatus
   likeCount: number
-  isCollection: '0' | '1'
+  isCollection: DataBaseStatus
   collectionCount: number
-  isSelf: '0' | '1'
+  isSelf: DataBaseStatus
   commentCount: number
 }
 
@@ -55,7 +55,7 @@ interface DataSourceLink extends DataBase {
 // 获取所有公开的资源列表接口类型
 interface ParamsSourceList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   type?: string
   showUserInfo?: any
 }
@@ -63,7 +63,7 @@ interface ParamsSourceList extends ParamsPage {
 // 获取我的资源列表参数类型
 interface ParamsSourceListSelf extends ParamsSourceList {
   classify?: string
-  isSecret?: '1' | '0'
+  isSecret?: DataBaseStatus
 }
 
 // 获取指定用户的资源列表接口类型

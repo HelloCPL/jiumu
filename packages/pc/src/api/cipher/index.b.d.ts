@@ -32,7 +32,7 @@ interface DataCipherInfo extends DataBase {
 // 口令列表参数
 interface ParamsCipherList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   type?: string
   classify?: string
 }

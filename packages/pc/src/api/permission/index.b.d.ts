@@ -29,7 +29,7 @@ interface DataPermission extends DataBase {
 // 获取权限列表接口参数
 interface ParamsPermissionList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   userId?: string
   roleId?: string
 }

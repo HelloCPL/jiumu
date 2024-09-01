@@ -44,8 +44,8 @@ interface DataUserInfo extends DataBase {
 // 获取用户列表接口参数
 interface ParamsUserList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
-  simple?: '1' | '0'
+  highlight?: DataBaseStatus
+  simple?: DataBaseStatus
 }
 
 // 登录记录列表接口参数

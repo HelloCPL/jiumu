@@ -11,11 +11,11 @@ interface ParamsArticleAdd {
   content: string
   contentType: '401' | '402' | '403'
   type: string
-  isDraft: '1' | '0'
+  isDraft: DataBaseStatus
   coverImg?: string
   attachment?: string
   classify?: string
-  isSecret?: '1' | '0'
+  isSecret?: DataBaseStatus
   sort?: number
   remarks?: string
 }
@@ -32,18 +32,18 @@ interface DataArticle extends DataBase {
   type: string
   typeLabel: string
   classify: DataBaseClassify[]
-  isDraft: '0' | '1'
-  isSecret: '0' | '1'
-  isTop: '0' | '1'
+  isDraft: DataBaseStatus
+  isSecret: DataBaseStatus
+  isTop: DataBaseStatus
   sort: number
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
-  isLike: '0' | '1'
+  isLike: DataBaseStatus
   likeCount: number
-  isCollection: '0' | '1'
+  isCollection: DataBaseStatus
   collectionCount: number
-  isSelf: '0' | '1'
+  isSelf: DataBaseStatus
   commentCount: number
 }
 
@@ -58,7 +58,7 @@ interface DataArticleInfo extends DataArticle {
 // 获取所有文章列表接口类型
 interface ParamsArticleList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   type?: string
   showUserInfo?: any
 }
@@ -66,8 +66,8 @@ interface ParamsArticleList extends ParamsPage {
 // 获取我的文章列表参数类型
 interface ParamsArticleListSelf extends ParamsArticleList {
   classify?: string
-  isDraft?: '1' | '0'
-  isSecret?: '1' | '0'
+  isDraft?: DataBaseStatus
+  isSecret?: DataBaseStatus
 }
 
 // 获取指定用户的文章列表接口类型

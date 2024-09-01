@@ -19,16 +19,6 @@
         <div class="px-4 pt-3">
           <Card v-for="item in dataList" :key="item.id" :title="item.code" :sub-title="item.label" class="mb-3">
           </Card>
-          <!-- <span
-            v-for="item in dataList"
-            :key="item.id"
-            class="text-lighter w-full justify-between flex items-center mb-2"
-          >
-            <span class="mr-2">
-              <span>{{ item.label }}</span>
-              <span class="pl-2">{{ item.code }}</span>
-            </span>
-          </span> -->
         </div>
       </template>
     </PopupTwo>

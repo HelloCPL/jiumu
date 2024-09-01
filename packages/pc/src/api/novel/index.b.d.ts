@@ -8,11 +8,11 @@ interface ParamsNovelAdd {
   name: string
   introduce: string
   author: string
-  isDraft: '0' | '1'
+  isDraft: DataBaseStatus
   type: string
   classify?: string
   sort?: number
-  isSecret?: '0' | '1'
+  isSecret?: DataBaseStatus
   remarks?: string
 }
 
@@ -25,19 +25,19 @@ interface DataNovel extends DataBase {
   type: string
   typeLabel: string
   author: string
-  isSecret: '0' | '1'
-  isDraft: '0' | '1'
+  isSecret: DataBaseStatus
+  isDraft: DataBaseStatus
   sort: number
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
-  isLike: '0' | '1'
+  isLike: DataBaseStatus
   likeCount: number
   chapterLikeCount: number
-  isCollection: '0' | '1'
+  isCollection: DataBaseStatus
   collectionCount: number
   chapterCollectionCount: number
-  isSelf: '0' | '1'
+  isSelf: DataBaseStatus
   commentCount: number
   chapterCommentCount: number
   chapterCount: number
@@ -47,7 +47,7 @@ interface DataNovel extends DataBase {
 // 获取所有连载列表参数类型
 interface ParamsNovelList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   type?: string
   showUserInfo?: any
 }
@@ -55,8 +55,8 @@ interface ParamsNovelList extends ParamsPage {
 // 获取我的连载列表参数类型
 interface ParamsNovelListSelf extends ParamsNovelList {
   classify?: string
-  isDraft?: '1' | '0'
-  isSecret?: '1' | '0'
+  isDraft?: DataBaseStatus
+  isSecret?: DataBaseStatus
 }
 
 // 获取指定用户的连载列表接口类型
@@ -69,8 +69,8 @@ interface ParamsNovelChapterChange {
   title: string
   content: string
   sort: number
-  isDraft: '0' | '1'
-  isSecret?: '0' | '1'
+  isDraft: DataBaseStatus
+  isSecret?: DataBaseStatus
   remarks?: string
 }
 
@@ -98,17 +98,17 @@ interface DataNovelChapter extends DataBase {
   title: string
   content: string
   sort: number
-  isTop: '0' | '1'
-  isSecret: '0' | '1'
-  isDraft: '0' | '1'
+  isTop: DataBaseStatus
+  isSecret: DataBaseStatus
+  isDraft: DataBaseStatus
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
-  isLike: '0' | '1'
+  isLike: DataBaseStatus
   likeCount: number
-  isCollection: '0' | '1'
+  isCollection: DataBaseStatus
   collectionCount: number
-  isSelf: '0' | '1'
+  isSelf: DataBaseStatus
   commentCount: number
   remarks: string
   wordCount: number
@@ -117,19 +117,17 @@ interface DataNovelChapter extends DataBase {
 // 获取指定连载的所有章节参数类型
 interface ParamsNovelChapterList extends ParamsPage {
   novelId: string
-  isDraft?: '0' | '1'
-  isSecret?: '0' | '1'
-  isConcise?: '0' | '1'
+  isDraft?: DataBaseStatus
+  isSecret?: DataBaseStatus
+  isConcise?: DataBaseStatus
   showUserInfo?: any
 }
-
-
 
 interface ParamsNovelNoteAddBase {
   title?: string
   classify?: string
   sort: number
-  isSecret?: '0' | '1'
+  isSecret?: DataBaseStatus
   remarks?: string
 }
 
@@ -164,19 +162,20 @@ interface DataNovelNote extends DataBase {
   content: string
   classify: DataBaseClassify[]
   sort: number
-  isSecret: '0' | '1'
+  isSecret: DataBaseStatus
+  linkStatus: DataBaseStatus
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
-  isSelf: '0' | '1'
+  isSelf: DataBaseStatus
 }
 
 // 笔记列表参数类型
 interface ParamsNovelNoteList extends ParamsPage {
   targetId: string
   keyword?: string
-  highlight?: '0' | '1'
-  isSecret?: '0' | '1'
+  highlight?: DataBaseStatus
+  isSecret?: DataBaseStatus
   classify?: string
   showUserInfo?: any
 }
@@ -199,13 +198,13 @@ type ParamsNovelNoteLinkDelete = {
 interface ParamsNovelNoteLinkList extends ParamsPage {
   share: string
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
 }
 
 // 笔记关联列表数据类型
 interface DataNovelNoteLink extends DataBase {
   id: srting
-  status: '0' | '1'
+  status: DataBaseStatus
   noteId: string
   noteTitle: string
   targetId: string

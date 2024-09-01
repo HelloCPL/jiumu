@@ -14,7 +14,7 @@ export const selectTypeProps = buildProps({
   },
   // 选择类型 type 类型 classify 标签 isSecret 是否公开
   type: {
-    type: String as PropType<'type' | 'classify' | 'isSecret'>,
+    type: String as PropType<'type' | 'classify' | 'isSecret' | 'custom'>,
     default: 'type'
   },
   // 父级code 仅  type 为 type classify 需要

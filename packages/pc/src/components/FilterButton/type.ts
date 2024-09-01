@@ -13,6 +13,7 @@ export type FilterButtonList = {
   plain?: boolean
   text?: boolean
   disabled?: boolean
+  click?: Function
 }
 
 export const filterButtonProps = buildProps({

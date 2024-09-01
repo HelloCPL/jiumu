@@ -29,7 +29,7 @@ interface DataRole extends DataBase {
 // 获取角色列表接口参数
 interface ParamsRoleList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   userId?: string
   permissionId?: string
   menuId?: string

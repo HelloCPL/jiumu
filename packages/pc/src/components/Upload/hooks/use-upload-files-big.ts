@@ -24,7 +24,7 @@ interface TaskOption {
   file: File
   chunkFormData: ChunkFormDataOption[]
   id: string
-  status: '1' | '0' // 上传状态 1 上传中 0 暂停上传
+  status: DataBaseStatus // 上传状态 1 上传中 0 暂停上传
 }
 
 const cancelToken = axios.CancelToken

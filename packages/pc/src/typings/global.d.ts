@@ -54,7 +54,7 @@ interface DataBaseFile extends DataBase {
   suffix: string
   createUser: string
   createUserName?: string
-  isSecret: '0' | '1'
+  isSecret: DataBaseStatus
   checkValidTime: string
 }
 
@@ -65,6 +65,9 @@ interface DataBaseClassify extends DataBase {
   sort: number
   type: string
 }
+
+// 基础状态类型
+type DataBaseStatus = '0' | '1'
 
 // 分页参数
 interface ParamsPage {

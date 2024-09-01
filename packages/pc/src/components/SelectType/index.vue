@@ -122,18 +122,18 @@ const _placeholder = ref('')
 onMounted(() => {
   if (props.data.length) return
   switch (props.type) {
-  case 'type':
-    getTypeList()
-    _placeholder.value = props.placeholder || '请选择类型'
-    break
-  case 'classify':
-    getClassifyList()
-    _placeholder.value = props.placeholder || '请选择标签'
-    break
-  case 'isSecret':
-    getIsSecretList()
-    _placeholder.value = props.placeholder || '请选择是否公开'
-    break
+    case 'type':
+      getTypeList()
+      _placeholder.value = props.placeholder || '请选择类型'
+      break
+    case 'classify':
+      getClassifyList()
+      _placeholder.value = props.placeholder || '请选择标签'
+      break
+    case 'isSecret':
+      getIsSecretList()
+      _placeholder.value = props.placeholder || '请选择是否公开'
+      break
   }
 })
 </script>
