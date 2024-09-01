@@ -18,5 +18,5 @@ interface ParamsRoleByUserId extends ParamsPage {
 // 获取指定用户关联的所有角色参数
 interface ParamsUserByRoleId extends ParamsPage {
   roleId: string
-  simple?: '1' | '0'
+  simple?: DataBaseStatus
 }

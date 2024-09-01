@@ -13,7 +13,7 @@ interface ParamsRoleMenuAdd {
 // 获取指定角色关联的所有菜单参数
 interface ParamsMenuByRoleId extends ParamsPage {
   roleId: string
-  isTree?: '1' | '0'
+  isTree?: DataBaseStatus
 }
 
 // 获取指定菜单关联的所有角色参数
@@ -24,12 +24,12 @@ interface ParamsRoleByMenuId extends ParamsPage {
 // 获取指定用户关联的所有菜单参数
 interface ParamsMenuByUserId extends ParamsPage {
   userId: string
-  isTree?: '1' | '0'
+  isTree?: DataBaseStatus
 }
 
 // 获取指定菜单关联的所有用户参数
 interface ParamsUserByMenuId extends ParamsPage {
   menuId: string
-  simple?: '1' | '0'
+  simple?: DataBaseStatus
 }
 

@@ -24,7 +24,7 @@ interface DataTagCustom extends DataBase {
   label: string
   type: string
   sort: number
-  isSelf?: '1' | '0'
+  isSelf?: DataBaseStatus
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
@@ -39,7 +39,7 @@ interface DataTagCustomType {
 // 所有自定义标签列表接口参数类型
 interface ParamsTagCustomList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   showUserInfo?: any
 }
 

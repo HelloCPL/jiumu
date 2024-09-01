@@ -26,7 +26,7 @@ export const pageBoxProps = buildProps({
   },
   // 是否为草稿
   isDraft: {
-    type: String as PropType<'1' | '0'>,
+    type: String as PropType<DataBaseStatus>,
     default: '0'
   }
 } as const)

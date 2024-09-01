@@ -59,9 +59,9 @@ import IconSvg from '@/components/IconSvg'
 type Props = {
   modelValue: {
     id: string
-    isLike: '1' | '0'
-    isCollection: '1' | '0'
-    isDraft?: '1' | '0'
+    isLike: DataBaseStatus
+    isCollection: DataBaseStatus
+    isDraft?: DataBaseStatus
     likeCount: number
     collectionCount: number
     [x: string]: any

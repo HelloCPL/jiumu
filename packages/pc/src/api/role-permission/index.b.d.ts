@@ -28,6 +28,6 @@ interface ParamsPermissionByUserId extends ParamsPage {
 // 获取指定权限关联的所有用户参数
 interface ParamsUserByPermissionId extends ParamsPage {
   permissionId: string
-  simple?: '1' | '0'
+  simple?: DataBaseStatus
 }
 

@@ -7,9 +7,9 @@ interface ParamsQuestionAdd {
   id?: string
   title: string
   content: string
-  isDraft: '1' | '0'
+  isDraft: DataBaseStatus
   classify?: string
-  isSecret?: '1' | '0'
+  isSecret?: DataBaseStatus
   sort?: number
   remarks?: string
 }
@@ -25,33 +25,33 @@ interface DataQuestion extends DataBase {
   title: string
   content: string
   classify: DataBaseClassify[]
-  isDraft: '0' | '1'
-  isSecret: '0' | '1'
-  isTop: '0' | '1'
+  isDraft: DataBaseStatus
+  isSecret: DataBaseStatus
+  isTop: DataBaseStatus
   sort: number
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
-  isLike: '0' | '1'
+  isLike: DataBaseStatus
   likeCount: number
-  isCollection: '0' | '1'
+  isCollection: DataBaseStatus
   collectionCount: number
-  isSelf: '0' | '1'
+  isSelf: DataBaseStatus
   commentCount: number
 }
 
 // 获取所有问答参数类型
 interface ParamsQuestionList extends ParamsPage {
   keyword?: string
-  highlight?: '0' | '1'
+  highlight?: DataBaseStatus
   showUserInfo?: any
 }
 
 // 获取我的问答列表参数类型
 interface ParamsQuestionListSelf extends ParamsQuestionList {
   classify?: string
-  isDraft?: '1' | '0'
-  isSecret?: '1' | '0'
+  isDraft?: DataBaseStatus
+  isSecret?: DataBaseStatus
 }
 
 // 获取指定用户的问答列表参数类型

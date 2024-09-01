@@ -113,8 +113,13 @@ function getDomsData(doms: any[]): any[] {
   }
   arr.forEach((item) => {
     item.indent = item.indent - min
-    item.html = `<span style="padding-left: ${item.indent * 16}px">${item.html}</span>`
+    const reg = /[-]{2,}/g
+    let style = ''
+    if (item.indent === 0) {
+      style = 'font-weight: 600;'
+    }
+    const html = item.html.replace(reg, '')
+    item.html = `<span style="padding-left: ${item.indent * 16}px; ${style}">${html}</span>`
   })
-
   return arr
 }

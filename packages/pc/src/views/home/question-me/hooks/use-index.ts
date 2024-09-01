@@ -11,7 +11,7 @@ import { addTop, deleteTop } from '@/api/do-top'
 
 export const useIndex = () => {
   const keyword = ref<string>('')
-  const isSecret = ref<'1' | '0'>()
+  const isSecret = ref<DataBaseStatus>()
   const classify = ref<string>('')
 
   const pageNo = ref<number>(1)

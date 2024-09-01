@@ -7,7 +7,7 @@ import { EmitFn } from '@jiumu/utils'
 export type CommentProps = {
   modelValue: {
     id: string
-    isDraft?: '1' | '0'
+    isDraft?: DataBaseStatus
     commentCount: number
     [x: string]: any
   }

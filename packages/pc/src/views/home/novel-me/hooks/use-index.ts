@@ -12,7 +12,7 @@ import { useRouter } from 'vue-router'
 
 export const useIndex = () => {
   const keyword = ref<string>('')
-  const isSecret = ref<'1' | '0'>()
+  const isSecret = ref<DataBaseStatus>()
   // 标签类型
   const type = ref<string>('')
   // 自定义标签类型

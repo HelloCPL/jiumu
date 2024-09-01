@@ -70,14 +70,14 @@ interface DataComment extends DataBase {
   createUser: string
   createUserName?: string
   createUserAvatar?: DataBaseFile | null
-  isTop: '1' | '0'
-  isLike: '1' | '0'
+  isTop: DataBaseStatus
+  isLike: DataBaseStatus
   likeCount: number
   commentCount: number
   replyUser: string
   replyUserName: string
-  isSelf: '1' | '0'
-  isTargetUser: '1' | '0'
+  isSelf: DataBaseStatus
+  isTargetUser: DataBaseStatus
   flag: 1 | 2
 }
 

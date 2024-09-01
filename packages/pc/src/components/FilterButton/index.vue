@@ -28,6 +28,7 @@ import { filterButtonProps, FilterButtonList, filterButtonEmits } from './type'
 
 const emit = defineEmits(filterButtonEmits)
 const handleClick = (item: FilterButtonList) => {
+  if (item.click) item.click(item)
   emit('click', item)
 }
 

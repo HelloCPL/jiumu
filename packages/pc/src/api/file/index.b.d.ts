@@ -4,7 +4,7 @@
 
 // 文件上传额外参数
 interface ParamsFileOther extends ObjectAny {
-  isSecret?: '1' | '0'
+  isSecret?: DataBaseStatus
   staticPlace?: 'files' | 'images' | 'videos' | 'editors' | 'files_big'
   remarks?: string
 }
@@ -22,7 +22,7 @@ interface ParamsFileChunkMerge {
   chunkSize: number
   chunkLength: number
   fileSize?: number
-  isSecret?: '0' | '1'
+  isSecret?: DataBaseStatus
   staticPlace?: 'files' | 'images' | 'videos' | 'editors' | 'files_big'
   remarks?: string
 }

@@ -31,7 +31,12 @@
       </ElFormItem>
     </ElForm>
     <!-- 笔记  -->
-    <NovelNote :id="id" type="507" :share="novelId" v-if="id"></NovelNote>
+    <Note
+      :root-id="novelId"
+      :target-id="id"
+      :title="form.title"
+      v-if="id && $route.name === 'NovelChapterAdd'"
+    ></Note>
   </PageBox>
 </template>
 
@@ -41,7 +46,7 @@ import { ElForm, ElFormItem, ElInput, ElRow } from 'element-plus'
 import { useIndex } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
-import NovelNote from '@/views/components/NovelNote/index.vue'
+import Note from '@/components/Note/index.vue'
 import { defineAsyncComponent } from 'vue'
 
 const EditorWang = defineAsyncComponent(() => import('@/components/Editor/components/EditorWang/index.vue'))
