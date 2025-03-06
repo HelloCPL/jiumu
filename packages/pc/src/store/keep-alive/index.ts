@@ -5,8 +5,7 @@
  */
 
 import { defineStore } from 'pinia'
-import { StoreNames } from './store-name'
-import { KeepAliveState, KeepAliveOption, KeepAliveGetters, KeepAliveActions } from './keep-alive.b'
+import { StoreNames } from '../store-name'
 import { isHomeRoutes } from '@/router/routes'
 import { storage } from '@jiumu/utils'
 import { RouteRecordName } from 'vue-router'

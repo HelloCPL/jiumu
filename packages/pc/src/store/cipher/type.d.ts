@@ -2,11 +2,11 @@
  * 口令状态相关类型
  */
 
-export interface CipherState {
+interface CipherState {
   code: boolean
 }
 
-export interface CipherAction {
+interface CipherAction {
   reset: () => void
   setCode: (bol: boolean) => void
 }

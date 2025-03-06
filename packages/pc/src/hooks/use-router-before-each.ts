@@ -48,7 +48,9 @@ export const beforeEach = (router: Router) => {
           path: '/login',
           query: { redirect: to.path }
         })
-      } else next()
+      } else {
+        next()
+      }
     }
   )
 }

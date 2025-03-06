@@ -5,8 +5,7 @@
  */
 
 import { defineStore } from 'pinia'
-import { StoreNames } from './store-name'
-import { UserState, UserActions, UserInfoType } from './user.b'
+import { StoreNames } from '../store-name'
 import { storage } from '@jiumu/utils'
 import { getUserSelf } from '@/api/user'
 import { getRoleListAllSelf } from '@/api/role'

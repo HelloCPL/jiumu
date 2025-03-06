@@ -1,8 +1,8 @@
-export interface TokenRefreshState {
+ interface TokenRefreshState {
   tokenRefresh: string
 }
 
-export interface TokenRefreshActions {
+ interface TokenRefreshActions {
   reset: () => void
   setTokenRefresh: (tokenRefresh: string) => void
 }

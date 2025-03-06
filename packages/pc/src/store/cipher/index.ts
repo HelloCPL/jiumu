@@ -4,8 +4,7 @@
  * @create 2023-03-24 17:41:27
  */
 import { defineStore } from 'pinia'
-import { StoreNames } from './store-name'
-import { CipherState, CipherAction } from './cipher.b'
+import { StoreNames } from '../store-name'
 import { storage } from '@jiumu/utils'
 
 export const useCipherStore = defineStore<string, CipherState, {}, CipherAction>(StoreNames.CIPHER, {

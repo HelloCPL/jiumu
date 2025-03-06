@@ -102,36 +102,36 @@ export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-      case 'save':
-        if (!formRef.value) return
-        formRef.value.validate((valid) => {
-          if (valid) {
-            if (props.id) {
-              const params: ParamsNoteEdit = {
-                id: props.id,
-                ...form
-              }
-              delete params.rootId
-              delete params.targetId
-              _update(params)
-            } else {
-              const params: ParamsNoteAdd = {
-                ...form
-              }
-              _add(params)
-            }
-          }
-        })
-        break
-      case 'delete':
-        Confirm(`确定${item.name}吗？`).then(() => {
+    case 'save':
+      if (!formRef.value) return
+      formRef.value.validate((valid) => {
+        if (valid) {
           if (props.id) {
-            _delete(props.id)
+            const params: ParamsNoteEdit = {
+              id: props.id,
+              ...form
+            }
+            delete params.rootId
+            delete params.targetId
+            _update(params)
           } else {
-            emit('cancel')
+            const params: ParamsNoteAdd = {
+              ...form
+            }
+            _add(params)
           }
-        })
-        break
+        }
+      })
+      break
+    case 'delete':
+      Confirm(`确定${item.name}吗？`).then(() => {
+        if (props.id) {
+          _delete(props.id)
+        } else {
+          emit('cancel')
+        }
+      })
+      break
     }
   }
 

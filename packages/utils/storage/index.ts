@@ -62,7 +62,7 @@ export class storage implements StroageAbstractClass {
     if (expire === 0) {
       ls.removeItem(_key)
       return null
-    } else if (expire > 0) {
+    } else {
       value = value.replace(/__exp.*pxe__/g, '')
     }
     // 处理是否加密

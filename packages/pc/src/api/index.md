@@ -9,7 +9,7 @@ import { login } from '@/api/user'
 
 ### `API` 数据接口类型说明
 
-- 文件类型声明命名 `*.b.d.ts` 可直接使用，如
+- 文件类型声明命名 `type.d.ts` 可直接使用，如
 
 ```
 // any file

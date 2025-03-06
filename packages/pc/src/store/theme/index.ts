@@ -6,8 +6,7 @@
 
 import { FontFamilyValue, FontSizeValue, ThemeValue } from '@/enumerations'
 import { defineStore } from 'pinia'
-import { StoreNames } from './store-name'
-import { ThemeState, ThemeActions } from './theme.b'
+import { StoreNames } from '../store-name'
 import { kebabCase } from 'lodash-es'
 import { ColorsFile } from '@/style/color.b'
 import { storage } from '@jiumu/utils'
@@ -83,7 +82,7 @@ export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(S
       const _theme = theme || this.theme
       let colorsFile: ColorsFile | null = null
       try {
-        const res = await import(`../style/color-${kebabCase(_theme)}.ts`)
+        const res = await import(`../../style/color-${kebabCase(_theme)}.ts`)
         colorsFile = res.default || res
       } catch (e) {}
       if (colorsFile) {

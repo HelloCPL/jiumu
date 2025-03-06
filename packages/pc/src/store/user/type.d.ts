@@ -1,4 +1,4 @@
-export interface UserState {
+ interface UserState {
   token: string
   userInfo: DataUserInfo | null
   roles: DataRole[]
@@ -7,9 +7,9 @@ export interface UserState {
   tags: DataTagInfo[]
 }
 
-export type UserInfoType = '1' | '2' | '3' | '4' | '5'
+ type UserInfoType = '1' | '2' | '3' | '4' | '5'
 
-export interface UserActions {
+ interface UserActions {
   reset: () => void
   setToken: (token: string) => void
   updateUser: (type?: string) => Promise<any>

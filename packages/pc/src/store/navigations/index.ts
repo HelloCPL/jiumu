@@ -5,12 +5,10 @@
  */
 
 import { defineStore } from 'pinia'
-import { StoreNames } from './store-name'
+import { StoreNames } from '../store-name'
 import { isHomeRoutes } from '@/router/routes'
-import { NavigationState, NavigaitonGetters, NavigaitonActions } from './navigations.b'
-import { KeepAliveOption } from './keep-alive.b'
 import { storage } from '@jiumu/utils'
-import { useKeepAliveStore } from './keep-alive'
+import { useKeepAliveStore } from '../keep-alive'
 
 export const useNavigationsStore = defineStore<string, NavigationState, NavigaitonGetters, NavigaitonActions>(
   StoreNames.NAVIGATIONS,

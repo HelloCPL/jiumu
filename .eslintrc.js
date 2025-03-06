@@ -61,7 +61,7 @@ module.exports = defineConfig({
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-unused-vars': ['warn'],
-    "@typescript-eslint/no-implicit-any": "warn",
+    // "@typescript-eslint/no-implicit-any": "warn",
     // vue3
     'vue/custom-event-name-casing': 'off',
     'vue/html-closing-bracket-newline': 'off',
@@ -81,6 +81,7 @@ module.exports = defineConfig({
     'vue/v-on-event-hyphenation': 'off',
     'vue/no-v-html': 'off',
     'vue/no-template-shadow': 'off',
+    'vue/no-reserved-component-names': 'off',
     // other
     'space-before-function-paren': 'off',
     'no-console': 'off',

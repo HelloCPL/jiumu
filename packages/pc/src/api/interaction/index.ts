@@ -6,85 +6,115 @@
 
 import { get } from '@/utils/api-methods'
 
-// 点赞
+/**
+ * 点赞
+*/
 export const addLike = async (params: ParamsInteractionAdd): Promise<DataOptions<string>> => {
   return await get('/pc/like/add', params).catch((err) => err)
 }
 
-// 取消点赞
+/**
+ * 取消点赞
+*/
 export const deleteLike = async (targetId: string): Promise<DataOptions<null>> => {
   return await get('/pc/like/delete', { targetId }).catch((err) => err)
 }
 
-// 获取指定的一个点赞
+/**
+ * 获取指定的一个点赞
+*/
 export const getLikeOne = async (params: ParamsOne): Promise<DataOptions<DataLike>> => {
   return await get('/pc/like/get/one', params).catch((err) => err)
 }
 
-// 我的点赞列表
+/**
+ * 我的点赞列表
+*/
 export const getLikeListSelf = async (
   params: ParamsInteractionList = {}
 ): Promise<DataOptions<DataLike[]>> => {
   return await get('/pc/like/get/list/self', params).catch((err) => err)
 }
 
-// 获取某用户的点赞列表
+/**
+ * 获取某用户的点赞列表
+*/
 export const getLikeListByUserId = async (
   params: ParamsLikeListByUserId
 ): Promise<DataOptions<DataLike[]>> => {
   return await get('/pc/like/get/list', params).catch((err) => err)
 }
 
-// 新增收藏
+/**
+ * 新增收藏
+*/
 export const addCollection = async (params: ParamsInteractionAdd): Promise<DataOptions<string>> => {
   return await get('/pc/collection/add', params).catch((err) => err)
 }
 
-// 取消收藏
+/**
+ * 取消收藏
+*/
 export const deleteCollection = async (targetId: string): Promise<DataOptions<null>> => {
   return await get('/pc/collection/delete', { targetId }).catch((err) => err)
 }
 
-// 获取指定的一个收藏
+/**
+ * 获取指定的一个收藏
+*/
 export const getCollectionOne = async (params: ParamsOne): Promise<DataOptions<DataCollection>> => {
   return await get('/pc/collection/get/one', params).catch((err) => err)
 }
 
-// 我的收藏列表
+/**
+ * 我的收藏列表
+*/
 export const getCollectionListSelf = async (
   params: ParamsCollectionList = {}
 ): Promise<DataOptions<DataCollection[]>> => {
   return await get('/pc/collection/get/list/self', params).catch((err) => err)
 }
 
-// 获取某用户的收藏列表
+/**
+ * 获取某用户的收藏列表
+*/
 export const getCollectionListByUserId = async (
   params: ParamsCollectionListByUserId
 ): Promise<DataOptions<DataCollection[]>> => {
   return await get('/pc/collection/get/list', params).catch((err) => err)
 }
 
-// 新增评论
+/**
+ * 新增评论
+*/
 export const addComment = async (params: ParamsCommentAdd): Promise<DataOptions<string>> => {
   return await get('/pc/comment/add', params).catch((err) => err)
 }
 
-// 删除自己的某条评论
+/**
+ * 删除自己的某条评论
+*/
 export const deleteCommentSelf = async (id: string): Promise<DataOptions<null>> => {
   return await get('/pc/comment/delete/self', { id }).catch((err) => err)
 }
 
-// 删除指定某条评论 仅管理员有效
+/**
+ * 删除指定某条评论 仅管理员有效
+*/
 export const deleteCommentById = async (id: string): Promise<DataOptions<null>> => {
   return await get('/pc/comment/delete/byid', { id }).catch((err) => err)
 }
 
-// 获取指定的一个评论
+/**
+ * 获取指定的一个评论
+*/
 export const getCommentOne = async (params: ParamsOne): Promise<DataOptions<DataCommentList>> => {
   return await get('/pc/comment/get/one', params).catch((err) => err)
 }
 
-// 获取评论列表（资源或某条评论的子评论列表）
+/**
+ * 获取评论列表（资源或某条评论的子评论列表）
+*/
 export const getCommentList = async (params: ParamsCommentList): Promise<DataOptions<DataCommentList[]>> => {
   return await get('/pc/comment/get/list', params).catch((err) => err)
 }

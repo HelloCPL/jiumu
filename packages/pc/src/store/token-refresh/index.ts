@@ -5,8 +5,7 @@
  */
 
 import { defineStore } from 'pinia'
-import { TokenRefreshActions, TokenRefreshState } from './token-refresh.b'
-import { StoreNames } from './store-name'
+import { StoreNames } from '../store-name'
 import { storage } from '@jiumu/utils'
 const { VITE_HOME_EXPIRE } = import.meta.env
 

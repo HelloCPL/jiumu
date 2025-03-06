@@ -4,7 +4,6 @@ import homeChildrenRoutes from './modules/home-children'
 import primaryRoutes from './modules/primary'
 import { isArray } from 'lodash-es'
 import { useNavigationsStore } from '@/store'
-import { KeepAliveOption } from '@/store/keep-alive.b'
 
 export const routes: RouteRecordRaw[] = [
   {

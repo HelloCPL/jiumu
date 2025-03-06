@@ -1,7 +1,6 @@
 import { useNavigationsStore } from '@/store'
 import { ref, nextTick, watch, onMounted, onUnmounted, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { KeepAliveOption } from '@/store/keep-alive.b'
 import { onClickOutside } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
 
