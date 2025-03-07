@@ -4,7 +4,13 @@
  * @update 2022-07-03 15:55:45
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosRequestHeaders,
+  AxiosResponse,
+  InternalAxiosRequestConfig
+} from 'axios'
 import { toPath } from '@jiumu/utils'
 import { useUserStore, useTokenRefreshStore, useResetStore } from '@/store'
 import { Code } from '@/enumerations'
@@ -32,7 +38,7 @@ const { showLoading, hideLoading } = useLoading()
  *   showErrorMessage 请求错误是否显示错误信息 默认 true
  */
 service.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     config.showErrorMessage = config.showErrorMessage !== false
     if (config.isloading) showLoading()
     // 对项目内置的api添加前缀或token

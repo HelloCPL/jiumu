@@ -7,6 +7,7 @@
 import { Component, createApp, App } from 'vue'
 import { defineGlobal, defineDirective, definePinia } from '@/utils/vue-global'
 import router from '@/router'
+import { isString, isElement } from 'lodash-es'
 
 type Option = {
   name: string // 组件名称
@@ -16,6 +17,7 @@ type Option = {
   isInitPinia?: boolean // 是否挂载 pinia 默认 true
   isInitRouter?: boolean // 是否挂载 路由 默认 false
   props?: ObjectAny // 传递给目标组件的属性，可通过该属性交互
+  target?: string | Element // 挂载目标节点 id 默认 body
 }
 
 // 组件集合
@@ -40,17 +42,16 @@ export const useComponentByjs = (comp: Component, option: Option) => {
   if (single && targetName.length) {
     while (targetName.length) {
       const temp = targetName.pop()
-      if (temp && temp.__unmount) temp.__unmount()
+      if (temp) temp.unmount()
     }
   }
 
+  // 处理挂载目标节点
+  const targetDom = getTargetElement(option.target)
   const node = document.createElement('div')
-  document.body.appendChild(node)
+  targetDom.appendChild(node)
 
   const app: App = createApp(comp, {
-    unmount: () => {
-      __unmount()
-    },
     ...props
   })
 
@@ -62,9 +63,11 @@ export const useComponentByjs = (comp: Component, option: Option) => {
   // 挂载组件
   app.mount(node)
 
-  const __unmount = () => {
-    app.unmount()
-    document.body.removeChild(node)
+  const __unmount__ = app.unmount
+
+  const unmount = () => {
+    __unmount__()
+    targetDom.removeChild(node)
     let i = -1
     targetName.find((item, index) => {
       if (item._uid === app._uid) {
@@ -74,9 +77,23 @@ export const useComponentByjs = (comp: Component, option: Option) => {
     })
     if (i !== -1) targetName.splice(i, 1)
   }
-  app.__unmount = __unmount
+  app.unmount = unmount
 
   targetName.push(app)
+  return app
+}
+
+/**
+ * 获取一个目标元素，不传默认 document.body
+ */
+const getTargetElement = (target: any): Element => {
+  let targetDom: Element | null = null
+  if (isString(target) && target) {
+    targetDom = document.getElementById(target) as Element
+  } else if (isElement(target)) {
+    targetDom = target as Element
+  }
+  return isElement(targetDom) ? (targetDom as Element) : document.body
 }
 
 /*
@@ -84,9 +101,10 @@ export const useComponentByjs = (comp: Component, option: Option) => {
 import UserInfo from '@/views/components/UserInfo/index.vue'
 import { useComponentByjs } from '@/hooks/use-component-byjs'
 
-useComponentByjs(UserInfo, {
+const comp = useComponentByjs(UserInfo, {
   name: 'user-info', 
   isInitRouter: true
 })
 
+onBeforeUnmount(() => comp.unmount())
 */

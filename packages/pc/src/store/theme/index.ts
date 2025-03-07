@@ -8,8 +8,15 @@ import { FontFamilyValue, FontSizeValue, ThemeValue } from '@/enumerations'
 import { defineStore } from 'pinia'
 import { StoreNames } from '../store-name'
 import { kebabCase } from 'lodash-es'
-import { ColorsFile } from '@/style/color.b'
 import { storage } from '@jiumu/utils'
+import colorDrak from '@/style/color-drak'
+import colorLight from '@/style/color-light'
+
+const Colors = {
+  drak: colorDrak,
+  light: colorLight
+}
+
 const { VITE_HOME_EXPIRE } = import.meta.env
 
 // 字体大小集合
@@ -80,11 +87,7 @@ export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(S
      */
     async toggleTheme(theme?: ThemeValue) {
       const _theme = theme || this.theme
-      let colorsFile: ColorsFile | null = null
-      try {
-        const res = await import(`../../style/color-${kebabCase(_theme)}.ts`)
-        colorsFile = res.default || res
-      } catch (e) {}
+      const colorsFile = Colors[_theme]
       if (colorsFile) {
         const colors: KeyValue[] = []
         // 先修改主题色

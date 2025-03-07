@@ -10,7 +10,11 @@ type SvgOption = {
   fill?: string
 }
 
-// 获取指定的 svg 图标
+/**
+ * 获取指定的 svg 图标
+ * @param name 图标名称
+ * @param option 配置项
+ */
 export const getSvg = (name: string, option: SvgOption = {}): string => {
   const themeStore = useThemeStore()
   const width = option.width || 12

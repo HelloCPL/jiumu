@@ -11,34 +11,72 @@ import { Message } from './interaction'
 interface ParamsFile {
   filePath: string
   fileName: string
+  fileSize?: number
+  force?: boolean
 }
 
 /**
  * 文件下载
+ * 如果文件大小大于 5M 或者 force 为 true，则直接使用 a 标签下载，
+ * 否则先下载文件流，再使用 a 标签下载
  */
-export function downloadFile<T extends ParamsFile = DataBaseFile>(file: T) {
-  getFileBlod(file.filePath, {}).then((data) => {
-    _saveFile(data, file.fileName)
+export function downloadFile<T extends ParamsFile = DataBaseFile>(file: T): Promise<boolean> {
+  return new Promise((resolve) => {
+    const size = file.fileSize || 0
+    if (file.force || size > 5 * 1024 * 1024) {
+      const link: HTMLAnchorElement = document.createElement('a')
+      link.style.display = 'none'
+      link.href = file.filePath
+      link.download = file.fileName
+      document.body.appendChild(link)
+      link.click()
+      setTimeout(() => {
+        window.URL.revokeObjectURL(link.href)
+        document.body.removeChild(link)
+        resolve(true)
+      })
+    } else {
+      getFileBlod(file.filePath, {}).then((data) => {
+        if (!data) {
+          _saveFile(data, file.fileName).then(resolve)
+        } else {
+          resolve(false)
+        }
+      })
+    }
   })
 }
 
-// 保存文件
-export function _saveFile(blob: Blob, fileName: string) {
-  // @ts-ignore
-  if (window.navigator.msSaveOrOpenBlob) {
+/**
+ * 将一个 Blob 对象保存为文件
+ */
+export function _saveFile(blob: Blob, fileName: string): Promise<boolean> {
+  return new Promise((resolve) => {
     // @ts-ignore
-    navigator.msSaveBlob(blob, fileName)
-  } else {
-    const link: HTMLAnchorElement = document.createElement('a')
-    const body: HTMLBodyElement = <HTMLBodyElement>document.querySelector('body')
-    link.href = window.URL.createObjectURL(blob)
-    link.download = fileName
-    link.style.display = 'none'
-    body.appendChild(link)
-    link.click()
-    body.removeChild(link)
-    window.URL.revokeObjectURL(link.href)
-  }
+    if (window.navigator.msSaveOrOpenBlob) {
+      // @ts-ignore
+      navigator.msSaveBlob(blob, fileName)
+      resolve(true)
+    } else {
+      const link: HTMLAnchorElement = document.createElement('a')
+      link.style.display = 'none'
+      try {
+        link.href = window.URL.createObjectURL(blob)
+      } catch (err) {
+        console.warn('Create Blob URL failed:', err)
+        resolve(false)
+        return
+      }
+      link.download = fileName
+      document.body.appendChild(link)
+      link.click()
+      setTimeout(() => {
+        window.URL.revokeObjectURL(link.href)
+        document.body.removeChild(link)
+        resolve(true)
+      })
+    }
+  })
 }
 
 /**
@@ -80,6 +118,7 @@ export const getFileBlod = (
       if (xhr.status === 200) {
         resolve(xhr.response)
       } else {
+        resolve(null)
         Message('文件请求失败')
       }
     }

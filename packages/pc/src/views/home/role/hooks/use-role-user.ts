@@ -6,7 +6,7 @@ import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getUserList } from '@/api/user'
 import { addUserRole, deleteUserRole, getUserByRoleId } from '@/api/user-role'
-import { _push, _pop, _find, _relevance } from '@/hooks/use-relevance'
+import { pushRelevance, popRelevance, findRevelance, relevanceData } from '@/hooks/use-relevance'
 import { getDataDiff, getText } from '@jiumu/utils'
 
 export const useRoleUser = (props: RoleInfoProps) => {
@@ -26,7 +26,7 @@ export const useRoleUser = (props: RoleInfoProps) => {
     })
     if (res.code === 200) {
       dataList.value = getDataDiff(dataList.value, res.data)
-      _relevance(dataList2, dataList)
+      relevanceData(dataList2, dataList)
       total.value = res.total
       ++pageNo
     }
@@ -47,14 +47,14 @@ export const useRoleUser = (props: RoleInfoProps) => {
     })
     if (res.code === 200) {
       dataList2.value = res.data
-      _relevance(dataList2, dataList)
+      relevanceData(dataList2, dataList)
     }
   }, 300)
   getDataList2()
 
   // 关联交互
   const changeCheck = (checked: boolean, info: DataUserInfo) => {
-    const flag = _find(dataList2, info.id)
+    const flag = findRevelance(dataList2, info.id)
     if (checked && !flag) addRelevance(info)
     if (!checked && flag) deleteRelevance(info)
   }
@@ -66,7 +66,7 @@ export const useRoleUser = (props: RoleInfoProps) => {
       userId: info.id
     })
     if (res.code === 200) {
-      _push(dataList2, dataList, info)
+      pushRelevance(dataList2, dataList, info)
     }
   }
   // 取消关联
@@ -76,7 +76,7 @@ export const useRoleUser = (props: RoleInfoProps) => {
       userId: info.id
     })
     if (res.code === 200) {
-      _pop(dataList2, dataList, info)
+      popRelevance(dataList2, dataList, info)
     }
   }
 

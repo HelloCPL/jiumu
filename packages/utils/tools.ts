@@ -149,7 +149,7 @@ export const toChineseNumber = (num: number): string => {
 /**
  * 获取目标索引
  */
-export const findIndex = (arr: any[], value: any): number => {
+export const findIndex = <T>(arr: T[], value: (item: T) => boolean | T): number => {
   let targetIndex = -1
   if (isArray(arr)) {
     if (!isFunction(value)) {
