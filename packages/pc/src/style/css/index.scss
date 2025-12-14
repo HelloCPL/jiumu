@@ -1,8 +1,8 @@
 /**
  * 在此文件定义一些全局类
 */
-@import './tailwind.css';
-@import './element-reset.scss';
+@use './tailwind.css';
+@use './element-reset.scss';
 
 body,
 html {

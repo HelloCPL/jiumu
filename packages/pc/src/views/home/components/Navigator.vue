@@ -119,5 +119,5 @@ const { dragIndex, draggable, dragstart, dragend, drop, dragover } = useNavigato
 </script>
 
 <style lang="scss" scoped>
-@import './Navigator.scss';
+@use './Navigator.scss';
 </style>

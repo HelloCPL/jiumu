@@ -53,5 +53,5 @@ const { editorId, showCatalog, catalogHeaders, catalogStyle, handleChangeTitle, 
 </script>
 
 <style lang="scss">
-@import './index.scss';
+@use './index.scss';
 </style>

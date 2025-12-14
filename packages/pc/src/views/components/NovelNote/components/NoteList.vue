@@ -192,5 +192,5 @@ const {
 </style>
 
 <style lang="scss" scoped>
-@import './NoteList.scss';
+@use './NoteList.scss';
 </style>

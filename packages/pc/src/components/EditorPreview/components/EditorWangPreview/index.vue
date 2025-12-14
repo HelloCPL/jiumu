@@ -63,7 +63,7 @@ const { id, width, contentWidth, isReload, titleData, handleTitleItem, handleCli
 </script>
 
 <style lang="scss">
-@import '@/components/Editor/components/EditorWang/index.scss';
+@use '@/components/Editor/components/EditorWang/index.scss';
 .editor-wang-preiview-container {
   .el-affix {
     width: auto !important;

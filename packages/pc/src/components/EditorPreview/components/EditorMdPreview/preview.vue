@@ -71,10 +71,10 @@ const {
 </script>
 
 <style lang="scss">
-@import '@/components/Editor/components/EditorMd/index.scss';
-@import '@/components/Editor/components/EditorMd/index-theme.scss';
-@import '@/components/Editor/components/EditorMd/index-mermaid.scss';
-@import './index.scss';
+@use '@/components/Editor/components/EditorMd/index.scss';
+@use '@/components/Editor/components/EditorMd/index-theme.scss';
+@use '@/components/Editor/components/EditorMd/index-mermaid.scss';
+@use './index.scss';
 
 .editor-md-preiview-container {
   background: var(--jm-color-white);

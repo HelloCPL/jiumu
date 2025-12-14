@@ -37,7 +37,7 @@ const { value, refVMdEditor, handleChange, handleSave, handleUploadImage } = use
 </script>
 
 <style lang="scss">
-@import 'index.scss';
-@import 'index-theme.scss';
-@import 'index-mermaid.scss';
+@use 'index.scss';
+@use 'index-theme.scss';
+@use 'index-mermaid.scss';
 </style>

@@ -114,5 +114,5 @@ load()
 </script>
 
 <style lang="scss" scoped>
-@import './PreviewTxt.scss';
+@use './PreviewTxt.scss';
 </style>
