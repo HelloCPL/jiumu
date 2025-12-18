@@ -17,6 +17,8 @@
 
   .el-dialog__body {
     padding: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     background-color: var(--jm-color-bg);
     border-left: 1px solid var(--jm-color-border);
     border-right: 1px solid var(--jm-color-border);
@@ -27,8 +29,7 @@
     border-left: 1px solid var(--jm-color-border);
     border-right: 1px solid var(--jm-color-border);
     border-bottom: 1px solid var(--jm-color-border);
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding: 0.75rem 1.25rem;
   }
 
   .dialog-content {

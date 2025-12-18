@@ -40,7 +40,9 @@
       </ElTableColumn>
       <ElTableColumn label="是否置顶" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          <ElTag :type="row.isTop === '1' ? 'success' : 'danger'">
+            <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="likeCount" label="点赞" :width="getPx(70)"></ElTableColumn>
@@ -73,7 +75,7 @@
 
 <script lang="ts" setup>
 import FilterBox from '@/components/FilterBox/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElTag } from 'element-plus'
 import { useIndexInfo } from '../source-me/hooks/use-index'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'

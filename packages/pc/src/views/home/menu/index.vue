@@ -35,12 +35,21 @@
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(260)" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            :disabled="row.configurable === '1' && !userStore.isSuper"
+            @click="handleEdit(row)"
+          >
+            修改
+          </ElButton>
           <ElButton type="primary" text size="small" @click="handleAddChild(row)">新增子级</ElButton>
           <ElButton
             type="danger"
             text
             size="small"
+            :disabled="row.configurable === '1' && !userStore.isSuper"
             @click="handleDelete(row)"
             v-if="!(row.children && row.children.length)"
           >
@@ -91,10 +100,13 @@ import MenuUser from './components/MenuUser.vue'
 import MenuRole from './components/MenuRole.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
+import { useUserStore } from '@/store'
 
 defineOptions({
   name: 'Menu'
 })
+
+const userStore = useUserStore()
 
 const { data, getDataList } = useIndex()
 

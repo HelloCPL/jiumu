@@ -30,14 +30,14 @@
       </template>
       <!-- 右侧 -->
       <template #right>
-        <div class="px-4 pt-3">
+        <div class="pl-4 pt-4">
           <Card
             :title="item.username"
             :sub-title="item.phone"
             show-close
             v-for="item in dataList2"
             :key="item.id"
-            class="mb-3"
+            class="mb-4"
             @close="deleteRelevance(item)"
           >
           </Card>

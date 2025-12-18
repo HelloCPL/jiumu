@@ -3,10 +3,10 @@
  */
 
 interface CipherState {
-  code: boolean
+  code: string
 }
 
 interface CipherAction {
   reset: () => void
-  setCode: (bol: boolean) => void
+  setCode: (code: string) => void
 }

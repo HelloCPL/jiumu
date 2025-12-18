@@ -27,11 +27,13 @@
     <template #footer v-if="showFooter">
       <slot name="footer">
         <ElButton @click="handleCancel">取消</ElButton>
-        <ElButton type="primary" @click="$emit('confirm')">确认</ElButton>
+        <ElButton type="primary" @click="handleConfirm">确认</ElButton>
       </slot>
     </template>
-    <div class="w-full h-full g-scroll-y dialog-content" :class="classContent">
-      <slot></slot>
+    <div class="w-full h-full g-scroll-y dialog-content px-4" :class="classContent">
+      <div class="w-full h-full bg-white p-4">
+        <slot></slot>
+      </div>
     </div>
   </ElDialog>
 </template>
@@ -52,6 +54,9 @@ onUnmounted(() => {
 
 const emit = defineEmits(dialogEmit)
 
+const handleConfirm = () => {
+  emit('confirm')
+}
 const handleCancel = () => {
   isShow.value = false
   emit('close')
@@ -61,5 +66,5 @@ defineProps(dialogProps)
 </script>
 
 <style lang="scss">
-@use './index.scss';
+@forward './index.scss';
 </style>

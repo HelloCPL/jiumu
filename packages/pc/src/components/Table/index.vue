@@ -51,5 +51,5 @@ const { table, selectAll, select, selectionChange } = useIndex(props, emit)
 </script>
 
 <style lang="scss">
-@use './index.scss';
+@forward './index.scss';
 </style>

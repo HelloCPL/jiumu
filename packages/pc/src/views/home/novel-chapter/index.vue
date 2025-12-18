@@ -44,12 +44,16 @@
       </ElTableColumn>
       <ElTableColumn label="是否草稿" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isDraft === '0' ? '是' : '否' }}</span>
+          <ElTag :type="row.isDraft === '0' ? 'success' : 'danger'">
+            <span>{{ row.isDraft === '0' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn label="是否公开" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          <ElTag :type="row.isSecret === '0' ? 'success' : 'danger'">
+            <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <template v-if="!isDraft">

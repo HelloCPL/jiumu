@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
-  const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus(), Components()]
+  const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus({}), Components()]
 
   if (VITE_MODE === 'development') {
     // 本地预加载
@@ -80,7 +80,8 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "./src/style/css/env.${VITE_MODE}.scss";`
+          additionalData: `@use './src/style/css/env.${VITE_MODE}.scss' as *;`
+          // api: 'modern-compiler'
         },
         less: {
           javascriptEnabled: true

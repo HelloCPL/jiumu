@@ -13,8 +13,7 @@
       </ElFormItem>
       <ElFormItem label="类型">
         <SelectType v-model="type" parent-code="300"></SelectType>
-      </ElFormItem>
-    </FilterBox
+      </ElFormItem> </FilterBox
     ><!-- 列表 -->
     <Table :data="data">
       <ElTableColumn type="index" label="序号" width="60">
@@ -36,7 +35,9 @@
       <ElTableColumn label="章节总数" prop="chapterCount" :width="getPx(90)"></ElTableColumn>
       <ElTableColumn label="是否置顶" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          <ElTag :type="row.isTop === '1' ? 'success' : 'danger'">
+            <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn label="点赞" :width="getPx(70)">
@@ -82,7 +83,7 @@
 
 <script lang="ts" setup>
 import FilterBox from '@/components/FilterBox/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElTag } from 'element-plus'
 import { useIndex } from './hooks/use-index'
 import { useIndexInfo } from '../novel-me/hooks/use-index'
 import Table from '@/components/Table/index.vue'

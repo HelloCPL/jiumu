@@ -8,8 +8,11 @@ import { getUserList } from '@/api/user'
 import { addUserRole, deleteUserRole, getUserByRoleId } from '@/api/user-role'
 import { pushRelevance, popRelevance, findRevelance, relevanceData } from '@/hooks/use-relevance'
 import { getDataDiff, getText } from '@jiumu/utils'
+import { useUserStore } from '@/store'
 
 export const useRoleUser = (props: RoleInfoProps) => {
+  const userStore = useUserStore()
+
   // 用户列表
   const keyword = ref<string>('')
   const total = ref<number>(0)
@@ -67,6 +70,9 @@ export const useRoleUser = (props: RoleInfoProps) => {
     })
     if (res.code === 200) {
       pushRelevance(dataList2, dataList, info)
+      if (userStore.userInfo?.id === info.id) {
+        userStore.updateUser('12345')
+      }
     }
   }
   // 取消关联
@@ -77,6 +83,9 @@ export const useRoleUser = (props: RoleInfoProps) => {
     })
     if (res.code === 200) {
       popRelevance(dataList2, dataList, info)
+      if (userStore.userInfo?.id === info.id) {
+        userStore.updateUser('12345')
+      }
     }
   }
 

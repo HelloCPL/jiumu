@@ -56,5 +56,5 @@ const { loginShow, registerShow, toggleShow } = useIndex()
 </script>
 
 <style lang="scss" scoped>
-@use './index.scss';
+@forward './index.scss';
 </style>

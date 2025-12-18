@@ -28,12 +28,12 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="权限" :min-width="getPx(160)">
+      <ElTableColumn label="权限" :min-width="getPx(180)">
         <template #default="{ row }">
           <PermissionLabel :html="row.label" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="href" label="关联接口" show-overflow-tooltip :min-width="getPx(120)" />
+      <ElTableColumn prop="href" label="关联接口" show-overflow-tooltip :min-width="getPx(140)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
@@ -56,7 +56,12 @@
     </Table>
     <!-- 分页 -->
 
-    <Pagination v-model:pageNo="pageNo" v-model:pageSize="pageSize" :total="total" @change="getDataList"></Pagination>
+    <Pagination
+      v-model:page-no="pageNo"
+      v-model:page-size="pageSize"
+      :total="total"
+      @change="getDataList"
+    ></Pagination>
     <!-- 权限新增或编辑 -->
     <PermissionAdd :id="state.id" v-if="state.show" @close="state.show = false" @confirm="handleConfirm">
     </PermissionAdd>
@@ -64,12 +69,18 @@
     <PermissionInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"> </PermissionInfo>
     <!-- 查看权限-用户关联 -->
     <PermissionUser
-      :id="state.id" :label="state.label" v-if="state.showPermissionUser"
-      @close="state.showPermissionUser = false"></PermissionUser>
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showPermissionUser"
+      @close="state.showPermissionUser = false"
+    ></PermissionUser>
     <!-- 查看权限-角色关联 -->
     <PermissionRole
-      :id="state.id" :label="state.label" v-if="state.showPermissionRole"
-      @close="state.showPermissionRole = false"></PermissionRole>
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showPermissionRole"
+      @close="state.showPermissionRole = false"
+    ></PermissionRole>
   </div>
 </template>
 

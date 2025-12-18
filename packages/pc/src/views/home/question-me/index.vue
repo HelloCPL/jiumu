@@ -42,12 +42,16 @@
       </ElTableColumn>
       <ElTableColumn label="是否公开" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          <ElTag :type="row.isSecret === '0' ? 'success' : 'danger'">
+            <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn label="是否置顶" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          <ElTag :type="row.isTop === '1' ? 'success' : 'danger'">
+            <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="likeCount" label="点赞" :width="getPx(70)"></ElTableColumn>
@@ -78,7 +82,7 @@
 
 <script lang="ts" setup>
 import FilterBox from '@/components/FilterBox/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElTag } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import FilterButton from '@/components/FilterButton/index.vue'

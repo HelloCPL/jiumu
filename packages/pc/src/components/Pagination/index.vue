@@ -52,5 +52,5 @@ const handleChangeSize = (val: number) => {
 </script>
 
 <style lang="scss">
-@use './index.scss';
+@forward './index.scss';
 </style>

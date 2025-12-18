@@ -6,7 +6,7 @@
 
 <template>
   <div
-    class="pr-4 py-2 bg-white rounded shadow relative"
+    class="pr-4 py-2 bg-white rounded shadow-md border-1 border-lighter relative"
     :class="[showCheckbox ? 'pl-11' : 'pl-4']"
     v-if="title || subTitle || content"
   >

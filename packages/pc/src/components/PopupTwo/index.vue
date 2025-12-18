@@ -14,10 +14,10 @@
       v-if="showLeft"
     >
       <!-- 左侧头部 -->
-      <div class="w-full h-14 absolute left-0 top-0 bg flex items-center" v-if="showLeftTop">
+      <div class="w-full h-14 absolute left-0 top-0 flex items-center" v-if="showLeftTop">
         <slot name="leftTop">
           <Search
-            class="mx-4"
+            class="mr-4"
             :class="{ 'popup-two-search': !showRight }"
             :model-value="keyword"
             @update:modelValue="$emit('update:keyword', $event)"
@@ -34,7 +34,7 @@
     <!-- 右侧 -->
     <ElCol :span="spanRight" class="h-full relative" :class="{ 'pt-14': showRightTop }" v-if="showRight">
       <!-- 右侧头部 -->
-      <div class="w-full h-14 absolute right-0 top-0 bg flex items-center border-b-1" v-if="showRightTop">
+      <div class="w-full h-14 absolute right-0 top-0 flex items-center border-b-1" v-if="showRightTop">
         <slot name="rightTop">
           <span class="pl-4 text-lg">
             <span>已选择</span>

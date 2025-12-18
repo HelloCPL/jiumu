@@ -31,7 +31,13 @@
           <GRichText :html="row.title" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="类型" :min-width="getPx(80)" />
+      <ElTableColumn prop="typeLabel" label="类型" :width="getPx(80)">
+        <template #default="{ row }">
+          <ElTag :type="row.typeLabel === '普通' ? 'info' : 'primary'">
+            <span>{{ row.typeLabel }}</span>
+          </ElTag>
+        </template>
+      </ElTableColumn>
       <ElTableColumn label="标签" :min-width="getPx(100)">
         <template #default="{ row }">
           <span v-if="row.classify">
@@ -44,15 +50,15 @@
       </ElTableColumn>
       <ElTableColumn label="账号" :min-width="getPx(100)">
         <template #default="{ row }">
-          <span v-if="row.type === '802'">
-            {{ row.show === '1' ? row.account : formatAccount(row.account) }}
+          <span v-if="row.show === '1'">
+            {{ row._account }}
           </span>
-          <span v-else>{{ row.account }}</span>
+          <span v-else>{{ formatAccount(row._account) }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn label="密码" :min-width="getPx(100)">
         <template #default="{ row }">
-          <span>{{ row.show === '1' ? row.cipher : '*****' }}</span>
+          <span>{{ row.show === '1' ? row._cipher : '******' }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn label="更新时间" :width="getPx(150)">
@@ -68,7 +74,7 @@
               color="var(--jm-color-primary)"
               class="cursor-pointer mr-2"
               v-if="row.show === '1'"
-              @click="handleShowCipher(row, $index)"
+              @click="handleShowCipher($index)"
             >
               <Hide />
             </ElIcon>
@@ -76,12 +82,12 @@
               color="var(--jm-color-lighter)"
               class="cursor-pointer mr-2"
               v-else
-              @click="handleShowCipher(row, $index)"
+              @click="handleShowCipher($index)"
             >
               <View />
             </ElIcon>
-            <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-            <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+            <ElButton type="primary" text size="small" @click="handleEdit($index)">修改</ElButton>
+            <ElButton type="danger" text size="small" @click="handleDelete($index)">删除</ElButton>
           </div>
         </template>
       </ElTableColumn>
@@ -99,11 +105,20 @@
       :id="state.id"
       @close="state.show = false"
       @confirm="handleConfirm"
+      @to-add-cipher-code="state.showCode = true"
     ></CipherAdd>
     <!-- 口令code -->
-    <CipherCodeAdd v-if="state.showCode" @close="state.showCode = false"></CipherCodeAdd>
+    <CipherCodeAdd
+      v-if="state.showCode"
+      @close="state.showCode = false"
+      @confirm="state.showCode = false"
+    ></CipherCodeAdd>
     <!-- 口令校验 -->
-    <CipherCodeCheck v-if="showCheck" @close="handleCloseCodeCheck"></CipherCodeCheck>
+    <CipherCodeCheck
+      v-if="state.showCheck"
+      @close="state.showCheck = false"
+      @confirm="handleConfirmCodeCheck"
+    ></CipherCodeCheck>
   </div>
 </template>
 
@@ -112,9 +127,9 @@ import FilterBox from '@/components/FilterBox/index.vue'
 import FilterButton from '@/components/FilterButton/index.vue'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton, ElIcon } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElIcon, ElTag } from 'element-plus'
 import { View, Hide } from '@element-plus/icons-vue'
-import { useIndex, useIndexInfo, formatAccount } from './hooks/use-index'
+import { useIndex, formatAccount } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import SelectType from '@/components/SelectType/index.vue'
@@ -136,9 +151,13 @@ const {
   data,
   getDataList,
   handleReset,
-  showCheck,
   handleShowCipher,
-  handleCloseCodeCheck
+  handleConfirmCodeCheck,
+  state,
+  btnList,
+  handleBtn,
+  handleEdit,
+  handleDelete,
+  handleConfirm
 } = useIndex()
-const { state, btnList, handleBtn, handleEdit, handleDelete, handleConfirm } = useIndexInfo({ getDataList })
 </script>

@@ -16,7 +16,7 @@
     >
       <!-- 左侧 -->
       <template #left>
-        <div v-for="item in dataList" :key="item.id" class="pl-4">
+        <div v-for="item in dataList" :key="item.id">
           <ElCheckbox
             :model-value="item._checked"
             :label="item.id"
@@ -30,7 +30,7 @@
       </template>
       <!-- 右侧 -->
       <template #right>
-        <div class="px-4 pt-3">
+        <div class="pl-4 pt-4">
           <Card
             v-for="item in dataList2"
             :key="item.id"

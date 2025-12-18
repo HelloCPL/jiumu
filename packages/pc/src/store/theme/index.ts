@@ -7,7 +7,6 @@
 import { FontFamilyValue, FontSizeValue, ThemeValue } from '@/enumerations'
 import { defineStore } from 'pinia'
 import { StoreNames } from '../store-name'
-import { kebabCase } from 'lodash-es'
 import { storage } from '@jiumu/utils'
 import colorDrak from '@/style/color-drak'
 import colorLight from '@/style/color-light'

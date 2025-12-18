@@ -8,8 +8,11 @@ import { getMenuByParentCode } from '@/api/menu'
 import { addRoleMenu, deleteRoleMenu } from '@/api/role-menu'
 import { ElTree } from 'element-plus'
 import { getText } from '@jiumu/utils'
+import { useUserStore } from '@/store'
 
 export const useRoleMenu = (props: RoleInfoProps) => {
+  const userStore = useUserStore()
+
   // 菜单列表
   const dataList = ref<DataMenu[]>([])
   const refTree = ref<InstanceType<typeof ElTree>>()
@@ -45,6 +48,9 @@ export const useRoleMenu = (props: RoleInfoProps) => {
     if (res.code === 200) {
       info.checkedRoleId = '1'
       info._checked = true
+      if (userStore.roles.find((item) => item.id === props.id)) {
+        userStore.updateUser('4')
+      }
     }
     setCheckedKeys()
   }
@@ -58,6 +64,7 @@ export const useRoleMenu = (props: RoleInfoProps) => {
     if (res.code === 200) {
       info.checkedRoleId = '0'
       info._checked = false
+      userStore.updateUser('4')
     }
     setCheckedKeys()
   }

@@ -1,8 +1,8 @@
 /**
  * 在此文件定义一些全局类
 */
-@use './tailwind.css';
-@use './element-reset.scss';
+@forward './tailwind.css';
+@forward './element-reset.scss';
 
 body,
 html {

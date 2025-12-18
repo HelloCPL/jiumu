@@ -37,8 +37,26 @@
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(255)" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            v-if="row.configurable !== '-1'"
+            :disabled="row.configurable === '1' && !userStore.isSuper"
+            @click="handleEdit(row)"
+          >
+            修改
+          </ElButton>
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-if="row.configurable !== '-1'"
+            :disabled="row.configurable === '1' && !userStore.isSuper"
+          >
+            删除
+          </ElButton>
           <ElButton type="primary" text size="small" @click="handleShowRoleInfo(row)">用户关联</ElButton>
           <ElButton type="primary" text size="small" @click="handleShowRoleMenu(row)">菜单关联</ElButton>
           <ElButton type="primary" text size="small" @click="handleShowRolePermission(row)">
@@ -49,8 +67,8 @@
     </Table>
     <!-- 分页 -->
     <Pagination
-      v-model:pageNo="pageNo"
-      v-model:pageSize="pageSize"
+      v-model:page-no="pageNo"
+      v-model:page-size="pageSize"
       :total="total"
       @change="getDataList"
     ></Pagination>
@@ -97,10 +115,13 @@ import RoleMenu from './components/RoleMenu.vue'
 import RolePermission from './components/RolePermission.vue'
 import { formatDate } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
+import { useUserStore } from '@/store'
 
 defineOptions({
   name: 'Role'
 })
+
+const userStore = useUserStore()
 
 const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 

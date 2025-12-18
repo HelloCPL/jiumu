@@ -10,12 +10,12 @@ import { storage } from '@jiumu/utils'
 export const useCipherStore = defineStore<string, CipherState, {}, CipherAction>(StoreNames.CIPHER, {
   state: () => {
     return {
-      code: false
+      code: ''
     }
   },
   actions: {
     reset() {
-      this.code = false
+      this.code = ''
       // 清除缓存
       storage.removeItem(StoreNames.CIPHER, {
         type: 'session',
@@ -23,14 +23,14 @@ export const useCipherStore = defineStore<string, CipherState, {}, CipherAction>
       })
     },
 
-    setCode(bol: boolean) {
-      this.code = bol
+    setCode(code: string) {
+      this.code = code
     }
   },
   storage: {
     enabled: true,
     encrypt: true,
     keys: ['code'],
-    expire: 60 * 60 * 1 // 状态仅保存 1 小时
+    expire: 60 * 5 // 状态仅保存 5 分钟
   }
 })

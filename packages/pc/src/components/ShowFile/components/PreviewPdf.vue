@@ -68,5 +68,5 @@ const { refBox, state, handleZoomOut, handleZoomIn, handleZoom } = usePreviewPdf
 </script>
 
 <style lang="scss" scoped>
-@use './PreviewPdf.scss';
+@forward './PreviewPdf.scss';
 </style>

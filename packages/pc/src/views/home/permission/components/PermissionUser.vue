@@ -14,14 +14,21 @@
       @scroll-left="getDataList"
     >
       <template #leftTop>
-        <p class="px-4 text-sm text-lighter">
-          <span class="text-danger">注意：</span>
-          <span>权限仅跟角色关联，如要修改用户的权限列表请在角色管理中修改“角色-权限”之间的关联。</span>
-        </p>
+        <ElAlert
+          description="权限仅跟角色关联，如要修改用户的权限列表请在角色管理中修改“角色-权限”之间的关联。"
+          type="error"
+          show-icon
+          :closable="false"
+          style="z-index: 10"
+        >
+          <template #icon>
+            <Warning />
+          </template>
+        </ElAlert>
       </template>
       <!-- 左侧 -->
       <template #left>
-        <div class="px-4 pt-3">
+        <div class="px-4 pt-4">
           <span
             v-for="item in dataList"
             :key="item.id"
@@ -44,6 +51,8 @@ import PopupTwo from '@/components/PopupTwo/index.vue'
 import { permissionInfoProps } from './type'
 import { usePermissionUser } from '../hooks/use-permission-user'
 import UsernameShow from '@/components/UsernameShow/index.vue'
+import { Warning } from '@element-plus/icons-vue'
+import { ElAlert } from 'element-plus'
 
 const props = defineProps(permissionInfoProps)
 

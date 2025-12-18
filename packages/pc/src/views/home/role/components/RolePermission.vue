@@ -9,14 +9,10 @@
     <!-- 自定义头部 -->
     <template #header>
       <ElRow class="h-12">
-        <ElCol
-          :span="12"
-          class="flex items-center pl-4 border-r-1"
-          :class="{ 'role-permission-active': active === 0 }"
-        >
+        <ElCol :span="12" class="pl-4 pt-3 border-r-1" :class="{ 'role-permission-active': active === 0 }">
           <span class="g-line-1 cursor-pointer" @click.self="handleActive(0)">已关联权限{{ _label }}</span>
         </ElCol>
-        <ElCol :span="12" class="flex items-center pl-4" :class="{ 'role-permission-active': active === 1 }">
+        <ElCol :span="12" class="pl-4 pt-3" :class="{ 'role-permission-active': active === 1 }">
           <span @click.self="handleActive(1)" class="cursor-pointer">所有权限</span>
         </ElCol>
       </ElRow>
@@ -31,7 +27,7 @@
       v-if="active === 0"
     >
       <template #left>
-        <div class="px-4 pt-3">
+        <div>
           <Card
             show-close
             title="#"
@@ -74,7 +70,7 @@
       v-if="active === 1"
     >
       <template #left>
-        <div class="px-4 pt-3">
+        <div>
           <Card
             title="#"
             v-for="item in dataList"

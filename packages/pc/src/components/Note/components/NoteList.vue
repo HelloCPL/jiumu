@@ -180,5 +180,5 @@ const {
 </style>
 
 <style lang="scss" scoped>
-@use './NoteList.scss';
+@forward './NoteList.scss';
 </style>

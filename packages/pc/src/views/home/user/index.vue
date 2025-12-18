@@ -37,7 +37,13 @@
           <GRichText :html="row.username" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="sexLabel" label="性别" :width="getPx(60)" />
+      <ElTableColumn label="性别" :width="getPx(60)">
+        <template #default="{ row }">
+          <ElTag v-if="row.sexLabel" :type="row.sexLabel === '男' ? 'primary' : 'danger'">
+            {{ row.sexLabel }}
+          </ElTag>
+        </template>
+      </ElTableColumn>
       <ElTableColumn label="生日" :min-width="getPx(110)">
         <template #default="{ row }">
           <span>{{ formatDate(row.birthday, 'YYYY-MM-DD') }}</span>
@@ -63,8 +69,8 @@
     </Table>
     <!-- 分页 -->
     <Pagination
-      v-model:pageNo="pageNo"
-      v-model:pageSize="pageSize"
+      v-model:page-no="pageNo"
+      v-model:page-size="pageSize"
       :total="total"
       @change="getDataList"
     ></Pagination>
@@ -106,7 +112,7 @@
 import FilterBox from '@/components/FilterBox/index.vue'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton, ElImage } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElImage, ElTag } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import UserInfo from './components/UserInfo.vue'

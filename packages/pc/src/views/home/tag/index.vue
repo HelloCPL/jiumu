@@ -35,14 +35,24 @@
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            v-if="row.configurable !== '-1'"
+            :disabled="row.configurable === '1' && !userStore.isSuper"
+            @click="handleEdit(row)"
+          >
+            修改
+          </ElButton>
           <ElButton type="primary" text size="small" @click="handleAddChild(row)">新增子级</ElButton>
           <ElButton
             type="danger"
             text
             size="small"
             @click="handleDelete(row)"
-            v-if="!(row.children && row.children?.length)"
+            :disabled="row.configurable === '1' && !userStore.isSuper"
+            v-if="!(row.children && row.children?.length) && row.configurable !== '-1'"
           >
             删除
           </ElButton>
@@ -90,10 +100,13 @@ import TagInfo from './components/TagInfo.vue'
 import TagUser from './components/TagUser.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
+import { useUserStore } from '@/store'
 
 defineOptions({
   name: 'Tag'
 })
+
+const userStore = useUserStore()
 
 const { data, getDataList } = useIndex()
 
