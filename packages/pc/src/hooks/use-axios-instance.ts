@@ -11,13 +11,14 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios'
-import { toPath } from '@jiumu/utils'
+import { toPath, toStringify } from '@jiumu/utils'
 import { useUserStore, useTokenRefreshStore, useResetStore } from '@/store'
 import { Code } from '@/enumerations'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
 import router from '@/router'
 import { Message, useLoading } from '@/utils/interaction'
+import { _saveFile } from '@/utils/download-file'
 const { VITE_TIME_OUT, VITE_API_URL } = import.meta.env
 
 // 创建axios实例
@@ -40,6 +41,7 @@ const { showLoading, hideLoading } = useLoading()
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     config.showErrorMessage = config.showErrorMessage !== false
+    config.downloadWhenAttachment = config.downloadWhenAttachment !== false
     if (config.isloading) showLoading()
     // 对项目内置的api添加前缀或token
     const userStore = useUserStore()
@@ -88,13 +90,23 @@ service.interceptors.response.use(
         return _retransmit(response)
       } else {
         // 判断是否为文件
-        if (disposition && disposition.includes('attachment;')) return Promise.resolve(response)
+        if (disposition && disposition.includes('attachment;')) {
+          if (response?.config?.downloadWhenAttachment) {
+            handleFileDownload(response)
+          }
+          return Promise.resolve(response)
+        }
         return _handleError(data, config.showErrorMessage, data.message)
       }
     } else {
       // 非项目内置api不做拦截处理
       // 判断是否为文件
-      if (disposition && disposition.includes('attachment;')) return Promise.resolve(response)
+      if (disposition && disposition.includes('attachment;')) {
+        if (response?.config?.downloadWhenAttachment) {
+          handleFileDownload(response)
+        }
+        return Promise.resolve(response)
+      }
       return Promise.resolve(data)
     }
   },
@@ -142,3 +154,17 @@ async function _retransmit(response: AxiosResponse): Promise<any> {
 }
 
 export default service
+
+function handleFileDownload(response: AxiosResponse) {
+  const text = toStringify(response.data)
+  // 从 content-disposition 头中提取文件名
+  let filename = 'download-file'
+  const disposition = response.headers['content-disposition']
+  if (disposition && disposition.includes('filename=')) {
+    const filenameMatch = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)
+    if (filenameMatch && filenameMatch[1]) {
+      filename = filenameMatch[1].replace(/['"]/g, '')
+    }
+  }
+  _saveFile(new Blob([text]), filename)
+}

@@ -52,6 +52,7 @@
             type="files"
             :limit="5"
             :limited="attachmentList.length"
+            class="mb-4"
           ></Upload>
           <ShowFile v-model="attachmentList" is-delete @change="handleDeleteAttachment"></ShowFile>
         </ElRow>

@@ -10,13 +10,13 @@ import { isArray } from 'lodash-es'
 export const uploadProps = buildProps({
   // 其余参数与 element-plus 保持一致
   ..._uploadProps,
+  // 上传类型，其中 files_big 采用断点上传方式
   type: {
-    // 上传类型，其中 files_big 采用断点上传方式
     type: String as PropType<'images' | 'files' | 'videos' | 'files_big'>,
     default: 'images'
   },
+  // 文件上传模式 auto 自动 files 普通方式 files_big 断点上传
   uploadType: {
-    // 文件上传模式 auto 自动 files 普通方式 files_big 断点上传
     type: String as PropType<'auto' | 'files' | 'files_big'>,
     default: 'auto'
   },

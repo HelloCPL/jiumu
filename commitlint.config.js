@@ -9,13 +9,13 @@
  * test:测试
  */
 
- module.exports = {
+module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'type-enum': [
       2,
       'always',
-      ['feature', 'update', 'merge', 'fix', 'refactor', 'style', 'docs', 'test']
+      ['feature', 'feat', 'update', 'merge', 'fix', 'refactor', 'style', 'docs', 'test']
     ],
     'scope-enum': [2, 'always', ['pc', 'mobile', 'web']],
     'subject-empty': [0, 'always'],

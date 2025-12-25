@@ -15,7 +15,7 @@
     <!-- 操作盒子 -->
     <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
     <!-- 列表 -->
-    <Table :data="data">
+    <Table :data="data" @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn prop="sort" label="排序" width="60" />
       <ElTableColumn label="code" :min-width="getPx(100)">
@@ -133,6 +133,7 @@ const {
   handleShowInfo,
   handleEdit,
   handleDelete,
+  selectionChange,
   handleConfirm,
   handleShowRoleInfo,
   handleShowRoleMenu,

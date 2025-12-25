@@ -8,22 +8,18 @@
   <div class="flex-1 flex-shrink-0 relative table-wrapper" ref="refTable">
     <div class="absolute top-0 left-0 w-full">
       <ElTable
-        v-bind="$attrs"
+        v-bind="getAttrs"
         :height="Math.floor(height)"
-        :data="data"
         stripe
         :row-key="rowKey"
         @select-all="selectAll"
         @select="select"
         @selection-change="selectionChange"
-        ref="table"
+        ref="tableRef"
       >
         <slot></slot>
-        <template #append>
-          <slot name="append"></slot>
-        </template>
-        <template #empty>
-          <slot name="empty"></slot>
+        <template v-for="(slot, name) in slots" #[name]="scope">
+          <slot :name="name" v-bind="scope || {}"></slot>
         </template>
       </ElTable>
     </div>
@@ -31,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref, useAttrs, useSlots } from 'vue'
 import { ElTable } from 'element-plus'
 import { useElementSize } from '@vueuse/core'
 import { tableProps, tableEmits } from './type'
@@ -47,7 +43,20 @@ const { height } = useElementSize(refTable)
 const props = defineProps(tableProps)
 const emit = defineEmits(tableEmits)
 
-const { table, selectAll, select, selectionChange } = useIndex(props, emit)
+const { tableRef, selectAll, select, selectionChange } = useIndex(props, emit)
+
+const attrs = useAttrs()
+const getAttrs = computed(() => {
+  return Object.assign(props, attrs)
+})
+const slots = useSlots()
+
+defineExpose({
+  tableRef,
+  selectAll,
+  select,
+  selectionChange
+})
 </script>
 
 <style lang="scss">

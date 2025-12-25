@@ -16,7 +16,7 @@ export const tableProps = buildProps({
   },
   // 列表数据
   data: {
-    type: Array as PropType<any[]>,
+    type: Array,
     default: () => []
   }
 } as const)

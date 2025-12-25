@@ -80,8 +80,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use './src/style/css/env.${VITE_MODE}.scss' as *;`
-          // api: 'modern-compiler'
+          api: 'modern-compiler'
         },
         less: {
           javascriptEnabled: true

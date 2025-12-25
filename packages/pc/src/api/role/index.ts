@@ -4,7 +4,7 @@
  * @update 2022-07-10 13:04:18
  */
 
-import { post } from '@/utils/api-methods'
+import { post, get } from '@/utils/api-methods'
 
 /**
  * 添加角色
@@ -47,4 +47,11 @@ export const getRoleListAllSelf = async (): Promise<DataOptions<DataRole[]>> => 
  */
 export const getRoleList = async (params: ParamsRoleList = {}): Promise<DataOptions<DataRole[]>> => {
   return await post('/pc/role/get/list', params).catch((err) => err)
+}
+
+/**
+ * 导出选中的角色
+ */
+export const exportRoleApi = async (ids: string): Promise<null> => {
+  return await get('/pc/role/export', { ids })
 }
