@@ -12,6 +12,7 @@
         :height="Math.floor(height)"
         stripe
         :row-key="rowKey"
+        :default-expand-all="props.defaultExpandAll !== false"
         @select-all="selectAll"
         @select="select"
         @selection-change="selectionChange"

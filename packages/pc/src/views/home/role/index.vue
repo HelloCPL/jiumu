@@ -13,7 +13,13 @@
       </ElFormItem>
     </FilterBox>
     <!-- 操作盒子 -->
-    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
+    <FilterButton :list="btnList" @click="handleBtn">
+      <template #right>
+        <Upload class="ml-3" :http-request="handleImport" accept=".json">
+          <ElButton>导入</ElButton>
+        </Upload>
+      </template>
+    </FilterButton>
     <!-- 列表 -->
     <Table :data="data" @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
@@ -116,6 +122,7 @@ import RolePermission from './components/RolePermission.vue'
 import { formatDate } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
 import { useUserStore } from '@/store'
+import Upload from '@/components/Upload/index.vue'
 
 defineOptions({
   name: 'Role'
@@ -134,6 +141,7 @@ const {
   handleEdit,
   handleDelete,
   selectionChange,
+  handleImport,
   handleConfirm,
   handleShowRoleInfo,
   handleShowRoleMenu,

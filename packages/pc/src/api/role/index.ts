@@ -4,7 +4,8 @@
  * @update 2022-07-10 13:04:18
  */
 
-import { post, get } from '@/utils/api-methods'
+import { post, get, postForm } from '@/utils/api-methods'
+import { getFileParams } from '../file'
 
 /**
  * 添加角色
@@ -54,4 +55,15 @@ export const getRoleList = async (params: ParamsRoleList = {}): Promise<DataOpti
  */
 export const exportRoleApi = async (ids: string): Promise<null> => {
   return await get('/pc/role/export', { ids })
+}
+
+/**
+ * 导入角色
+ */
+export const importRoleApi = async (
+  file: FormData,
+  params: ParamsFileOther = {}
+): Promise<DataOptions<number>> => {
+  const query = getFileParams(params)
+  return await postForm(`/pc/role/import${query}`, file).catch((err) => err)
 }

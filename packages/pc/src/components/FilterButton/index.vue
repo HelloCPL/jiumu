@@ -5,7 +5,8 @@
 -->
 
 <template>
-  <div class="w-full px-4 pt-3 border-b-1">
+  <div class="w-full flex items-center px-4 pt-3 pb-3 border-b-1">
+    <slot></slot>
     <ElButton
       v-for="item in list"
       :key="item.key"
@@ -15,10 +16,10 @@
       :disabled="item.disabled"
       v-code="item.code"
       @click="handleClick(item)"
-      class="mb-3"
     >
       {{ item.name }}
     </ElButton>
+    <slot name="right"></slot>
   </div>
 </template>
 

@@ -135,7 +135,6 @@ export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(S
   storage: {
     enabled: true,
     type: 'local',
-    keys: ['theme', 'fontSize', 'fontFamily'],
-    expire: VITE_HOME_EXPIRE * 3
+    keys: ['theme', 'fontSize', 'fontFamily']
   }
 })

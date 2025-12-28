@@ -5,7 +5,7 @@
  */
 
 import { ref, reactive } from 'vue'
-import { getRoleList, deleteRole, exportRoleApi } from '@/api/role'
+import { getRoleList, deleteRole, exportRoleApi, importRoleApi } from '@/api/role'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
 import { Confirm, Message } from '@/utils/interaction'
@@ -120,6 +120,20 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     exportRoleApi(ids)
   }
 
+  // 导入
+  const handleImport = async (file: FormData, params: ParamsFileOther) => {
+    const res = await importRoleApi(file, params)
+    if (res.code === 200) {
+      Message({
+        message: res.message,
+        type: 'success'
+      })
+      if (res.data > 0) {
+        getDataList()
+      }
+    }
+  }
+
   // 处理确认回调
   const handleConfirm = (type: string) => {
     getDataList()
@@ -157,6 +171,7 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleDelete,
     selectionChange,
     handleExport,
+    handleImport,
     handleConfirm,
     handleShowRoleInfo,
     handleShowRoleMenu,

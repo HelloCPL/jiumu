@@ -3,12 +3,13 @@
  */
 
 import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes } from 'vue'
 // import { tableV2Props } from 'element-plus'
+import _tableProps from 'element-plus/es/components/table/src/table/defaults'
 
 export const tableProps = buildProps({
   // 其他参数与elementPlus Table 参数保持一致
-  // ...tableV2Props,
+  ..._tableProps,
   // 行key名称
   rowKey: {
     type: String,
@@ -19,7 +20,7 @@ export const tableProps = buildProps({
     type: Array,
     default: () => []
   }
-} as const)
+})
 
 export type TableProps = ExtractPropTypes<typeof tableProps>
 

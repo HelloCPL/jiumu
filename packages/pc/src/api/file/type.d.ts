@@ -2,10 +2,12 @@
 * 文件操作参数类型
 */
 
+type ParamsFileStaticPlace = 'files' | 'images' | 'videos' | 'editors' | 'files_big'
+
 // 文件上传额外参数
 interface ParamsFileOther extends ObjectAny {
   isSecret?: DataBaseStatus
-  staticPlace?: 'files' | 'images' | 'videos' | 'editors' | 'files_big'
+  staticPlace?: ParamsFileStaticPlace
   remarks?: string
 }
 
