@@ -7,9 +7,15 @@
 <template>
   <div class="g-container">
     <!-- 操作盒子 -->
-    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
+    <FilterButton :list="btnList" @click="handleBtn">
+      <template #right>
+        <Upload class="ml-3" :http-request="handleImport" accept=".json">
+          <ElButton>导入</ElButton>
+        </Upload>
+      </template>
+    </FilterButton>
     <!-- 列表 -->
-    <Table :data="data" default-expand-all>
+    <Table :data="data" default-expand-all @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index) }}</template>
@@ -101,6 +107,7 @@ import MenuRole from './components/MenuRole.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import { useUserStore } from '@/store'
+import Upload from '@/components/Upload/index.vue'
 
 defineOptions({
   name: 'Menu'
@@ -119,6 +126,8 @@ const {
   handleEdit,
   handleAddChild,
   handleDelete,
+  selectionChange,
+  handleImport,
   handleConfirm,
   handleShowMenuUser,
   handleShowMenuRole

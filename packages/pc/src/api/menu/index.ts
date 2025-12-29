@@ -4,7 +4,8 @@
  * @update 2022-07-10 13:04:18
  */
 
-import { post } from '@/utils/api-methods'
+import { get, post, postForm } from '@/utils/api-methods'
+import { getFileParams } from '../file'
 
 /**
  * 添加菜单
@@ -49,4 +50,22 @@ export const getMenuByParentCode = async (
   isloading = false
 ): Promise<DataOptions<DataMenu[]>> => {
   return await post('/pc/menu/get/byparentcode', params, { isloading }).catch((err) => err)
+}
+
+/**
+ * 导出选中的菜单
+ */
+export const exportMenuApi = async (ids: string): Promise<null> => {
+  return await get('/pc/menu/export', { ids })
+}
+
+/**
+ * 导入菜单
+ */
+export const importMenuApi = async (
+  file: FormData,
+  params: ParamsFileOther = {}
+): Promise<DataOptions<number>> => {
+  const query = getFileParams(params)
+  return await postForm(`/pc/menu/import${query}`, file).catch((err) => err)
 }

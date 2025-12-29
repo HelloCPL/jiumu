@@ -7,9 +7,15 @@
 <template>
   <div class="g-container">
     <!-- 操作盒子 -->
-    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
+    <FilterButton :list="btnList" @click="handleBtn">
+      <template #right>
+        <Upload class="ml-3" :http-request="handleImport" accept=".json">
+          <ElButton>导入</ElButton>
+        </Upload>
+      </template>
+    </FilterButton>
     <!-- 列表 -->
-    <Table :data="data" default-expand-all>
+    <Table :data="data" default-expand-all @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index) }}</template>
@@ -31,7 +37,7 @@
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
+      <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
         <template #default="{ row }">
@@ -101,6 +107,7 @@ import TagUser from './components/TagUser.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import { useUserStore } from '@/store'
+import Upload from '@/components/Upload/index.vue'
 
 defineOptions({
   name: 'Tag'
@@ -119,6 +126,8 @@ const {
   handleEdit,
   handleAddChild,
   handleDelete,
+  selectionChange,
+  handleImport,
   handleConfirm,
   handleShowTagUser
 } = useIndexInfo({ getDataList })

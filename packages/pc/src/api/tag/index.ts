@@ -4,7 +4,8 @@
  * @update 2022-07-10 13:04:18
  */
 
-import { post } from '@/utils/api-methods'
+import { get, post, postForm } from '@/utils/api-methods'
+import { getFileParams } from '../file'
 
 /**
  * 添加标签
@@ -49,4 +50,22 @@ export const getTagByParentCode = async (
   userId?: string
 ): Promise<DataOptions<DataTag[]>> => {
   return await post('/pc/tag/get/byparentcode', { parentCode, userId }).catch((err) => err)
+}
+
+/**
+ * 导出选中的标签
+ */
+export const exportTagApi = async (ids: string): Promise<null> => {
+  return await get('/pc/tag/export', { ids })
+}
+
+/**
+ * 导入标签
+ */
+export const importTagApi = async (
+  file: FormData,
+  params: ParamsFileOther = {}
+): Promise<DataOptions<number>> => {
+  const query = getFileParams(params)
+  return await postForm(`/pc/tag/import${query}`, file).catch((err) => err)
 }
