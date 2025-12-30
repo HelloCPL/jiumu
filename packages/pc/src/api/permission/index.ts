@@ -3,7 +3,8 @@
  * @author: cpl
  * @create: 2022-07-06 11:48:27
  */
-import { get, post } from '@/utils/api-methods'
+import { get, post, postForm } from '@/utils/api-methods'
+import { getFileParams } from '../file'
 
 /**
  * 添加权限
@@ -51,4 +52,22 @@ export const getPermissionList = async (
   params: ParamsPermissionList = {}
 ): Promise<DataOptions<DataPermission[]>> => {
   return await post('/pc/permission/get/list', params).catch((err) => err)
+}
+
+/**
+ * 导出选中的权限
+ */
+export const exportPermissionApi = async (ids: string): Promise<null> => {
+  return await get('/pc/permission/export', { ids })
+}
+
+/**
+ * 导入权限
+ */
+export const importPermissionApi = async (
+  file: FormData,
+  params: ParamsFileOther = {}
+): Promise<DataOptions<number>> => {
+  const query = getFileParams(params)
+  return await postForm(`/pc/permission/import${query}`, file).catch((err) => err)
 }

@@ -13,9 +13,15 @@
       </ElFormItem>
     </FilterBox>
     <!-- 操作盒子 -->
-    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
+    <FilterButton :list="btnList" @click="handleBtn">
+      <template #right>
+        <Upload class="ml-3" :http-request="handleImport" accept=".json">
+          <ElButton>导入</ElButton>
+        </Upload>
+      </template>
+    </FilterButton>
     <!-- 列表 -->
-    <Table :data="data">
+    <Table :data="data" @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
@@ -98,6 +104,7 @@ import PermissionRole from './components/PermissionRole.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import PermissionLabel from './components/PermissionLabel.vue'
+import Upload from '@/components/Upload/index.vue'
 
 defineOptions({
   name: 'Permission'
@@ -113,6 +120,8 @@ const {
   handleShowInfo,
   handleEdit,
   handleDelete,
+  selectionChange,
+  handleImport,
   handleConfirm,
   handleShowPermissionUser,
   handleShowPermissionRole

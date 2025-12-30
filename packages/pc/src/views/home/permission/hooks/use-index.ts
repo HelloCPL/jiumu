@@ -3,7 +3,12 @@
  */
 
 import { ref, reactive } from 'vue'
-import { getPermissionList, deletePermission } from '@/api/permission'
+import {
+  getPermissionList,
+  deletePermission,
+  exportPermissionApi,
+  importPermissionApi
+} from '@/api/permission'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
 import { Confirm, Message } from '@/utils/interaction'
@@ -63,11 +68,13 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'add':
-      state.id = ''
-      state.show = true
-      return
-    case 'export':
+      case 'add':
+        state.id = ''
+        state.show = true
+        return
+      case 'export':
+        handleExport()
+        return
     }
   }
 
@@ -95,6 +102,36 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
         getDataList()
       }
     })
+  }
+
+  const selectionData = ref<any[]>([])
+  const selectionChange = (data: any) => {
+    selectionData.value = data
+  }
+  // 导出
+  const handleExport = () => {
+    if (!selectionData.value.length) {
+      return Message({
+        message: '请选择要导出的数据',
+        type: 'warning'
+      })
+    }
+    const ids = selectionData.value.map((item: any) => item.id).join(',')
+    exportPermissionApi(ids)
+  }
+
+  // 导入
+  const handleImport = async (file: FormData, params: ParamsFileOther) => {
+    const res = await importPermissionApi(file, params)
+    if (res.code === 200) {
+      Message({
+        message: res.message,
+        type: 'success'
+      })
+      if (res.data > 0) {
+        getDataList()
+      }
+    }
   }
 
   // 处理确认回调
@@ -125,6 +162,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleShowInfo,
     handleEdit,
     handleDelete,
+    selectionChange,
+    handleImport,
     handleConfirm,
     handleShowPermissionUser,
     handleShowPermissionRole
