@@ -6,7 +6,7 @@
 
 <template>
   <div class="h-full w-full p-8">
-    <ElForm :model="form" :rules="rules" ref="formRef" @submit.native.prevent>
+    <ElForm :model="form" :rules="rules" ref="formRef" @keydown.enter="submit">
       <ElFormItem prop="phone" class="mt-8">
         <ElInput v-model="form.phone" placeholder="请输入账号"></ElInput>
       </ElFormItem>
@@ -17,7 +17,7 @@
         <ElInput v-model="form.confirmPassword" type="password" placeholder="请再次输入密码"></ElInput>
       </ElFormItem>
       <ElFormItem class="mt-10">
-        <ElButton type="primary" round class="w-full" @click="submit(formRef)">注册</ElButton>
+        <ElButton type="primary" round class="w-full" @click="submit">注册</ElButton>
       </ElFormItem>
     </ElForm>
   </div>
@@ -37,8 +37,8 @@ const route = useRoute()
 const router = useRouter()
 
 // 注册
-const submit = (el: FormInstance | undefined) => {
-  submitValid(el as FormInstance).then(async (form) => {
+const submit = () => {
+  submitValid(formRef.value as FormInstance).then(async (form) => {
     const params = {
       phone: form.phone,
       password: form.password

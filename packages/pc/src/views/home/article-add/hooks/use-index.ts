@@ -17,7 +17,7 @@ import { getDataDiff } from '@jiumu/utils'
 
 type StatusOption = {
   noBack?: boolean
-  success?: Function
+  success?: (status: number) => void
 }
 
 export const useIndex = () => {
@@ -201,42 +201,42 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList, option?: StatusOption) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '0'
-          if (form.id) {
-            _update({ ...form }, option)
-          } else {
-            _add({ ...form }, option)
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '0'
+            if (form.id) {
+              _update({ ...form }, option)
+            } else {
+              _add({ ...form }, option)
+            }
           }
-        }
-      })
-      break
-    case 'draft':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '1'
-          if (form.id) {
-            _update({ ...form }, option)
-          } else {
-            _add({ ...form }, option)
+        })
+        break
+      case 'draft':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '1'
+            if (form.id) {
+              _update({ ...form }, option)
+            } else {
+              _add({ ...form }, option)
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (form.id) {
-          _delete(form.id)
-        } else {
-          setOriginData()
-          router.back()
-        }
-      })
-      break
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (form.id) {
+            _delete(form.id)
+          } else {
+            setOriginData()
+            router.back()
+          }
+        })
+        break
     }
   }
 
@@ -284,10 +284,10 @@ export const useIndex = () => {
   const handleStatusSave = (msg?: string, option?: StatusOption): Promise<number> => {
     return new Promise((resolve) => {
       if (status) {
-        Confirm({
-          message: msg || (status === 2 ? '内容有修改，是否保存？' : '页面未保存，是否保存为草稿？'),
-          cancelButtonText: '暂不保存',
-          confirmButtonText: '保存'
+        Confirm(msg || (status === 2 ? '文章内容有修改，是否保存并退出？' : '页面未保存，是否保存为草稿？'), {
+          showClose: false,
+          cancelButtonText: '不保存并退出',
+          confirmButtonText: '保存并退出'
         })
           .then(() => {
             if (status === 2 && form.isDraft === '0') {
@@ -295,6 +295,7 @@ export const useIndex = () => {
             } else {
               changeBtn({ name: '保存草稿', key: 'draft' }, option)
             }
+            // 这里不退出，通过上面发布或保存草稿进行退出
             resolve(status)
           })
           .catch(() => {
@@ -306,8 +307,8 @@ export const useIndex = () => {
 
   onBeforeRouteLeave((to, from, next) => {
     handleStatus()
-    const cb = (sta: number) => {
-      if (sta === 0) next()
+    const cb = (status: number) => {
+      if (status === 0) next()
     }
     handleStatusSave('', {
       success: cb

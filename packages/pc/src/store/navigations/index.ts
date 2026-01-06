@@ -129,7 +129,8 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
     },
     storage: {
       type: 'local',
-      enabled: true
+      enabled: true,
+      expire: 60 * 60 * 1
     }
   }
 )
