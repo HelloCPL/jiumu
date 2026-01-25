@@ -4,33 +4,7 @@
  * @create: 2022-10-23 02:24:37
  */
 
-import { useUserStore, useThemeStore } from '@/store'
-
-/**
- * 查找是否有 code 权限 多个用逗号隔开
- * @param code 权限code
- */
-export const checkPermissionByCode = (code?: string): boolean => {
-  if (!code) return true
-  const userStore = useUserStore()
-  const codes = code.split(',')
-  let flag = false
-  codes.find((val) => {
-    flag = _findPermissions(val, userStore.permissions)
-    return flag
-  })
-  return flag
-}
-function _findPermissions(val: string, arr: DataPermission[]): boolean {
-  let flag = false
-  arr.find((item) => {
-    if (item.code === val) {
-      flag = true
-      return flag
-    }
-  })
-  return flag
-}
+import { useThemeStore } from '@/store'
 
 interface ParamsTarget extends ObjectAny {
   id: string

@@ -96,8 +96,8 @@ export const useIndex = () => {
   }
 
   const btnList: FilterButtonList[] = [
-    { name: '新增', key: 'add', type: 'primary' },
-    { name: '口令code', key: 'code' }
+    { name: '新增', key: 'add', type: 'primary', code: 'pc:cipher:me:add:btn' },
+    { name: '口令code', key: 'code', code: 'pc:cipher:code:add:btn' }
   ]
 
   // 点击按钮

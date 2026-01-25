@@ -5,10 +5,14 @@
 -->
 
 <template>
-  <Dialog width="500px" :title="'查看用户-权限关联' + _username" :show-footer="false">
+  <Dialog width="580px" :title="'查看用户-权限关联' + _username" :show-footer="false">
     <PopupTwo
-      :more-left="total > dataList.length" :show-right="false" :span-left="24" height="60vh"
-      @scroll-left="getDataList">
+      :more-left="total > dataList.length"
+      :show-right="false"
+      :span-left="24"
+      height="60vh"
+      @scroll-left="getDataList"
+    >
       <template #leftTop>
         <p class="px-4 text-sm text-lighter">
           <span class="text-danger">注意：</span>
@@ -18,7 +22,13 @@
       <!-- 左侧 -->
       <template #left>
         <div class="px-4 pt-3">
-          <Card v-for="item in dataList" :key="item.id" :title="item.code" :sub-title="item.label" class="mb-3">
+          <Card
+            v-for="item in dataList"
+            :key="item.id"
+            :title="item.code"
+            :sub-title="item.label"
+            class="mb-3"
+          >
             <div class="text-sm text-lighter">
               <div v-if="item.href && item.href !== '#'" class="pb-2">
                 <span>关联接口：</span>

@@ -19,9 +19,9 @@ export const useIndex = () => {
   const novelId = ref<string>('')
 
   const list = ref<FilterButtonList[]>([
-    { name: '发布', key: 'save', type: 'primary' },
-    { name: '保存草稿', key: 'draft' },
-    { name: '取消', key: 'delete' }
+    { name: '发布', key: 'save', type: 'primary', code: 'pc:novel:chapter:add:btn' },
+    { name: '保存草稿', key: 'draft', code: 'pc:novel:chapter:add:btn' },
+    { name: '取消', key: 'cancel' }
   ])
 
   const formRef = ref<FormInstance>()
@@ -68,21 +68,22 @@ export const useIndex = () => {
   }
 
   onMounted(() => {
-    novelId.value = <string>route.params.novelId
     if (route.params.id) {
       id.value = <string>route.params.id
       _getOne()
       list.value = [
-        { name: '保存', key: 'save', type: 'primary' },
-        { name: '转为草稿', key: 'draft' },
-        { name: '取消', key: 'delete' }
+        { name: '保存', key: 'save', type: 'primary', code: 'pc:novel:chapter:update:btn' },
+        { name: '转为草稿', key: 'draft', code: 'pc:novel:chapter:update:btn' },
+        { name: '删除', key: 'delete', code: 'pc:novel:chapter:delete:btn' },
+        { name: '取消', key: 'cancel' }
       ]
     }
+    novelId.value = <string>route.params.novelId
     if (!novelId.value) {
       list.value = [
         { name: '发布', key: 'save', type: 'primary', disabled: true },
         { name: '保存草稿', key: 'draft', disabled: true },
-        { name: '取消', key: 'delete', disabled: true }
+        { name: '取消', key: 'cancel', disabled: true }
       ]
     }
   })
@@ -125,53 +126,54 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '0'
-          if (id.value) {
-            _update({
-              id: id.value,
-              ...form
-            })
-          } else {
-            _add({
-              novelId: novelId.value,
-              ...form
-            })
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '0'
+            if (id.value) {
+              _update({
+                id: id.value,
+                ...form
+              })
+            } else {
+              _add({
+                novelId: novelId.value,
+                ...form
+              })
+            }
           }
-        }
-      })
-      break
-    case 'draft':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '1'
-          if (id.value) {
-            _update({
-              id: id.value,
-              ...form
-            })
-          } else {
-            _add({
-              novelId: novelId.value,
-              ...form
-            })
+        })
+        break
+      case 'draft':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '1'
+            if (id.value) {
+              _update({
+                id: id.value,
+                ...form
+              })
+            } else {
+              _add({
+                novelId: novelId.value,
+                ...form
+              })
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (id.value) {
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
           _delete(id.value)
-        } else {
+        })
+        break
+      case 'cancel':
+        Confirm(`确定${item.name}吗？`).then(() => {
           router.back()
-        }
-      })
-      break
+        })
+        break
     }
   }
 

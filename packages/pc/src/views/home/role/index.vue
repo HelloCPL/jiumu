@@ -15,7 +15,12 @@
     <!-- 操作盒子 -->
     <FilterButton :list="btnList" @click="handleBtn">
       <template #right>
-        <Upload class="ml-3" :http-request="handleImport" accept=".json">
+        <Upload
+          class="ml-3"
+          :http-request="handleImport"
+          accept=".json"
+          v-if="hasPermission('pc:role:import:btn')"
+        >
           <ElButton>导入</ElButton>
         </Upload>
       </template>
@@ -48,8 +53,9 @@
             text
             size="small"
             v-if="row.configurable !== '-1'"
-            :disabled="row.configurable === '1' && !userStore.isSuper"
+            :disabled="row.configurable === '1' && !isSuper()"
             @click="handleEdit(row)"
+            v-permission="'pc:role:update:btn'"
           >
             修改
           </ElButton>
@@ -59,13 +65,34 @@
             size="small"
             @click="handleDelete(row)"
             v-if="row.configurable !== '-1'"
-            :disabled="row.configurable === '1' && !userStore.isSuper"
+            :disabled="row.configurable === '1' && !isSuper()"
+            v-permission="'pc:role:delete:btn'"
           >
             删除
           </ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowRoleInfo(row)">用户关联</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowRoleMenu(row)">菜单关联</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowRolePermission(row)">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowRoleInfo(row)"
+            v-permission="'pc:role:user:relevant:btn'"
+            >用户关联</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowRoleMenu(row)"
+            v-permission="'pc:role:menu:relevant:btn'"
+            >菜单关联</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowRolePermission(row)"
+            v-permission="'pc:role:permission:relevant:btn'"
+          >
             权限关联
           </ElButton>
         </template>
@@ -121,14 +148,12 @@ import RoleMenu from './components/RoleMenu.vue'
 import RolePermission from './components/RolePermission.vue'
 import { formatDate } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
-import { useUserStore } from '@/store'
 import Upload from '@/components/Upload/index.vue'
+import { hasPermission, isSuper } from '@/utils/permission'
 
 defineOptions({
   name: 'Role'
 })
-
-const userStore = useUserStore()
 
 const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 

@@ -8,7 +8,13 @@
   <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
     <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
       <ElFormItem label="code" prop="code" class="g-w-360">
-        <ElInput type="text" placeholder="请输入code" v-model="form.code" @blur="handleBlurCode" @keyup="handleKeyupCode">
+        <ElInput
+          type="text"
+          placeholder="请输入code"
+          v-model="form.code"
+          @blur="handleBlurCode"
+          @keyup="handleKeyupCode"
+        >
         </ElInput>
         <span class="text-sm text-lighter mt-1">code格式建议：xxx:xx:x</span>
       </ElFormItem>
@@ -38,7 +44,12 @@
     </ElForm>
     <template #footer>
       <ElButton @click="$emit('close')">取消</ElButton>
-      <ElButton type="primary" @click="confirm">保存</ElButton>
+      <ElButton
+        type="primary"
+        @click="confirm"
+        v-permission="{ code: ['pc:permission:add:btn', 'pc:permission:update:btn'], rule: 'or' }"
+        >保存</ElButton
+      >
     </template>
   </Dialog>
 </template>

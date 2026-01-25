@@ -15,7 +15,7 @@ import { getTagAllSelf } from '@/api/tag'
 const { VITE_HOME_EXPIRE } = import.meta.env
 import { updateHomesMetaByMenus } from '@/router/routes'
 
-export const useUserStore = defineStore<string, UserState, UserGetters, UserActions>(StoreNames.USER, {
+export const useUserStore = defineStore<string, UserState, {}, UserActions>(StoreNames.USER, {
   state: () => {
     return {
       token: '',
@@ -30,11 +30,7 @@ export const useUserStore = defineStore<string, UserState, UserGetters, UserActi
       tags: []
     }
   },
-  getters: {
-    isSuper(state): boolean {
-      return !!state.roles.find((item) => item.code === 'super')
-    }
-  },
+  getters: {},
   actions: {
     reset() {
       this.token = ''

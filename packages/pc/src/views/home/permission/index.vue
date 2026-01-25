@@ -15,7 +15,12 @@
     <!-- 操作盒子 -->
     <FilterButton :list="btnList" @click="handleBtn">
       <template #right>
-        <Upload class="ml-3" :http-request="handleImport" accept=".json">
+        <Upload
+          class="ml-3"
+          :http-request="handleImport"
+          accept=".json"
+          v-if="hasPermission('pc:permission:import:btn')"
+        >
           <ElButton>导入</ElButton>
         </Upload>
       </template>
@@ -29,9 +34,20 @@
       <ElTableColumn prop="sort" label="排序" :width="getPx(60)" />
       <ElTableColumn label="code" :min-width="getPx(130)">
         <template #default="{ row }">
-          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
-            <GRichText :html="row.code" />
-          </span>
+          <div class="flex items-center code-box">
+            <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
+              <GRichText :html="row.code" />
+            </span>
+            <IconSvg
+              name="copy"
+              :width="12"
+              :height="12"
+              fill="var(--jm-color-text-lighter)"
+              hover-fill="var(--jm-color-primary)"
+              class="ml-2 mt-0.5 code-box-icon"
+              @click="copy(row.codeUnhighlight || row.code, true)"
+            ></IconSvg>
+          </div>
         </template>
       </ElTableColumn>
       <ElTableColumn label="权限" :min-width="getPx(180)">
@@ -49,12 +65,38 @@
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
       <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowPermissionUser(row)">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:permission:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-permission="'pc:permission:delete:btn'"
+            >删除</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowPermissionUser(row)"
+            v-permission="'pc:permission:view:user:btn'"
+          >
             查看用户
           </ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowPermissionRole(row)">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowPermissionRole(row)"
+            v-permission="'pc:permission:view:role:btn'"
+          >
             查看角色
           </ElButton>
         </template>
@@ -105,10 +147,15 @@ import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import PermissionLabel from './components/PermissionLabel.vue'
 import Upload from '@/components/Upload/index.vue'
+import IconSvg from '@/components/IconSvg/index.vue'
+import { useClipboardy } from '@/hooks/use-clipboardy'
+import { hasPermission } from '@/utils/permission'
 
 defineOptions({
   name: 'Permission'
 })
+
+const { copy } = useClipboardy()
 
 const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 
@@ -129,3 +176,16 @@ const {
   getDataList
 })
 </script>
+
+<style lang="scss" scoped>
+.code-box {
+  .code-box-icon {
+    display: none;
+  }
+}
+.code-box:hover {
+  .code-box-icon {
+    display: inline;
+  }
+}
+</style>

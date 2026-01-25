@@ -19,7 +19,12 @@ export const useIndex = () => {
   const router = useRouter()
 
   const btnList = ref<FilterButtonList[]>([
-    { name: '发布', key: 'save', type: 'primary' },
+    {
+      name: '发布',
+      key: 'save',
+      type: 'primary',
+      code: { code: ['pc:source:me:add:btn', 'pc:source:me:update:btn'], rule: 'or' }
+    },
     { name: '取消', key: 'delete' }
   ])
 
@@ -148,27 +153,27 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (form.id) {
-          _delete(form.id)
-        } else {
-          router.back()
-        }
-      })
-      break
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (form.id) {
+            _delete(form.id)
+          } else {
+            router.back()
+          }
+        })
+        break
     }
   }
 

@@ -76,7 +76,7 @@ const routerPush = (name: string) => {
 
 // 首次进来跳转路由
 const route = useRoute()
-if (!isHomeRoutes(route.name)) {
+if (!isHomeRoutes(route.name, true)) {
   routerPush(<string>routerName.value)
 }
 

@@ -19,7 +19,7 @@ export const pageBoxProps = buildProps({
     type: Array as PropType<FilterButtonList[]>,
     default: () => []
   },
-  // id 有 为编辑 无 为新增
+  // 目标 id 有 为编辑 无 为新增
   id: {
     type: String,
     default: ''
@@ -28,6 +28,21 @@ export const pageBoxProps = buildProps({
   isDraft: {
     type: String as PropType<DataBaseStatus>,
     default: '0'
+  },
+  // 使用默认按钮列表时，所需的新增按钮权限标识
+  addCode: {
+    type: String,
+    default: ''
+  },
+  // 使用默认按钮列表时，所需的编辑按钮权限标识
+  updateCode: {
+    type: String,
+    default: ''
+  },
+  // 使用默认按钮列表时，所需的删除按钮权限标识
+  deleteCode: {
+    type: String,
+    default: ''
   }
 } as const)
 

@@ -6,15 +6,15 @@
 
 <template>
   <span class="flex items-center">
-    <GRichText :html="_html" class="pr-2" />
+    <GRichText :html="_html" class="pr-2 leading-6" />
     <template v-if="isApi">
       <ElTooltip content="此类权限标识主要用于API接口访问权限控制" placement="top">
-        <icon-svg name="api" fill="var(--jm-color-success-400)" :size="28" class="mt-0.5"></icon-svg>
+        <icon-svg name="api" fill="var(--jm-color-success-400)" :size="24"></icon-svg>
       </ElTooltip>
     </template>
     <template v-else-if="isButton">
       <ElTooltip content="此类权限标识主要用于前端按钮级别的权限控制" placement="top">
-        <icon-svg name="button" fill="var(--jm-color-warning-400)" size="28" class="mt-1"></icon-svg>
+        <icon-svg name="button" fill="var(--jm-color-warning-400)" :size="24"></icon-svg>
       </ElTooltip>
     </template>
   </span>

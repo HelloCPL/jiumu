@@ -5,7 +5,13 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :list="list">
+  <PageBox
+    @change-btn="changeBtn"
+    :list="list"
+    add-code="pc:novel:me:add:btn"
+    update-code="pc:novel:me:update:btn"
+    delete-code="pc:novel:me:delete:btn"
+  >
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="连载名称" prop="name">
         <ElInput type="text" placeholder="请输入连载名称" v-model="form.name"></ElInput>

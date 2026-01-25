@@ -26,7 +26,6 @@
       v-for="(item, index) in list"
       :target="item"
       :index="index"
-      :is-super="isSuper"
       :key="item.id"
       @delete="handleDelete"
       @show-comment="showComment"
@@ -39,7 +38,6 @@
           :target="row"
           :index="i"
           :parent-index="index"
-          :is-super="isSuper"
           :key="row.id"
           @delete="handleDelete"
           @show-comment="showComment"
@@ -92,7 +90,6 @@ const props = defineProps<CommentProps>()
 const emit = defineEmits(commentEmit)
 
 const {
-  isSuper,
   total,
   list,
   handleGetList,

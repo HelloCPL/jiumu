@@ -22,6 +22,7 @@
         class="flex-shrink-0"
         :class="{ 'flex-1': length > minLength }"
         @submit.native.prevent
+        @keydown.enter="$emit('search')"
       >
         <div class="w-full" ref="box">
           <slot></slot>

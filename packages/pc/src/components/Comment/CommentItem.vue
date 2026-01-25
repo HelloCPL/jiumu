@@ -47,7 +47,7 @@
           <div class="flex items-center">
             <span
               class="flex items-center text-danger cursor-pointer"
-              v-if="target.isSelf === '1' || isSuper"
+              v-if="target.isSelf === '1' || isSuper()"
               @click="$emit('delete', index, parentIndex)"
             >
               <IconSvg name="delete" fill="var(--jm-color-danger)"></IconSvg>
@@ -101,6 +101,7 @@ import { formatDate } from '@jiumu/utils'
 import { ElInput, ElButton, ElTag } from 'element-plus'
 import { useRouter } from 'vue-router'
 import IconSvg from '@/components/IconSvg'
+import { isSuper } from '@/utils/permission'
 
 defineProps({
   target: {
@@ -117,10 +118,6 @@ defineProps({
     // 父级索引
     type: Number,
     default: -1
-  },
-  isSuper: {
-    type: Boolean,
-    default: false
   }
 })
 const emit = defineEmits({

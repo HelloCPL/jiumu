@@ -7,10 +7,6 @@
   tags: DataTagInfo[]
 }
 
-interface UserGetters {
-  isSuper: (state: UserState) => boolean
-}
-
  type UserInfoType = '1' | '2' | '3' | '4' | '5'
 
  interface UserActions {

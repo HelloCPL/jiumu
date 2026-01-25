@@ -25,12 +25,13 @@
         <div class="pl-4 pt-2 role-menu-box">
           <ElTree
             :data="dataList"
-            show-checkbox
+            :show-checkbox="hasPermission('pc:role:menu:relevant:btn')"
             default-expand-all
             check-strictly
             node-key="id"
             ref="refTree"
             @check-change="changeCheck"
+            :render-content="renderContent"
           ></ElTree>
         </div>
       </template>
@@ -46,10 +47,15 @@ import { useRoleMenu } from '../hooks/use-role-menu'
 import { ElTree } from 'element-plus'
 import { Warning } from '@element-plus/icons-vue'
 import { ElAlert } from 'element-plus'
+import { hasPermission } from '@/utils/permission'
 
 const props = defineProps(roleInfoProps)
 
 const { _label, dataList, refTree, changeCheck } = useRoleMenu(props)
+
+const renderContent = (h: any, { data }: any) => {
+  return h('span', [h('span', {}, [data.label]), h('span', { class: 'text-lighter pl-4' }, [data.code])])
+}
 </script>
 
 <style lang="scss">

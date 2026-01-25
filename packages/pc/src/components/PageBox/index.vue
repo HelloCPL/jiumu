@@ -45,21 +45,21 @@ const handleBtnList = () => {
     if (props.id) {
       if (props.isDraft === '1') {
         _list.value = [
-          { name: '发布', key: 'save', type: 'primary' },
-          { name: '保存草稿', key: 'draft' },
-          { name: '删除', key: 'delete' }
+          { name: '发布', key: 'save', type: 'primary', code: props.updateCode },
+          { name: '保存草稿', key: 'draft', code: props.updateCode  },
+          { name: '删除', key: 'delete', code: props.deleteCode }
         ]
       } else {
         _list.value = [
-          { name: '保存', key: 'save', type: 'primary' },
-          { name: '转为草稿', key: 'draft' },
-          { name: '删除', key: 'delete' }
+          { name: '保存', key: 'save', type: 'primary', code: props.updateCode  },
+          { name: '转为草稿', key: 'draft', code: props.updateCode  },
+          { name: '删除', key: 'delete', code: props.deleteCode }
         ]
       }
     } else {
       _list.value = [
-        { name: '发布', key: 'save', type: 'primary' },
-        { name: '保存草稿', key: 'draft' },
+        { name: '发布', key: 'save', type: 'primary', code: props.addCode  },
+        { name: '保存草稿', key: 'draft', code: props.addCode  },
         { name: '取消', key: 'delete' }
       ]
     }

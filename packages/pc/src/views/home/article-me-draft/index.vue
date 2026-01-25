@@ -54,8 +54,22 @@
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
       <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:article:me:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-permission="'pc:article:me:delete:btn'"
+            >删除</ElButton
+          >
         </template>
       </ElTableColumn>
     </Table>

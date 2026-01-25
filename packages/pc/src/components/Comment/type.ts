@@ -15,8 +15,8 @@ export type CommentProps = {
 }
 
 export const commentEmit = {
-  'update:modelValue': (info: Info) => true,
-  change: (info: Info) => true
+  'update:modelValue': (info: CommentProps['modelValue']) => true,
+  change: (info: CommentProps['modelValue']) => true
 }
 
 export type CommentEmit = EmitFn<typeof commentEmit>

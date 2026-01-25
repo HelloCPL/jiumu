@@ -21,6 +21,7 @@
             :model-value="item._checked"
             :label="item.id"
             :checked="item._checked"
+            :disabled="!hasPermission('pc:tag:user:relevant:btn')"
             @update:model-value="changeCheck($event as boolean, item)"
           >
             <GRichText :html="item.username"></GRichText>
@@ -37,7 +38,7 @@
             :title="item.username"
             :sub-title="item.phone"
             class="mb-3"
-            show-close
+            :show-close="hasPermission('pc:tag:user:relevant:btn')"
             @close="deleteRelevance(item)"
           ></Card>
         </div>
@@ -54,6 +55,7 @@ import { useTagUser } from '../hooks/use-tag-user'
 import { ElCheckbox } from 'element-plus'
 import UsernameShow from '@/components/UsernameShow/index.vue'
 import Card from '@/components/Card/index.vue'
+import { hasPermission } from '@/utils/permission'
 
 const props = defineProps(tagInfoProps)
 

@@ -41,8 +41,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   })
 
   const btnList: FilterButtonList[] = [
-    { name: '新增', key: 'add', type: 'primary' },
-    { name: '导出', key: 'export' }
+    { name: '新增', key: 'add', type: 'primary', code: 'pc:tag:add:btn' },
+    { name: '导出', key: 'export', code: 'pc:tag:export:btn' }
   ]
 
   // 点击按钮

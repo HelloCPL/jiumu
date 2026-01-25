@@ -58,10 +58,37 @@
       <ElTableColumn prop="terminal" label="注册终端" :width="getPx(90)" />
       <ElTableColumn label="操作" :width="getPx(250)" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleShowUserRole(row)">查看角色</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowUserTag(row)">查看标签</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowUserMenu(row)">查看菜单</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowUserPermission(row)">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserRole(row)"
+            v-permission="'pc:user:view:role:btn'"
+            >查看角色</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserTag(row)"
+            v-permission="'pc:user:view:tag:btn'"
+            >查看标签</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserMenu(row)"
+            v-permission="'pc:user:view:menu:btn'"
+            >查看菜单</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserPermission(row)"
+            v-permission="'pc:user:view:menu:btn'"
+          >
             查看权限
           </ElButton>
         </template>

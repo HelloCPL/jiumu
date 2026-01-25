@@ -52,20 +52,20 @@ function _addRouteRecord(route: RouteRecordRaw, homeRoutes: HomeRouteRecord[], p
 
 /**
  * 判断某个路由是否属于 home 子路由
+ * @params name 路由名称
+ * @params notValid 不校验要排除的路由
  */
 let _homeRoutes: HomeRouteRecord[] = []
-export const isHomeRoutes = (name: any): boolean => {
+export const isHomeRoutes = (name: any, notValid?: boolean): boolean => {
   if (!_homeRoutes.length) {
     _homeRoutes = getHomeRoutes()
   }
-  let flag = false
-  _homeRoutes.find((item) => {
-    if (item.name === name || item.path === name) {
-      flag = true
-      return flag
-    }
+  const arr = ['HomeUnauthorized']
+  return !!_homeRoutes.find((item) => {
+    const flag1 = item.name === name || item.path === name
+    const flag2 = notValid || !arr.includes(name)
+    return flag1 && flag2
   })
-  return flag
 }
 
 type CodeLabel = {

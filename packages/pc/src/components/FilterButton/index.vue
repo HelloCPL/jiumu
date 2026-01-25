@@ -14,7 +14,7 @@
       :plain="item.plain"
       :text="item.text"
       :disabled="item.disabled"
-      v-code="item.code"
+      v-permission="item.code"
       @click="handleClick(item)"
     >
       {{ item.name }}

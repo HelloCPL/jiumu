@@ -29,7 +29,7 @@
       <template #left>
         <div>
           <Card
-            show-close
+            :show-close="hasPermission('pc:role:permission:relevant:btn')"
             title="#"
             v-for="(item, index) in dataList2"
             :key="item.id"
@@ -76,7 +76,7 @@
             v-for="item in dataList"
             :key="item.id"
             class="mb-3"
-            show-checkbox
+            :show-checkbox="hasPermission('pc:role:permission:relevant:btn')"
             :model-value="item._checked"
             @update:model-value="changeCheck($event as boolean, item)"
           >
@@ -116,6 +116,7 @@ import { useRolePermission } from '../hooks/use-role-permission'
 import { ElRow, ElCol } from 'element-plus'
 import PermissionLabel from '@/views/home/permission/components/PermissionLabel.vue'
 import Card from '@/components/Card/index.vue'
+import { hasPermission } from '@/utils/permission'
 
 const props = defineProps(roleInfoProps)
 

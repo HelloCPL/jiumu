@@ -72,16 +72,18 @@ export const useIndex = () => {
 // 处理新增 编辑 删除 查看 置顶等逻辑
 export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const router = useRouter()
-  const btnList: FilterButtonList[] = [{ name: '新增', key: 'add', type: 'primary' }]
+  const btnList: FilterButtonList[] = [
+    { name: '新增', key: 'add', type: 'primary', code: 'pc:article:me:add:btn' }
+  ]
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'add':
-      router.push({
-        name: 'ArticleAdd',
-        params: { _metaTitle: '文章新增' }
-      })
-      return
+      case 'add':
+        router.push({
+          name: 'ArticleAdd',
+          params: { _metaTitle: '文章新增' }
+        })
+        return
     }
   }
 

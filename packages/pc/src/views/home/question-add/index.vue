@@ -5,7 +5,14 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :id="form.id" :is-draft="form.isDraft">
+  <PageBox
+    @change-btn="changeBtn"
+    :id="form.id"
+    :is-draft="form.isDraft"
+    add-code="pc:question:me:add:btn"
+    update-code="pc:question:me:update:btn"
+    delete-code="pc:question:me:delete:btn"
+  >
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="问答标题" prop="title">
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>

@@ -54,7 +54,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(80)" fixed="right" v-if="checkPermissionByCode('super')">
+      <ElTableColumn label="操作" :width="getPx(80)" fixed="right" v-if="isSuper()">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleTop(row)" v-if="row.isTop === '0'">
             置顶
@@ -81,8 +81,9 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { checkPermissionByCode, getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@/utils/tools'
 import { useIndex } from './hooks/use-index'
+import { isSuper } from '@/utils/permission'
 
 defineOptions({
   name: 'Source'

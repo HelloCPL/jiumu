@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog title="自定义标签信息" width="380px" :show-footer="false">
+  <Dialog title="自定义标签信息" width="420px" :show-footer="false">
     <div v-if="dataInfo" class="px-4">
       <ElRow class="my-3">
         <ElCol :span="4" class="text-right pr-2">标签：</ElCol>

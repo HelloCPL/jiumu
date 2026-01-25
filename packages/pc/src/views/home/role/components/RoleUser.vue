@@ -21,6 +21,7 @@
             :model-value="item._checked"
             :label="item.id"
             :checked="item._checked"
+            :disabled="!hasPermission('pc:role:user:relevant:btn')"
             @update:model-value="changeCheck($event as boolean, item)"
           >
             <GRichText :html="item.username"></GRichText>
@@ -34,7 +35,7 @@
           <Card
             :title="item.username"
             :sub-title="item.phone"
-            show-close
+            :show-close="hasPermission('pc:role:user:relevant:btn')"
             v-for="item in dataList2"
             :key="item.id"
             class="mb-4"
@@ -55,6 +56,7 @@ import { useRoleUser } from '../hooks/use-role-user'
 import { ElCheckbox } from 'element-plus'
 import UsernameShow from '@/components/UsernameShow/index.vue'
 import Card from '@/components/Card/index.vue'
+import { hasPermission } from '@/utils/permission'
 
 const props = defineProps(roleInfoProps)
 

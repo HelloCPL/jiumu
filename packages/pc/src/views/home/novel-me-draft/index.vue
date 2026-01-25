@@ -50,9 +50,30 @@
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
       <ElTableColumn label="操作" :width="getPx(140)" fixed="right">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowNovelChapter(row)">章节列表</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)" v-if="row.chapterCount <= 0">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:novel:me:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowNovelChapter(row)"
+            v-permission="'pc:novel:me:view:chapter:list:btn'"
+            >章节列表</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-if="row.chapterCount <= 0"
+            v-permission="'pc:novel:me:delete:btn'"
+          >
             删除
           </ElButton>
         </template>

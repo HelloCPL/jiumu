@@ -3,7 +3,6 @@
  * @author cpl
  * @create 2023-04-23 09:28:55
  */
-import clipboard from 'clipboardy'
 import { getCurrentInstance } from 'vue'
 import {
   getP,
@@ -14,6 +13,9 @@ import {
   clearStartReg,
   findCountReeg
 } from './keydown-tools'
+import { useClipboardy } from '@/hooks/use-clipboardy'
+
+const { copy, paste } = useClipboardy()
 
 type UOption = {
   editorEgine: any
@@ -171,7 +173,7 @@ export const useMarkdownKeydown = () => {
       let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
       copyText += '\n'
-      clipboard.write(copyText)
+      copy(copyText)
     }
   }
 
@@ -186,7 +188,7 @@ export const useMarkdownKeydown = () => {
       let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
       copyText += '\n'
-      clipboard.write(copyText)
+      copy(copyText)
     }
   }
   /*
@@ -200,7 +202,7 @@ export const useMarkdownKeydown = () => {
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (isFocus && start === end) {
       e.preventDefault()
-      clipboard.read().then((copyText) => {
+      paste().then((copyText) => {
         const flag = copyText && copyText.indexOf('\n') === copyText.length - 1
         let len = 0
         let val = ''

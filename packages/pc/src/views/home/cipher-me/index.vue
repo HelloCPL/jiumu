@@ -75,6 +75,7 @@
               class="cursor-pointer mr-2"
               v-if="row.show === '1'"
               @click="handleShowCipher($index)"
+              v-permission="'pc:cipher:me:view:info:btn'"
             >
               <Hide />
             </ElIcon>
@@ -83,11 +84,26 @@
               class="cursor-pointer mr-2"
               v-else
               @click="handleShowCipher($index)"
+              v-permission="'pc:cipher:me:view:info:btn'"
             >
               <View />
             </ElIcon>
-            <ElButton type="primary" text size="small" @click="handleEdit($index)">修改</ElButton>
-            <ElButton type="danger" text size="small" @click="handleDelete($index)">删除</ElButton>
+            <ElButton
+              type="primary"
+              text
+              size="small"
+              @click="handleEdit($index)"
+              v-permission="'pc:cipher:me:update:btn'"
+              >修改</ElButton
+            >
+            <ElButton
+              type="danger"
+              text
+              size="small"
+              @click="handleDelete($index)"
+              v-permission="'pc:cipher:me:delete:btn'"
+              >删除</ElButton
+            >
           </div>
         </template>
       </ElTableColumn>
@@ -136,6 +152,7 @@ import SelectType from '@/components/SelectType/index.vue'
 import CipherAdd from './components/CipherAdd.vue'
 import CipherCodeAdd from './components/CipherCodeAdd.vue'
 import CipherCodeCheck from './components/CipherCodeCheck.vue'
+import { hasPermission } from '@/utils/permission'
 
 defineOptions({
   name: 'CipherMe'

@@ -16,7 +16,17 @@
       <!-- 左侧 -->
       <template #left>
         <div class="pl-4 user-menu-box">
-          <ElTree :data="dataList" default-expand-all check-strictly node-key="id"></ElTree>
+          <ElTree
+            :data="dataList"
+            default-expand-all
+            check-strictly
+            node-key="id"
+            :render-content="renderContent"
+          >
+            <!-- <template #default="node">
+              <span>{{ node }}</span>
+            </template> -->
+          </ElTree>
         </div>
       </template>
     </PopupTwo>
@@ -33,12 +43,16 @@ import { ElTree } from 'element-plus'
 const props = defineProps(userInfoProps)
 
 const { _username, dataList, getDataList } = useUserMenu(props)
+
+const renderContent = (h: any, { data }: any) => {
+  return h('span', [h('span', {}, [data.label]), h('span', { class: 'text-lighter pl-4' }, [data.code])])
+}
 </script>
 
 <style lang="scss">
 .user-menu-box {
   .el-tree {
-    background-color: var(--jm-color-bg);
+    // background-color: var(--jm-color-bg);
   }
   .el-tree-node:focus > .el-tree-node__content,
   .el-tree-node__content:hover {

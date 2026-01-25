@@ -27,7 +27,7 @@
     <template #footer v-if="showFooter">
       <slot name="footer">
         <ElButton @click="handleCancel">取消</ElButton>
-        <ElButton type="primary" @click="handleConfirm">确认</ElButton>
+        <ElButton type="primary" @click="handleConfirm" v-permission="addCode">确认</ElButton>
       </slot>
     </template>
     <div class="w-full h-full g-scroll-y dialog-content px-4" :class="classContent">

@@ -22,7 +22,12 @@
     </ElForm>
     <template #footer>
       <ElButton @click="$emit('close')">取消</ElButton>
-      <ElButton type="primary" @click="confirm">保存</ElButton>
+      <ElButton
+        type="primary"
+        @click="confirm"
+        v-permission="{ code: ['pc:role:add:btn', 'pc:role:update:btn'], rule: 'or' }"
+        >保存</ElButton
+      >
     </template>
   </Dialog>
 </template>

@@ -9,7 +9,12 @@
     <!-- 操作盒子 -->
     <FilterButton :list="btnList" @click="handleBtn">
       <template #right>
-        <Upload class="ml-3" :http-request="handleImport" accept=".json">
+        <Upload
+          class="ml-3"
+          :http-request="handleImport"
+          accept=".json"
+          v-if="hasPermission('pc:tag:import:btn')"
+        >
           <ElButton>导入</ElButton>
         </Upload>
       </template>
@@ -48,10 +53,18 @@
             v-if="row.configurable !== '-1'"
             :disabled="row.configurable === '1' && !userStore.isSuper"
             @click="handleEdit(row)"
+            v-permission="'pc:tag:update:btn'"
           >
             修改
           </ElButton>
-          <ElButton type="primary" text size="small" @click="handleAddChild(row)">新增子级</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleAddChild(row)"
+            v-permission="'pc:tag:add:child:btn'"
+            >新增子级</ElButton
+          >
           <ElButton
             type="danger"
             text
@@ -59,6 +72,7 @@
             @click="handleDelete(row)"
             :disabled="row.configurable === '1' && !userStore.isSuper"
             v-if="!(row.children && row.children?.length) && row.configurable !== '-1'"
+            v-permission="'pc:tag:delete:btn'"
           >
             删除
           </ElButton>
@@ -68,6 +82,7 @@
             size="small"
             v-if="row.parentCode === '8888'"
             @click="handleShowTagUser(row)"
+            v-permission="'pc:tag:user:relevant:btn'"
           >
             用户关联
           </ElButton>
@@ -108,6 +123,7 @@ import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import { useUserStore } from '@/store'
 import Upload from '@/components/Upload/index.vue'
+import { hasPermission } from '@/utils/permission'
 
 defineOptions({
   name: 'Tag'

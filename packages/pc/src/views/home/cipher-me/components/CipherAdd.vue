@@ -5,7 +5,12 @@
 -->
 
 <template>
-  <Dialog :title="title" @close="$emit('close')" @confirm="confirm">
+  <Dialog
+    :title="title"
+    :add-code="{ code: ['pc:cipher:me:add:btn', 'pc:cipher:me:update:btn'], rule: 'or' }"
+    @close="$emit('close')"
+    @confirm="confirm"
+  >
     <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(100)" class="g-popup">
       <ElFormItem label="标题" prop="title" class="g-w-320">
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>

@@ -17,7 +17,7 @@ import { useUserStore } from '@/store'
 export const useIndex = () => {
   const keyword = ref<string>('')
   const pageNo = ref<number>(1)
-  const pageSize = ref<number>(10)
+  const pageSize = ref<number>(20)
   const total = ref<number>(0)
 
   const data = ref<DataPermission[]>([])
@@ -61,8 +61,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   })
 
   const btnList: FilterButtonList[] = [
-    { name: '新增', key: 'add', type: 'primary' },
-    { name: '导出', key: 'export' }
+    { name: '新增', key: 'add', type: 'primary', code: 'pc:permission:add:btn' },
+    { name: '导出', key: 'export', code: 'pc:permission:export:btn' }
   ]
 
   // 点击按钮

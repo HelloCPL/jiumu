@@ -61,9 +61,16 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(140)" fixed="right" v-if="checkPermissionByCode('super')">
+      <ElTableColumn label="操作" :width="getPx(140)" fixed="right" v-if="isSuper()">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleShowNovelChapter(row)">章节列表</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowNovelChapter(row)"
+            v-permission="'pc:novel:me:view:chapter:list:btn'"
+            >章节列表</ElButton
+          >
           <ElButton type="primary" text size="small" @click="handleTop(row)" v-if="row.isTop === '0'">
             置顶
           </ElButton>
@@ -90,7 +97,8 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { checkPermissionByCode, getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@/utils/tools'
+import { isSuper } from '@/utils/permission'
 
 defineOptions({
   name: 'Article'
