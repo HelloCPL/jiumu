@@ -36,17 +36,16 @@
 import { ElMenu, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue'
-import { useUserStore, useNavigationsStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, onUnmounted } from 'vue'
 import { isHomeRoutes } from '@/router/routes'
 import { findChildrenFirst } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
+import { userStore } from '@/store/user/instance'
+import { navigationsStore } from '@/store/navigations/instance'
 
 const router = useRouter()
-const userStore = useUserStore()
-const navigationsStore = useNavigationsStore()
 const { isCollapse, routerName } = storeToRefs(navigationsStore)
 // 记录打开状态
 let _isCollapse = isCollapse.value

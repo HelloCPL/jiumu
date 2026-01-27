@@ -1,21 +1,20 @@
 <!--
-  @describe: markdown 预览
+  @describe: html 预览组件
   @author: cpl
-  @create: 2022-10-07 19:49:51
+  @create: 2022-10-07 20:21:28
 -->
 
 <template>
-  <div class="w-full flex editor-md-preiview-container" :class="{ 'editor-md-preview-light': isLight }">
+  <div class="bg-white w-full flex editor-wang-preiview-container">
     <div :style="{ width: contentWidth }">
-      <v-md-preview :text="text" ref="refPreview" @copy-code-success="handleCopySuccess"></v-md-preview>
+      <div :id="'editor-preview-' + id" class="editor-wang-preview"></div>
     </div>
-    <!-- 目录  -->
     <div
-      class="affix-md-preview-right shrink-0"
+      class="affix-wang-preview-right shrink-0"
       :style="{ width: width + 'px' }"
       v-if="titleData.length > 3 && !isReload"
     >
-      <ElAffix target=".affix-md-preview-right" :offset="40">
+      <ElAffix target=".affix-wang-preview-right" :offset="40">
         <div class="w-full h-full relative title-wrapper">
           <!-- 展开收起按钮 -->
           <span
@@ -30,17 +29,19 @@
           <!-- 目录列表 -->
           <div class="h-full overflow-hidden" :style="{ width: width + 'px' }">
             <div style="width: 220px" class="h-full flex flex-col">
-              <div class="text-lg w-full h-10 pt-1 preview-bg-white">
+              <div class="text-lg w-full h-10 pt-1 bg-white">
                 <span>目录：</span>
               </div>
               <div class="flex-1 flex flex-col w-full pt-2 g-scroll-y">
-                <GRichText
-                  class="cursor-pointer mb-4 preview-text-light"
+                <span
+                  class="cursor-pointer text-light mb-4"
                   v-for="(item, index) in titleData"
                   :key="index"
-                  :html="item.html"
+                  :style="{ 'padding-left': item.paddingLeft }"
                   @click="handleTitleItem(index)"
-                ></GRichText>
+                >
+                  {{ item.text }}
+                </span>
               </div>
             </div>
           </div>
@@ -51,38 +52,19 @@
 </template>
 
 <script lang="ts" setup>
-import { editorMdPreviewProps } from './type'
+import { editorWangPreviewProps } from './type'
 import { useIndex } from './index'
 import { ElAffix, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
-import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
 
-useMarkdownInit()
+const props = defineProps(editorWangPreviewProps)
 
-const props = defineProps(editorMdPreviewProps)
-
-const {
-  isReload,
-  refPreview,
-  width,
-  contentWidth,
-  titleData,
-  handleTitleItem,
-  handleClickArrow,
-  handleCopySuccess
-} = useIndex(props)
+const { id, width, contentWidth, isReload, titleData, handleTitleItem, handleClickArrow } = useIndex(props)
 </script>
 
 <style lang="scss">
-@forward '@/components/Editor/components/EditorMd/index.scss';
-@forward '@/components/Editor/components/EditorMd/index-theme.scss';
-@forward '@/components/Editor/components/EditorMd/index-mermaid.scss';
-@forward './index.scss';
-
-.editor-md-preiview-container {
-  background: var(--jm-color-white);
-  color: var(--jm-color-text);
-
+@forward '@/components/Editor/components/EditorWang/index.scss';
+.editor-wang-preiview-container {
   .el-affix {
     width: auto !important;
   }
@@ -90,6 +72,11 @@ const {
 </style>
 
 <style lang="scss" scoped>
+.editor-wang-preview {
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
 .title-wrapper {
   max-height: calc(100vh - 50px);
 }
@@ -102,13 +89,5 @@ const {
 
 .title-icon-arrow {
   transform: rotate(180deg);
-}
-
-.preview-bg-white {
-  background: var(--jm-color-white);
-}
-
-.preview-text-light {
-  color: var(--jm-color-text-light);
 }
 </style>

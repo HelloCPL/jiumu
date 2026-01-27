@@ -31,15 +31,14 @@ import Sidebar from './components/Sidebar.vue'
 import Navigator from './components/Navigator.vue'
 import Content from './components/Content.vue'
 import UserInfo from '../components/UserInfo/index.vue'
-import { useUserStore } from '@/store'
 import { ref } from 'vue'
+import { userStore } from '@/store/user/instance'
 
 defineOptions({
   name: 'Home'
 })
 
 // 初始化用户信息
-const userStore = useUserStore()
 if (userStore.token && !userStore.userInfo) userStore.updateUser()
 
 const isShowUserInfo = ref<boolean>(false)

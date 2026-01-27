@@ -28,6 +28,7 @@ declare module 'vue' {
     InputNumber: typeof import('./src/components/InputNumber/index.vue')['default']
     Interation: typeof import('./src/components/Interation/index.vue')['default']
     LazyLoader: typeof import('./src/components/LazyLoader/index.vue')['default']
+    Loading: typeof import('./src/components/LazyLoader/components/loading.vue')['default']
     MoreBtn: typeof import('./src/components/MoreBtn/index.vue')['default']
     Note: typeof import('./src/components/Note/index.vue')['default']
     NoteAdd: typeof import('./src/components/Note/components/NoteAdd.vue')['default']

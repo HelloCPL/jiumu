@@ -4,47 +4,83 @@
  * @create 2023-04-10 11:21:45
  */
 
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { LazyLoaderProps } from './type'
 
-export const useIndex = () => {
-  const isLoad = ref(false)
-  const box = ref<any>(null)
+export const useIndex = (props: LazyLoaderProps) => {
+  const isLoaded = ref(false)
+  const isLoading = ref(false)
+  const observerRef = ref<HTMLElement | null>(null)
 
-  let observer: any
+  let observer: IntersectionObserver | null = null
 
-  const _load = () => {
-    observer = initLazyIntersectionObserver((entry: IntersectionObserverEntry) => {
-      // 当内容可见
-      if (entry.isIntersecting) {
-        isLoad.value = true
-        observer.unobserve(box.value)
-        observer = null
-      }
-    })
-    if (observer && box.value) observer.observe(box.value)
+  // 初始化观察者
+  const initObserver = () => {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      return loadContent()
+    }
+    const options: IntersectionObserverInit = {
+      rootMargin: '0px',
+      threshold: 0,
+      ...props.observerOptions
+    }
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // 元素进入视口或达到阈值
+        if (entry.isIntersecting) {
+          loadContent()
+          observer?.unobserve(entry.target)
+          observer = null
+        }
+      })
+    }, options)
+
+    if (observerRef.value) {
+      observer.observe(observerRef.value)
+    }
   }
 
-  onMounted(_load)
+  // 加载内容
+  const loadContent = async () => {
+    if (isLoaded.value || isLoading.value) return
+    isLoading.value = true
+    try {
+      if (props.preloadResources) {
+        await props.preloadResources()
+      }
+      await nextTick()
+    } finally {
+      isLoaded.value = true
+      isLoading.value = false
+    }
+  }
+
+  const reload = () => {
+    isLoaded.value = false
+    initObserver()
+  }
+
+  const cleanup = () => {
+    if (observer && observerRef.value) {
+      observer.unobserve(observerRef.value)
+      observer.disconnect()
+      observer = null
+    }
+  }
+
+  onMounted(() => {
+    initObserver()
+  })
+
   onBeforeUnmount(() => {
-    if (observer && box.value) observer.unobserve(box.value)
+    cleanup()
   })
 
   return {
-    isLoad,
-    box
+    isLoaded,
+    isLoading,
+    observerRef,
+    loadContent,
+    reload
   }
-}
-
-// 监听元素是否在可视窗口出现
-function initLazyIntersectionObserver(fn: Function) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      return entries.forEach((entry) => fn(entry))
-    },
-    {
-      rootMargin: '0px',
-      threshold: 0
-    }
-  )
-  return observer
 }

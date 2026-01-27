@@ -53,10 +53,8 @@
 import IconSvg from '@/components/IconSvg/index'
 import SelectType from '@/components/SelectType/index.vue'
 import { ref } from 'vue'
-import { useThemeStore } from '@/store'
 import { ThemeValue, FontSizeValue } from '@/enumerations'
-
-const themeStore = useThemeStore()
+import { themeStore } from '@/store/theme/instance'
 
 // 主题
 const theme = ref<ThemeValue>('light')

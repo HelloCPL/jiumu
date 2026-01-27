@@ -44,9 +44,9 @@ export const useIndex = (props: ParticleProps) => {
     text = newText
     ctx.fillStyle = '#000'
     ctx.textBaseline = 'middle'
-    ctx.font = `${props.fontSize * devicePixelRatio}px 'DS-Digital',sans-serif`
+    ctx.font = `${props.fontSize}px 'DS-Digital',sans-serif`
     const w = (ctx.canvas.width - ctx.measureText(text).width) / 2
-    const h = (ctx.canvas.height + (props.fontSize * 1.5) / 2) / 2
+    const h = ctx.canvas.height / 2
     ctx.fillText(text, w, h)
     const points = getPoints()
     pointsLen = points.length

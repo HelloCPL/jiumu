@@ -30,15 +30,13 @@
 </template>
 
 <script lang="ts" setup>
+import { themeStore } from '@/store/theme/instance'
+import { userStore } from '@/store/user/instance'
 import { ElImage } from 'element-plus'
-import { useUserStore, useThemeStore } from '@/store'
 import { computed } from 'vue'
 
 const { VITE_MODE } = import.meta.env
 
-const userStore = useUserStore()
-
-const themeStore = useThemeStore()
 const headerClass = computed(() => {
   if (themeStore.theme === 'drak') {
     return 'bg-primary-200 text-black-8'

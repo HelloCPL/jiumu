@@ -84,12 +84,11 @@
 import { ElIcon } from 'element-plus'
 import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
 import NavigatorRight from './NavigatorRight.vue'
-import { useThemeStore } from '@/store'
 import { useNavigator, useNavigatorDrag } from './use-navigator'
 import { onMousewheel } from '@jiumu/utils'
 import IconSvg from '@/components/IconSvg/index.vue'
-
-const themeStore = useThemeStore()
+import { navigationsStore } from '@/store/navigations/instance'
+import { themeStore } from '@/store/theme/instance'
 
 // 导航栏处理
 const {
@@ -97,7 +96,6 @@ const {
   maxWidth,
   refContainer,
   refWrapper,
-  navigationsStore,
   clickItem,
   clickClose,
   changeLeft,

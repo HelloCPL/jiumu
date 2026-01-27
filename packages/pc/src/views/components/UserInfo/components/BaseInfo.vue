@@ -115,7 +115,7 @@ import { ElIcon, ElTag, ElButton, ElTooltip } from 'element-plus'
 import { QuestionFilled, Edit, Lock } from '@element-plus/icons-vue'
 import Upload from '@/components/Upload/index.vue'
 import IconSvg from '@/components/IconSvg/index'
-import { useUserStore, useResetStore, useTokenRefreshStore } from '@/store'
+import { useResetStore } from '@/store'
 import { formatDate } from '@jiumu/utils'
 import { Confirm } from '@/utils/interaction'
 import { exitUser, updateUserBaseSelf } from '@/api/user'
@@ -123,8 +123,8 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import EditPassword from './EditPassword.vue'
 import EditBaseInfo from './EditBaseInfo.vue'
-
-const userStore = useUserStore()
+import { userStore } from '@/store/user/instance'
+import { tokenRefreshStore } from '@/store/token-refresh/instance'
 
 // 密码
 const showPassword = ref<boolean>(false)
@@ -150,7 +150,6 @@ const handleUploadAvatar = async (files: DataBaseFile[]) => {
 const router = useRouter()
 const exit = () => {
   Confirm('确认退出登录吗').then(async () => {
-    const tokenRefreshStore = useTokenRefreshStore()
     await exitUser(tokenRefreshStore.tokenRefresh)
     const resetStore = useResetStore()
     resetStore.reset()

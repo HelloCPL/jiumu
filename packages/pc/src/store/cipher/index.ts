@@ -7,7 +7,7 @@ import { defineStore } from 'pinia'
 import { StoreNames } from '../store-name'
 import { storage } from '@jiumu/utils'
 
-export const useCipherStore = defineStore<string, CipherState, {}, CipherAction>(StoreNames.CIPHER, {
+export const useCipherStore = defineStore<string, CipherState, ObjectAny, CipherAction>(StoreNames.CIPHER, {
   state: () => {
     return {
       code: ''

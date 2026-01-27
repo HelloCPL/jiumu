@@ -15,6 +15,5 @@
 </template>
 
 <script lang="ts" setup>
-import { useKeepAliveStore } from '@/store'
-const keepAliveStore = useKeepAliveStore()
+import { keepAliveStore } from '@/store/keep-alive/instance'
 </script>

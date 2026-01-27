@@ -4,7 +4,6 @@
  * @create 2023-04-17 09:25:39
  */
 
-// import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
 import { ref, computed, watch } from 'vue'
 import { xss } from '@jiumu/utils'
 import { EditorMdPreviewProps } from './type'
@@ -12,8 +11,6 @@ import gsap from 'gsap'
 import { Message } from '@/utils/interaction'
 
 export const useIndex = (props: EditorMdPreviewProps) => {
-  // useMarkdownInit()
-
   const refPreview = ref<any>(null)
   const width = ref(0)
   const contentWidth = computed(() => {

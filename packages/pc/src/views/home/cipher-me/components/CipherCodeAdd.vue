@@ -71,7 +71,7 @@ import { Message } from '@/utils/interaction'
 import { encrypt } from '@jiumu/utils'
 import { cipherCodeAddEmits } from './type'
 import { useCheckCipherCode } from '../hooks/use-index'
-import { useCipherStore } from '@/store'
+import { cipherStore } from '@/store/cipher/instance'
 
 const emit = defineEmits(cipherCodeAddEmits)
 
@@ -98,7 +98,6 @@ const rules = reactive<FormRules>({
   code: [{ required: true, trigger: 'change', validator: validCode }]
 })
 
-const cipherStore = useCipherStore()
 const confirm = () => {
   if (!formRef.value) return
   formRef.value.validate(async (valid) => {

@@ -138,37 +138,37 @@ export const useNavigator = () => {
     isShow.value = false
     const name = <string>navigationsStore.navigations[index].name
     switch (item.value) {
-    case 'refresh':
-      router.push({
-        name: 'Refresh',
-        params: { ...route.params, __name: name },
-        query: { ...route.query }
-      })
-      return
-    case 'close':
-      clickClose(navigationsStore.navigations[index], index)
-      return
-    case 'closeRight':
-      for (let i = index + 1; i < navigationsStore.navigations.length; i++) {
-        clickClose(navigationsStore.navigations[i], i)
-        i--
-      }
-      return
-    case 'closeLeft':
-      for (let i = 0; i < index; i++) {
-        clickClose(navigationsStore.navigations[i], i)
-        i--
-        index--
-      }
-      return
-    case 'closeOther':
-      for (let i = 0; i < navigationsStore.navigations.length; i++) {
-        if (navigationsStore.navigations[i].name !== name) {
+      case 'refresh':
+        router.push({
+          name: 'Refresh',
+          params: { ...route.params, __name: name },
+          query: { ...route.query }
+        })
+        return
+      case 'close':
+        clickClose(navigationsStore.navigations[index], index)
+        return
+      case 'closeRight':
+        for (let i = index + 1; i < navigationsStore.navigations.length; i++) {
           clickClose(navigationsStore.navigations[i], i)
           i--
         }
-      }
-      return
+        return
+      case 'closeLeft':
+        for (let i = 0; i < index; i++) {
+          clickClose(navigationsStore.navigations[i], i)
+          i--
+          index--
+        }
+        return
+      case 'closeOther':
+        for (let i = 0; i < navigationsStore.navigations.length; i++) {
+          if (navigationsStore.navigations[i].name !== name) {
+            clickClose(navigationsStore.navigations[i], i)
+            i--
+          }
+        }
+        return
     }
   }
 
@@ -177,7 +177,6 @@ export const useNavigator = () => {
     maxWidth,
     refContainer,
     refWrapper,
-    navigationsStore,
     clickItem,
     clickClose,
     changeLeft,

@@ -39,10 +39,8 @@ import { ref } from 'vue'
 import { getLoginInfoList } from '@/api/user'
 import { formatDate, getDataDiff } from '@jiumu/utils'
 import MoreBtn from '@/components/MoreBtn/index.vue'
-import { useUserStore } from '@/store'
 import { debounce } from 'lodash-es'
-
-const userStore = useUserStore()
+import { userStore } from '@/store/user/instance'
 
 const data = ref<DataLoginInfo[]>([])
 const total = ref(0)

@@ -5,7 +5,6 @@
 -->
 
 <template>
-  <!-- <div class="">markdown 编辑器</div> -->
   <v-md-editor
     v-model="value"
     :height="height + 'px'"
@@ -28,7 +27,7 @@ import { useMarkdownInit } from './hooks/use-markdown-init'
 import { editorMarkdownProps, editorMarkdownEmits } from './type'
 import { useMarkdownIndex } from './hooks/use-markdown-index'
 
-// useMarkdownInit()
+useMarkdownInit()
 
 const props = defineProps(editorMarkdownProps)
 const emit = defineEmits(editorMarkdownEmits)

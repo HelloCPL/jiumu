@@ -3,18 +3,22 @@
  */
 
 import { buildProps } from '@jiumu/utils'
-import { ExtractPropTypes } from 'vue'
+import { ExtractPropTypes, PropType } from 'vue'
 
 export const lazyLoaderProps = buildProps({
-  // 宽
-  width: {
-    type: String,
-    default: '100%'
+  // 监听配置
+  observerOptions: {
+    type: Object as PropType<IntersectionObserverInit>,
+    default: () => ({})
   },
-  // 高
-  height: {
-    type: String,
-    default: '100%'
+  // 是否展示加载状态
+  showLoading: {
+    type: Boolean,
+    default: true
+  },
+  // 自定义预加载资源
+  preloadResources: {
+    type: Function
   }
 } as const)
 

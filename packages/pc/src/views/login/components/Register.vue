@@ -7,11 +7,17 @@
 <template>
   <div class="h-full w-full p-8">
     <ElForm :model="form" :rules="rules" ref="formRef" @keydown.enter="submit">
+      <div class="text-xl text-center">注册</div>
       <ElFormItem prop="phone" class="mt-8">
-        <ElInput v-model="form.phone" placeholder="请输入账号"></ElInput>
+        <ElInput v-model="form.phone" placeholder="请输入账号" autocomplete="new-password"></ElInput>
       </ElFormItem>
       <ElFormItem prop="password">
-        <ElInput v-model="form.password" type="password" placeholder="请输入密码"></ElInput>
+        <ElInput
+          v-model="form.password"
+          type="password"
+          placeholder="请输入密码"
+          autocomplete="new-password"
+        ></ElInput>
       </ElFormItem>
       <ElFormItem prop="confirmPassword">
         <ElInput v-model="form.confirmPassword" type="password" placeholder="请再次输入密码"></ElInput>
@@ -20,6 +26,10 @@
         <ElButton type="primary" round class="w-full" @click="submit">注册</ElButton>
       </ElFormItem>
     </ElForm>
+    <div class="flex items-center justify-center pt-8">
+      <span class="text-lighter">已有账号，前往</span>
+      <span class="text-primary" @click="emit('toLogin')">登录</span>
+    </div>
   </div>
 </template>
 
@@ -27,12 +37,13 @@
 import { ElForm, ElFormItem, ElInput, ElButton, FormInstance } from 'element-plus'
 import { useRegister } from '../hooks/use-register'
 import { register } from '@/api/user'
-import { useTokenRefreshStore, useUserStore } from '@/store'
 import { useRoute, useRouter } from 'vue-router'
+import { userStore } from '@/store/user/instance'
+import { tokenRefreshStore } from '@/store/token-refresh/instance'
+
+const emit = defineEmits(['toLogin'])
 
 const { formRef, form, rules, submitValid } = useRegister()
-const userStore = useUserStore()
-const tokenRefreshStore = useTokenRefreshStore()
 const route = useRoute()
 const router = useRouter()
 

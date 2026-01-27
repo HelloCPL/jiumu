@@ -16,7 +16,7 @@ type ResetActions = {
   reset: () => void
 }
 
-export const useResetStore = defineStore<string, {}, {}, ResetActions>(StoreNames.RESET, {
+export const useResetStore = defineStore<string, ObjectAny, ObjectAny, ResetActions>(StoreNames.RESET, {
   actions: {
     // 清除所有公共状态数据
     reset() {

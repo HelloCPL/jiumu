@@ -42,9 +42,9 @@ import { ElForm, ElFormItem, ElInput, FormRules, FormInstance } from 'element-pl
 import { reactive, ref } from 'vue'
 import { getPx } from '@/utils/tools'
 import { checkCipherCodeSelf } from '@/api/cipher'
-import { useCipherStore } from '@/store'
 import { Message } from '@/utils/interaction'
 import { encrypt } from '@jiumu/utils'
+import { cipherStore } from '@/store/cipher/instance'
 
 const emit = defineEmits(cipherCodeAddEmits)
 
@@ -60,7 +60,6 @@ const rules = reactive<FormRules>({
 const handleClose = () => {
   emit('close')
 }
-const cipherStore = useCipherStore()
 const confirm = () => {
   if (!formRef.value) return
   formRef.value.validate(async (valid) => {

@@ -9,7 +9,7 @@ import { StoreNames } from '../store-name'
 import { storage } from '@jiumu/utils'
 const { VITE_HOME_EXPIRE } = import.meta.env
 
-export const useTokenRefreshStore = defineStore<string, TokenRefreshState, {}, TokenRefreshActions>(
+export const useTokenRefreshStore = defineStore<string, TokenRefreshState, ObjectAny, TokenRefreshActions>(
   StoreNames.TOKEN_REFRESH,
   {
     state: () => {

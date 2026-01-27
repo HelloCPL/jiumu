@@ -16,8 +16,6 @@ const Colors = {
   light: colorLight
 }
 
-const { VITE_HOME_EXPIRE } = import.meta.env
-
 // 字体大小集合
 const fontSizeList: KeyValue<string, number>[] = [
   { key: '--jm-font-size-large-extra', value: 20 },
@@ -29,7 +27,7 @@ const fontSizeList: KeyValue<string, number>[] = [
   { key: '--jm-font-size-small-extra', value: 12 }
 ]
 
-export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(StoreNames.THEME, {
+export const useThemeStore = defineStore<string, ThemeState, ObjectAny, ThemeActions>(StoreNames.THEME, {
   state: () => {
     return {
       theme: 'light',
@@ -52,6 +50,7 @@ export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(S
 
     /**
      * 修改字体类型
+     * @params family 字体类型
      */
     async toggleFontFamily(family?: FontFamilyValue) {
       const _family = family || this.fontFamily
@@ -61,28 +60,30 @@ export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(S
 
     /**
      * 修改字体大小
+     * @params font 字体大小
      */
-    async toggleFontSize(font?: FontSizeValue) {
-      const _font = font || this.fontSize
+    async toggleFontSize(fontSize?: FontSizeValue) {
+      const _fontSize = fontSize || this.fontSize
       fontSizeList.forEach((item) => {
-        const value = _font - 14 + item.value + 'px'
+        const value = _fontSize - 14 + item.value + 'px'
         document?.documentElement.style.setProperty(item.key, value)
       })
-      this.fontSize = _font
+      this.fontSize = _fontSize
     },
 
     /**
      * 根据 当前字体大小获取适配的大小 常用于echarts等js定义的字体大小
      * getRootFontSize(14) // 14
      * 建议用 this.fontSze 做基量 如 this.fontSize + 2
+     * @params originSize 原始字体大小
      */
-    getRootFontSize(size: number): number {
-      return size + this.fontSize - 14
+    getRootFontSize(originSize: number): number {
+      return originSize + this.fontSize - 14
     },
 
     /**
-     * 根据 root key 值获取当前字体大小对应的 fontSize 常用于echarts等js定义的字体大小
      * 修改主题颜色
+     * @params theme 主题名称
      */
     async toggleTheme(theme?: ThemeValue) {
       const _theme = theme || this.theme
@@ -127,6 +128,7 @@ export const useThemeStore = defineStore<string, ThemeState, {}, ThemeActions>(S
     /**
      * 根据 root key 值获取当前主题对应的颜色 常用于echarts等js定义的
      * getRootColor('--jm-color-primary-500') // #409EFF
+     * @params key 颜色key
      */
     getRootColor(key: string): string {
       return this.colors.find((item) => item.key === key)?.value || '#409EFF'

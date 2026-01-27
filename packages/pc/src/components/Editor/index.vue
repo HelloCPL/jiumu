@@ -19,26 +19,24 @@
         </ElRadioGroup>
       </div>
     </div>
-    <LazyLoader>
-      <EditorWang
-        :model-value="modelValue"
-        @update:model-value="updateModelValue"
-        @change="change"
-        @blur="blur"
-        @focus="focus"
-        @save="save"
-        v-bind="$attrs"
-        v-if="type === '401'"
-      ></EditorWang>
-      <EditorMd
-        :model-value="modelValue"
-        @update:model-value="updateModelValue"
-        @change="change"
-        @save="save"
-        v-bind="$attrs"
-        v-else-if="type === '402'"
-      ></EditorMd>
-    </LazyLoader>
+    <EditorWang
+      :model-value="modelValue"
+      @update:model-value="updateModelValue"
+      @change="change"
+      @blur="blur"
+      @focus="focus"
+      @save="save"
+      v-bind="$attrs"
+      v-if="type === '401'"
+    ></EditorWang>
+    <EditorMd
+      :model-value="modelValue"
+      @update:model-value="updateModelValue"
+      @change="change"
+      @save="save"
+      v-bind="$attrs"
+      v-else-if="type === '402'"
+    ></EditorMd>
   </div>
 </template>
 
@@ -46,11 +44,8 @@
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import { editorProps, editorEmits } from './type'
 import { useIndex } from './index'
-import LazyLoader from '@/components/LazyLoader/index.vue'
-import { defineAsyncComponent } from 'vue'
-
-const EditorMd = defineAsyncComponent(() => import('./components/EditorMd/index.vue'))
-const EditorWang = defineAsyncComponent(() => import('./components/EditorWang/index.vue'))
+import EditorMd from './components/EditorMd/index.vue'
+import EditorWang from './components/EditorWang/index.vue'
 
 defineOptions({
   inheritAttrs: false

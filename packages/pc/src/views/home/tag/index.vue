@@ -121,15 +121,13 @@ import TagInfo from './components/TagInfo.vue'
 import TagUser from './components/TagUser.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
-import { useUserStore } from '@/store'
 import Upload from '@/components/Upload/index.vue'
 import { hasPermission } from '@/utils/permission'
+import { userStore } from '@/store/user/instance'
 
 defineOptions({
   name: 'Tag'
 })
-
-const userStore = useUserStore()
 
 const { data, getDataList } = useIndex()
 

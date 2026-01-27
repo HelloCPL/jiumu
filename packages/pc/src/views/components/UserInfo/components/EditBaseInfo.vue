@@ -49,13 +49,13 @@
 import Dialog from '@/components/Dialog/index.vue'
 import { ElForm, ElFormItem, ElInput, ElDatePicker } from 'element-plus'
 import { reactive, ref } from 'vue'
-import { useUserStore } from '@/store'
 import { FormInstance } from 'element-plus'
 import { debounce } from 'lodash-es'
 import { updateUserBaseSelf } from '@/api/user'
 import { Message } from '@/utils/interaction'
 import SelectType from '@/components/SelectType/index.vue'
 import { getPx } from '@/utils/tools'
+import { userStore } from '@/store/user/instance'
 
 const emit = defineEmits({
   confirm: () => true,
@@ -71,7 +71,6 @@ const form = reactive<ParamsUpdateUserBaseSelf>({
   address: '',
   remarks: ''
 })
-const userStore = useUserStore()
 if (userStore.userInfo) {
   form.username = userStore.userInfo.username
   form.sex = userStore.userInfo.sex
