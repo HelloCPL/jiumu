@@ -53,41 +53,69 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
     // 统一更新用户信息 1 用户信息 2 用户角色 3 用户权限 4 用户拥有菜单 5 用户特殊标签
     updateUser(type: string = '12345'): Promise<any> {
       return new Promise((resolve) => {
-        if (type.includes('1'))
-          getUserSelf().then((res) => {
-            if (res.code === 200) {
-              this.userInfo = res.data
-              resolve(res.data)
-            }
+        const promises: Array<Promise<any>> = []
+        if (type.includes('1')) {
+          promises.push(
+            getUserSelf().then((res) => {
+              if (res.code === 200) {
+                this.userInfo = res.data
+                return res.data
+              }
+              return null
+            })
+          )
+        }
+        if (type.includes('2')) {
+          promises.push(
+            getRoleListAllSelf().then((res) => {
+              if (res.code === 200) {
+                this.roles = res.data
+                return res.data
+              }
+              return null
+            })
+          )
+        }
+        if (type.includes('3')) {
+          promises.push(
+            getPermissionListAllSelf().then((res) => {
+              if (res.code === 200) {
+                this.permissions = res.data
+                return res.data
+              }
+              return null
+            })
+          )
+        }
+        if (type.includes('4')) {
+          promises.push(
+            getMenuAllSelf().then((res) => {
+              if (res.code === 200) {
+                this.menus = res.data
+                updateHomesMetaByMenus(res.data)
+                return res.data
+              }
+              return null
+            })
+          )
+        }
+        if (type.includes('5')) {
+          promises.push(
+            getTagAllSelf().then((res) => {
+              if (res.code === 200) {
+                this.tags = res.data
+                return res.data
+              }
+              return null
+            })
+          )
+        }
+        Promise.all(promises)
+          .then(() => {
+            resolve(this)
           })
-        if (type.includes('2'))
-          getRoleListAllSelf().then((res) => {
-            if (res.code === 200) {
-              this.roles = res.data
-              resolve(res.data)
-            }
-          })
-        if (type.includes('3'))
-          getPermissionListAllSelf().then((res) => {
-            if (res.code === 200) {
-              this.permissions = res.data
-              resolve(res.data)
-            }
-          })
-        if (type.includes('4'))
-          getMenuAllSelf().then((res) => {
-            if (res.code === 200) {
-              this.menus = res.data
-              updateHomesMetaByMenus(res.data)
-              resolve(res.data)
-            }
-          })
-        if (type.includes('5'))
-          getTagAllSelf().then((res) => {
-            if (res.code === 200) {
-              this.tags = res.data
-              resolve(res.data)
-            }
+          .catch(() => {
+            resolve(this)
           })
       })
     },

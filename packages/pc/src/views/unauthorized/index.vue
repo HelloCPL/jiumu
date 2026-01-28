@@ -19,7 +19,7 @@
 import IconSvg from '@/components/IconSvg'
 import { ElButton } from 'element-plus'
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const msg = ref<any>('')
 const route = useRoute()
@@ -28,7 +28,9 @@ onMounted(() => {
     msg.value = route.query.msg
   }
 })
+
+const router = useRouter()
 const goHome = () => {
-  location.href = '/'
+  router.replace('/')
 }
 </script>

@@ -20,10 +20,10 @@ export const beforeEach = (router: Router) => {
         delete to.query._refreshOne
       }
 
-      const store = useUserStore()
+      const userStore = useUserStore()
 
       // token 校验
-      if (!store.token && to.name !== 'Login') {
+      if (!userStore.token && to.name !== 'Login') {
         return next({
           path: '/login',
           query: { redirect: to.path }
