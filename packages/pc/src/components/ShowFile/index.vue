@@ -50,29 +50,27 @@
         </span>
       </div>
     </div>
-    <LazyLoader>
-      <!-- 图片预览 -->
-      <PreviewImage
-        :url-list="[state.urlImage]"
-        v-if="state.showImage"
-        @close="state.showImage = false"
-      ></PreviewImage>
-      <!-- pdf 预览 -->
-      <PreviewPdf :url="state.urlPdf" v-if="state.showPdf" @close="state.showPdf = false"></PreviewPdf>
-      <!-- txt 预览 -->
-      <PreviewTxt :url="state.urlTxt" v-if="state.showTxt" @close="state.showTxt = false"></PreviewTxt>
-      <!-- word 预览 -->
-      <PreviewWord :url="state.urlWord" v-if="state.showWord" @close="state.showWord = false"></PreviewWord>
-      <!-- excel 预览 -->
-      <PreviewExcel
-        :url="state.urlExcel"
-        v-if="state.showExcel"
-        @close="state.showExcel = false"
-      ></PreviewExcel>
-      <!-- md 文件预览 -->
-      <PreviewMd :url="state.urlMd" v-if="state.showMd" @close="state.showMd = false"></PreviewMd>
-      <!-- 视频预览/播放 -->
-    </LazyLoader>
+    <!-- 图片预览 -->
+    <PreviewImage
+      :url-list="[state.urlImage]"
+      v-if="state.showImage"
+      @close="state.showImage = false"
+    ></PreviewImage>
+    <!-- pdf 预览 -->
+    <PreviewPdf :url="state.urlPdf" v-if="state.showPdf" @close="state.showPdf = false"></PreviewPdf>
+    <!-- txt 预览 -->
+    <PreviewTxt :url="state.urlTxt" v-if="state.showTxt" @close="state.showTxt = false"></PreviewTxt>
+    <!-- word 预览 -->
+    <PreviewWord :url="state.urlWord" v-if="state.showWord" @close="state.showWord = false"></PreviewWord>
+    <!-- excel 预览 -->
+    <PreviewExcel
+      :url="state.urlExcel"
+      v-if="state.showExcel"
+      @close="state.showExcel = false"
+    ></PreviewExcel>
+    <!-- md 文件预览 -->
+    <PreviewMd :url="state.urlMd" v-if="state.showMd" @close="state.showMd = false"></PreviewMd>
+    <!-- 视频预览/播放 -->
   </div>
 </template>
 
@@ -83,16 +81,12 @@ import { View, Download, Delete } from '@element-plus/icons-vue'
 import FileIcon from './components/FileIcon.vue'
 import { useIndex, getFileSize } from './hooks/use-index'
 import { downloadFile } from '@/utils/download-file'
-
-import LazyLoader from '@/components/LazyLoader/index.vue'
-import { defineAsyncComponent } from 'vue'
-
-const PreviewImage = defineAsyncComponent(() => import('./components/PreviewImage.vue'))
-const PreviewPdf = defineAsyncComponent(() => import('./components/PreviewPdf.vue'))
-const PreviewTxt = defineAsyncComponent(() => import('./components/PreviewTxt.vue'))
-const PreviewWord = defineAsyncComponent(() => import('./components/PreviewWord.vue'))
-const PreviewExcel = defineAsyncComponent(() => import('./components/PreviewExcel.vue'))
-const PreviewMd = defineAsyncComponent(() => import('./components/PreviewMd.vue'))
+import PreviewExcel from './components/PreviewExcel/index.vue'
+import PreviewImage from './components/PreviewImage/index.vue'
+import PreviewMd from './components/PreviewMd/index.vue'
+import PreviewPdf from './components/PreviewPdf/index.vue'
+import PreviewTxt from './components/PreviewTxt.vue'
+import PreviewWord from './components/PreviewWord/index.vue'
 
 const props = defineProps(showFileProps)
 const emit = defineEmits(showFileEmits)

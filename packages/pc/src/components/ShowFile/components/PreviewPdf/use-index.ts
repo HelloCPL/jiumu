@@ -4,7 +4,7 @@
 
 import { ref, reactive, nextTick, watch } from 'vue'
 import { useLoading } from '@/utils/interaction'
-import { PreviewPdfProps } from '../components/type'
+import { PreviewPdfProps } from '../../components/type'
 import * as pdfjs from 'pdfjs-dist'
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 import { PDFDocumentProxy } from 'pdfjs-dist'
