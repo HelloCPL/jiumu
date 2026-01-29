@@ -4,16 +4,16 @@
  * @create 2023-04-23 09:28:55
  */
 import { getCurrentInstance } from 'vue'
-import { findCountReeg } from './keydown-tools'
-import { useClipboardy } from '@/hooks/use-clipboardy'
 import {
-  getMatchReg,
-  getParagraphContext,
-  isMatchReg,
-  isMatchSpace,
-  replaceMatchReg,
-  getSubstring
-} from './keydown-tools2'
+  getP,
+  judgeStartReg,
+  judgeStartSpace,
+  getStartReg,
+  getSubstring,
+  clearStartReg,
+  findCountReeg
+} from './keydown-tools'
+import { useClipboardy } from '@/hooks/use-clipboardy'
 
 const { copy, paste } = useClipboardy()
 
@@ -44,21 +44,19 @@ export const useMarkdownKeydown = () => {
   }
 
   /**
-   * enter 换行拦截
-   * 注意：无序列表仅支持[+]，其中[*-]有编辑器默认行为，且无法捕捉
-   * 1. 若当前行整行仅为无序列表格式，则清除当前行的无序列表格式内容
-   * 2. 若当前行为无序列表开头，则下一行自动补全无序列表开头前缀
-   * 3. 若当前行为空格开头且有非空格内容，则下一行自动补全空格
+   * 换行
+   * 若当前行为 空格 或 空格 + [+ - *] + 至少一个空格 开头 下一行自动补全
+   * 若当前行为仅为 空格 + [+] + 至少一个空格 清除当前行内容
    */
   const _enter = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (isFocus) {
       const { start, end } = editorEgine.getRange()
-      const { p, pUp } = getParagraphContext(value.value, start)
-      const flag1 = isMatchReg({ value: p.value, type: 'unordered-list-add-trailing-whitespace-single' })
-      const flag2 = isMatchReg({ value: p.value, type: 'unordered-list-add' })
-      const flag3 = isMatchSpace(p.value)
+      const { p, pUp } = getP(value.value, start)
+      const flag1 = judgeStartReg({ value: p.value, type: 'b4' })
+      const flag2 = judgeStartReg({ value: p.value, type: 'b1' })
+      const flag3 = judgeStartSpace(p.value)
       if (flag1 || flag2 || flag3) {
         e.preventDefault()
         let v1 = getSubstring(value.value, 0, start)
@@ -66,7 +64,6 @@ export const useMarkdownKeydown = () => {
         let v3 = getSubstring(value.value, end)
         let len = 0
         if (flag1) {
-          // 1. 若当前行整行仅为无序列表格式，则清除当前行的无序列表格式内容
           // +
           if (!pUp.isExist) {
             v2 = '\n\n'
@@ -78,23 +75,21 @@ export const useMarkdownKeydown = () => {
             len = p.startIndex + 1
           }
         } else if (flag2) {
-          // 2. 若当前行为无序列表开头，则下一行自动补全无序列表开头前缀
-          // +
-          v2 = getMatchReg({ value: p.value, type: 'unordered-list-strict', prefix: '\n' })
+          // + *
+          v2 = getStartReg({ value: p.value, type: 'b2', prefix: '\n' })
           len = start + v2.length
         } else if (flag3) {
-          // 3. 若当前行为空格开头且有非空格内容，则下一行自动补全空格
-          if (isMatchReg({ value: p.value, type: 'blank-line' })) {
+          if (judgeStartReg({ value: p.value, type: 'c3' })) {
             // 纯空格
             v1 = getSubstring(value.value, 0, p.startIndex)
             v3 = getSubstring(value.value, p.endIndex)
             len = p.startIndex
           } else {
             // 空格 *
-            v2 = getMatchReg({ value: p.value, type: 'leading-whitespace', prefix: '\n' })
-            v3 = replaceMatchReg({
+            v2 = getStartReg({ value: p.value, type: 'c1', prefix: '\n' })
+            v3 = clearStartReg({
               value: getSubstring(value.value, end),
-              type: 'leading-space'
+              type: 'c2'
             })
             len = start + v2.length
           }
@@ -111,10 +106,8 @@ export const useMarkdownKeydown = () => {
   }
 
   /**
-   * ctrl + enter 换行拦截
-   * 1. 若当前行为无序列表开头，则保留当前行内容，且下一行自动补全无序列表开头前缀
-   * 2. 若当前行为空格开头，则保留当前行内容，且下一行自动补全空格
-   * 3. 其他情况，直接跳到下一行
+   * 下一行
+   * 若当前行为 空格 或 空格 + [+ - *] + 至少一个空格 下一行自动补全
    */
   const ctrlEnter = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
@@ -122,21 +115,23 @@ export const useMarkdownKeydown = () => {
     if (isFocus) {
       e.preventDefault()
       const { start } = editorEgine.getRange()
-      const { p, pDown } = getParagraphContext(value.value, start)
+      const { p, pDown } = getP(value.value, start)
       const v1 = getSubstring(value.value, 0, p.endIndex)
       let v2 = '\n'
       let v3 = ''
-      const flag1 = isMatchReg({ value: p.value, type: 'unordered-list' })
-      const flag2 = isMatchReg({ value: p.value, type: 'leading-whitespace' })
+
+      const flag1 = judgeStartReg({ value: p.value, type: 'a1' })
+      const flag2 = judgeStartReg({ value: p.value, type: 'c1' })
       if (flag1) {
-        v2 = getMatchReg({ value: p.value, type: 'unordered-list', prefix: '\n' })
+        v2 = getStartReg({ value: p.value, type: 'a1', prefix: '\n' })
       } else if (flag2) {
-        v2 = getMatchReg({ value: p.value, type: 'leading-whitespace', prefix: '\n' })
+        v2 = getStartReg({ value: p.value, type: 'c1', prefix: '\n' })
       }
       if (pDown.isExist) {
         v3 = getSubstring(value.value, p.endIndex)
       }
       const len = p.endIndex + v2.length
+
       updateValue({
         editorEgine,
         value: v1 + v2 + v3,
@@ -146,35 +141,35 @@ export const useMarkdownKeydown = () => {
     }
   }
 
-  /**
-   * ctrl + x 剪切
-   * 1. 若无选中内容，则剪切当前行内容（行尾保留一个换行符）
-   * 2. 其他情况（如有选中内容），使用默认剪切
-   */
+  // 无选中内容时剪切当前行
   const ctrlX = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
     const { start, end } = editorEgine.getRange()
     const isFocus = editorEgine.$refs.textarea == document.activeElement
-    if (start === end && isFocus && value.value) {
+    if (start === end && isFocus) {
       e.preventDefault()
-      const { p, pUp, pDown } = getParagraphContext(value.value, start)
+      const { p, pUp, pDown } = getP(value.value, start)
       let len = 0
       let val = ''
-      if (!pUp.isExist && pDown.isExist) {
+      if (!pUp.isExist && !pDown.isExist) {
+        val = ''
+      } else if (!pUp.isExist && pDown.isExist) {
         val = getSubstring(value.value, pDown.startIndex)
       } else if (pUp.isExist && !pDown.isExist) {
         val = getSubstring(value.value, 0, pUp.endIndex)
-        len = Math.min(pUp.endIndex, value.value.length - 1)
+        len = pUp.endIndex
       } else if (pUp.isExist && pDown.isExist) {
         val = getSubstring(value.value, 0, pUp.endIndex) + getSubstring(value.value, p.endIndex)
         len = pUp.endIndex + 1
       }
+
       updateValue({
         editorEgine,
         value: val,
         start: len,
         end: len
       })
+
       let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
       copyText += '\n'
@@ -182,18 +177,14 @@ export const useMarkdownKeydown = () => {
     }
   }
 
-  /**
-   * ctrl + c 复制
-   * 1. 若无选中内容，则复制当前行内容（行尾保留一个换行符）
-   * 2. 其他情况（如有选中内容），使用默认复制
-   */
+  // 无选中内容时复制当前行
   const ctrlC = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
     const { start, end } = editorEgine.getRange()
     const isFocus = editorEgine.$refs.textarea == document.activeElement
-    if (start === end && isFocus && value.value) {
+    if (start === end && isFocus) {
       e.preventDefault()
-      const { p } = getParagraphContext(value.value, start)
+      const { p } = getP(value.value, start)
       let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
       copyText += '\n'
@@ -201,14 +192,9 @@ export const useMarkdownKeydown = () => {
     }
   }
   /*
-   * ctrl + v 粘贴
-   * 1. 粘贴内容转换
-   *   1.1 若粘贴内容为图片链接，则内容转换为MD图片格式内容
-   *   1.2 若粘贴内容为图片文件，则上传图片并替换成MD图片格式内容
-   * 2. 若有选中内容，则直接替换粘贴内容
-   * 3. 若无选中内容
-   *   2.1 若粘贴内容为整行（仅一行）内容，则在当前行行首插入整行内容
-   *   2.1 否则在光标所在位置插入内容
+   * 重写复制
+   * 有选中时 直接替换粘贴内容
+   * 无选中时 直接替换粘贴内容
    */
   const ctrlV = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
@@ -216,19 +202,18 @@ export const useMarkdownKeydown = () => {
     const isFocus = editorEgine.$refs.textarea == document.activeElement
     if (isFocus && start === end) {
       e.preventDefault()
-      paste(true).then((copyText) => {
-        console.log('copyText', copyText)
+      paste().then((copyText) => {
         const flag = copyText && copyText.indexOf('\n') === copyText.length - 1
         let len = 0
         let val = ''
         if (flag) {
-          // instance?.proxy?.$forceUpdate()
-          const { p } = getParagraphContext(value.value, start)
+          instance?.proxy?.$forceUpdate()
+          const { p } = getP(value.value, start)
           val =
             getSubstring(value.value, 0, p.startIndex) + copyText + getSubstring(value.value, p.startIndex)
           len = copyText.length + start - 1
         } else {
-          // instance?.proxy?.$forceUpdate()
+          instance?.proxy?.$forceUpdate()
           val = value.value.substring(0, start) + copyText + value.value.substring(start)
           len = copyText.length + start - findCountReeg(copyText)
         }
@@ -243,13 +228,7 @@ export const useMarkdownKeydown = () => {
     }
   }
 
-  /**
-   * tab 缩进
-   * 1. 若有选中内容
-   *   1.1 若选中内容为多行文本，则多行文本分别在行首插入两个空格
-   *   1.2 若选中内容不为多行文本，则选中内容替换为两个空格
-   * 2. 若无选中内容，则在光标位置插入两个空格
-   */
+  // tab 空两格
   const _tab = (e: KeyboardEvent, editor: any, value: any) => {
     const editorEgine = editor.value.$refs.editorEgine
     const { start, end } = editorEgine.getRange()
