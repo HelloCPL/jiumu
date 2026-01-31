@@ -95,23 +95,25 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
     emit('save', text)
   }
   // 处理键盘快捷键
-  const { ctrlEnter, ctrlX, ctrlC, ctrlV, _tab, _enter } = useMarkdownKeydown()
+  const { ctrlEnter, ctrlX, ctrlC, ctrlV, _tab, _enter, shiftTab } = useMarkdownKeydown()
   const keydown = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.keyCode === 83) {
       // ctrl + s
       e.preventDefault()
     } else if (e.ctrlKey && e.keyCode === 13) {
-      ctrlEnter(e, refVMdEditor, value)
+      ctrlEnter(e, refVMdEditor, value.value)
     } else if (e.ctrlKey && e.keyCode === 88) {
-      ctrlX(e, refVMdEditor, value)
+      ctrlX(e, refVMdEditor, value.value)
     } else if (e.ctrlKey && e.keyCode === 67) {
-      ctrlC(e, refVMdEditor, value)
+      ctrlC(e, refVMdEditor, value.value)
     } else if (e.ctrlKey && e.keyCode === 86) {
-      ctrlV(e, refVMdEditor, value)
+      ctrlV(e, refVMdEditor, value.value)
+    } else if (e.shiftKey && e.keyCode === 9) {
+      shiftTab(e, refVMdEditor, value.value)
     } else if (e.keyCode === 9) {
-      _tab(e, refVMdEditor, value)
+      _tab(e, refVMdEditor, value.value)
     } else if (e.keyCode === 13) {
-      _enter(e, refVMdEditor, value)
+      _enter(e, refVMdEditor, value.value)
     }
   }
   onMounted(() => {

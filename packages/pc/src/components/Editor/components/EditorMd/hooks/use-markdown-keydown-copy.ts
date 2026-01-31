@@ -12,7 +12,7 @@ import {
   getSubstring,
   clearStartReg,
   findCountReeg
-} from './keydown-tools'
+} from './keydown-tools-copy'
 import { useClipboardy } from '@/hooks/use-clipboardy'
 
 const { copy, paste } = useClipboardy()
