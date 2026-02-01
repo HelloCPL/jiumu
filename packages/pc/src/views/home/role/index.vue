@@ -46,7 +46,7 @@
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
-      <ElTableColumn label="操作" :width="getPx(255)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(255)" :fixed="tableFixed">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -150,6 +150,7 @@ import { formatDate } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
 import Upload from '@/components/Upload/index.vue'
 import { hasPermission, isSuper } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Role'
@@ -174,4 +175,5 @@ const {
 } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>

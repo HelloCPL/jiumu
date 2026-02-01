@@ -9,7 +9,7 @@ export const filterBoxProps = buildProps({
   // 元素数量为最小值时判断是否显示更多
   minLength: {
     type: Number,
-    default: 2
+    default: 1
   }
 } as const)
 

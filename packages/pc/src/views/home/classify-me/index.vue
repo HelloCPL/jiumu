@@ -40,7 +40,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
-      <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(100)" :fixed="tableFixed">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -88,6 +88,7 @@ import { formatDate } from '@jiumu/utils'
 import ClassifyMeAdd from './components/ClassifyMeAdd.vue'
 import ClassifyMeInfo from './components/ClassifyMeInfo.vue'
 import { getIndex, getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'ClassifyMe'
@@ -99,4 +100,5 @@ const { state, btnList, handleBtn, handleEdit, handleDelete, handleConfirm, hand
   getDataList,
   getTypeList
 })
+const { tableFixed } = useWidth()
 </script>

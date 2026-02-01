@@ -63,7 +63,7 @@
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
-      <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(200)" :fixed="tableFixed">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -150,6 +150,7 @@ import Upload from '@/components/Upload/index.vue'
 import IconSvg from '@/components/IconSvg/index.vue'
 import { useClipboardy } from '@/hooks/use-clipboardy'
 import { hasPermission } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Permission'
@@ -175,6 +176,7 @@ const {
 } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>
 
 <style lang="scss" scoped>

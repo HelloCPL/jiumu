@@ -44,7 +44,7 @@
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
-      <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(200)" :fixed="tableFixed">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -124,6 +124,7 @@ import { getIndex, getPx } from '@/utils/tools'
 import Upload from '@/components/Upload/index.vue'
 import { hasPermission } from '@/utils/permission'
 import { userStore } from '@/store/user/instance'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Tag'
@@ -145,4 +146,5 @@ const {
   handleConfirm,
   handleShowTagUser
 } = useIndexInfo({ getDataList })
+const { tableFixed } = useWidth()
 </script>

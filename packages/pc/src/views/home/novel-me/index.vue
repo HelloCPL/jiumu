@@ -80,7 +80,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(140)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(140)" :fixed="tableFixed">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -131,6 +131,7 @@ import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
 import { getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'NovelMe'
@@ -144,4 +145,5 @@ const { btnList, handleBtn, handleEdit, handleDelete, handleShowInfo, handleShow
     getDataList
   }
 )
+const { tableFixed } = useWidth()
 </script>

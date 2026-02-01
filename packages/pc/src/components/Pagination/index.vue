@@ -13,8 +13,9 @@
       :page-size="pageSize"
       :background="false"
       :total="total"
-      :layout="layout"
+      :layout="getLayout"
       :page-sizes="pageSizes"
+      :small="width <= 768"
       @update:current-page="handlePageNo"
       @update:page-size="handlePageSize"
       @size-change="handleChangeSize"
@@ -28,11 +29,14 @@
 <script lang="ts" setup>
 import { ElPagination } from 'element-plus'
 import { paginationProps, paginationEmits } from './type'
+import { computed } from 'vue'
+import { useWidth } from '@/hooks/use-width'
+
 defineOptions({
   inheritAttrs: false
 })
 
-defineProps(paginationProps)
+const props = defineProps(paginationProps)
 const emit = defineEmits(paginationEmits)
 
 const handlePageNo = (page: number) => {
@@ -49,6 +53,12 @@ const handleChangeSize = (val: number) => {
   emit('update:pageSize', val)
   emit('change')
 }
+
+const { width } = useWidth()
+const getLayout = computed(() => {
+  if (width.value <= 768) return 'prev, next, jumper, sizes'
+  return props.layout
+})
 </script>
 
 <style lang="scss">

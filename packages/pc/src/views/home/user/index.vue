@@ -56,7 +56,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="注册终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(250)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(250)" :fixed="tableFixed">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -148,6 +148,7 @@ import UserTag from './components/UserTag.vue'
 import UserMenu from './components/UserMenu.vue'
 import UserPermission from './components/UserPermission.vue'
 import { getIndex, getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'User'
@@ -164,4 +165,6 @@ const {
   handleShowUserMenu,
   handleShowUserPermission
 } = useIndexInfo()
+
+const { tableFixed } = useWidth()
 </script>

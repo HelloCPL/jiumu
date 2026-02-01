@@ -50,7 +50,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(80)" fixed="right" v-if="isSuper()">
+      <ElTableColumn label="操作" :width="getPx(80)" :fixed="tableFixed" v-if="isSuper()">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleTop(row)" v-if="row.isTop === '0'">
             置顶
@@ -79,6 +79,7 @@ import { useIndex } from './hooks/use-index'
 import { useIndexInfo } from '../question-me/hooks/use-index'
 import { getIndex, getPx } from '@/utils/tools'
 import { isSuper } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Question'
@@ -89,4 +90,5 @@ const { keyword, pageNo, pageSize, total, data, getDataList, handleReset } = use
 const { handleShowInfo, handleTop } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>

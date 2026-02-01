@@ -65,7 +65,7 @@ import Register from './components/Register.vue'
 import { useIndex } from './hooks/use-index'
 import { defineAsyncComponent, reactive, watch } from 'vue'
 import Lasyloader from '@/components/LazyLoader/index.vue'
-import { useWindowSize } from '@vueuse/core'
+import { useWidth } from '@/hooks/use-width'
 
 const Particle = defineAsyncComponent(() => import('@/components/Particle/index.vue'))
 const AboutUs = defineAsyncComponent(() => import('@/components/AboutUs/index.vue'))
@@ -79,7 +79,7 @@ const state = reactive({
   gap: 2
 })
 
-const { width } = useWindowSize()
+const { width } = useWidth()
 watch(
   () => width.value,
   (w) => {

@@ -8,7 +8,7 @@
   <div class="w-full h-screen bg">
     <!-- 头部 -->
     <Header @show-user-info="showUserInfo"></Header>
-    <div class="w-full flex home-wrapper">
+    <div class="w-full flex relative home-wrapper">
       <!-- 左侧导航 -->
       <Sidebar></Sidebar>
       <div class="h-full flex-1 shrink-0 flex flex-col">

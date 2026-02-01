@@ -67,7 +67,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(100)" :fixed="tableFixed">
         <template #default="{ row, $index }">
           <div class="flex items-center">
             <ElIcon
@@ -152,7 +152,7 @@ import SelectType from '@/components/SelectType/index.vue'
 import CipherAdd from './components/CipherAdd.vue'
 import CipherCodeAdd from './components/CipherCodeAdd.vue'
 import CipherCodeCheck from './components/CipherCodeCheck.vue'
-import { hasPermission } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'CipherMe'
@@ -177,4 +177,5 @@ const {
   handleDelete,
   handleConfirm
 } = useIndex()
+const { tableFixed } = useWidth()
 </script>

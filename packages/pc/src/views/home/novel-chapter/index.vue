@@ -67,7 +67,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(140)" fixed="right" v-if="isSelf">
+      <ElTableColumn label="操作" :width="getPx(140)" :fixed="tableFixed" v-if="isSelf">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -107,6 +107,7 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'NovelChapter'
@@ -127,4 +128,5 @@ const {
   handleDelete,
   handleShowInfo
 } = useIndex()
+const { tableFixed } = useWidth()
 </script>

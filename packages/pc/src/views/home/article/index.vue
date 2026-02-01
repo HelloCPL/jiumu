@@ -66,7 +66,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(80)" fixed="right" v-if="isSuper()">
+      <ElTableColumn label="操作" :width="getPx(80)" :fixed="tableFixed" v-if="isSuper()">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleTop(row)" v-if="row.isTop === '0'">
             置顶
@@ -97,6 +97,7 @@ import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
 import { getIndex, getPx } from '@/utils/tools'
 import { isSuper } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Article'
@@ -106,4 +107,5 @@ const { keyword, type, pageNo, pageSize, total, data, getDataList, handleReset }
 const { handleTop, handleShowInfo } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>

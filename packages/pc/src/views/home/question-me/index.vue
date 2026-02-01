@@ -63,7 +63,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(100)" :fixed="tableFixed">
         <template #default="{ row }">
           <ElButton
             type="primary"
@@ -104,6 +104,7 @@ import Table from '@/components/Table/index.vue'
 import { formatDate } from '@jiumu/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import { getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'QuestionMe'
@@ -114,4 +115,5 @@ const { keyword, isSecret, classify, pageNo, pageSize, total, data, getDataList,
 const { btnList, handleBtn, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>
