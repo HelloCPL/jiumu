@@ -21,6 +21,15 @@
 }
 
 @layer components {
+  .flex-center {
+    @apply flex items-center justify-center
+  }
+  .flex-center-x {
+    @apply flex justify-center
+  }
+  .flex-center-y {
+    @apply flex items-center
+  }
   .text, .text-default {
     color: var(--jm-color-text)
   }
@@ -115,4 +124,5 @@
   .mask-light-extra {
     background-color: var(--jm-color-mask-light-extra)
   }
+
 }

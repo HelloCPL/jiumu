@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="580px" :title="'查看用户-权限关联' + _username" :show-footer="false">
+  <Dialog :width="580" :title="'查看用户-权限关联' + _username" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
       :show-right="false"

@@ -35,6 +35,10 @@ body {
       margin-bottom: 1rem;
     }
 
+    .v-md-editor__menu-item {
+      font-size: var(--jm-font-size);
+    }
+
     // 目录导航
     .v-md-editor__toc-nav-item:hover .v-md-editor__toc-nav-title,
     .v-md-editor__toc-nav-title {

@@ -5,9 +5,9 @@
 -->
 
 <template>
-  <Dialog title="用户设置" width="600px" :show-footer="false" @close="handleCLose">
+  <Dialog title="用户设置" :width="600" content-height="65vh" :show-footer="false" @close="handleCLose">
     <div class="w-full h-full flex setting-wrapper">
-      <div class="w-32 h-full bg-white text-sm shadow-sm">
+      <div class="w-32 bg-white text-sm shadow-sm shrink-0 setting-left">
         <div
           v-for="item in list"
           :key="item.value"
@@ -85,7 +85,7 @@ const handleClickItem = (item: ValueLabel) => {
 
 <style lang="scss" scoped>
 .setting-wrapper {
-  height: 600px;
+  // height: 600px;
 }
 
 .setting-active {
@@ -101,5 +101,9 @@ const handleClickItem = (item: ValueLabel) => {
     transform: translateY(-50%);
     background: var(--jm-color-primary);
   }
+}
+
+.setting-left {
+  max-width: 34%;
 }
 </style>

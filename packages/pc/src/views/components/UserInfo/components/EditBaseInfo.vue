@@ -9,11 +9,11 @@
     title="个人信息编辑"
     @close="$emit('close')"
     @confirm="confirm"
-    width="500px"
-    class-content="pl-4 pb-4 edit-base-info-wrapper"
+    :width="500"
+    class-content="edit-base-info-wrapper"
   >
-    <ElForm :model="form" ref="formRef" :label-width="getPx(80)" class="g-popup">
-      <ElFormItem label="昵称" prop="username" class="g-w-320">
+    <ElForm :model="form" ref="formRef" :label-width="getPx(70)" class="pr-6">
+      <ElFormItem label="昵称" prop="username">
         <ElInput type="text" placeholder="请输入昵称" v-model="form.username"></ElInput>
       </ElFormItem>
       <ElFormItem label="性别" prop="sex">
@@ -24,7 +24,7 @@
           filter-codes="201,202"
         ></SelectType>
       </ElFormItem>
-      <ElFormItem label="生日" prop="birthday" class="g-w-320">
+      <ElFormItem label="生日" prop="birthday">
         <ElDatePicker
           v-model="form.birthday"
           type="date"
@@ -32,13 +32,13 @@
           value-format="YYYY-MM-DD HH:mm:ss"
         ></ElDatePicker>
       </ElFormItem>
-      <ElFormItem label="职业" prop="professional" class="g-w-320">
+      <ElFormItem label="职业" prop="professional">
         <ElInput type="text" placeholder="请输入职业" v-model="form.professional"></ElInput>
       </ElFormItem>
-      <ElFormItem label="地址" prop="address" class="g-w-320">
+      <ElFormItem label="地址" prop="address">
         <ElInput type="text" placeholder="请输入地址" v-model="form.address"></ElInput>
       </ElFormItem>
-      <ElFormItem label="备注" prop="remarks" class="g-w-320">
+      <ElFormItem label="备注" prop="remarks">
         <ElInput type="text" placeholder="请输入备注" v-model="form.remarks"></ElInput>
       </ElFormItem>
     </ElForm>

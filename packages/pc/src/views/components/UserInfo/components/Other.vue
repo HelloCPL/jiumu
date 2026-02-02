@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="pt-12 pl-12">
+  <div class="pl-6">
     <div v-if="VITE_MODE !== 'prod'">
       <ElButton type="primary" text size="small" @click="toAPI">API文档</ElButton>
     </div>

@@ -5,36 +5,36 @@
 -->
 
 <template>
-  <div class="w-full h-full pt-20">
-    <div class="absolute top-0 left-0 w-full h-20 pt-2">
+  <div class="w-full h-full pl-2 relative g-scroll-x">
+    <div class="w-full h-full g-scroll-y user-logs-container" style="min-width: 380px">
       <span class="text-sm text-lighter pl-2">
         <span>登录记录</span>
         <span v-if="total" class="pl-1">{{ total }}条</span>
       </span>
-      <ElRow class="mt-2 text-light">
+      <ElRow class="w-full mt-2 text-light">
         <ElCol :span="11" class="pl-2">登录设备</ElCol>
-        <ElCol :span="5" class="pl-2">IP</ElCol>
+        <ElCol :span="5" class="pl-1">IP</ElCol>
         <ElCol :span="5" class="pl-1">登录时间</ElCol>
         <ElCol :span="3">终端</ElCol>
       </ElRow>
-    </div>
-    <div class="w-full h-full pb-2 g-scroll-y-0">
-      <ElRow v-for="item in data" class="mb-2 text-sm text-lighter" :key="item.id">
-        <ElCol :span="11" class="pl-2 break-all"> {{ item.userAgent }}</ElCol>
-        <ElCol :span="5" class="pl-2">{{ item.ip }}</ElCol>
-        <ElCol :span="5" class="pl-1">
-          <p>{{ formatDate(item.createTime, 'YYYY-MM-DD') }}</p>
-          <p>{{ formatDate(item.createTime, 'HH:mm:ss') }}</p>
-        </ElCol>
-        <ElCol :span="3" class="pl-1">{{ item.terminal }}</ElCol>
-      </ElRow>
-      <MoreBtn :show="total > data.length" @click="getLoginInfo"></MoreBtn>
+      <div class="mt-4 pb-2">
+        <ElRow v-for="item in data" class="mb-2 text-sm text-lighter" :key="item.id">
+          <ElCol :span="11" class="pl-2 break-all"> {{ item.userAgent }}</ElCol>
+          <ElCol :span="5" class="pl-1">{{ item.ip }}</ElCol>
+          <ElCol :span="5" class="pl-1">
+            <p>{{ formatDate(item.createTime, 'YYYY-MM-DD') }}</p>
+            <p>{{ formatDate(item.createTime, 'HH:mm:ss') }}</p>
+          </ElCol>
+          <ElCol :span="3" class="pl-1">{{ item.terminal }}</ElCol>
+        </ElRow>
+        <MoreBtn :show="total > data.length" @click="getLoginInfo"></MoreBtn>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ElRow, ElCol } from 'element-plus'
+import { ElRow, ElCol, ElAffix } from 'element-plus'
 import { ref } from 'vue'
 import { getLoginInfoList } from '@/api/user'
 import { formatDate, getDataDiff } from '@jiumu/utils'

@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog title="权限信息" width="520px" :show-footer="false">
+  <Dialog title="权限信息" :width="520" :show-footer="false">
     <div v-if="dataInfo" class="px-4">
       <ElRow class="my-3">
         <ElCol :span="4" class="text-right pr-2">code：</ElCol>

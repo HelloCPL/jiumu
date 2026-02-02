@@ -11,7 +11,7 @@
     destroy-on-close
     class="dialog-wrapper shadow-lg"
     :draggable="draggable"
-    :width="getPx(width)"
+    :width="getWidth"
     :open-delay="50"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
@@ -30,8 +30,12 @@
         <ElButton type="primary" @click="handleConfirm" v-permission="addCode">确认</ElButton>
       </slot>
     </template>
-    <div class="w-full h-full g-scroll-y dialog-content px-4" :class="classContent">
-      <div class="w-full h-full bg-white p-4">
+    <div
+      class="w-full h-full g-scroll-y p-4 dialog-content"
+      :style="[getcontentHeight]"
+      :class="classContent"
+    >
+      <div class="w-full h-full g-scroll-y bg-white p-4">
         <slot></slot>
       </div>
     </div>
@@ -40,9 +44,9 @@
 
 <script lang="ts" setup>
 import { ElDialog, ElButton } from 'element-plus'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { dialogProps, dialogEmit } from './type'
-import { getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 const isShow = ref<boolean>(false)
 onMounted(() => {
@@ -62,7 +66,26 @@ const handleCancel = () => {
   emit('close')
 }
 
-defineProps(dialogProps)
+const props = defineProps(dialogProps)
+
+const { width: screenWidth } = useWidth()
+
+const getWidth = computed(() => {
+  if (screenWidth.value <= 768 && props.width > screenWidth.value) {
+    return screenWidth.value - 24
+  }
+  return props.width
+})
+
+const getcontentHeight = computed(() => {
+  if (props.contentHeight) {
+    if (props.showFooter) {
+      return `height: calc(${props.contentHeight} - 58px)`
+    }
+    return `height: ${props.contentHeight}`
+  }
+  return ''
+})
 </script>
 
 <style lang="scss">

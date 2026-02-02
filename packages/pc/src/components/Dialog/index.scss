@@ -1,4 +1,4 @@
-.dialog-wrapper {
+.dialog-wrapper.el-dialog {
   padding: 0;
 
   .el-dialog__header {
@@ -17,8 +17,8 @@
 
   .el-dialog__body {
     padding: 0;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    // padding-top: 1rem;
+    // padding-bottom: 1rem;
     background-color: var(--jm-color-bg);
     border-left: 1px solid var(--jm-color-border);
     border-right: 1px solid var(--jm-color-border);

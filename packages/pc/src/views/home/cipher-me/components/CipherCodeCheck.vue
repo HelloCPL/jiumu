@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog title="口令code校验" width="500px" top="30vh" @close="handleClose" @confirm="confirm">
+  <Dialog title="口令code校验" :width="500" top="30vh" @close="handleClose" @confirm="confirm">
     <ElForm
       :model="form"
       :rules="rules"

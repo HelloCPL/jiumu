@@ -5,11 +5,13 @@
 -->
 
 <template>
-  <div class="w-full p-4">
+  <div class="w-full pl-6 pr-2">
     <!-- 基本信息展示  -->
-    <div class="w-3/4 mt-8 mx-auto pt-8 pl-8 pb-4 pr-4 bg-white rounded-md shadow text-sm text-lighter">
+    <div
+      class="w-full mx-auto pt-6 pl-6 pb-4 pr-2 bg-white rounded-md shadow-lg text-sm text-lighter border-1 border-lighter"
+    >
       <!-- 头像 昵称 性别 账号  -->
-      <div class="flex">
+      <div class="flex flex-wrap">
         <Upload upload-type="files" @change="handleUploadAvatar">
           <img :src="avatar?.filePath" v-if="avatar" class="w-12 h-12 rounded-md mr-2" />
           <img
@@ -80,7 +82,7 @@
         <IconSvg name="remark"></IconSvg>
         <span class="ml-1">{{ userStore.userInfo.remarks }}</span>
       </div>
-      <div class="mt-4 pr-2 flex items-center justify-end">
+      <div class="mt-4 pr-2 flex flex-wrap items-center justify-end">
         <ElTooltip content="修改密码" placement="top">
           <ElButton text :icon="Lock" size="small" @click="showPassword = true"></ElButton>
         </ElTooltip>
@@ -94,13 +96,15 @@
       <ElButton type="primary" plain class="px-10" @click="exit">退出登录</ElButton>
     </div>
     <div
-      class="w-full flex items-center justify-end text-sm text-lighter mt-4"
+      class="w-full flex flex-wrap items-center justify-end text-sm text-lighter mt-4"
       v-if="userStore.userInfo?.createTime"
     >
       <IconSvg name="time"></IconSvg>
       <span class="ml-1 mr-2"> {{ formatDate(userStore.userInfo.createTime, 'YYYY-MM-DD') }}</span>
-      <IconSvg name="source"></IconSvg>
-      <span class="ml-1">{{ userStore.userInfo?.terminal }}</span>
+      <span class="flex-center-y">
+        <IconSvg name="source"></IconSvg>
+        <span class="ml-1">{{ userStore.userInfo?.terminal }}</span>
+      </span>
     </div>
 
     <!-- 修改密码组件 -->

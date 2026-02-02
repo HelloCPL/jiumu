@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog :title="'角色-菜单关联' + _label" :show-footer="false" width="500px">
+  <Dialog :title="'角色-菜单关联' + _label" :show-footer="false" :width="500">
     <PopupTwo :span-left="24" :show-right="false" height="60vh">
       <template #leftTop>
         <ElAlert

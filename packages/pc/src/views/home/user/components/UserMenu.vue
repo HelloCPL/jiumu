@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="500px" :title="'查看用户-菜单关联' + _username" :show-footer="false">
+  <Dialog :width="500" :title="'查看用户-菜单关联' + _username" :show-footer="false">
     <PopupTwo :show-right="false" :span-left="24" height="60vh" :show-more="false" @scroll-left="getDataList">
       <template #leftTop>
         <p class="px-4 text-sm text-lighter">

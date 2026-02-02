@@ -8,12 +8,12 @@
   <div class="w-full flex justify-between items-center pl-2 pr-5 select-none header" :class="headerClass">
     <div class="flex items-center">
       <img :src="$STATIC_URL + 'pc/images/jiumu.png'" class="w-10" alt="" />
-      <span class="pl-2 text-lg">
+      <span class="pl-2 md:text-lg text-sm">
         <span>管理系统平台</span>
         <span v-if="VITE_MODE !== 'prod'">（测试环境）</span>
       </span>
     </div>
-    <div class="flex items-center">
+    <div class="flex shrink-0 items-center">
       <span class="mr-4 cursor-pointer" @click="$emit('showUserInfo')">{{
         userStore.userInfo?.username || '昵称'
       }}</span>

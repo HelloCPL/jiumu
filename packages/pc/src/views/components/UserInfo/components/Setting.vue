@@ -5,9 +5,9 @@
 -->
 
 <template>
-  <div class="w-full pt-12 pl-12">
-    <div class="flex items-center flex-wrap">
-      <span class="text-sm text-lighter flex items-center shrink-0 w-28">
+  <div class="w-full pl-6 pr-2">
+    <div class="w-full flex items-center flex-wrap mb-8">
+      <span class="text-sm text-lighter flex items-center shrink-0 w-24 pb-2">
         <IconSvg name="theme"></IconSvg>
         <span class="pl-1">主题</span>
       </span>
@@ -15,15 +15,16 @@
         v-model="theme"
         :data="themeList"
         show-type="radio"
+        class="pb-2"
         @change="handleChangeTheme"
       ></SelectType>
     </div>
-    <div class="flex items-center flex-wrap mt-12">
-      <span class="text-sm text-lighter flex items-center shrink-0 w-28">
+    <div class="flex items-center flex-wrap">
+      <span class="text-sm text-lighter flex items-center shrink-0 w-24 mb-10">
         <IconSvg name="fontSize"></IconSvg>
         <span class="pl-1">字体大小</span>
       </span>
-      <div>
+      <div class="mb-10">
         <div
           class="relative font-size-wrapper"
           :style="{ width: distance * (fontSizeList.length - 1) + 'px' }"

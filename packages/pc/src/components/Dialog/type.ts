@@ -21,8 +21,12 @@ export const dialogProps = buildProps({
   },
   // 宽度
   width: {
-    type: [String, Number],
-    default: '580px'
+    type: Number,
+    default: 580
+  },
+  // 内容区高度
+  contentHeight: {
+    type: String
   },
   // 是否显示底部
   showFooter: {

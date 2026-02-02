@@ -7,7 +7,7 @@
 <template>
   <Dialog
     :title="isExistCode ? '口令code修改' : '口令code新增'"
-    width="500px"
+    :width="500"
     top="30vh"
     add-code="pc:cipher:code:add:btn"
     @close="handleClose"

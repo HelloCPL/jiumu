@@ -59,6 +59,7 @@ import { Search, Brush, More, MoreFilled } from '@element-plus/icons-vue'
 import { ref, nextTick, onMounted, onUpdated, onUnmounted, computed } from 'vue'
 import { filterBoxProps, filterBoxEmits } from './type'
 import { useWidth } from '@/hooks/use-width'
+import { getPx } from '@/utils/tools'
 
 const props = defineProps(filterBoxProps)
 defineEmits(filterBoxEmits)
@@ -72,7 +73,6 @@ const setLength = () => {
   nextTick(() => {
     length.value = (box.value as HTMLElement).children.length
     height.value = (box.value as HTMLElement).offsetHeight + 15
-    console.log(length.value)
   })
 }
 onMounted(setLength)
@@ -97,7 +97,7 @@ const filterBtnWidth = computed(() => {
   if (length.value > props.minLength && height.value > 62) {
     w3 = 58
   }
-  return w1 + w2 + w3
+  return getPx(w1 + w2 + w3)
 })
 
 const isFixedFilter = computed(() => {

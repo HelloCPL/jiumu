@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="500px" :title="'查看菜单-用户关联（' + label + '）'" :show-footer="false">
+  <Dialog :width="500" :title="'查看菜单-用户关联（' + label + '）'" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
       :show-right="false"

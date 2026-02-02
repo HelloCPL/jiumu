@@ -62,6 +62,7 @@ module.exports = defineConfig({
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-unused-vars': ['warn'],
     '@typescript-eslint/no-unused-expressions': 'off',
+    '@typescript-eslint/no-unsafe-function-type': 'off',
     // "@typescript-eslint/no-implicit-any": "warn",
     // vue3
     'vue/custom-event-name-casing': 'off',
