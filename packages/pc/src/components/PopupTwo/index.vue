@@ -28,7 +28,7 @@
       <!-- 左侧内容 -->
       <div class="w-full h-full g-scroll-y" v-infinite-scroll="scrollLeft" :infinite-scroll-distance="80">
         <slot name="left"></slot>
-        <MoreBtn v-if="!moreLeft && showMore"></MoreBtn>
+        <MoreBtn v-if="showMore" :show="moreLeft" text="点击或上拉加载更多" @click="scrollLeft"></MoreBtn>
       </div>
     </ElCol>
     <!-- 右侧 -->
@@ -52,7 +52,7 @@
       <!-- 右侧内容 -->
       <div class="w-full h-full g-scroll-y" v-infinite-scroll="scrollRight" :infinite-scroll-distance="80">
         <slot name="right"></slot>
-        <MoreBtn v-if="!moreRight && showMore"></MoreBtn>
+        <MoreBtn v-if="showMore" :show="moreRight" text="点击或上拉加载更多" @click="scrollRight"></MoreBtn>
       </div>
     </ElCol>
   </ElRow>

@@ -8,24 +8,24 @@
   <Dialog title="菜单信息" :width="420" :show-footer="false">
     <div v-if="dataInfo" class="px-4">
       <ElRow class="my-3">
-        <ElCol :span="6" class="text-right pr-2">code：</ElCol>
-        <ElCol :span="18" class="text-lighter">{{ dataInfo?.code }}</ElCol>
+        <ElCol :span="7" class="text-right pr-2">code：</ElCol>
+        <ElCol :span="17" class="text-lighter">{{ dataInfo?.code }}</ElCol>
       </ElRow>
       <ElRow class="mb-3">
-        <ElCol :span="6" class="text-right pr-2">菜单：</ElCol>
-        <ElCol :span="18" class="text-lighter">{{ dataInfo?.label }}</ElCol>
+        <ElCol :span="7" class="text-right pr-2">菜单：</ElCol>
+        <ElCol :span="17" class="text-lighter">{{ dataInfo?.label }}</ElCol>
       </ElRow>
       <ElRow class="mb-3">
-        <ElCol :span="6" class="text-right pr-2">父级菜单：</ElCol>
-        <ElCol :span="18" class="text-lighter">{{ dataInfo?.parentLabel }}</ElCol>
+        <ElCol :span="7" class="text-right pr-2">父级菜单：</ElCol>
+        <ElCol :span="17" class="text-lighter">{{ dataInfo?.parentLabel }}</ElCol>
       </ElRow>
       <ElRow class="mb-3">
-        <ElCol :span="6" class="text-right pr-2">排序：</ElCol>
-        <ElCol :span="18" class="text-lighter">{{ dataInfo?.sort }}</ElCol>
+        <ElCol :span="7" class="text-right pr-2">排序：</ElCol>
+        <ElCol :span="17" class="text-lighter">{{ dataInfo?.sort }}</ElCol>
       </ElRow>
       <ElRow class="mb-3">
-        <ElCol :span="6" class="text-right pr-2">备注：</ElCol>
-        <ElCol :span="18" class="text-lighter">{{ dataInfo?.remarks }}</ElCol>
+        <ElCol :span="7" class="text-right pr-2">备注：</ElCol>
+        <ElCol :span="17" class="text-lighter">{{ dataInfo?.remarks }}</ElCol>
       </ElRow>
       <ElRow class="mb-3">
         <ElCol class="text-sm text-lighter text-right">

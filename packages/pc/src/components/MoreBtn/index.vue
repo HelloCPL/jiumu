@@ -6,11 +6,11 @@
 
 <template>
   <div class="flex items-center justify-center my-2 text-sm">
-    <span class="w-14 text-primary-8 cursor-pointer hover:text-primary" v-if="show" @click="$emit('click')">
-      <ElIcon size="var(--jm-font-size)">
+    <span class="text-primary-8 cursor-pointer hover:text-primary" v-if="show" @click="$emit('click')">
+      <ElIcon :size="getPx(14)">
         <CaretBottom />
       </ElIcon>
-      <span class="pl-1">更多</span>
+      <span class="pl-1">{{ text }}</span>
     </span>
     <span class="text-lighter" v-else-if="!show && isMounted">没有更多了...</span>
   </div>
@@ -21,6 +21,7 @@ import { ElIcon } from 'element-plus'
 import { CaretBottom } from '@element-plus/icons-vue'
 import { moreBtnProps, moreBtnEmits } from './type'
 import { ref } from 'vue'
+import { getPx } from '@/utils/tools'
 
 defineProps(moreBtnProps)
 

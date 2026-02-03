@@ -15,10 +15,10 @@
       </ElCheckbox>
     </div>
     <slot name="header">
-      <div class="py-2 flex items-center">
+      <div class="py-2 flex flex-wrap items-center leading-6">
         <span class="text pr-3">{{ title }}</span>
-        <span class="sub-title"></span>
-        <span class="text-lighter pl-3" v-if="subTitle">{{ subTitle }}</span>
+        <span class="sub-title mr-3"></span>
+        <span class="text-lighter" v-if="subTitle">{{ subTitle }}</span>
       </div>
     </slot>
     <slot>
@@ -26,9 +26,9 @@
     </slot>
     <IconSvg
       name="close"
-      :size="20"
+      :size="18"
       hover-fill="var(--jm-color-primary)"
-      class="absolute top-4 right-4"
+      class="absolute top-4 right-3"
       @click="handleClose"
       v-if="showClose"
     ></IconSvg>

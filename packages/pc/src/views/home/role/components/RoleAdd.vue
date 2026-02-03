@@ -5,15 +5,15 @@
 -->
 
 <template>
-  <Dialog :title="title" @close="$emit('close')" @confirm="confirm">
-    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
-      <ElFormItem label="code" prop="code" class="g-w-320">
+  <Dialog :title="title" :width="500" @close="$emit('close')" @confirm="confirm">
+    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(70)" class="pr-4">
+      <ElFormItem label="code" prop="code">
         <ElInput type="text" placeholder="请输入code" v-model="form.code"></ElInput>
       </ElFormItem>
-      <ElFormItem label="角色" prop="label" class="g-w-320">
+      <ElFormItem label="角色" prop="label">
         <ElInput type="text" placeholder="请输入角色" v-model="form.label"></ElInput>
       </ElFormItem>
-      <ElFormItem label="排序" prop="sort" class="g-w-320">
+      <ElFormItem label="排序" prop="sort">
         <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>
       </ElFormItem>
       <ElFormItem label="备注" prop="remarks">

@@ -7,7 +7,11 @@ import { ExtractPropTypes } from 'vue'
 
 export const moreBtnProps = buildProps({
   // 是否显示更多
-  show: Boolean
+  show: Boolean,
+  text: {
+    type: String,
+    default: '更多'
+  }
 } as const)
 
 export type MoreBtnProps = ExtractPropTypes<typeof moreBtnProps>

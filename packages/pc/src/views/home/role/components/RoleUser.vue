@@ -16,7 +16,7 @@
     >
       <!-- 左侧 -->
       <template #left>
-        <div v-for="item in dataList" :key="item.id" class="pl-4">
+        <div v-for="item in dataList" :key="item.id" class="pl-2">
           <ElCheckbox
             :model-value="item._checked"
             :label="item.id"

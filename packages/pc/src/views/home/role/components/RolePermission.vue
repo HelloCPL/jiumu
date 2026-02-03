@@ -37,10 +37,10 @@
             @close="handleDelete(item, index)"
           >
             <template #header>
-              <div class="py-2 flex items-center">
+              <div class="py-2 flex items-center flex-wrap leading-6">
                 <span class="text pr-3">{{ item.code }}</span>
-                <span class="sub-title"></span>
-                <span class="text-lighter pl-3">
+                <span class="sub-title mr-3"></span>
+                <span class="text-lighter">
                   <PermissionLabel class="text" :html="item.label"></PermissionLabel>
                 </span>
               </div>
@@ -81,12 +81,12 @@
             @update:model-value="changeCheck($event as boolean, item)"
           >
             <template #header>
-              <div class="py-2 flex items-center">
+              <div class="py-2 flex items-center flex-wrap leading-6">
                 <span class="text pr-3">
                   <GRichText :html="item.code"></GRichText>
                 </span>
-                <span class="sub-title"></span>
-                <span class="text-lighter pl-3">
+                <span class="sub-title mr-3"></span>
+                <span class="text-lighter">
                   <PermissionLabel class="text h-5" :html="item.label"></PermissionLabel>
                 </span>
               </div>
