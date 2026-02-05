@@ -7,8 +7,8 @@
 <template>
   <div class="w-full">
     <div class="flex pt-2 source-box" v-for="(item, index) in dataList" :key="item.id || index">
-      <span class="w-24 text-sm text-lighter pt-3">外部资源{{ toChineseNumber(index + 1) }}</span>
-      <div class="w-3/5 mr-4">
+      <span class="text-sm text-lighter pt-3 mr-2 shrink-0">资源{{ toChineseNumber(index + 1) }}</span>
+      <div class="flex-1 mr-2">
         <div class="pb-4 mt-2 relative" :class="{ 'source-box-error': item.titleError }">
           <ElInput
             type="text"
@@ -36,23 +36,20 @@
           </span>
         </div>
       </div>
-      <div class="flex items-end pb-6 text-ml text-lighter" v-if="dataList.length > 1">
-        <ElIcon
-          class="mr-3 cursor-pointer opacity-0 source-icon"
-          color="var(--jm-color-danger)"
-          @click="handleDeleteOne(index)"
-        >
+      <div
+        class="shrink-0 flex items-end pb-6 text-ml text-lighter"
+        style="width: 55px"
+        v-if="dataList.length > 1"
+      >
+        <ElIcon :class="iconClass" color="var(--jm-color-danger)" @click="handleDeleteOne(index)">
           <RemoveFilled />
         </ElIcon>
-        <ElIcon
-          class="mr-3 cursor-pointer opacity-0 source-icon"
-          @click="handleMove(index, 'up')"
-          v-if="index !== 0"
-        >
+        <ElIcon class="ml-2" :class="iconClass" @click="handleMove(index, 'up')" v-if="index !== 0">
           <Top />
         </ElIcon>
         <ElIcon
-          class="mr-3 cursor-pointer opacity-0 source-icon"
+          class="ml-2"
+          :class="iconClass"
           @click="handleMove(index, 'down')"
           v-if="index !== dataList.length - 1"
         >
@@ -77,12 +74,20 @@ import { ElIcon, ElInput } from 'element-plus'
 import { RemoveFilled, Top, Bottom, CirclePlusFilled } from '@element-plus/icons-vue'
 import { uploadSourceProps, uploadSourceEmit } from './type'
 import { useUploadSource } from '../hooks/use-upload-source'
+import { useWidth } from '@/hooks/use-width'
+import { computed } from 'vue'
 
 const props = defineProps(uploadSourceProps)
 const emit = defineEmits(uploadSourceEmit)
 
 const { linkTip, dataList, handleAddOne, handleDeleteOne, handleMove, updateModelValue, handleBlur } =
   useUploadSource(props, emit)
+
+const { width } = useWidth()
+const iconClass = computed(() => {
+  if (width.value <= 768) return ''
+  return 'cursor-pointer opacity-0 source-icon'
+})
 </script>
 
 <style lang="scss">

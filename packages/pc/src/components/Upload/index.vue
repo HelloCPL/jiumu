@@ -52,6 +52,15 @@
     @change="handleChangeFilesBig"
     v-if="uploadType === 'files_big' || uploadType === 'auto'"
   ></UploadFilesBig>
+  <LazyLoader>
+    <Cropper
+      v-if="cropperState.show"
+      :file="cropperState.file"
+      :config="cropperConfig"
+      @close="cropperState.show = false"
+      @confirm="confirmCropper"
+    ></Cropper>
+  </LazyLoader>
 </template>
 
 <script lang="ts" setup>
@@ -60,6 +69,10 @@ import { Plus } from '@element-plus/icons-vue'
 import { uploadProps, uploadEmits } from './type'
 import { useIndex } from './hooks/use-index'
 import UploadFilesBig from './components/UploadFilesBig.vue'
+import { defineAsyncComponent } from 'vue'
+import LazyLoader from '@/components/LazyLoader/index.vue'
+
+const Cropper = defineAsyncComponent(() => import('./components/Cropper.vue'))
 
 defineOptions({
   inheritAttrs: false
@@ -67,8 +80,18 @@ defineOptions({
 
 const props = defineProps(uploadProps)
 const emit = defineEmits(uploadEmits)
-const { refUpload, refUploadFilesBig, _accept, _limit, onChange, onExceed, beforeUpload, httpRequest } =
-  useIndex(props, emit)
+const {
+  refUpload,
+  refUploadFilesBig,
+  _accept,
+  _limit,
+  cropperState,
+  confirmCropper,
+  onChange,
+  onExceed,
+  beforeUpload,
+  httpRequest
+} = useIndex(props, emit)
 
 const handleChangeFilesBig = (files: DataBaseFile[]) => {
   emit('change', files)

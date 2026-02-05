@@ -6,12 +6,8 @@
 
 <template>
   <div class="w-full">
-    <div
-      class="flex items-center mb-2"
-      style="height: 32px"
-      v-if="!modelValue || modelValue === '<p><br></p>'"
-    >
-      <div class="flex items-center">
+    <div class="flex items-center mb-2" v-if="!modelValue || modelValue === '<p><br></p>'">
+      <div class="flex items-center flex-wrap">
         <span class="text-sm text-lighter mr-2">可选择切换编辑器：</span>
         <ElRadioGroup v-model="_type" @change="handleChangeType">
           <ElRadio label="401">富文本编辑器</ElRadio>

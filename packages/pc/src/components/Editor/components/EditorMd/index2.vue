@@ -7,6 +7,7 @@
 <template>
   <v-md-editor
     v-model="value"
+    mode="edit"
     :height="height + 'px'"
     :placeholder="placeholder"
     :toc-nav-position-right="true"

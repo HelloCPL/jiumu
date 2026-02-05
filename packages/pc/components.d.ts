@@ -13,6 +13,7 @@ declare module 'vue' {
     Comment: typeof import('./src/components/Comment/index.vue')['default']
     CommentItem: typeof import('./src/components/Comment/CommentItem.vue')['default']
     Container: typeof import('./src/components/Note/components/Container.vue')['default']
+    Cropper: typeof import('./src/components/Upload/components/Cropper.vue')['default']
     Dialog: typeof import('./src/components/Dialog/index.vue')['default']
     Editor: typeof import('./src/components/Editor/index.vue')['default']
     EditorMd: typeof import('./src/components/Editor/components/EditorMd/index.vue')['default']

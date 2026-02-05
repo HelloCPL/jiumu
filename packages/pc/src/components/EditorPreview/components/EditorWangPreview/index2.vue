@@ -5,13 +5,14 @@
 -->
 
 <template>
-  <div class="bg-white w-full flex editor-wang-preiview-container">
+  <div class="w-full flex relative editor-wang-preiview-container">
     <div :style="{ width: contentWidth }">
       <div :id="'editor-preview-' + id" class="editor-wang-preview"></div>
     </div>
     <div
-      class="affix-wang-preview-right shrink-0"
-      :style="{ width: width + 'px' }"
+      class="affix-wang-preview-right bg-white shrink-0 pl-2"
+      :class="previewTitleClass"
+      :style="{ width: width + 'px', 'z-index': 999 }"
       v-if="titleData.length > 3 && !isReload"
     >
       <ElAffix target=".affix-wang-preview-right" :offset="40">
@@ -59,7 +60,8 @@ import { ArrowLeftBold } from '@element-plus/icons-vue'
 
 const props = defineProps(editorWangPreviewProps)
 
-const { id, width, contentWidth, isReload, titleData, handleTitleItem, handleClickArrow } = useIndex(props)
+const { id, width, contentWidth, previewTitleClass, isReload, titleData, handleTitleItem, handleClickArrow } =
+  useIndex(props)
 </script>
 
 <style lang="scss">
@@ -85,9 +87,10 @@ const { id, width, contentWidth, isReload, titleData, handleTitleItem, handleCli
   right: 0px;
   top: 5px;
   transition: transform ease 0.5s;
+  transform: rotate(180deg);
 }
 
 .title-icon-arrow {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 </style>

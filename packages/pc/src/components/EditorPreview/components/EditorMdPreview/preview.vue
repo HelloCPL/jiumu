@@ -5,14 +5,18 @@
 -->
 
 <template>
-  <div class="w-full flex editor-md-preiview-container" :class="{ 'editor-md-preview-light': isLight }">
+  <div
+    class="w-full flex relative editor-md-preiview-container"
+    :class="{ 'editor-md-preview-light': isLight }"
+  >
     <div :style="{ width: contentWidth }">
       <v-md-preview :text="text" ref="refPreview" @copy-code-success="handleCopySuccess"></v-md-preview>
     </div>
     <!-- 目录  -->
     <div
-      class="affix-md-preview-right shrink-0"
-      :style="{ width: width + 'px' }"
+      class="affix-md-preview-right bg-white shrink-0 pl-2"
+      :class="previewTitleClass"
+      :style="{ width: width + 'px', 'z-index': 999 }"
       v-if="titleData.length > 3 && !isReload"
     >
       <ElAffix target=".affix-md-preview-right" :offset="40">
@@ -66,6 +70,7 @@ const {
   refPreview,
   width,
   contentWidth,
+  previewTitleClass,
   titleData,
   handleTitleItem,
   handleClickArrow,
@@ -98,10 +103,11 @@ const {
   right: 0px;
   top: 5px;
   transition: transform ease 0.5s;
+  transform: rotate(180deg);
 }
 
 .title-icon-arrow {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .preview-bg-white {

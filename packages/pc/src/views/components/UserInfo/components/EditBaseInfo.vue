@@ -5,14 +5,8 @@
 -->
 
 <template>
-  <Dialog
-    title="个人信息编辑"
-    @close="$emit('close')"
-    @confirm="confirm"
-    :width="500"
-    class-content="edit-base-info-wrapper"
-  >
-    <ElForm :model="form" ref="formRef" :label-width="getPx(70)" class="pr-6">
+  <Dialog title="个人信息编辑" @close="$emit('close')" @confirm="confirm" :width="500">
+    <ElForm :model="form" ref="formRef" :label-width="getPx(70)" class="pr-6 edit-base-info-form">
       <ElFormItem label="昵称" prop="username">
         <ElInput type="text" placeholder="请输入昵称" v-model="form.username"></ElInput>
       </ElFormItem>
@@ -107,7 +101,7 @@ const confirm = () => {
 </script>
 
 <style lang="scss">
-.edit-base-info-wrapper {
+.edit-base-info-form {
   .el-date-editor.el-input {
     width: 100%;
   }

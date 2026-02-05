@@ -22,7 +22,7 @@ export const dialogProps = buildProps({
   // 宽度
   width: {
     type: Number,
-    default: 580
+    default: 500
   },
   // 内容区高度
   contentHeight: {

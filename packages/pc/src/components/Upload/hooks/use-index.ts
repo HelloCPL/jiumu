@@ -3,7 +3,7 @@
  */
 
 import { UploadProps, UploadEmits } from '../type'
-import { ref, computed, nextTick, watch } from 'vue'
+import { ref, computed, nextTick, watch, reactive } from 'vue'
 import { UploadInstance, UploadRawFile, UploadRequestOptions } from 'element-plus'
 import { Message } from '@/utils/interaction'
 import { getSuffix } from '@jiumu/utils'
@@ -31,6 +31,15 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const onExceed = () => {
     Message(`最多可以再上传${_limit.value}个文件`)
   }
+
+  const cropperState = reactive<any>({
+    show: false,
+    file: null
+  })
+  const confirmCropper = (file: File) => {
+    _upload(file)
+    cropperState.show = false
+  }
   // 上传前校验
   const beforeUpload = (file: UploadRawFile) => {
     const flag = validSuffix(file, _accept.value)
@@ -38,22 +47,29 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     Message(`文件格式不正确，请选择${_accept.value}格式的文件`)
     return false
   }
+  const _uploadBigFile = (file: File) => {
+    refUploadFilesBig.value?.handleFileUpload(file)
+  }
+  const _upload = async (file: File) => {
+    const fileFormData = new FormData()
+    fileFormData.append('file', file)
+    let params: ParamsFileOther = {}
+    if (isPlainObject(props.params)) params = Object.assign(params, props.params)
+    params.staticPlace = props.type as ParamsFileStaticPlace
+    const res = await uploadFile(fileFormData, params)
+    if (res.code === 200) {
+      emit('change', res.data)
+    }
+  }
   // 上传
   const httpRequest = (fileOption: UploadRequestOptions) => {
-    const up1 = async (fileOption: UploadRequestOptions) => {
-      refUploadFilesBig.value?.handleFileUpload(fileOption.file)
-    }
-    const up2 = async (fileOption: UploadRequestOptions) => {
-      const file = new FormData()
-      file.append('file', fileOption.file)
-      let params: ParamsFileOther = {}
-      if (isPlainObject(props.params)) params = Object.assign(params, props.params)
-      params.staticPlace = props.type as ParamsFileStaticPlace
-      const res = await uploadFile(file, params)
-      if (res.code === 200) {
-        emit('change', res.data)
-      } else {
-        Message(res.message)
+    if (props.isCropper) {
+      const suffix = getSuffix(fileOption.file.name)
+      const suffixs = ['png', 'jpg', 'jpeg']
+      if (suffixs.includes(suffix)) {
+        cropperState.file = fileOption.file
+        cropperState.show = true
+        return
       }
     }
     if (props.httpRequest && isFunction(props.httpRequest)) {
@@ -64,14 +80,14 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
       params.staticPlace = props.type as ParamsFileStaticPlace
       props.httpRequest(file, params)
     } else if (props.uploadType === 'files_big') {
-      up1(fileOption)
+      _uploadBigFile(fileOption.file)
     } else if (props.uploadType === 'files') {
-      up2(fileOption)
+      _upload(fileOption.file)
     } else {
       if (fileOption.file.size > UPLOAD_BIG_SIZE) {
-        up1(fileOption)
+        _uploadBigFile(fileOption.file)
       } else {
-        up2(fileOption)
+        _upload(fileOption.file)
       }
     }
   }
@@ -110,6 +126,8 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     refUploadFilesBig,
     _accept,
     _limit,
+    cropperState,
+    confirmCropper,
     onChange,
     onExceed,
     beforeUpload,

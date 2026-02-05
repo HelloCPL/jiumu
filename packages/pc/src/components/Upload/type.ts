@@ -52,6 +52,15 @@ export const uploadProps = buildProps({
   // 自定义上传
   httpRequest: {
     type: Function
+  },
+  // 上传前是否进行图片裁剪，仅 png/jpg/jpeg 有效
+  isCropper: {
+    type: Boolean,
+    default: true
+  },
+  // 图片裁剪配置
+  cropperConfig: {
+    type: Object
   }
 } as const)
 
