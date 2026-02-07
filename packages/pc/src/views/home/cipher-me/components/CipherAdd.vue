@@ -11,14 +11,14 @@
     @close="$emit('close')"
     @confirm="confirm"
   >
-    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(100)" class="g-popup">
-      <ElFormItem label="标题" prop="title" class="g-w-320">
+    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(100)" class="pr-4">
+      <ElFormItem label="标题" prop="title">
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
       </ElFormItem>
-      <ElFormItem label="账号" prop="account" class="g-w-320">
+      <ElFormItem label="账号" prop="account">
         <ElInput placeholder="请输入账号" v-model="form.account" autocomplete="off"></ElInput>
       </ElFormItem>
-      <ElFormItem label="密码" prop="cipher" class="g-w-320">
+      <ElFormItem label="密码" prop="cipher">
         <ElInput
           type="password"
           placeholder="请输入密码"
@@ -27,7 +27,7 @@
           show-password
         ></ElInput>
       </ElFormItem>
-      <ElFormItem label="加密等级" prop="type" class="g-w-320 mr-6">
+      <ElFormItem label="加密等级" prop="type">
         <SelectType v-model="form.type" type="type" parent-code="800" show-type="radio"></SelectType>
         <div class="mt-2 text-sm text-lighter" v-if="form.type === '802' && !isExistCode">
           <span>加权等级需要先添加</span>
@@ -37,7 +37,7 @@
       <ElFormItem label="自定义标签" prop="classify">
         <SelectClassify v-model="form.classify" type="cipherClassify"></SelectClassify>
       </ElFormItem>
-      <ElFormItem label="排序" prop="sort" class="g-w-320">
+      <ElFormItem label="排序" prop="sort">
         <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>
       </ElFormItem>
     </ElForm>

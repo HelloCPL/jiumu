@@ -5,8 +5,8 @@
 -->
 
 <template>
-  <Container :total="10" @open="isShow = true"></Container>
-  <NoteList :root-id="rootId" :target-id="targetId" :title="title" v-if="isShow" @close="isShow = false">
+  <Container :total="total" @open="isShow = true"></Container>
+  <NoteList :root-id="rootId" :target-id="targetId" :title="title" v-if="isShow" @close="handleClose">
   </NoteList>
 </template>
 
@@ -14,10 +14,27 @@
 import { noteProps } from './type'
 import Container from './components/Container.vue'
 import NoteList from './components/NoteList.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { getNoteList } from '@/api/note'
 
-defineProps(noteProps)
+const props = defineProps(noteProps)
 
 const isShow = ref(false)
-</script>
 
+const total = ref(0)
+const getTotal = async () => {
+  const res = await getNoteList({
+    pageNo: 1,
+    pageSize: 1,
+    targetId: props.targetId as string
+  })
+  if (res.code === 200) {
+    total.value = res.total
+  }
+}
+onMounted(getTotal)
+const handleClose = () => {
+  getTotal()
+  isShow.value = false
+}
+</script>

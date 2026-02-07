@@ -5,13 +5,13 @@
 -->
 
 <template>
-  <div class="flex flex-wrap select-classify-container">
+  <div class="flex flex-wrap gap-x-6 gap-y-4 select-classify-container">
     <ElTag
       v-for="item in classifyList"
       :key="item.id"
       round
       :type="item.checked ? '' : 'info'"
-      class="mr-3 mb-2 cursor-pointer bg-danger select-none"
+      class="cursor-pointer bg-danger select-none"
       @click="handleClick(item)"
     >
       {{ item.label }}

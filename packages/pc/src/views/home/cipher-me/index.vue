@@ -48,7 +48,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="账号" :min-width="getPx(100)">
+      <ElTableColumn label="账号" :min-width="getPx(150)">
         <template #default="{ row }">
           <span v-if="row.show === '1'">
             {{ row._account }}
@@ -56,7 +56,7 @@
           <span v-else>{{ formatAccount(row._account) }}</span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="密码" :min-width="getPx(100)">
+      <ElTableColumn label="密码" :min-width="getPx(150)">
         <template #default="{ row }">
           <span>{{ row.show === '1' ? row._cipher : '******' }}</span>
         </template>

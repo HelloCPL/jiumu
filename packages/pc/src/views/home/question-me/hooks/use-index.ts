@@ -71,8 +71,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     switch (item.key) {
       case 'add':
         router.push({
-          name: 'QuestionAdd',
-          params: { _metaTitle: '问答新增', _refreshOne: '1' }
+          path: '/question-add',
+          query: { _metaTitle: '问答新增', _refreshOne: '1' }
         })
         return
     }
@@ -81,8 +81,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击编辑
   const handleEdit = (row: DataQuestion) => {
     router.push({
-      name: 'QuestionAdd',
-      params: { _metaTitle: '问答编辑', _refreshOne: '1', id: row.id }
+      path: '/question-add',
+      query: { _metaTitle: '问答编辑', _refreshOne: '1', id: row.id }
     })
   }
 

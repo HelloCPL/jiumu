@@ -80,8 +80,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     switch (item.key) {
       case 'add':
         router.push({
-          name: 'ArticleAdd',
-          params: { _metaTitle: '文章新增' }
+          path: '/article-add',
+          query: { _metaTitle: '文章新增', _refreshOne: '1' }
         })
         return
     }
@@ -90,8 +90,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击编辑
   const handleEdit = (row: DataArticle) => {
     router.push({
-      name: 'ArticleAdd',
-      params: { _metaTitle: '文章编辑', id: row.id }
+      path: '/article-add',
+      query: { id: row.id, _metaTitle: '文章编辑', _refreshOne: '1' }
     })
   }
 

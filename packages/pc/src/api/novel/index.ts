@@ -102,6 +102,13 @@ export const getNovelChapterList = async (
 }
 
 /**
+ * 获取指定笔记中章节列表最大的排序号
+ */
+export const getNovelChapterMaxSort = async (novelId: string): Promise<DataOptions<number>> => {
+  return await post('/pc/novel-chapter/get/max-sort', { novelId }).catch((err) => err)
+}
+
+/**
  * 新增一个笔记
  */
 export const addNovelNote = async (params: ParamsNovelNoteAdd): Promise<DataOptions<string>> => {

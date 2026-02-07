@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full h-full pl-2 relative g-scroll-x">
+  <div class="w-full h-full relative g-scroll-x">
     <div class="w-full h-full g-scroll-y user-logs-container" style="min-width: 380px">
       <span class="text-sm text-lighter pl-2">
         <span>登录记录</span>

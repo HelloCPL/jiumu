@@ -43,6 +43,7 @@ export const useIndex = () => {
 
   // 获取问答详情
   const _getOne = async (id: string) => {
+    form.id = id
     const res = await getQuestionOne({ id })
     if (res.code === 200) {
       const data = res.data
@@ -58,8 +59,9 @@ export const useIndex = () => {
     }
   }
   onMounted(() => {
-    form.id = <string | undefined>route.params.id
-    if (form.id) _getOne(form.id)
+    if (route.query?.id) {
+      _getOne(route.query?.id as string)
+    }
   })
 
   // 新增
@@ -102,41 +104,44 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '0'
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '0'
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'draft':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '1'
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+        })
+        break
+      case 'draft':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '1'
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (form.id) {
-          _delete(form.id)
-        } else {
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (form.id) {
+            _delete(form.id)
+          }
+        })
+        break
+      case 'cancel':
+        Confirm(`确定${item.name}吗？`).then(() => {
           router.back()
-        }
-      })
-      break
+        })
+        break
     }
   }
 

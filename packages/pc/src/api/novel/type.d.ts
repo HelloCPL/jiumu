@@ -41,7 +41,6 @@ interface DataNovel extends DataBase {
   commentCount: number
   chapterCommentCount: number
   chapterCount: number
-  wordCount?: number
 }
 
 // 获取所有连载列表参数类型
@@ -111,7 +110,6 @@ interface DataNovelChapter extends DataBase {
   isSelf: DataBaseStatus
   commentCount: number
   remarks: string
-  wordCount: number
 }
 
 // 获取指定连载的所有章节参数类型

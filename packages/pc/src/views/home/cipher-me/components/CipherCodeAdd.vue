@@ -8,7 +8,6 @@
   <Dialog
     :title="isExistCode ? '口令code修改' : '口令code新增'"
     :width="500"
-    top="30vh"
     add-code="pc:cipher:code:add:btn"
     @close="handleClose"
     @confirm="confirm"
@@ -19,7 +18,7 @@
       ref="formRef"
       label-position="right"
       :label-width="getPx(80)"
-      class="mt-4 mx-auto g-w-320"
+      class="pr-4"
       @submit.native.prevent
     >
       <ElFormItem
@@ -50,7 +49,7 @@
         ></ElInput>
       </ElFormItem>
     </ElForm>
-    <div class="text-sm text-lighter flex pt-4 pl-4">
+    <div class="text-sm text-lighter flex pt-4">
       <span class="text-danger shrink-0">注意：</span>
       <span class="flex flex-col">
         <span>口令code新增后不可删除，仅可修改；</span>

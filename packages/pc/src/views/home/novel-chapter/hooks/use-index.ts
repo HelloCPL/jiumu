@@ -59,8 +59,8 @@ export const useIndex = () => {
     switch (item.key) {
       case 'add':
         router.push({
-          name: 'NovelChapterAdd',
-          params: { _metaTitle: '章节新增', _refreshOne: '1', novelId: id }
+          path: '/novel-chapter-add',
+          query: { _metaTitle: '章节新增', _refreshOne: '1', novelId: id }
         })
         return
     }
@@ -69,8 +69,8 @@ export const useIndex = () => {
   // 点击编辑
   const handleEdit = (row: DataNovelChapter) => {
     router.push({
-      name: 'NovelChapterAdd',
-      params: { _metaTitle: '章节编辑', _refreshOne: '1', id: row.id, novelId: id }
+      path: '/novel-chapter-add',
+      query: { _metaTitle: '章节编辑', _refreshOne: '1', id: row.id, novelId: id }
     })
   }
 

@@ -5,12 +5,14 @@
 -->
 
 <template>
-  <div class="w-full pl-6 pr-2">
-    <div class="w-full flex items-center flex-wrap mb-8">
-      <span class="text-sm text-lighter flex items-center shrink-0 w-24 pb-2">
+  <div class="w-full">
+    <div class="mb-4">
+      <span class="text-sm text-lighter flex items-center shrink-0">
         <IconSvg name="theme"></IconSvg>
         <span class="pl-1">主题</span>
       </span>
+    </div>
+    <div class="mb-8">
       <SelectType
         v-model="theme"
         :data="themeList"
@@ -19,32 +21,29 @@
         @change="handleChangeTheme"
       ></SelectType>
     </div>
-    <div class="flex items-center flex-wrap">
-      <span class="text-sm text-lighter flex items-center shrink-0 w-24 mb-10">
+    <div class="mb-12">
+      <span class="text-sm text-lighter flex items-center shrink-0">
         <IconSvg name="fontSize"></IconSvg>
         <span class="pl-1">字体大小</span>
       </span>
-      <div class="mb-10">
-        <div
-          class="relative font-size-wrapper"
-          :style="{ width: distance * (fontSizeList.length - 1) + 'px' }"
+    </div>
+    <div class="pl-2">
+      <div class="relative font-size-wrapper" :style="{ width: distance * (fontSizeList.length - 1) + 'px' }">
+        <span
+          v-for="(item, index) in fontSizeList"
+          :key="item.value"
+          class="absolute rounded-full font-size-item"
+          :class="{ 'bg-primary': item.value === fontSize }"
+          :style="{ left: index * distance + 'px' }"
+          @click="handleChangeFontSize(item.value as FontSizeValue)"
         >
           <span
-            v-for="(item, index) in fontSizeList"
-            :key="item.value"
-            class="absolute rounded-full font-size-item"
-            :class="{ 'bg-primary': item.value === fontSize }"
-            :style="{ left: index * distance + 'px' }"
-            @click="handleChangeFontSize(item.value as FontSizeValue)"
+            class="absolute flex items-end text-lighter font-size-alias"
+            :style="{ 'font-size': item.value + 'px' }"
           >
-            <span
-              class="absolute flex items-end text-lighter font-size-alias"
-              :style="{ 'font-size': item.value + 'px' }"
-            >
-              {{ item.alias }}
-            </span>
+            {{ item.alias }}
           </span>
-        </div>
+        </span>
       </div>
     </div>
   </div>
@@ -70,7 +69,7 @@ const handleChangeTheme = () => {
   themeStore.toggleTheme(theme.value)
 }
 
-const distance = 56
+const distance = 68
 // 字体大小
 const fontSize = ref<FontSizeValue>(14)
 fontSize.value = themeStore.fontSize

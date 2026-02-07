@@ -1,12 +1,11 @@
 .note-list-content {
-  width: 242px;
-  height: 337px;
+  height: 330px;
 
   .note-list-header {
     height: 32px;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0px;
       left: 0;
@@ -22,19 +21,7 @@
     height: 48px;
 
     .note-list-tag-text {
-      transform: scale(0.62);
-    }
-  }
-
-  .note-border-right {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      height: 100%;
-      width: 1px;
-      background: var(--jm-color-border-lighter);
+      transform: scale(0.75);
     }
   }
 }

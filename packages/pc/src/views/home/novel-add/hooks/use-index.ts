@@ -14,12 +14,6 @@ export const useIndex = () => {
   const route = useRoute()
   const router = useRouter()
 
-  const list = ref<FilterButtonList[]>([
-    { name: '发布', key: 'save', type: 'primary' },
-    { name: '保存草稿', key: 'draft' },
-    { name: '取消', key: 'delete' }
-  ])
-
   // 表单
   const formRef = ref<FormInstance>()
   const form = reactive<ParamsNovelAdd>({
@@ -35,14 +29,30 @@ export const useIndex = () => {
     remarks: ''
   })
 
+  const validLength = (maxLength: number) => {
+    return (rule: any, value: string, callback: any) => {
+      if (value.length > maxLength) {
+        callback(new Error(`长度不能超过${maxLength}个字符`))
+      } else {
+        callback()
+      }
+    }
+  }
   const rules = reactive<FormRules>({
-    name: [{ required: true, trigger: 'change', message: '请输入名称' }],
-    introduce: [{ required: true, trigger: 'change', message: '请输入简介' }],
+    name: [
+      { required: true, trigger: 'change', message: '请输入名称' },
+      { validator: validLength(64), trigger: 'change', message: '名称长度不能超过64个字符' }
+    ],
+    introduce: [
+      { required: true, trigger: 'change', message: '请输入简介' },
+      { validator: validLength(255), trigger: 'change', message: '简介长度不能超过255个字符' }
+    ],
     author: [{ required: true, trigger: 'change', message: '请输入作者名称' }]
   })
 
   // 获取连载详情
   const _getOne = async (id: string) => {
+    form.id = id
     const res = await getNovelOne({ id })
     if (res.code === 200) {
       const data = res.data
@@ -57,28 +67,12 @@ export const useIndex = () => {
       if (data.classify?.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
-
-      let _list = []
-      if (data.isDraft === '1') {
-        _list = [
-          { name: '发布', key: 'save', type: 'primary' },
-          { name: '保存草稿', key: 'draft' }
-        ]
-      } else {
-        _list = [
-          { name: '保存', key: 'save', type: 'primary' },
-          { name: '转为草稿', key: 'draft' }
-        ]
-      }
-      if (data.chapterCount === 0) {
-        _list.push({ name: '删除', key: 'delete' })
-      }
-      list.value = _list
     }
   }
   onMounted(() => {
-    form.id = <string | undefined>route.params.id
-    if (form.id) _getOne(form.id)
+    if (route.query?.id) {
+      _getOne(route.query?.id as string)
+    }
   })
 
   // 新增
@@ -121,46 +115,48 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '0'
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '0'
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'draft':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '1'
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+        })
+        break
+      case 'draft':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '1'
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (form.id) {
-          _delete(form.id)
-        } else {
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (form.id) {
+            _delete(form.id)
+          }
+        })
+        break
+      case 'cancel':
+        Confirm(`确定${item.name}吗？`).then(() => {
           router.back()
-        }
-      })
-      break
+        })
+        break
     }
   }
 
   return {
-    list,
     formRef,
     form,
     rules,

@@ -26,7 +26,7 @@
         <template #default="{ $index }">{{ getIndex($index) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" :min-width="getPx(110)" />
-      <ElTableColumn label="code" :min-width="getPx(110)">
+      <ElTableColumn label="code" :min-width="getPx(120)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
         </template>

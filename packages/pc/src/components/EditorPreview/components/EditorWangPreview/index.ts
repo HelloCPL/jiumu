@@ -38,7 +38,9 @@ export const useIndex = (props: EditorWangPreviewProps) => {
           readOnly: true,
           autoFocus: false,
           onCreated() {
-            findTitleData()
+            if (props.isShowTitle) {
+              findTitleData()
+            }
           }
         }
       })
@@ -54,7 +56,7 @@ export const useIndex = (props: EditorWangPreviewProps) => {
   })
   const previewTitleClass = computed(() => {
     if (screenWidth.value <= 768) {
-      return 'h-full absolute top-0 right-0 shadow-lg'
+      return 'min-h-full absolute top-0 right-0 shadow-lg'
     }
     return ''
   })

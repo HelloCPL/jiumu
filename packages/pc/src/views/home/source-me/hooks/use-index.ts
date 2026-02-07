@@ -79,8 +79,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     switch (item.key) {
       case 'add':
         router.push({
-          name: 'SourceAdd',
-          params: { _metaTitle: '资源新增', _refreshOne: '1' }
+          path: '/source-add',
+          query: { _metaTitle: '资源新增', _refreshOne: '1' }
         })
         return
     }
@@ -89,8 +89,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   // 点击编辑
   const handleEdit = (row: DataSource) => {
     router.push({
-      name: 'SourceAdd',
-      params: { _metaTitle: '资源编辑', _refreshOne: '1', id: row.id }
+      path: '/source-add',
+      query: { _metaTitle: '资源编辑', _refreshOne: '1', id: row.id }
     })
   }
 

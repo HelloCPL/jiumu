@@ -46,7 +46,7 @@
             <MoreFilled v-if="isShow" />
             <More v-else />
           </ElIcon>
-          <span class="pl-1 text-sm">{{ isShow ? '收起' : '更多' }}</span>
+          <span class="pl-1 text-sm whitespace-nowrap">{{ isShow ? '收起' : '更多' }}</span>
         </span>
       </div>
     </div>

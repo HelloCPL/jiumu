@@ -29,7 +29,7 @@
     <Table :data="data" @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn prop="sort" label="排序" width="60" />
-      <ElTableColumn label="code" :min-width="getPx(100)">
+      <ElTableColumn label="code" :min-width="getPx(120)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
         </template>

@@ -28,7 +28,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="typeLabel" label="资源类型" :min-width="getPx(170)" />
-      <ElTableColumn label="标签" :min-width="getPx(100)">
+      <ElTableColumn label="标签" :min-width="getPx(110)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">

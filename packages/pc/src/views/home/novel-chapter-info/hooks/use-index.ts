@@ -6,11 +6,12 @@
 
 import { getNovelChapterList, getNovelChapterOne } from '@/api/novel'
 import { debounce, isPlainObject } from 'lodash-es'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storage } from '@jiumu/utils'
 import { useUserStore } from '@/store'
-
+import { useWidth } from '@/hooks/use-width'
+import gsap from 'gsap'
 export const useIndex = () => {
   const route = useRoute()
   const router = useRouter()
@@ -108,6 +109,30 @@ export const useIndex = () => {
     chapter.value = _chapter
   }
 
+  const width = ref(0)
+  const { width: screenWidth } = useWidth()
+  const contentWidth = computed(() => {
+    if (screenWidth.value <= 768) return '100%'
+    return `calc(100% - ${width.value}px)`
+  })
+  const previewTitleClass = computed(() => {
+    if (screenWidth.value <= 768) {
+      return 'min-h-full absolute top-0 right-0 shadow-lg'
+    }
+    return ''
+  })
+  const handleClickArrow = () => {
+    if (width.value === 0) {
+      gsap.to(width, {
+        value: 220
+      })
+    } else {
+      gsap.to(width, {
+        value: 0
+      })
+    }
+  }
+
   return {
     dataInfo,
     data,
@@ -115,6 +140,10 @@ export const useIndex = () => {
     id,
     targetIndex,
     handleNext,
-    chapter
+    chapter,
+    width,
+    contentWidth,
+    previewTitleClass,
+    handleClickArrow
   }
 }

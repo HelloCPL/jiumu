@@ -7,7 +7,7 @@
 <template>
   <div class="g-container">
     <!-- 头部信息 -->
-    <div class="w-full px-6 py-2 border-b-1 relative" v-if="dataInfo">
+    <div class="w-full px-6 py-4 border-b-1 relative" v-if="dataInfo">
       <img
         :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
         class="absolute top-0 right-0 w-8"
@@ -16,9 +16,9 @@
       />
       <span class="text-lg">
         <span>{{ dataInfo.name }}</span>
-        <ElTag class="text-sm ml-2" size="small" type="danger" effect="dark" v-if="isSelf">我的</ElTag>
+        <ElTag class="text-sm ml-2 mb-1" size="small" type="danger" effect="dark" v-if="isSelf">我的</ElTag>
       </span>
-      <div class="mt-1 text-sm text-lighter flex justify-between">
+      <div class="mt-2 text-sm text-lighter flex justify-between">
         <span>
           <span>{{ dataInfo.author }}</span>
           <span class="pl-4">共 {{ total }} 章</span>

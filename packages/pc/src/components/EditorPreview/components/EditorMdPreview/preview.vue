@@ -33,7 +33,7 @@
           </span>
           <!-- 目录列表 -->
           <div class="h-full overflow-hidden" :style="{ width: width + 'px' }">
-            <div style="width: 220px" class="h-full flex flex-col">
+            <div style="min-width: 200px" class="w-full h-full flex flex-col">
               <div class="text-lg w-full h-10 pt-1 preview-bg-white">
                 <span>目录：</span>
               </div>

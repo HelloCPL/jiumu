@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <div class="w-full pl-6 pr-2">
+  <div class="w-full">
     <!-- 基本信息展示  -->
     <div
       class="w-full mx-auto pt-6 pl-6 pb-4 pr-2 bg-white rounded-md shadow-lg text-sm text-lighter border-1 border-lighter"

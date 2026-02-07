@@ -32,7 +32,7 @@
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" :width="getPx(60)" />
-      <ElTableColumn label="code" :min-width="getPx(130)">
+      <ElTableColumn label="code" :min-width="getPx(150)">
         <template #default="{ row }">
           <div class="flex items-center code-box">
             <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
@@ -50,12 +50,12 @@
           </div>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="权限" :min-width="getPx(180)">
+      <ElTableColumn label="权限" :min-width="getPx(200)">
         <template #default="{ row }">
           <PermissionLabel :html="row.label" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="href" label="关联接口" show-overflow-tooltip :min-width="getPx(140)" />
+      <ElTableColumn prop="href" label="关联接口" :min-width="getPx(150)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>

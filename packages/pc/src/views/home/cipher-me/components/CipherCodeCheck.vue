@@ -5,14 +5,14 @@
 -->
 
 <template>
-  <Dialog title="口令code校验" :width="500" top="30vh" @close="handleClose" @confirm="confirm">
+  <Dialog title="口令code校验" :width="500" @close="handleClose" @confirm="confirm">
     <ElForm
       :model="form"
       :rules="rules"
       ref="formRef"
       label-position="top"
       :label-width="getPx(80)"
-      class="mt-4 mx-auto g-w-320"
+      class="pr-4"
       @submit.native.prevent
     >
       <ElFormItem prop="code" label="口令code">
@@ -25,7 +25,7 @@
         ></ElInput>
       </ElFormItem>
     </ElForm>
-    <div class="text-sm text-lighter flex pt-4 pl-4">
+    <div class="text-sm text-lighter flex pt-4">
       <span class="text-danger shrink-0">注意：</span>
       <span class="flex flex-col">
         <span>本系统不会以任何形式存储你的口令code；</span>

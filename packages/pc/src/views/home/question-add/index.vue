@@ -7,11 +7,13 @@
 <template>
   <PageBox
     @change-btn="changeBtn"
-    :id="form.id"
-    :is-draft="form.isDraft"
-    add-code="pc:question:me:add:btn"
-    update-code="pc:question:me:update:btn"
-    delete-code="pc:question:me:delete:btn"
+    :footer-button-config="{
+      id: form.id,
+      isDraft: form.isDraft,
+      addCode: 'pc:question:me:add:btn',
+      updateCode: 'pc:question:me:update:btn',
+      deleteCode: 'pc:question:me:delete:btn'
+    }"
   >
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="问答标题" prop="title">

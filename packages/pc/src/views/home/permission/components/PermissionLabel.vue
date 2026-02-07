@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <span class="flex items-center">
+  <span class="flex items-start">
     <GRichText :html="_html" class="pr-2 leading-6" />
     <template v-if="isApi">
       <ElTooltip content="此类权限标识主要用于API接口访问权限控制" placement="top">

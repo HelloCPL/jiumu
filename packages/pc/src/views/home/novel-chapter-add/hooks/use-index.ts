@@ -4,7 +4,13 @@
 import { FormInstance, FormRules } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, reactive, ref } from 'vue'
-import { addNovelChapter, deleteNovelChapter, getNovelChapterOne, updateNovelChapter } from '@/api/novel'
+import {
+  addNovelChapter,
+  deleteNovelChapter,
+  getNovelChapterMaxSort,
+  getNovelChapterOne,
+  updateNovelChapter
+} from '@/api/novel'
 import { debounce } from 'lodash-es'
 import { useKeepAliveStore } from '@/store'
 import { Message, Confirm } from '@/utils/interaction'
@@ -17,12 +23,6 @@ export const useIndex = () => {
 
   const id = ref<string>('')
   const novelId = ref<string>('')
-
-  const list = ref<FilterButtonList[]>([
-    { name: '发布', key: 'save', type: 'primary', code: 'pc:novel:chapter:add:btn' },
-    { name: '保存草稿', key: 'draft', code: 'pc:novel:chapter:add:btn' },
-    { name: '取消', key: 'cancel' }
-  ])
 
   const formRef = ref<FormInstance>()
   const form = reactive<ParamsNovelChapterChange>({
@@ -54,8 +54,9 @@ export const useIndex = () => {
     if (val.length < 15) formRef.value?.validateField('content').catch(() => {})
   }
 
-  const _getOne = async () => {
-    const res = await getNovelChapterOne({ id: id.value })
+  const _getOne = async (_id: string) => {
+    id.value = _id
+    const res = await getNovelChapterOne({ id: _id })
     if (res.code === 200) {
       const data = res.data
       form.title = data.title
@@ -67,24 +68,22 @@ export const useIndex = () => {
     }
   }
 
-  onMounted(() => {
-    if (route.params.id) {
-      id.value = <string>route.params.id
-      _getOne()
-      list.value = [
-        { name: '保存', key: 'save', type: 'primary', code: 'pc:novel:chapter:update:btn' },
-        { name: '转为草稿', key: 'draft', code: 'pc:novel:chapter:update:btn' },
-        { name: '删除', key: 'delete', code: 'pc:novel:chapter:delete:btn' },
-        { name: '取消', key: 'cancel' }
-      ]
+  const getMaxSort = async () => {
+    if (!novelId.value) return
+    const res = await getNovelChapterMaxSort(novelId.value)
+    if (res.code === 200) {
+      form.sort = res.data + 1
     }
-    novelId.value = <string>route.params.novelId
-    if (!novelId.value) {
-      list.value = [
-        { name: '发布', key: 'save', type: 'primary', disabled: true },
-        { name: '保存草稿', key: 'draft', disabled: true },
-        { name: '取消', key: 'cancel', disabled: true }
-      ]
+  }
+
+  onMounted(() => {
+    if (route.query?.novelId) {
+      novelId.value = route.query?.novelId as string
+    }
+    if (route.query?.id) {
+      _getOne(route.query?.id as string)
+    } else {
+      getMaxSort()
     }
   })
 
@@ -200,7 +199,6 @@ export const useIndex = () => {
   return {
     id,
     novelId,
-    list,
     formRef,
     form,
     rules,

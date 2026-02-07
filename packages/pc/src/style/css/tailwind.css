@@ -9,14 +9,8 @@
     @apply flex-col;
     @apply h-full;
     @apply max-h-full;
-    /* @apply flex-shrink-0; */
-    flex-shrink:1;
-  }
-
-  .g-popup {
-    @apply mt-4;
-    @apply pl-4;
-    @apply pr-20;
+    @apply shrink-0
+    /* flex-shrink:1; */
   }
 }
 

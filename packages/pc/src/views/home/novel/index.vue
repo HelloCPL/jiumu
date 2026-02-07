@@ -26,7 +26,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="类型" :min-width="getPx(100)" />
+      <ElTableColumn prop="typeLabel" label="类型" :min-width="getPx(101)" />
       <ElTableColumn label="作者" :min-width="getPx(90)">
         <template #default="{ row }">
           <GRichText :html="row.author" />

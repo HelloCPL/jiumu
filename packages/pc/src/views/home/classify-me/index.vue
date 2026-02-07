@@ -33,7 +33,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="type" label="类型" :min-width="getPx(120)" />
+      <ElTableColumn prop="type" label="类型" :min-width="getPx(140)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>

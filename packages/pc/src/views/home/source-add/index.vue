@@ -5,7 +5,16 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :list="btnList">
+  <PageBox
+    @change-btn="changeBtn"
+    :footer-button-config="{
+      id: form.id,
+      hasDraftButton: false,
+      addCode: 'pc:source:me:add:btn',
+      updateCode: 'pc:source:me:update:btn',
+      deleteCode: 'pc:source:me:delete:btn'
+    }"
+  >
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="资源标题" prop="title">
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
@@ -75,7 +84,6 @@ defineOptions({
 })
 
 const {
-  btnList,
   formRef,
   form,
   rules,

@@ -24,16 +24,20 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
   // 自定义标签类型
   const classify = ref<string>('')
 
+  const scoped = ref('1')
+  const scopedList = ref([
+    { label: '全部笔记', value: '0' },
+    { label: '仅当前目标笔记', value: '1' }
+  ])
+
   const pageNo = ref<number>(1)
-  const pageSize = ref<number>(10)
+  const pageSize = ref<number>(20)
   const total = ref<number>(0)
 
   const data = ref<DataNote[]>([])
   const getDataList = debounce(async (num?: number) => {
     if (num) pageNo.value = num
-    const params: ParamsNoteList = {
-      targetId: <string>props.targetId,
-      relevance: '1',
+    const params: any = {
       pageNo: pageNo.value,
       pageSize: pageSize.value,
       keyword: keyword.value,
@@ -41,6 +45,11 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
       classify: classify.value,
       isSecret: isSecret.value,
       showUserInfo: '0'
+    }
+    if (scoped.value === '0') {
+      params.rootId = props.rootId
+    } else {
+      params.targetId = props.targetId
     }
     const res = await getNoteList(params)
     if (res.code === 200) {
@@ -61,7 +70,6 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
   // 处理增加 编辑 删除
   const currentId = ref('')
   const showAdd = ref(false)
-  const showRelevance = ref<boolean>(false)
   const btnList: FilterButtonList[] = [
     {
       name: '新增',
@@ -71,13 +79,6 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
         showAdd.value = true
         currentId.value = ''
       }
-    },
-    {
-      name: '关联',
-      key: 'relevance',
-      click: () => {
-        showRelevance.value = true
-      }
     }
   ]
 
@@ -86,14 +87,6 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
   }
   const handleConfirmAdd = () => {
     showAdd.value = false
-    getDataList(1)
-  }
-
-  const handleCancelRelevance = () => {
-    showRelevance.value = false
-  }
-  const handleConfirmRelevance = () => {
-    showRelevance.value = false
     getDataList(1)
   }
 
@@ -124,6 +117,8 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
     keyword,
     isSecret,
     classify,
+    scoped,
+    scopedList,
     pageNo,
     pageSize,
     total,
@@ -133,12 +128,9 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
 
     currentId,
     showAdd,
-    showRelevance,
     btnList,
     handleCancelAdd,
     handleConfirmAdd,
-    handleCancelRelevance,
-    handleConfirmRelevance,
 
     handleEdit,
     handleDelete
