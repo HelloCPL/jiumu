@@ -38,20 +38,20 @@ export const useIndex = () => {
       isConcise: '1'
     })
     if (res.code === 200) {
+      handleTargetIndex(res.data)
       data.value = res.data
-      handleTargetIndex()
     }
   }, 300)
 
+  getDataList()
   onMounted(() => {
     getDataInfo()
-    getDataList()
   })
 
   // 当前章节
   const targetIndex = ref<number>(0)
-  const handleTargetIndex = () => {
-    data.value.find((item, index) => {
+  const handleTargetIndex = (list: DataNovelChapter[]) => {
+    list.find((item, index) => {
       if (item.id === id) {
         targetIndex.value = index
         return true

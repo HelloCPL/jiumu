@@ -15,26 +15,7 @@
 
 <script lang="ts" setup>
 import { ElImageViewer } from 'element-plus'
-import { PropType } from 'vue'
+import { previewImageProps } from './type'
 
-defineProps({
-  // 其他参数与ElImageViewer保持一致
-  urlList: {
-    type: Array as PropType<string[]>,
-    require: true,
-    default: () => []
-  },
-  teleported: {
-    type: Boolean,
-    default: true
-  },
-  infinite: {
-    type: Boolean,
-    default: false
-  },
-  zIndex: {
-    type: Number,
-    default: 999
-  }
-})
+defineProps(previewImageProps)
 </script>

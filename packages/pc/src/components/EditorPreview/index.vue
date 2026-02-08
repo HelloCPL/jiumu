@@ -10,11 +10,13 @@
       <EditorWangPreview
         :value="value"
         :is-show-title="isShowTitle"
+        v-bind="$attrs"
         v-if="type === '401'"
       ></EditorWangPreview>
       <EditorMdPreview
         :text="value"
         :is-show-title="isShowTitle"
+        v-bind="$attrs"
         v-else-if="type === '402'"
       ></EditorMdPreview>
     </LazyLoader>

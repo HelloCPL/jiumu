@@ -8,7 +8,7 @@
   <div class="w-full">
     <div class="w-full bg-white shadow p-6 chapter-info-container" v-if="dataInfo">
       <div class="text-xl font-bold mb-4 relative">
-        <span>第{{ targetIndex + 1 }}章</span>
+        <span v-if="data.length">第{{ targetIndex + 1 }}章</span>
         <span class="ml-2">{{ dataInfo.title }}</span>
         <img
           :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
@@ -117,7 +117,9 @@
       ></Comment>
     </div>
     <!-- 关于我们 -->
-    <AboutUs></AboutUs>
+    <Lasyloader :delay="100">
+      <AboutUs></AboutUs>
+    </Lasyloader>
   </div>
 </template>
 
@@ -127,10 +129,13 @@ import { useIndex } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
 import Comment from '@/components/Comment/index.vue'
-import AboutUs from '@/components/AboutUs/index.vue'
 import EditorPreview from '@/components/EditorPreview/index.vue'
 import IconSvg from '@/components/IconSvg/index'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
+import { defineAsyncComponent } from 'vue'
+import Lasyloader from '@/components/LazyLoader/index.vue'
+
+const AboutUs = defineAsyncComponent(() => import('@/components/AboutUs/index.vue'))
 
 defineOptions({
   name: 'NovelChapterInfo'

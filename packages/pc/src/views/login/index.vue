@@ -54,7 +54,7 @@
       ></Particle>
     </Lasyloader>
   </div>
-  <Lasyloader>
+  <Lasyloader :delay="100">
     <AboutUs></AboutUs>
   </Lasyloader>
 </template>

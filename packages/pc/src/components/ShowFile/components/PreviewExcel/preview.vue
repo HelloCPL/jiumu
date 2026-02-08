@@ -32,19 +32,12 @@ import { Close } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import { Message, useLoading } from '@/utils/interaction'
 import { useBodyLocked } from '@/hooks/use-body-locked'
+import { previewExcelEmits, previewExcelProps } from './type'
 
 useBodyLocked()
 
-const props = defineProps({
-  url: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
-defineEmits({
-  close: () => true
-})
+const props = defineProps(previewExcelProps)
+defineEmits(previewExcelEmits)
 
 const isError = ref(false)
 

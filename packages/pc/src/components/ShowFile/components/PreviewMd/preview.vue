@@ -55,19 +55,12 @@ import { getFileText } from '@/utils/download-file'
 import { useLoading } from '@/utils/interaction'
 import EditorMdPreview from '@/components/EditorPreview/components/EditorMdPreview/index.vue'
 import { useBodyLocked } from '@/hooks/use-body-locked'
+import { previewMdEmits, previewMdProps } from './type'
 
 useBodyLocked()
 
-const props = defineProps({
-  url: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
-defineEmits({
-  close: () => true
-})
+const props = defineProps(previewMdProps)
+defineEmits(previewMdEmits)
 
 const { showLoading, hideLoading } = useLoading()
 

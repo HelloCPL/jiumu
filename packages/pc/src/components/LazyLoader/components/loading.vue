@@ -10,7 +10,7 @@
       <circle class="path" cx="20" cy="20" r="15" fill="none" :stroke="strokeColor"></circle>
     </svg>
     <span>
-      <span class="text-sm text-primary mt-2">加载中</span>
+      <span class="text-sm text-primary mt-2" v-if="text">{{ text }}</span>
       <span class="inline-block mt-1">
         <span class="dot"></span>
         <span class="dot"></span>
@@ -23,6 +23,13 @@
 <script setup lang="ts">
 import { themeStore } from '@/store/theme/instance'
 import { ref } from 'vue'
+
+defineProps({
+  text: {
+    type: String,
+    default: '加载中'
+  }
+})
 
 const strokeColor = ref(themeStore.getRootColor('--jm-color-primary'))
 </script>

@@ -48,19 +48,12 @@ import { getFileBlod } from '@/utils/download-file'
 import { renderAsync } from 'docx-preview'
 import { useLoading } from '@/utils/interaction'
 import { useBodyLocked } from '@/hooks/use-body-locked'
+import { previewWordEmits, previewWordProps } from './type'
 
 useBodyLocked()
 
-const props = defineProps({
-  url: {
-    type: String,
-    require: true,
-    default: ''
-  }
-})
-defineEmits({
-  close: () => true
-})
+const props = defineProps(previewWordProps)
+defineEmits(previewWordEmits)
 
 const isError = ref(false)
 

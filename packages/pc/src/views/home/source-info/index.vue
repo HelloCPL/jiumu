@@ -69,7 +69,9 @@
       ></Comment>
     </div>
     <!-- 关于我们 -->
-    <AboutUs></AboutUs>
+    <Lasyloader :delay="100">
+      <AboutUs></AboutUs>
+    </Lasyloader>
   </div>
 </template>
 
@@ -79,11 +81,14 @@ import { useIndex } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
 import Comment from '@/components/Comment/index.vue'
-import AboutUs from '@/components/AboutUs/index.vue'
 import IconSvg from '@/components/IconSvg/index'
 import ShowFile from '@/components/ShowFile/index.vue'
 import ShowSource from './components/ShowSource.vue'
 import ShowSourceLink from './components/ShowSourceLink.vue'
+import Lasyloader from '@/components/LazyLoader/index.vue'
+import { defineAsyncComponent } from 'vue'
+
+const AboutUs = defineAsyncComponent(() => import('@/components/AboutUs/index.vue'))
 
 defineOptions({
   name: 'SourceInfo'

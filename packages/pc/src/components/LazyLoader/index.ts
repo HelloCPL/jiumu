@@ -50,8 +50,10 @@ export const useIndex = (props: LazyLoaderProps) => {
       }
       await nextTick()
     } finally {
-      isLoaded.value = true
-      isLoading.value = false
+      setTimeout(() => {
+        isLoaded.value = true
+        isLoading.value = false
+      }, props.delay)
     }
   }
 

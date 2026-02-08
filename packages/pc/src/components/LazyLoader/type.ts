@@ -19,6 +19,11 @@ export const lazyLoaderProps = buildProps({
   // 自定义预加载资源
   preloadResources: {
     type: Function
+  },
+  // 自定义延迟加载时间，单位 ms
+  delay: {
+    type: Number,
+    default: 0
   }
 } as const)
 

@@ -26,7 +26,7 @@
 import { pageBoxProps, pageBoxEmits } from './type'
 import FilterButton from '../FilterButton/index.vue'
 import { FilterButtonList } from '../FilterButton/type'
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 import { isArray } from 'lodash-es'
 
 const props = defineProps(pageBoxProps)

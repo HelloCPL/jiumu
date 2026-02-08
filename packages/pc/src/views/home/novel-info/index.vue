@@ -112,7 +112,9 @@
       ></Comment>
     </div>
     <!-- 关于我们 -->
-    <AboutUs></AboutUs>
+    <Lasyloader :delay="100">
+      <AboutUs></AboutUs>
+    </Lasyloader>
   </div>
 </template>
 
@@ -122,10 +124,12 @@ import { useIndex } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
 import Comment from '@/components/Comment/index.vue'
-import AboutUs from '@/components/AboutUs/index.vue'
 import IconSvg from '@/components/IconSvg/index'
 import { useWidth } from '@/hooks/use-width'
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
+import Lasyloader from '@/components/LazyLoader/index.vue'
+
+const AboutUs = defineAsyncComponent(() => import('@/components/AboutUs/index.vue'))
 
 defineOptions({
   name: 'NovelInfo'
