@@ -25,18 +25,15 @@ import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
-const ctx = getCurrentInstance()?.ctx
 
 onMounted(() => {
   const __name = <string>route.params.__name || <string>route.query.__name
   const __path = <string>route.query.__path || <string>route.params.__path
   const item = navigationsStore._find(__name || __path)
-
-  if (item) {
+  const instance: any = getCurrentInstance()
+  if (instance?.ctx && instance?.ctx?.$forceUpdate instanceof Function) instance.ctx.$forceUpdate()
+  if ((__name || __path) && item) {
     keepAliveStore._pop(item)
-  }
-  ctx.$forceUpdate()
-  if (__name || __path) {
     const query = { ...route.query }
     const params = { ...route.params }
     delete query.__path
