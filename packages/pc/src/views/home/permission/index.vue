@@ -13,27 +13,49 @@
       </ElFormItem>
     </FilterBox>
     <!-- 操作盒子 -->
-    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
+    <FilterButton :list="btnList" @click="handleBtn">
+      <template #right>
+        <Upload
+          class="ml-3"
+          :http-request="handleImport"
+          accept=".json"
+          v-if="hasPermission('pc:permission:import:btn')"
+        >
+          <ElButton>导入</ElButton>
+        </Upload>
+      </template>
+    </FilterButton>
     <!-- 列表 -->
-    <Table :data="data">
+    <Table :data="data" @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" :width="getPx(60)" />
-      <ElTableColumn label="code" :min-width="getPx(130)">
+      <ElTableColumn label="code" :min-width="getPx(150)">
         <template #default="{ row }">
-          <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
-            <GRichText :html="row.code" />
-          </span>
+          <div class="flex items-center code-box">
+            <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
+              <GRichText :html="row.code" />
+            </span>
+            <IconSvg
+              name="copy"
+              :width="12"
+              :height="12"
+              fill="var(--jm-color-text-lighter)"
+              hover-fill="var(--jm-color-primary)"
+              class="ml-2 mt-0.5 code-box-icon"
+              @click="copy(row.codeUnhighlight || row.code, true)"
+            ></IconSvg>
+          </div>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="权限" :min-width="getPx(160)">
+      <ElTableColumn label="权限" :min-width="getPx(200)">
         <template #default="{ row }">
           <PermissionLabel :html="row.label" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="href" label="关联接口" show-overflow-tooltip :min-width="getPx(120)" />
+      <ElTableColumn prop="href" label="关联接口" :min-width="getPx(150)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
@@ -41,14 +63,40 @@
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
-      <ElTableColumn label="操作" :width="getPx(200)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(200)" :fixed="tableFixed">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowPermissionUser(row)">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:permission:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-permission="'pc:permission:delete:btn'"
+            >删除</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowPermissionUser(row)"
+            v-permission="'pc:permission:view:user:btn'"
+          >
             查看用户
           </ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowPermissionRole(row)">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowPermissionRole(row)"
+            v-permission="'pc:permission:view:role:btn'"
+          >
             查看角色
           </ElButton>
         </template>
@@ -56,7 +104,12 @@
     </Table>
     <!-- 分页 -->
 
-    <Pagination v-model:pageNo="pageNo" v-model:pageSize="pageSize" :total="total" @change="getDataList"></Pagination>
+    <Pagination
+      v-model:page-no="pageNo"
+      v-model:page-size="pageSize"
+      :total="total"
+      @change="getDataList"
+    ></Pagination>
     <!-- 权限新增或编辑 -->
     <PermissionAdd :id="state.id" v-if="state.show" @close="state.show = false" @confirm="handleConfirm">
     </PermissionAdd>
@@ -64,12 +117,18 @@
     <PermissionInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"> </PermissionInfo>
     <!-- 查看权限-用户关联 -->
     <PermissionUser
-      :id="state.id" :label="state.label" v-if="state.showPermissionUser"
-      @close="state.showPermissionUser = false"></PermissionUser>
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showPermissionUser"
+      @close="state.showPermissionUser = false"
+    ></PermissionUser>
     <!-- 查看权限-角色关联 -->
     <PermissionRole
-      :id="state.id" :label="state.label" v-if="state.showPermissionRole"
-      @close="state.showPermissionRole = false"></PermissionRole>
+      :id="state.id"
+      :label="state.label"
+      v-if="state.showPermissionRole"
+      @close="state.showPermissionRole = false"
+    ></PermissionRole>
   </div>
 </template>
 
@@ -87,10 +146,17 @@ import PermissionRole from './components/PermissionRole.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import PermissionLabel from './components/PermissionLabel.vue'
+import Upload from '@/components/Upload/index.vue'
+import IconSvg from '@/components/IconSvg/index.vue'
+import { useClipboardy } from '@/hooks/use-clipboardy'
+import { hasPermission } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Permission'
 })
+
+const { copy } = useClipboardy()
 
 const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 
@@ -102,10 +168,26 @@ const {
   handleShowInfo,
   handleEdit,
   handleDelete,
+  selectionChange,
+  handleImport,
   handleConfirm,
   handleShowPermissionUser,
   handleShowPermissionRole
 } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>
+
+<style lang="scss" scoped>
+.code-box {
+  .code-box-icon {
+    display: none;
+  }
+}
+.code-box:hover {
+  .code-box-icon {
+    display: inline;
+  }
+}
+</style>

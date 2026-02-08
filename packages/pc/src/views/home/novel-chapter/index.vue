@@ -7,7 +7,7 @@
 <template>
   <div class="g-container">
     <!-- 头部信息 -->
-    <div class="w-full px-6 py-2 border-b-1 relative" v-if="dataInfo">
+    <div class="w-full px-6 py-4 border-b-1 relative" v-if="dataInfo">
       <img
         :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
         class="absolute top-0 right-0 w-8"
@@ -16,9 +16,9 @@
       />
       <span class="text-lg">
         <span>{{ dataInfo.name }}</span>
-        <ElTag class="text-sm ml-2" size="small" type="danger" effect="dark" v-if="isSelf">我的</ElTag>
+        <ElTag class="text-sm ml-2 mb-1" size="small" type="danger" effect="dark" v-if="isSelf">我的</ElTag>
       </span>
-      <div class="mt-1 text-sm text-lighter flex justify-between">
+      <div class="mt-2 text-sm text-lighter flex justify-between">
         <span>
           <span>{{ dataInfo.author }}</span>
           <span class="pl-4">共 {{ total }} 章</span>
@@ -44,12 +44,16 @@
       </ElTableColumn>
       <ElTableColumn label="是否草稿" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isDraft === '0' ? '是' : '否' }}</span>
+          <ElTag :type="row.isDraft === '0' ? 'success' : 'danger'">
+            <span>{{ row.isDraft === '0' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn label="是否公开" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          <ElTag :type="row.isSecret === '0' ? 'success' : 'danger'">
+            <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <template v-if="!isDraft">
@@ -63,10 +67,25 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(140)" fixed="right" v-if="isSelf">
+      <ElTableColumn label="操作" :width="getPx(140)" :fixed="tableFixed" v-if="isSelf">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)"> 删除 </ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:novel:chapter:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-permission="'pc:novel:chapter:delete:btn'"
+          >
+            删除
+          </ElButton>
         </template>
       </ElTableColumn>
     </Table>
@@ -88,6 +107,7 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'NovelChapter'
@@ -108,4 +128,5 @@ const {
   handleDelete,
   handleShowInfo
 } = useIndex()
+const { tableFixed } = useWidth()
 </script>

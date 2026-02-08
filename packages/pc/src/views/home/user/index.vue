@@ -37,7 +37,13 @@
           <GRichText :html="row.username" />
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="sexLabel" label="性别" :width="getPx(60)" />
+      <ElTableColumn label="性别" :width="getPx(60)">
+        <template #default="{ row }">
+          <ElTag v-if="row.sexLabel" :type="row.sexLabel === '男' ? 'primary' : 'danger'">
+            {{ row.sexLabel }}
+          </ElTag>
+        </template>
+      </ElTableColumn>
       <ElTableColumn label="生日" :min-width="getPx(110)">
         <template #default="{ row }">
           <span>{{ formatDate(row.birthday, 'YYYY-MM-DD') }}</span>
@@ -50,12 +56,39 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="注册终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(250)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(250)" :fixed="tableFixed">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleShowUserRole(row)">查看角色</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowUserTag(row)">查看标签</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowUserMenu(row)">查看菜单</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowUserPermission(row)">
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserRole(row)"
+            v-permission="'pc:user:view:role:btn'"
+            >查看角色</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserTag(row)"
+            v-permission="'pc:user:view:tag:btn'"
+            >查看标签</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserMenu(row)"
+            v-permission="'pc:user:view:menu:btn'"
+            >查看菜单</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowUserPermission(row)"
+            v-permission="'pc:user:view:menu:btn'"
+          >
             查看权限
           </ElButton>
         </template>
@@ -63,8 +96,8 @@
     </Table>
     <!-- 分页 -->
     <Pagination
-      v-model:pageNo="pageNo"
-      v-model:pageSize="pageSize"
+      v-model:page-no="pageNo"
+      v-model:page-size="pageSize"
       :total="total"
       @change="getDataList"
     ></Pagination>
@@ -106,7 +139,7 @@
 import FilterBox from '@/components/FilterBox/index.vue'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton, ElImage } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElImage, ElTag } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import UserInfo from './components/UserInfo.vue'
@@ -115,6 +148,7 @@ import UserTag from './components/UserTag.vue'
 import UserMenu from './components/UserMenu.vue'
 import UserPermission from './components/UserPermission.vue'
 import { getIndex, getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'User'
@@ -131,4 +165,6 @@ const {
   handleShowUserMenu,
   handleShowUserPermission
 } = useIndexInfo()
+
+const { tableFixed } = useWidth()
 </script>

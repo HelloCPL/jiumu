@@ -5,7 +5,6 @@
  */
 
 import { buildProps, EmitFn } from '@jiumu/utils'
-import { isObject, isString } from 'lodash-es'
 import { ExtractPropTypes } from 'vue'
 
 // 口令相关
@@ -19,24 +18,13 @@ export type CipherAddProps = ExtractPropTypes<typeof cipherAddProps>
 
 export const cipherAddEmits = {
   close: () => true,
-  confirm: (type?: string) => isString(type)
+  confirm: () => true,
+  toAddCipherCode: () => true
 }
 export type CipherAddEmits = EmitFn<typeof cipherAddEmits>
 
-// 口令code相关
-export const cipherCodeAddProps = buildProps({
-  type: {
-    type: String,
-    default: ''
-  }
-} as const)
-export type CipherCodeAddProps = ExtractPropTypes<typeof cipherCodeAddProps>
-
-type CipherCodeOption = {
-  key: 'close' | 'refresh'
-  type?: string
-}
 export const cipherCodeAddEmits = {
-  close: (params: CipherCodeOption) => isObject(params)
+  close: () => true,
+  confirm: () => true
 }
 export type CipherCodeAddEmits = EmitFn<typeof cipherCodeAddEmits>

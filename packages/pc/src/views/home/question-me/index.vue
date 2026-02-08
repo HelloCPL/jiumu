@@ -30,7 +30,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="标签" :min-width="getPx(100)">
+      <ElTableColumn label="标签" :min-width="getPx(110)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">
@@ -42,12 +42,16 @@
       </ElTableColumn>
       <ElTableColumn label="是否公开" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          <ElTag :type="row.isSecret === '0' ? 'success' : 'danger'">
+            <span>{{ row.isSecret === '0' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn label="是否置顶" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          <ElTag :type="row.isTop === '1' ? 'success' : 'danger'">
+            <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="likeCount" label="点赞" :width="getPx(70)"></ElTableColumn>
@@ -59,10 +63,24 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(100)" :fixed="tableFixed">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:question:me:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-permission="'pc:question:me:delete:btn'"
+            >删除</ElButton
+          >
         </template>
       </ElTableColumn>
     </Table>
@@ -78,7 +96,7 @@
 
 <script lang="ts" setup>
 import FilterBox from '@/components/FilterBox/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElTag } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import FilterButton from '@/components/FilterButton/index.vue'
@@ -86,6 +104,7 @@ import Table from '@/components/Table/index.vue'
 import { formatDate } from '@jiumu/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import { getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'QuestionMe'
@@ -96,4 +115,5 @@ const { keyword, isSecret, classify, pageNo, pageSize, total, data, getDataList,
 const { btnList, handleBtn, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>

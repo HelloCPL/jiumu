@@ -12,6 +12,7 @@ import { TitleCatalogType } from '@/components/Editor/components/EditorWang/comp
 import { getTitleData } from '@/components/Editor/components/EditorWang/hooks/use-title-catalog'
 import gsap from 'gsap'
 import $ from 'jquery'
+import { useWidth } from '@/hooks/use-width'
 
 export const useIndex = (props: EditorWangPreviewProps) => {
   let editor: IDomEditor | null = null
@@ -37,7 +38,9 @@ export const useIndex = (props: EditorWangPreviewProps) => {
           readOnly: true,
           autoFocus: false,
           onCreated() {
-            findTitleData()
+            if (props.isShowTitle) {
+              findTitleData()
+            }
           }
         }
       })
@@ -45,9 +48,17 @@ export const useIndex = (props: EditorWangPreviewProps) => {
   }
 
   // 获取标题数据
-  const width = ref(220)
+  const width = ref(0)
+  const { width: screenWidth } = useWidth()
   const contentWidth = computed(() => {
+    if (screenWidth.value <= 768) return '100%'
     return `calc(100% - ${width.value}px)`
+  })
+  const previewTitleClass = computed(() => {
+    if (screenWidth.value <= 768) {
+      return 'min-h-full absolute top-0 right-0 shadow-lg'
+    }
+    return ''
   })
   const isReload = ref(false)
   let i = 0
@@ -105,6 +116,7 @@ export const useIndex = (props: EditorWangPreviewProps) => {
     id,
     width,
     contentWidth,
+    previewTitleClass,
     isReload,
     titleData,
     handleTitleItem,

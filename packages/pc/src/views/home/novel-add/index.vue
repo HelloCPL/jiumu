@@ -5,7 +5,16 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :list="list">
+  <PageBox
+    @change-btn="changeBtn"
+    :footer-button-config="{
+      id: form.id,
+      isDraft: form.isDraft,
+      addCode: 'pc:novel:me:add:btn',
+      updateCode: 'pc:novel:me:update:btn',
+      deleteCode: 'pc:novel:me:delete:btn'
+    }"
+  >
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="连载名称" prop="name">
         <ElInput type="text" placeholder="请输入连载名称" v-model="form.name"></ElInput>
@@ -18,23 +27,21 @@
           v-model="form.introduce"
         ></ElInput>
       </ElFormItem>
-      <ElRow class="flex">
-        <ElFormItem label="作者" prop="author" class="g-w-280 mr-6">
+      <ElFormItem label="自定义标签" prop="classify">
+        <SelectClassify v-model="form.classify" type="novelClassify"></SelectClassify>
+      </ElFormItem>
+      <ElRow class="flex flex-wrap gap-x-6">
+        <ElFormItem label="作者" prop="author" :class="itemClass">
           <ElInput type="text" placeholder="请输入连载名称" v-model="form.author"></ElInput>
           <span class="text-sm text-lighter">此名称为该连载的笔名</span>
         </ElFormItem>
-        <ElFormItem label="自定义标签" prop="classify">
-          <SelectClassify v-model="form.classify" type="novelClassify"></SelectClassify>
-        </ElFormItem>
-      </ElRow>
-      <ElRow class="flex">
-        <ElFormItem label="类型" prop="type" class="g-w-280 mr-6">
+        <ElFormItem label="类型" prop="type" :class="itemClass">
           <SelectType v-model="form.type" type="type" parent-code="600"></SelectType>
         </ElFormItem>
-        <ElFormItem label="是否公开" prop="isSecret" class="g-w-280 mr-6">
+        <ElFormItem label="是否公开" prop="isSecret" :class="itemClass">
           <SelectType v-model="form.isSecret" type="isSecret"></SelectType>
         </ElFormItem>
-        <ElFormItem label="排序" prop="sort" class="g-w-240">
+        <ElFormItem label="排序" prop="sort" :class="itemClass">
           <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>
         </ElFormItem>
       </ElRow>
@@ -43,7 +50,7 @@
       </ElFormItem>
     </ElForm>
     <!-- 笔记  -->
-    <NovelNote :id="form.id" type="504" :share="form.id" v-if="form.id"></NovelNote>
+    <Note :root-id="form.id" :target-id="form.id" :title="form.name" v-if="form.id"></Note>
   </PageBox>
 </template>
 
@@ -54,11 +61,21 @@ import { useIndex } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
 import SelectClassify from '@/components/SelectClassify/index.vue'
-import NovelNote from '@/views/components/NovelNote/index.vue'
+import { useWidth } from '@/hooks/use-width'
+import { computed } from 'vue'
+import Note from '@/components/Note/index.vue'
 
 defineOptions({
   name: 'NovelAdd'
 })
 
-const { list, formRef, form, rules, changeBtn } = useIndex()
+const { formRef, form, rules, changeBtn } = useIndex()
+
+const { width } = useWidth()
+const itemClass = computed(() => {
+  if (width.value <= 768) {
+    return 'w-full'
+  }
+  return 'g-w-280'
+})
 </script>

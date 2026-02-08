@@ -12,50 +12,32 @@ import { AxiosRequestConfig } from 'axios'
  * get请求
  */
 export const get = (url: string, params?: ObjectAny, config: AxiosRequestConfig = {}): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    service({
-      ...config,
-      method: 'get',
-      url,
-      params
-    })
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        reject(err)
-      })
+  return service({
+    ...config,
+    method: 'get',
+    url,
+    params
   })
 }
 
 /**
- * post 请求 key value 形式
+ * post 表单请求 key value 形式
  */
 export const post = (url: string, params?: ObjectAny, config: AxiosRequestConfig = {}): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    service
-      .post(url, QS.stringify(params), config)
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        reject(err)
-      })
-  })
+  return service.post(url, QS.stringify(params), config)
 }
 
 /**
- * postForm 传递 json 对象 如上传文件
+ * postForm 发送 JSON 数据、文件上传
  */
 export const postForm = (url: string, params?: ObjectAny, config: AxiosRequestConfig = {}): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    service
-      .post(url, params, config)
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        reject(err)
-      })
+  const headers = config.headers || {}
+  if (!headers['Content-Type'] && params) {
+    const isFormData = params instanceof FormData
+    headers['Content-Type'] = isFormData ? 'multipart/form-data' : 'application/json'
+  }
+  return service.post(url, params, {
+    ...config,
+    headers
   })
 }

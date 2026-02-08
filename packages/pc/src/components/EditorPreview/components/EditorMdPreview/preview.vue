@@ -5,14 +5,18 @@
 -->
 
 <template>
-  <div class="w-full flex editor-md-preiview-container" :class="{ 'editor-md-preview-light': isLight }">
+  <div
+    class="w-full flex relative editor-md-preiview-container"
+    :class="{ 'editor-md-preview-light': isLight }"
+  >
     <div :style="{ width: contentWidth }">
       <v-md-preview :text="text" ref="refPreview" @copy-code-success="handleCopySuccess"></v-md-preview>
     </div>
     <!-- 目录  -->
     <div
-      class="affix-md-preview-right shrink-0"
-      :style="{ width: width + 'px' }"
+      class="affix-md-preview-right bg-white shrink-0 pl-2"
+      :class="previewTitleClass"
+      :style="{ width: width + 'px', 'z-index': 999 }"
       v-if="titleData.length > 3 && !isReload"
     >
       <ElAffix target=".affix-md-preview-right" :offset="40">
@@ -29,7 +33,7 @@
           </span>
           <!-- 目录列表 -->
           <div class="h-full overflow-hidden" :style="{ width: width + 'px' }">
-            <div style="width: 220px" class="h-full flex flex-col">
+            <div style="min-width: 200px" class="w-full h-full flex flex-col">
               <div class="text-lg w-full h-10 pt-1 preview-bg-white">
                 <span>目录：</span>
               </div>
@@ -55,6 +59,9 @@ import { editorMdPreviewProps } from './type'
 import { useIndex } from './index'
 import { ElAffix, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
+import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
+
+useMarkdownInit()
 
 const props = defineProps(editorMdPreviewProps)
 
@@ -63,6 +70,7 @@ const {
   refPreview,
   width,
   contentWidth,
+  previewTitleClass,
   titleData,
   handleTitleItem,
   handleClickArrow,
@@ -71,10 +79,10 @@ const {
 </script>
 
 <style lang="scss">
-@import '@/components/Editor/components/EditorMd/index.scss';
-@import '@/components/Editor/components/EditorMd/index-theme.scss';
-@import '@/components/Editor/components/EditorMd/index-mermaid.scss';
-@import './index.scss';
+@forward '@/components/Editor/components/EditorMd/index.scss';
+@forward '@/components/Editor/components/EditorMd/index-theme.scss';
+@forward '@/components/Editor/components/EditorMd/index-mermaid.scss';
+@forward './index.scss';
 
 .editor-md-preiview-container {
   background: var(--jm-color-white);
@@ -95,10 +103,11 @@ const {
   right: 0px;
   top: 5px;
   transition: transform ease 0.5s;
+  transform: rotate(180deg);
 }
 
 .title-icon-arrow {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .preview-bg-white {

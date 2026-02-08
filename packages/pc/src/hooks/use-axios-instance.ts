@@ -4,14 +4,15 @@
  * @update 2022-07-03 15:55:45
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
-import { toPath } from '@jiumu/utils'
+import axios, { AxiosInstance, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { toPath, toStringify } from '@jiumu/utils'
 import { useUserStore, useTokenRefreshStore, useResetStore } from '@/store'
 import { Code } from '@/enumerations'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
 import router from '@/router'
 import { Message, useLoading } from '@/utils/interaction'
+import { _saveFile } from '@/utils/download-file'
 const { VITE_TIME_OUT, VITE_API_URL } = import.meta.env
 
 // 创建axios实例
@@ -30,10 +31,12 @@ const { showLoading, hideLoading } = useLoading()
  * config
  *   isloading 请求过程是否显示加载效果 默认 false
  *   showErrorMessage 请求错误是否显示错误信息 默认 true
+ *   downloadWhenAttachment 当返回文件格式时是否立即下载 默认 true
  */
 service.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     config.showErrorMessage = config.showErrorMessage !== false
+    config.downloadWhenAttachment = config.downloadWhenAttachment !== false
     if (config.isloading) showLoading()
     // 对项目内置的api添加前缀或token
     const userStore = useUserStore()
@@ -62,33 +65,43 @@ service.interceptors.response.use(
       config.url?.includes('/jiumu-koa2-ts-prod') ||
       config.url?.startsWith('/pc/')
     ) {
+      const showErrorMessage = config.showErrorMessage
       if (data.code === Code.success) {
         // 正常
         return Promise.resolve(data)
       } else if (data.code === Code.authLogin) {
-        console.log('过期了', data)
+        console.error(data)
         // token 过期需要重新登录 清空数据后跳转到登录页
-        const resetStore = useResetStore()
-        resetStore.reset()
-        router.replace({
-          path: '/login',
-          query: {
-            redirect: location.pathname + location.search
-          }
-        })
+        if (showErrorMessage) {
+          Message({
+            message: data.message,
+            type: 'error'
+          })
+        }
+        relogin()
         return Promise.resolve(data)
       } else if (data.code === Code.authRefresh && !configHeaders['retransmission']) {
         // token 重新刷新
         return _retransmit(response)
       } else {
         // 判断是否为文件
-        if (disposition && disposition.includes('attachment;')) return Promise.resolve(response)
-        return _handleError(data, config.showErrorMessage, data.message)
+        if (disposition && disposition.includes('attachment;')) {
+          if (response?.config?.downloadWhenAttachment) {
+            handleFileDownload(response)
+          }
+          return Promise.resolve(response)
+        }
+        return _handleError(data, showErrorMessage, data.message)
       }
     } else {
       // 非项目内置api不做拦截处理
       // 判断是否为文件
-      if (disposition && disposition.includes('attachment;')) return Promise.resolve(response)
+      if (disposition && disposition.includes('attachment;')) {
+        if (response?.config?.downloadWhenAttachment) {
+          handleFileDownload(response)
+        }
+        return Promise.resolve(response)
+      }
       return Promise.resolve(data)
     }
   },
@@ -101,7 +114,9 @@ service.interceptors.response.use(
   }
 )
 
-// 处理详情错误
+/**
+ * 处理错误
+ */
 function _handleError(data: any, showErrorMessage?: boolean, message?: string | string[]): Promise<any> {
   if (showErrorMessage) {
     let msg: string
@@ -120,7 +135,9 @@ function _handleError(data: any, showErrorMessage?: boolean, message?: string | 
   return Promise.reject(data)
 }
 
-// 重发刷新token
+/**
+ * 重发刷新token
+ */
 async function _retransmit(response: AxiosResponse): Promise<any> {
   const { config, data } = response
   const tokenRefreshStore = useTokenRefreshStore()
@@ -136,3 +153,34 @@ async function _retransmit(response: AxiosResponse): Promise<any> {
 }
 
 export default service
+
+/**
+ * 文件下载处理
+ */
+function handleFileDownload(response: AxiosResponse) {
+  const text = toStringify(response.data)
+  // 从 content-disposition 头中提取文件名
+  let filename = 'download-file'
+  const disposition = response.headers['content-disposition']
+  if (disposition && disposition.includes('filename=')) {
+    const filenameMatch = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)
+    if (filenameMatch && filenameMatch[1]) {
+      filename = filenameMatch[1].replace(/['"]/g, '')
+    }
+  }
+  _saveFile(new Blob([text]), filename)
+}
+
+/**
+ * 重新登录
+ */
+function relogin() {
+  const resetStore = useResetStore()
+  resetStore.reset()
+  router.replace({
+    path: '/login',
+    query: {
+      redirect: location.pathname + location.search
+    }
+  })
+}

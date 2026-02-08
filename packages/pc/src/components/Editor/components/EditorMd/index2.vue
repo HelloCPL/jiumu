@@ -5,9 +5,9 @@
 -->
 
 <template>
-  <!-- <div class="">markdown 编辑器</div> -->
   <v-md-editor
     v-model="value"
+    mode="edit"
     :height="height + 'px'"
     :placeholder="placeholder"
     :toc-nav-position-right="true"
@@ -28,7 +28,7 @@ import { useMarkdownInit } from './hooks/use-markdown-init'
 import { editorMarkdownProps, editorMarkdownEmits } from './type'
 import { useMarkdownIndex } from './hooks/use-markdown-index'
 
-// useMarkdownInit()
+useMarkdownInit()
 
 const props = defineProps(editorMarkdownProps)
 const emit = defineEmits(editorMarkdownEmits)
@@ -37,7 +37,7 @@ const { value, refVMdEditor, handleChange, handleSave, handleUploadImage } = use
 </script>
 
 <style lang="scss">
-@import 'index.scss';
-@import 'index-theme.scss';
-@import 'index-mermaid.scss';
+@forward 'index.scss';
+@forward 'index-theme.scss';
+@forward 'index-mermaid.scss';
 </style>

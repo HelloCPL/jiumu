@@ -24,7 +24,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="typeLabel" label="收藏类型" :min-width="getPx(100)" />
+      <ElTableColumn prop="typeLabel" label="收藏类型" :min-width="getPx(120)" />
       <ElTableColumn label="收藏时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.createTime, 'YYYY-MM-DD HH:mm') }}</span>

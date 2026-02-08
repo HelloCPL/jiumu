@@ -50,8 +50,6 @@
 
   - 在 `.vue` 文件使用 `<img :src="$STATIC_URL + 'pc/tags.png'" alt=""> `
 
-  - 在 `.scss` 文件使用 `background: url('#{$STATIC_URL}/pc/tags.png'); `
-
   ### css 说明
 
   - 本项目主要使用 `tailwind.css`

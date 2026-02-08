@@ -4,20 +4,26 @@
  * @create 2023-04-17 09:25:39
  */
 
-// import { useMarkdownInit } from '@/components/Editor/components/EditorMd/hooks/use-markdown-init'
 import { ref, computed, watch } from 'vue'
 import { xss } from '@jiumu/utils'
 import { EditorMdPreviewProps } from './type'
 import gsap from 'gsap'
 import { Message } from '@/utils/interaction'
+import { useWidth } from '@/hooks/use-width'
 
 export const useIndex = (props: EditorMdPreviewProps) => {
-  // useMarkdownInit()
-
   const refPreview = ref<any>(null)
   const width = ref(0)
+  const { width: screenWidth } = useWidth()
   const contentWidth = computed(() => {
+    if (screenWidth.value <= 768) return '100%'
     return `calc(100% - ${width.value}px)`
+  })
+  const previewTitleClass = computed(() => {
+    if (screenWidth.value <= 768) {
+      return 'min-h-full absolute top-0 right-0 shadow-lg'
+    }
+    return ''
   })
 
   const isReload = ref(false)
@@ -49,7 +55,6 @@ export const useIndex = (props: EditorMdPreviewProps) => {
     () => props.text,
     (val: string) => {
       if (props.isShowTitle && val) {
-        width.value = 220
         findTitleData()
       }
     },
@@ -87,6 +92,8 @@ export const useIndex = (props: EditorMdPreviewProps) => {
     refPreview,
     width,
     contentWidth,
+    previewTitleClass,
+    screenWidth,
     titleData,
     handleTitleItem,
     handleClickArrow,

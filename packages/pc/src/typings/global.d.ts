@@ -80,3 +80,8 @@ interface ParamsOne {
   id: string
   showUserInfo?: any
 }
+
+interface PermissionOptions {
+  code?: string | string[] // 需要校验的code
+  rule?: 'or' | 'and' // code为数组时有效，默认 'and'
+}

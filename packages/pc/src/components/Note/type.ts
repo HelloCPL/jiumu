@@ -7,7 +7,7 @@ import { isString } from 'lodash-es'
 import { ExtractPropTypes } from 'vue'
 
 export const noteProps = buildProps({
-  // 所属根节点
+  // 所属根节点，即公共所属资源的id，同一资源中的笔记可共享关联、查看
   rootId: {
     type: String,
     require: true
@@ -17,6 +17,7 @@ export const noteProps = buildProps({
     type: String,
     require: true
   },
+  // 笔记标题
   title: {
     type: String
   }
@@ -29,7 +30,6 @@ export const noteEmit = {
 }
 
 export type NoteEmit = EmitFn<typeof noteEmit>
-
 
 // 笔记新增类型
 export const noteAddProps = buildProps({

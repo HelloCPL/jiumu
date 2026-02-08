@@ -6,13 +6,30 @@
 
 <template>
   <span
-    :class="{ 'cursor-pointer': hoverFill }" @mouseenter.prevent="mouseenter" @mouseleave="mouseleave"
-    style="font-size: 0;">
-    <IconSvg :name="name" :width="width" :height="height" :size="size" :fill="fill" v-if="!isHover" :key="'a' + key1">
+    :class="{ 'cursor-pointer': hoverFill }"
+    @mouseenter.prevent="mouseenter"
+    @mouseleave="mouseleave"
+    :style="{ 'font-size': 0, 'line-height': 1 }"
+  >
+    <IconSvg
+      :name="name"
+      :width="width"
+      :height="height"
+      :size="size"
+      :fill="fill"
+      v-if="!isHover"
+      :key="'a' + key1"
+    >
     </IconSvg>
     <IconSvg
-      :name="name" :width="width" :height="height" :size="size" :fill="hoverFill || fill" v-else
-      :key="'b' + key2">
+      :name="name"
+      :width="width"
+      :height="height"
+      :size="size"
+      :fill="hoverFill || fill"
+      v-else
+      :key="'b' + key2"
+    >
     </IconSvg>
   </span>
 </template>
@@ -23,7 +40,7 @@ import IconSvg from './index'
 import { iconSvgProps } from './type'
 import { getRandomId } from '@jiumu/utils'
 
-defineProps(iconSvgProps)
+const props = defineProps(iconSvgProps)
 
 const key1 = ref(getRandomId())
 const key2 = ref(getRandomId())

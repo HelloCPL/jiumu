@@ -5,7 +5,7 @@
 -->
 
 <template>
-  <Dialog width="500px" :title="'查看用户-特殊标签关联' + _username" :show-footer="false">
+  <Dialog :width="500" :title="'查看用户-特殊标签关联' + _username" :show-footer="false">
     <PopupTwo
       :more-left="total > dataList.length"
       :show-left-top="false"
@@ -17,7 +17,13 @@
       <!-- 左侧 -->
       <template #left>
         <div class="px-4 pt-3">
-          <Card v-for="item in dataList" :key="item.id" :title="item.code" :sub-title="item.label" class="mb-3">
+          <Card
+            v-for="item in dataList"
+            :key="item.id"
+            :title="item.code"
+            :sub-title="item.label"
+            class="mb-3"
+          >
           </Card>
         </div>
       </template>

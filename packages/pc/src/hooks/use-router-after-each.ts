@@ -1,6 +1,5 @@
 import { Router, RouteLocationNormalized } from 'vue-router'
 import { useNavigationsStore } from '@/store'
-import { KeepAliveOption } from '@/store/keep-alive.b'
 
 /**
  * 路由 afterEach 拦截

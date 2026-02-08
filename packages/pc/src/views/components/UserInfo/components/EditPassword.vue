@@ -5,14 +5,14 @@
 -->
 
 <template>
-  <Dialog title="修改密码" width="500px" top="30vh" @close="$emit('close')" @confirm="confirm">
+  <Dialog title="修改密码" :width="500" top="30vh" @close="$emit('close')" @confirm="confirm">
     <ElForm
       :model="form"
       :rules="rules"
       ref="formRef"
       label-position="right"
       :label-width="getPx(80)"
-      class="mt-4 mx-auto g-w-320"
+      class="mt-4 mx-auto px-6"
       @submit.native.prevent
     >
       <ElFormItem prop="password" label="原始密码">

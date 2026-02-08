@@ -7,7 +7,6 @@ import { UploadSourceProps, UploadSourceEmit } from '../components/type'
 import { ref, watch } from 'vue'
 import { addSourceLink, updateSourceLink, deleteSourceLink } from '@/api/source'
 import validator from 'validator'
-import { slice, snakeCase } from 'lodash-es'
 
 export const useUploadSourceLink = (props: UploadSourceProps, emit: UploadSourceEmit) => {
   // 数据列表
@@ -15,11 +14,13 @@ export const useUploadSourceLink = (props: UploadSourceProps, emit: UploadSource
 
   // 查找最大排序
   const _findSortMax = (): number => {
-    let i = 1
+    let i = 0
     dataList.value.forEach((item) => {
-      i = item.sort >= i ? i + 1 : i
+      if (item.sort > i) {
+        i = item.sort
+      }
     })
-    return i
+    return i + 1
   }
 
   const linkTip = ref('请输入链接地址')
@@ -57,23 +58,26 @@ export const useUploadSourceLink = (props: UploadSourceProps, emit: UploadSource
     }
   }
 
-  // 移动
+  /**
+   * 交换位置
+   * @params index 当前索引
+   * @params type up 上移 down 下移
+   */
   const handleMove = (index: number, type: 'up' | 'down') => {
-    const target = dataList.value.splice(index, 1)[0]
-    let i: number
-    if (type === 'up') {
-      i = index - 1
-      dataList.value.splice(i, 0, target)
-    } else {
-      i = index + 1
-      dataList.value.splice(i, 0, target)
+    const newIndex = type === 'up' ? index - 1 : index + 1
+    if (newIndex < 0 || newIndex >= dataList.value.length) return
+    const current = {
+      ...dataList.value[index],
+      sort: dataList.value[newIndex].sort
     }
-    const item = dataList.value[index]
-    const sort = target.sort
-    target.sort = item.sort
-    item.sort = sort
+    const target = {
+      ...dataList.value[newIndex],
+      sort: dataList.value[index].sort
+    }
+    dataList.value[index] = target
+    dataList.value[newIndex] = current
     handleBlur(index)
-    handleBlur(i)
+    handleBlur(newIndex)
   }
 
   // 改变

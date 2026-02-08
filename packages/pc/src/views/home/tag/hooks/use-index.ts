@@ -5,7 +5,7 @@
  */
 
 import { ref, reactive } from 'vue'
-import { getTagByParentCode, deleteTag } from '@/api/tag'
+import { getTagByParentCode, deleteTag, exportTagApi, importTagApi } from '@/api/tag'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
 import { Confirm, Message } from '@/utils/interaction'
@@ -41,21 +41,21 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   })
 
   const btnList: FilterButtonList[] = [
-    { name: '新增', key: 'add', type: 'primary' },
-    { name: '导出', key: 'export' }
+    { name: '新增', key: 'add', type: 'primary', code: 'pc:tag:add:btn' },
+    { name: '导出', key: 'export', code: 'pc:tag:export:btn' }
   ]
 
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'add':
-      state.id = ''
-      state.parentCode = ''
-      state.show = true
-      return
-    case 'export':
-      // do something
-      return
+      case 'add':
+        state.id = ''
+        state.parentCode = ''
+        state.show = true
+        return
+      case 'export':
+        handleExport()
+        return
     }
   }
 
@@ -93,6 +93,36 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     })
   }
 
+  const selectionData = ref<any[]>([])
+  const selectionChange = (data: any) => {
+    selectionData.value = data
+  }
+  // 导出
+  const handleExport = () => {
+    if (!selectionData.value.length) {
+      return Message({
+        message: '请选择要导出的数据',
+        type: 'warning'
+      })
+    }
+    const ids = selectionData.value.map((item: any) => item.id).join(',')
+    exportTagApi(ids)
+  }
+
+  // 导入
+  const handleImport = async (file: FormData, params: ParamsFileOther) => {
+    const res = await importTagApi(file, params)
+    if (res.code === 200) {
+      Message({
+        message: res.message,
+        type: 'success'
+      })
+      if (res.data > 0) {
+        getDataList()
+      }
+    }
+  }
+
   // 处理确认回调
   const handleConfirm = (type: string) => {
     getDataList()
@@ -115,6 +145,8 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleEdit,
     handleAddChild,
     handleDelete,
+    selectionChange,
+    handleImport,
     handleConfirm,
     handleShowTagUser
   }

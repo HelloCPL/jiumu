@@ -5,22 +5,26 @@
 -->
 
 <template>
-  <span class="flex items-center">
-    <GRichText :html="_html" />
-    <icon-svg name="api" fill="var(--jm-color-success-400)" :size="28" v-if="isApi" class="mt-0.5"></icon-svg>
-    <icon-svg
-      name="button"
-      fill="var(--jm-color-warning-400)"
-      size="28"
-      v-else-if="isButton"
-      class="mt-1"
-    ></icon-svg>
+  <span class="flex items-start">
+    <GRichText :html="_html" class="pr-2 leading-6" />
+    <template v-if="isApi">
+      <ElTooltip content="此类权限标识主要用于API接口访问权限控制" placement="top">
+        <icon-svg name="api" fill="var(--jm-color-success-400)" :size="24"></icon-svg>
+      </ElTooltip>
+    </template>
+    <template v-else-if="isButton">
+      <ElTooltip content="此类权限标识主要用于前端按钮级别的权限控制" placement="top">
+        <icon-svg name="button" fill="var(--jm-color-warning-400)" :size="24"></icon-svg>
+      </ElTooltip>
+    </template>
   </span>
 </template>
 
 <script lang="ts" setup>
+import { ElTooltip } from 'element-plus'
 import { computed } from 'vue'
 import IconSvg from '@/components/IconSvg'
+
 const props = defineProps({
   html: {
     type: String,
@@ -34,12 +38,15 @@ const isButton = computed(() => props.html && props.html.startsWith('[') && prop
 const _html = computed(() => {
   if (isApi.value) {
     return props.html
-      .replace(/^\(/, '<span class="text-success-400"><icon-svg name="button"></icon-svg>(</span>')
-      .replace(/\)$/, '<span class="text-success-400">)</span>')
+      .replace(
+        /^\(/,
+        '<span class="text-success-400 font-bold pr-0.5"><icon-svg name="button"></icon-svg>(</span>'
+      )
+      .replace(/\)$/, '<span class="text-success-400 font-bold pl-0.5">)</span>')
   } else if (isButton.value) {
     return props.html
-      .replace(/^\[/, '<span class="text-warning-400">[</span>')
-      .replace(/\]$/, '<span class="text-warning-400">]</span>')
+      .replace(/^\[/, '<span class="text-warning-400 font-bold  pr-0.5">[</span>')
+      .replace(/\]$/, '<span class="text-warning-400 font-bold pl-0.5">]</span>')
   }
   return props.html
 })

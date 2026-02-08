@@ -63,24 +63,26 @@ export const useIndex = () => {
 export const useIndexInfo = ({ getDataList }: ObjectAny) => {
   const router = useRouter()
 
-  const btnList: FilterButtonList[] = [{ name: '新增', key: 'add', type: 'primary' }]
+  const btnList: FilterButtonList[] = [
+    { name: '新增', key: 'add', type: 'primary', code: 'pc:question:me:add:btn' }
+  ]
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'add':
-      router.push({
-        name: 'QuestionAdd',
-        params: { _metaTitle: '问答新增', _refreshOne: '1' }
-      })
-      return
+      case 'add':
+        router.push({
+          path: '/question-add',
+          query: { _metaTitle: '问答新增', _refreshOne: '1' }
+        })
+        return
     }
   }
 
   // 点击编辑
   const handleEdit = (row: DataQuestion) => {
     router.push({
-      name: 'QuestionAdd',
-      params: { _metaTitle: '问答编辑', _refreshOne: '1', id: row.id }
+      path: '/question-add',
+      query: { _metaTitle: '问答编辑', _refreshOne: '1', id: row.id }
     })
   }
 

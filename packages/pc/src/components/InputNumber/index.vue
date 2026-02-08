@@ -6,6 +6,7 @@
 
 <template>
   <ElInputNumber
+    class="custom-input-number"
     type="number"
     :min="min"
     :max="max"
@@ -42,3 +43,9 @@ const handleBlur = (e: any) => {
   else if (e.target.valueAsNumber > props.max) emit('update:modelValue', props.max)
 }
 </script>
+
+<style lang="scss">
+.custom-input-number.el-input-number {
+  width: 100%;
+}
+</style>

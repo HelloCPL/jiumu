@@ -11,16 +11,6 @@ import { NoteAddProps, NoteAddEmit } from '../type'
 import { addNote, deleteNote, getNoteOne, updateNote } from '@/api/note'
 
 export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
-  const btnList = ref<FilterButtonList[]>([
-    { name: '发布', key: 'save', type: 'primary' },
-    { name: '取消', key: 'delete' }
-  ])
-
-  const linkStatusList: ValueLabel[] = [
-    { value: '1', label: '全关联' },
-    { value: '0', label: '仅目标关联' }
-  ]
-
   // 表单
   const formRef = ref<FormInstance>()
   const form = reactive<ParamsNoteAdd>({
@@ -31,7 +21,6 @@ export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
     classify: '',
     isSecret: '1',
     sort: 1,
-    linkStatus: '1',
     remarks: ''
   })
 
@@ -61,10 +50,6 @@ export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
 
   onMounted(() => {
     if (props.id) {
-      btnList.value = [
-        { name: '保存', key: 'save', type: 'primary' },
-        { name: '删除', key: 'delete' }
-      ]
       _getOne()
     }
   })
@@ -127,17 +112,18 @@ export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
         Confirm(`确定${item.name}吗？`).then(() => {
           if (props.id) {
             _delete(props.id)
-          } else {
-            emit('cancel')
           }
+        })
+        break
+      case 'cancel':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          emit('cancel')
         })
         break
     }
   }
 
   return {
-    btnList,
-    linkStatusList,
     formRef,
     form,
     rules,

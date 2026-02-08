@@ -5,13 +5,13 @@
 -->
 
 <template>
-  <Dialog title="用户设置" width="600px" :show-footer="false" @close="handleCLose">
-    <div class="w-full h-full flex setting-wrapper">
-      <div class="w-32 h-full bg-white text-sm shadow-sm">
+  <Dialog title="用户设置" :width="600" content-height="65vh" :show-footer="false" @close="handleCLose">
+    <div class="w-full h-full flex" :class="wrapperClass">
+      <div class="bg-white text-sm shrink-0 setting-left">
         <div
           v-for="item in list"
           :key="item.value"
-          class="w-full h-10 border-b-1 border-lighter flex items-center pl-6 cursor-pointer"
+          class="h-10 border-b-1 border-lighter flex items-center cursor-pointer setting-left-item"
           :class="{
             bg: item.value === target,
             'text-primary': item.value === target,
@@ -22,7 +22,7 @@
           {{ item.label }}
         </div>
       </div>
-      <div class="flex-1 h-full relative g-scroll-y-0">
+      <div class="flex-1 relative g-scroll-y-0 setting-right">
         <BaseInfo v-if="target === '0'"></BaseInfo>
         <Setting v-else-if="target === '1'"></Setting>
         <Logs v-else-if="target === '2'"></Logs>
@@ -34,11 +34,12 @@
 
 <script lang="ts" setup>
 import Dialog from '@/components/Dialog/index.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import BaseInfo from './components/BaseInfo.vue'
 import Logs from './components/Logs.vue'
 import Other from './components/Other.vue'
 import Setting from './components/Setting.vue'
+import { useWidth } from '@/hooks/use-width'
 
 const emit = defineEmits({
   close: () => true
@@ -67,6 +68,12 @@ const handleClickItem = (item: ValueLabel) => {
   target.value = item.value
 }
 
+const { width } = useWidth()
+const wrapperClass = computed(() => {
+  if (width.value <= 768) return 'setting-wrapper-full'
+  return 'setting-wrapper'
+})
+
 /*
  * 账号设置
  *   基本信息（头像修改，账号显示(暂不支持修改)，角色，标签，基本信息查看与修改）
@@ -85,21 +92,62 @@ const handleClickItem = (item: ValueLabel) => {
 
 <style lang="scss" scoped>
 .setting-wrapper {
-  height: 600px;
+  .setting-left {
+    border-right: 1px solid var(--jm-color-border-lighter);
+    @apply w-32 mr-6;
+
+    .setting-left-item {
+      @apply w-full pl-6;
+    }
+  }
+
+  .setting-active {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 2px;
+      height: var(--jm-font-size);
+      transform: translateY(-50%);
+      background: var(--jm-color-primary);
+    }
+  }
+
+  .setting-right {
+    @apply h-full;
+  }
 }
 
-.setting-active {
-  position: relative;
+.setting-wrapper-full {
+  @apply flex-col;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 2px;
-    height: var(--jm-font-size);
-    transform: translateY(-50%);
-    background: var(--jm-color-primary);
+  .setting-left {
+    border-bottom: 1px solid var(--jm-color-border-lighter);
+    @apply flex w-full mb-6;
+
+    .setting-left-item {
+      @apply w-24 justify-center;
+    }
+  }
+
+  .setting-active {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--jm-color-primary);
+    }
+  }
+
+  .setting-right {
   }
 }
 </style>

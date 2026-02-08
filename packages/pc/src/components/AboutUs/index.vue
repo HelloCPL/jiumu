@@ -5,8 +5,12 @@
 -->
 
 <template>
-  <div class="w-full pt-16 h-80 about-us-container" v-if="!lock">
-    <div class="mb-6 flex justify-center items-center" v-for="(item, index) in dataList" :key="index + 'a'">
+  <div class="w-full pt-16 pb-10 px-6 felx justify-center about-us-container">
+    <div
+      class="w-full mb-4 flex justify-center items-center flex-wrap"
+      v-for="(item, index) in dataList"
+      :key="index + 'a'"
+    >
       <div
         v-for="(row, i) in item"
         :key="i + 'b'"
@@ -91,11 +95,6 @@ const handleClick = (item: Info) => {
     window.open(item.url, '_blank')
   }
 }
-
-const lock = ref(true)
-setTimeout(() => {
-  lock.value = false
-}, 1500)
 </script>
 
 <style lang="scss" scoped>

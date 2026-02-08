@@ -5,7 +5,16 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :list="btnList">
+  <PageBox
+    @change-btn="changeBtn"
+    :footer-button-config="{
+      id: form.id,
+      hasDraftButton: false,
+      addCode: 'pc:source:me:add:btn',
+      updateCode: 'pc:source:me:update:btn',
+      deleteCode: 'pc:source:me:delete:btn'
+    }"
+  >
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="资源标题" prop="title">
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
@@ -38,11 +47,11 @@
           <UploadSourceLink :value="attachmentList3" @change="handleChangeAttachment3"> </UploadSourceLink>
         </template>
       </ElFormItem>
-      <ElRow class="flex">
-        <ElFormItem label="是否公开" prop="isSecret" class="g-w-280 mr-6">
+      <ElRow class="flex flex-wrap gap-x-6">
+        <ElFormItem label="是否公开" prop="isSecret" :class="itemClass">
           <SelectType v-model="form.isSecret" type="isSecret"></SelectType>
         </ElFormItem>
-        <ElFormItem label="排序" prop="sort" class="g-w-240">
+        <ElFormItem label="排序" prop="sort" :class="itemClass">
           <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>
         </ElFormItem>
       </ElRow>
@@ -67,13 +76,14 @@ import Upload from '@/components/Upload/index.vue'
 import ShowFile from '@/components/ShowFile/index.vue'
 import UploadSource from './components/UploadSource.vue'
 import UploadSourceLink from './components/UploadSourceLink.vue'
+import { useWidth } from '@/hooks/use-width'
+import { computed } from 'vue'
 
 defineOptions({
   name: 'SourceAdd'
 })
 
 const {
-  btnList,
   formRef,
   form,
   rules,
@@ -87,4 +97,12 @@ const {
   handleChangeAttachment3,
   changeBtn
 } = useIndex()
+
+const { width } = useWidth()
+const itemClass = computed(() => {
+  if (width.value <= 768) {
+    return 'w-full'
+  }
+  return 'g-w-280'
+})
 </script>

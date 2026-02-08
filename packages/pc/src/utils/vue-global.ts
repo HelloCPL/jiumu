@@ -4,9 +4,9 @@
 
 import { App } from 'vue'
 import { ElInfiniteScroll } from 'element-plus'
-import { checkPermissionByCode } from './tools'
 import { createPinia, Pinia } from 'pinia'
 import { usePiniaStoragePlugin } from '@jiumu/utils'
+import { registerPermission } from './permission'
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
@@ -23,14 +23,11 @@ export const defineGlobal = (app: App) => {
 
 // 定义全局指令
 export const defineDirective = (app: App) => {
-  // 自定义权限
-  app.directive('code', (el: HTMLElement, binding) => {
-    const flag = checkPermissionByCode(binding.value)
-    if (!flag) el.style.display = 'none'
-  })
-
   // element-plus 无限滚动
   app.directive('InfiniteScroll', ElInfiniteScroll)
+
+  // 权限指令
+  registerPermission(app)
 }
 
 const pinia: Pinia = createPinia()

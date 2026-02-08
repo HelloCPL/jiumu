@@ -24,7 +24,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="标签" :min-width="getPx(100)">
+      <ElTableColumn label="标签" :min-width="getPx(110)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">
@@ -36,7 +36,9 @@
       </ElTableColumn>
       <ElTableColumn label="是否置顶" :width="getPx(90)">
         <template #default="{ row }">
-          <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          <ElTag :type="row.isTop === '1' ? 'success' : 'danger'">
+            <span>{{ row.isTop === '1' ? '是' : '否' }}</span>
+          </ElTag>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="likeCount" label="点赞" :width="getPx(70)"></ElTableColumn>
@@ -48,7 +50,7 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(80)" fixed="right" v-if="checkPermissionByCode('super')">
+      <ElTableColumn label="操作" :width="getPx(80)" :fixed="tableFixed" v-if="isSuper()">
         <template #default="{ row }">
           <ElButton type="primary" text size="small" @click="handleTop(row)" v-if="row.isTop === '0'">
             置顶
@@ -69,13 +71,15 @@
 
 <script lang="ts" setup>
 import FilterBox from '@/components/FilterBox/index.vue'
-import { ElFormItem, ElInput, ElTableColumn, ElButton } from 'element-plus'
+import { ElFormItem, ElInput, ElTableColumn, ElButton, ElTag } from 'element-plus'
 import Table from '@/components/Table/index.vue'
 import { formatDate } from '@jiumu/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import { useIndex } from './hooks/use-index'
 import { useIndexInfo } from '../question-me/hooks/use-index'
-import { checkPermissionByCode, getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@/utils/tools'
+import { isSuper } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Question'
@@ -86,4 +90,5 @@ const { keyword, pageNo, pageSize, total, data, getDataList, handleReset } = use
 const { handleShowInfo, handleTop } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>

@@ -2,8 +2,6 @@
  * 明亮主题颜色
  */
 
-import { ColorsFile } from './color.b'
-
 /**
  * 主题颜色变量 主要用于定义主题色 会直接注入到tailwindcss colors 变量中
  * primary success warning danger info 对标element-plus

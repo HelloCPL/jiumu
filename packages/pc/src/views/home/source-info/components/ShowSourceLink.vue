@@ -5,12 +5,13 @@
 -->
 
 <template>
-  <div class="w-full flex flex-wrap">
+  <div class="w-full flex flex-wrap gap-6">
     <div
       v-for="item in data"
       @click="handleClick(item)"
       :key="item.id"
-      class="w-56 h-14 flex items-center justify-center mr-6 mb-4 pl-4 pr-2 bg-white-8 text-lighter border-1 border-lighter rounded-md shadow-md cursor-pointer transition duration-300 hover:text-primary-500 hover:bg-primary-2 hover:border-primary-2"
+      class="h-14 flex items-center justify-center pl-4 pr-2 bg-white-8 text-lighter border-1 border-lighter rounded-md shadow-md cursor-pointer transition duration-300 hover:text-primary-500 hover:bg-primary-2 hover:border-primary-2"
+      :class="itemClass"
     >
       <img
         :src="item.coverImg1.filePath"
@@ -26,8 +27,9 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue'
+import { computed, PropType } from 'vue'
 import IconSvg from '@/components/IconSvg'
+import { useWidth } from '@/hooks/use-width'
 
 defineProps({
   data: {
@@ -39,4 +41,10 @@ defineProps({
 const handleClick = (info: DataSourceLink) => {
   window.open(info.link, '_blank')
 }
+
+const { width } = useWidth()
+const itemClass = computed(() => {
+  if (width.value <= 768) return 'w-full'
+  return 'w-56'
+})
 </script>

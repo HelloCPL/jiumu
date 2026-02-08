@@ -64,7 +64,7 @@ export const popupTwoProps = buildProps({
   // 组件高度
   height: {
     type: String,
-    default: '50vh'
+    default: '55vh'
   },
   // 是否显示更多
   showMore: {

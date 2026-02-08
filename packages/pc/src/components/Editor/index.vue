@@ -6,12 +6,8 @@
 
 <template>
   <div class="w-full">
-    <div
-      class="flex items-center mb-2"
-      style="height: 32px"
-      v-if="!modelValue || modelValue === '<p><br></p>'"
-    >
-      <div class="flex items-center">
+    <div class="flex items-center mb-2" v-if="!modelValue || modelValue === '<p><br></p>'">
+      <div class="flex items-center flex-wrap">
         <span class="text-sm text-lighter mr-2">可选择切换编辑器：</span>
         <ElRadioGroup v-model="_type" @change="handleChangeType">
           <ElRadio label="401">富文本编辑器</ElRadio>
@@ -19,38 +15,31 @@
         </ElRadioGroup>
       </div>
     </div>
-    <LazyLoader>
-      <EditorWang
-        :model-value="modelValue"
-        @update:model-value="updateModelValue"
-        @change="change"
-        @blur="blur"
-        @focus="focus"
-        @save="save"
-        v-bind="$attrs"
-        v-if="type === '401'"
-      ></EditorWang>
-      <EditorMd
-        :model-value="modelValue"
-        @update:model-value="updateModelValue"
-        @change="change"
-        @save="save"
-        v-bind="$attrs"
-        v-else-if="type === '402'"
-      ></EditorMd>
-    </LazyLoader>
+    <EditorWang
+      v-bind="mergeAttrs"
+      @update:model-value="(...args) => emit('update:modelValue', ...args)"
+      @change="(...args) => emit('change', ...args)"
+      @save="(...args) => emit('save', ...args)"
+      @blur="(...args) => emit('blur', ...args)"
+      @focus="(...args) => emit('focus', ...args)"
+      v-if="type === '401'"
+    ></EditorWang>
+    <EditorMd
+      v-bind="mergeAttrs"
+      @update:model-value="(...args) => emit('update:modelValue', ...args)"
+      @change="(...args) => emit('change', ...args)"
+      @save="(...args) => emit('save', ...args)"
+      v-else-if="type === '402'"
+    ></EditorMd>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import { editorProps, editorEmits } from './type'
-import { useIndex } from './index'
-import LazyLoader from '@/components/LazyLoader/index.vue'
-import { defineAsyncComponent } from 'vue'
-
-const EditorMd = defineAsyncComponent(() => import('./components/EditorMd/index.vue'))
-const EditorWang = defineAsyncComponent(() => import('./components/EditorWang/index.vue'))
+import EditorMd from './components/EditorMd/index.vue'
+import EditorWang from './components/EditorWang/index.vue'
+import { computed, ref, useAttrs, watch } from 'vue'
 
 defineOptions({
   inheritAttrs: false
@@ -59,5 +48,22 @@ defineOptions({
 const props = defineProps(editorProps)
 const emit = defineEmits(editorEmits)
 
-const { updateModelValue, change, blur, focus, save, _type, handleChangeType } = useIndex(props, emit)
+const attrs = useAttrs()
+const mergeAttrs = computed(() => {
+  const { type: _, ...propsWithoutType } = props
+  return { ...attrs, ...propsWithoutType }
+})
+
+const _type = ref<any>('')
+watch(
+  () => props.type,
+  (val) => {
+    _type.value = val
+  },
+  { immediate: true }
+)
+const handleChangeType = (val: any) => {
+  emit('update:type', val)
+  emit('changeType', val)
+}
 </script>

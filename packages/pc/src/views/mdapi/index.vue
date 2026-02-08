@@ -37,5 +37,5 @@ const { list, targetIndex, change } = useIndex()
 </script>
 
 <style lang="scss" scoped>
-@import './index.scss';
+@forward './index.scss';
 </style>

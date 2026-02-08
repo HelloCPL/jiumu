@@ -7,15 +7,26 @@
 <template>
   <div class="g-container">
     <!-- 操作盒子 -->
-    <FilterButton :list="btnList" @click="handleBtn"></FilterButton>
+    <FilterButton :list="btnList" @click="handleBtn">
+      <template #right>
+        <Upload
+          class="ml-3"
+          :http-request="handleImport"
+          accept=".json"
+          v-if="hasPermission('pc:menu:import:btn')"
+        >
+          <ElButton>导入</ElButton>
+        </Upload>
+      </template>
+    </FilterButton>
     <!-- 列表 -->
-    <Table :data="data" default-expand-all>
+    <Table :data="data" default-expand-all @selection-change="selectionChange">
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn type="index" label="序号" width="60">
         <template #default="{ $index }">{{ getIndex($index) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" :min-width="getPx(110)" />
-      <ElTableColumn label="code" :min-width="getPx(110)">
+      <ElTableColumn label="code" :min-width="getPx(120)">
         <template #default="{ row }">
           <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">{{ row.code }}</span>
         </template>
@@ -33,21 +44,53 @@
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
       <ElTableColumn prop="remarks" label="备注" :min-width="getPx(160)" />
-      <ElTableColumn label="操作" :width="getPx(260)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(260)" :fixed="tableFixed">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="primary" text size="small" @click="handleAddChild(row)">新增子级</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            :disabled="row.configurable === '1' && !isSuper()"
+            @click="handleEdit(row)"
+            v-permission="'pc:menu:update:btn'"
+          >
+            修改
+          </ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleAddChild(row)"
+            v-permission="'pc:menu:add:child:btn'"
+            >新增子级</ElButton
+          >
           <ElButton
             type="danger"
             text
             size="small"
+            :disabled="row.configurable === '1' && !isSuper()"
             @click="handleDelete(row)"
             v-if="!(row.children && row.children.length)"
+            v-permission="'pc:menu:delete:btn'"
           >
             删除
           </ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowMenuUser(row)">查看用户</ElButton>
-          <ElButton type="primary" text size="small" @click="handleShowMenuRole(row)">查看角色</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowMenuUser(row)"
+            v-permission="'pc:menu:view:user:btn'"
+            >查看用户</ElButton
+          >
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleShowMenuRole(row)"
+            v-permission="'pc:menu:view:role:btn'"
+            >查看角色</ElButton
+          >
         </template>
       </ElTableColumn>
     </Table>
@@ -91,6 +134,9 @@ import MenuUser from './components/MenuUser.vue'
 import MenuRole from './components/MenuRole.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
+import Upload from '@/components/Upload/index.vue'
+import { hasPermission, isSuper } from '@/utils/permission'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'Menu'
@@ -107,10 +153,13 @@ const {
   handleEdit,
   handleAddChild,
   handleDelete,
+  selectionChange,
+  handleImport,
   handleConfirm,
   handleShowMenuUser,
   handleShowMenuRole
 } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>

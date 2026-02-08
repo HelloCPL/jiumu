@@ -37,7 +37,7 @@ export const usePiniaStoragePlugin = ({ store, options }: PiniaPluginContext) =>
     const keys = options.storage?.keys?.length ? options.storage?.keys : defaultKeys
     const config: StorageOption = {
       type: options.storage?.type || 'session',
-      expire: options.storage?.expire || VITE_HOME_EXPIRE,
+      expire: options.storage?.expire || VITE_HOME_EXPIRE * 1,
       prefix: options.storage?.prefix || 'pinia',
       encrypt: options.storage?.encrypt
     }

@@ -3,7 +3,7 @@
  */
 
 import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes } from 'vue'
+import { ExtractPropTypes, PropType } from 'vue'
 import { dialogProps as _dialogProps } from 'element-plus'
 
 export const dialogProps = buildProps({
@@ -21,8 +21,12 @@ export const dialogProps = buildProps({
   },
   // 宽度
   width: {
-    type: [String, Number],
-    default: '580px'
+    type: Number,
+    default: 500
+  },
+  // 内容区高度
+  contentHeight: {
+    type: String
   },
   // 是否显示底部
   showFooter: {
@@ -37,6 +41,11 @@ export const dialogProps = buildProps({
   // 内容区自定义类
   classContent: {
     type: String,
+    default: ''
+  },
+  // 使用默认确认按钮时，所需的新增按钮权限标识
+  addCode: {
+    type: [String, Object as PropType<PermissionOptions>],
     default: ''
   }
 } as const)

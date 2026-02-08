@@ -130,6 +130,7 @@ export const usePermissionTip = (form: ParamsPermissionAdd) => {
     custom: '自定义',
     top: '置顶',
     export: '导出',
+    import: '导入',
     info: '详情',
     relevant: '关联',
     btn: '按钮',
@@ -152,7 +153,8 @@ export const usePermissionTip = (form: ParamsPermissionAdd) => {
     note: '笔记',
     classify: '自定义标签',
     collection: '收藏',
-    cipher: '口令'
+    cipher: '口令',
+    'classify-me': '我的自定义标签'
   }
 
   const init = () => {

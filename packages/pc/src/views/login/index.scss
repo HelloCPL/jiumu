@@ -1,20 +1,23 @@
 .login-wrapper {
-  width: 540px;
-  height: 320px;
-  top: 56%;
-  left: 40%;
-  transform: translate(-50%, -50%);
+  max-width: 375px;
+  height: 400px;
+}
 
-  .login-btn {
-    width: 100px;
-    margin-left: 50%;
-    transform: translate(-50%);
+@media screen and (min-width: 768px) {
+  .login-wrapper {
+    max-width: 480px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .login-wrapper {
+    max-width: 560px;
   }
 }
 
 .login-content {
-  width: 266px;
-  height: 316px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   top: 2px;
   left: 2px;
   z-index: 2;
@@ -32,9 +35,8 @@
 }
 
 .login-right::after,
-.login-right::before
-{
-  content: '';
+.login-right::before {
+  content: "";
   position: absolute;
   display: block;
   top: -50%;
@@ -57,10 +59,3 @@
 .login-right::after {
   animation-delay: -3s;
 }
-
-.particle-box {
-  bottom: calc(44% + 160px);
-  left: 40%;
-  transform: translate(-50%);
-}
-

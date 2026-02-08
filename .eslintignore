@@ -14,7 +14,7 @@ test
 ./**/*.md
 ./**/*.d.ts
 ./**/*.d.js
-./packages/**/components/**/type.ts
+packages/**/components/**/type.ts
 
 pnpm-lock.yaml
 .eslintrc.js

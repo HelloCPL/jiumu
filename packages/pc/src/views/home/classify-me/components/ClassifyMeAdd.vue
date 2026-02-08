@@ -5,15 +5,15 @@
 -->
 
 <template>
-  <Dialog :title="title" @close="$emit('close')" @confirm="confirm" class-content="pl-4">
-    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="g-popup">
-      <ElFormItem label="标签" prop="label" class="g-w-320">
+  <Dialog :title="title" @close="$emit('close')" @confirm="confirm">
+    <ElForm :model="form" :rules="rules" ref="formRef" :label-width="getPx(80)" class="pr-4">
+      <ElFormItem label="标签" prop="label">
         <ElInput type="text" placeholder="请输入标签" v-model="form.label"></ElInput>
       </ElFormItem>
-      <ElFormItem label="排序" prop="sort" class="g-w-320">
+      <ElFormItem label="排序" prop="sort">
         <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>
       </ElFormItem>
-      <ElFormItem label="类型" prop="type" class="g-w-320">
+      <ElFormItem label="类型" prop="type">
         <ElAutocomplete
           placeholder="请输入角色"
           value-key="type"
@@ -25,7 +25,12 @@
     </ElForm>
     <template #footer>
       <ElButton @click="$emit('close')">取消</ElButton>
-      <ElButton type="primary" @click="confirm">保存</ElButton>
+      <ElButton
+        type="primary"
+        @click="confirm"
+        v-permission="{ code: ['pc:classify:me:add:btn', 'pc:classify:me:update:btn'], rule: 'or' }"
+        >保存</ElButton
+      >
     </template>
   </Dialog>
 </template>

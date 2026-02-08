@@ -8,7 +8,7 @@ import { PropType, ExtractPropTypes } from 'vue'
 export type FilterButtonList = {
   name: string
   key: string
-  code?: string // 权限标识
+  code?: string | PermissionOptions // 权限标识
   type?: any
   plain?: boolean
   text?: boolean

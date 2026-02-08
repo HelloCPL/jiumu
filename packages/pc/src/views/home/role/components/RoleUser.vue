@@ -16,11 +16,12 @@
     >
       <!-- 左侧 -->
       <template #left>
-        <div v-for="item in dataList" :key="item.id" class="pl-4">
+        <div v-for="item in dataList" :key="item.id" class="pl-2">
           <ElCheckbox
             :model-value="item._checked"
             :label="item.id"
             :checked="item._checked"
+            :disabled="!hasPermission('pc:role:user:relevant:btn')"
             @update:model-value="changeCheck($event as boolean, item)"
           >
             <GRichText :html="item.username"></GRichText>
@@ -30,14 +31,14 @@
       </template>
       <!-- 右侧 -->
       <template #right>
-        <div class="px-4 pt-3">
+        <div class="pl-4 pt-4">
           <Card
             :title="item.username"
             :sub-title="item.phone"
-            show-close
+            :show-close="hasPermission('pc:role:user:relevant:btn')"
             v-for="item in dataList2"
             :key="item.id"
-            class="mb-3"
+            class="mb-4"
             @close="deleteRelevance(item)"
           >
           </Card>
@@ -55,6 +56,7 @@ import { useRoleUser } from '../hooks/use-role-user'
 import { ElCheckbox } from 'element-plus'
 import UsernameShow from '@/components/UsernameShow/index.vue'
 import Card from '@/components/Card/index.vue'
+import { hasPermission } from '@/utils/permission'
 
 const props = defineProps(roleInfoProps)
 

@@ -10,13 +10,13 @@ import { isArray } from 'lodash-es'
 export const uploadProps = buildProps({
   // 其余参数与 element-plus 保持一致
   ..._uploadProps,
+  // 上传类型，其中 files_big 采用断点上传方式
   type: {
-    // 上传类型，其中 files_big 采用断点上传方式
-    type: String as PropType<'images' | 'files' | 'videos' | 'files_big'>,
+    type: String as PropType<ParamsFileStaticPlace>,
     default: 'images'
   },
+  // 文件上传模式 auto 自动 files 普通方式 files_big 断点上传
   uploadType: {
-    // 文件上传模式 auto 自动 files 普通方式 files_big 断点上传
     type: String as PropType<'auto' | 'files' | 'files_big'>,
     default: 'auto'
   },
@@ -48,6 +48,19 @@ export const uploadProps = buildProps({
     // 自定义上传参数
     type: Object as PropType<ParamsFileOther>,
     default: () => ({})
+  },
+  // 自定义上传
+  httpRequest: {
+    type: Function
+  },
+  // 上传前是否进行图片裁剪，仅 png/jpg/jpeg 有效
+  isCropper: {
+    type: Boolean,
+    default: true
+  },
+  // 图片裁剪配置
+  cropperConfig: {
+    type: Object
   }
 } as const)
 

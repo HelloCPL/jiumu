@@ -22,7 +22,7 @@ export default class Particle {
     const rad = (getRandom(0, 360) * Math.PI) / 180
     this.x = cx + Math.cos(rad) * r
     this.y = cy + Math.sin(rad) * r
-    this.size = getRandom(1 * devicePixelRatio, 2 * devicePixelRatio)
+    this.size = getRandom(1, 2)
   }
 
   draw() {

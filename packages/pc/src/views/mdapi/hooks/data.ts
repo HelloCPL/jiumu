@@ -130,11 +130,6 @@ export const data: MDAPIOption[] = [
     value: ''
   },
   {
-    title: '笔记关联',
-    url: '/note-link/index.md',
-    value: ''
-  },
-  {
     title: '口令',
     url: '/ciphers/index.md',
     value: ''

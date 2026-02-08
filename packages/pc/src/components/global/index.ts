@@ -6,11 +6,11 @@
 
 import { App } from 'vue'
 
-const requireComp = import.meta.globEager('./**/index.vue')
+const requireComp = import.meta.glob('./**/index.vue', { eager: true })
 
 const Comp: any = {}
 
-Object.entries(requireComp).forEach(([k, v]) => {
+Object.entries(requireComp).forEach(([k, v]: any) => {
   const key = 'G' + k.replace('./', '').replace('/index.vue', '')
   Comp[key] = v.default || v
 })

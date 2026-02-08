@@ -9,14 +9,10 @@
     <!-- 自定义头部 -->
     <template #header>
       <ElRow class="h-12">
-        <ElCol
-          :span="12"
-          class="flex items-center pl-4 border-r-1"
-          :class="{ 'role-permission-active': active === 0 }"
-        >
+        <ElCol :span="12" class="pl-4 pt-3 border-r-1" :class="{ 'role-permission-active': active === 0 }">
           <span class="g-line-1 cursor-pointer" @click.self="handleActive(0)">已关联权限{{ _label }}</span>
         </ElCol>
-        <ElCol :span="12" class="flex items-center pl-4" :class="{ 'role-permission-active': active === 1 }">
+        <ElCol :span="12" class="pl-4 pt-3" :class="{ 'role-permission-active': active === 1 }">
           <span @click.self="handleActive(1)" class="cursor-pointer">所有权限</span>
         </ElCol>
       </ElRow>
@@ -31,9 +27,9 @@
       v-if="active === 0"
     >
       <template #left>
-        <div class="px-4 pt-3">
+        <div>
           <Card
-            show-close
+            :show-close="hasPermission('pc:role:permission:relevant:btn')"
             title="#"
             v-for="(item, index) in dataList2"
             :key="item.id"
@@ -41,10 +37,10 @@
             @close="handleDelete(item, index)"
           >
             <template #header>
-              <div class="py-2 flex items-center">
+              <div class="py-2 flex items-center flex-wrap leading-6">
                 <span class="text pr-3">{{ item.code }}</span>
-                <span class="sub-title"></span>
-                <span class="text-lighter pl-3">
+                <span class="sub-title mr-3"></span>
+                <span class="text-lighter">
                   <PermissionLabel class="text" :html="item.label"></PermissionLabel>
                 </span>
               </div>
@@ -74,23 +70,23 @@
       v-if="active === 1"
     >
       <template #left>
-        <div class="px-4 pt-3">
+        <div>
           <Card
             title="#"
             v-for="item in dataList"
             :key="item.id"
             class="mb-3"
-            show-checkbox
+            :show-checkbox="hasPermission('pc:role:permission:relevant:btn')"
             :model-value="item._checked"
             @update:model-value="changeCheck($event as boolean, item)"
           >
             <template #header>
-              <div class="py-2 flex items-center">
+              <div class="py-2 flex items-center flex-wrap leading-6">
                 <span class="text pr-3">
                   <GRichText :html="item.code"></GRichText>
                 </span>
-                <span class="sub-title"></span>
-                <span class="text-lighter pl-3">
+                <span class="sub-title mr-3"></span>
+                <span class="text-lighter">
                   <PermissionLabel class="text h-5" :html="item.label"></PermissionLabel>
                 </span>
               </div>
@@ -120,6 +116,7 @@ import { useRolePermission } from '../hooks/use-role-permission'
 import { ElRow, ElCol } from 'element-plus'
 import PermissionLabel from '@/views/home/permission/components/PermissionLabel.vue'
 import Card from '@/components/Card/index.vue'
+import { hasPermission } from '@/utils/permission'
 
 const props = defineProps(roleInfoProps)
 

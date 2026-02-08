@@ -27,7 +27,7 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn label="标签" :min-width="getPx(100)">
+      <ElTableColumn label="标签" :min-width="getPx(110)">
         <template #default="{ row }">
           <span v-if="row.classify">
             <span v-for="(item, index) in row.classify" :key="item.id">
@@ -43,10 +43,24 @@
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(90)" />
-      <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(100)" :fixed="tableFixed">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:question:me:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-permission="'pc:question:me:delete:btn'"
+            >删除</ElButton
+          >
         </template>
       </ElTableColumn>
     </Table>
@@ -71,6 +85,7 @@ import Table from '@/components/Table/index.vue'
 import { formatDate } from '@jiumu/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import { getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'QuestionMeDraft'
@@ -81,4 +96,5 @@ const { keyword, classify, pageNo, pageSize, total, data, getDataList, handleRes
 const { btnList, handleBtn, handleEdit, handleDelete, handleShowInfo } = useIndexInfo({
   getDataList
 })
+const { tableFixed } = useWidth()
 </script>

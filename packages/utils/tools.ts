@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { isArray, isFunction } from 'lodash-es'
+import { isArray, isFunction, isObject, isString } from 'lodash-es'
 
 /**
  * 返回格式后的路径
@@ -148,8 +148,10 @@ export const toChineseNumber = (num: number): string => {
 
 /**
  * 获取目标索引
+ * @params arr 目标数组
+ * @value 目标值或过滤函数
  */
-export const findIndex = (arr: any[], value: any): number => {
+export const findIndex = <T>(arr: T[], value: (item: T) => boolean | T): number => {
   let targetIndex = -1
   if (isArray(arr)) {
     if (!isFunction(value)) {
@@ -167,4 +169,33 @@ export const findIndex = (arr: any[], value: any): number => {
     })
   }
   return targetIndex
+}
+
+/**
+ * 将 JSON 格式文本转为对象
+ * @param text 文本
+ * @returns 返回转换后的对象
+ */
+export const toParse = (text: string): ObjectAny | null => {
+  try {
+    if (isObject(text)) return text as unknown as ObjectAny
+    if (text && isString(text)) return JSON.parse(text)
+    return null
+  } catch (e) {
+    return null
+  }
+}
+
+/**
+ * 将对象转为 JSON 格式文本
+ * @param obj 要转换的对象或数组
+ * @returns 返回转换后的文本
+ */
+export const toStringify = (obj: any): string => {
+  try {
+    if (isObject(obj)) return JSON.stringify(obj, null, 2)
+    return obj
+  } catch (e) {
+    return ''
+  }
 }

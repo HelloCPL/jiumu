@@ -18,11 +18,6 @@ export const useIndex = () => {
   const route = useRoute()
   const router = useRouter()
 
-  const btnList = ref<FilterButtonList[]>([
-    { name: '发布', key: 'save', type: 'primary' },
-    { name: '取消', key: 'delete' }
-  ])
-
   // 表单
   const formRef = ref<FormInstance>()
   const form = reactive<ParamsSourceAdd>({
@@ -80,6 +75,7 @@ export const useIndex = () => {
 
   // 获取文章详情
   const _getOne = async (id: string) => {
+    form.id = id
     const res = await getSourceOne({ id })
     if (res.code === 200) {
       const data = res.data
@@ -100,13 +96,8 @@ export const useIndex = () => {
     }
   }
   onMounted(() => {
-    form.id = <string | undefined>route.params.id
-    if (form.id) {
-      btnList.value = [
-        { name: '保存', key: 'save', type: 'primary' },
-        { name: '删除', key: 'delete' }
-      ]
-      _getOne(form.id)
+    if (route.query?.id) {
+      _getOne(route.query?.id as string)
     }
   })
 
@@ -148,32 +139,34 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          if (form.id) {
-            _update(form)
-          } else {
-            _add(form)
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            if (form.id) {
+              _update(form)
+            } else {
+              _add(form)
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (form.id) {
-          _delete(form.id)
-        } else {
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (form.id) {
+            _delete(form.id)
+          }
+        })
+        break
+      case 'cancel':
+        Confirm(`确定${item.name}吗？`).then(() => {
           router.back()
-        }
-      })
-      break
+        })
+        break
     }
   }
 
   return {
-    btnList,
     formRef,
     form,
     rules,

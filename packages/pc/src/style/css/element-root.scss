@@ -94,7 +94,6 @@
     --el-radio-input-height: var(--jm-font-size);
   }
 
-
   // 特殊
   .el-pagination {
     --el-pagination-font-size: var(--jm-font-size);
@@ -110,5 +109,9 @@
 
   .el-tag {
     --el-tag-font-size: var(--jm-font-size-small-extra);
+  }
+
+  .el-form-item {
+    --font-size: var(--jm-font-size);
   }
 }

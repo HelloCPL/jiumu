@@ -8,7 +8,7 @@
   <div class="w-full h-screen bg">
     <!-- 头部 -->
     <Header @show-user-info="showUserInfo"></Header>
-    <div class="w-full flex home-wrapper">
+    <div class="w-full flex relative home-wrapper">
       <!-- 左侧导航 -->
       <Sidebar></Sidebar>
       <div class="h-full flex-1 shrink-0 flex flex-col">
@@ -31,15 +31,14 @@ import Sidebar from './components/Sidebar.vue'
 import Navigator from './components/Navigator.vue'
 import Content from './components/Content.vue'
 import UserInfo from '../components/UserInfo/index.vue'
-import { useUserStore } from '@/store'
 import { ref } from 'vue'
+import { userStore } from '@/store/user/instance'
 
 defineOptions({
   name: 'Home'
 })
 
 // 初始化用户信息
-const userStore = useUserStore()
 if (userStore.token && !userStore.userInfo) userStore.updateUser()
 
 const isShowUserInfo = ref<boolean>(false)

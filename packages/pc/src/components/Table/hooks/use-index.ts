@@ -5,18 +5,18 @@
  */
 
 import { ref, onMounted, nextTick, watch } from 'vue'
-import { TableV2Instance } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import { isPlainObject } from 'lodash-es'
 import { TableProps, TableEmits } from '../type'
 
 export const useIndex = (props: TableProps, emit: TableEmits) => {
-  const table = ref<TableV2Instance>()
+  const tableRef = ref<TableInstance>()
   // 判断是否全选
   let _isAll = false
   let _all: ObjectAny = {}
   const getAll = () => {
     nextTick(() => {
-      const arr = (table.value as TableV2Instance).data
+      const arr = (tableRef.value as TableInstance).data
       _all = {}
       if (Array.isArray(arr)) {
         arr.forEach((row) => {
@@ -50,13 +50,13 @@ export const useIndex = (props: TableProps, emit: TableEmits) => {
 
   // 全选
   const selectAll = (selection: any) => {
-    if (!table.value) return
+    if (!tableRef.value) return
     if (!_isAll) {
       // 全选
-      _selectAll(table.value?.data, true)
+      _selectAll(tableRef.value?.data, true)
     } else {
       // 取消全选
-      _selectAll(table.value?.data, false)
+      _selectAll(tableRef.value?.data, false)
     }
     judgeAll()
     emit('selectAll', selection, {
@@ -94,7 +94,7 @@ export const useIndex = (props: TableProps, emit: TableEmits) => {
     if (Array.isArray(arr)) {
       arr.forEach((row) => {
         // @ts-ignore
-        table.value?.toggleRowSelection(row, selected)
+        tableRef.value?.toggleRowSelection(row, selected)
         // @ts-ignore
         _all[row[props.rowKey]] = selected
         if (Array.isArray(row.children) && row.children.length) {
@@ -103,7 +103,7 @@ export const useIndex = (props: TableProps, emit: TableEmits) => {
       })
     } else if (isPlainObject(arr)) {
       // @ts-ignore
-      table.value?.toggleRowSelection(arr, selected)
+      tableRef.value?.toggleRowSelection(arr, selected)
       // @ts-ignore
       _all[arr[props.rowKey]] = selected
       if (Array.isArray(arr.children) && arr.children.length) {
@@ -113,7 +113,7 @@ export const useIndex = (props: TableProps, emit: TableEmits) => {
   }
 
   return {
-    table,
+    tableRef,
     selectAll,
     select,
     selectionChange

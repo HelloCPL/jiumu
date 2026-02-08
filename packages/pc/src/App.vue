@@ -8,22 +8,16 @@
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { useCustomRouter } from '@/hooks/use-custom-router'
-import { useThemeStore } from '@/store'
-import { loadMermaid, loadLuckysheetLinks, loadLuckysheetScripts, loadLuckyexcel } from '@/utils/scripts'
+import { useThemeStore } from '@/store/theme'
 
 // 扩展useRouter
 useCustomRouter()
-// 初始化主题
+
 const themeStore = useThemeStore()
+// 初始化主题
 themeStore.toggleTheme()
 themeStore.toggleFontFamily()
 themeStore.toggleFontSize()
-
-// 引入第三方资源
-loadMermaid()
-loadLuckysheetLinks()
-loadLuckysheetScripts()
-loadLuckyexcel()
 </script>
 
 <style>

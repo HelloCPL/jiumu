@@ -3,7 +3,6 @@
  */
 import { CommentEmit, CommentProps } from './type'
 import { ref } from 'vue'
-import { useUserStore } from '@/store/index'
 import {
   addLike,
   deleteLike,
@@ -17,20 +16,6 @@ import { mergeArray } from '@/utils/tools'
 import { Confirm, Message } from '@/utils/interaction'
 
 export const useIndex = (props: CommentProps, emit: CommentEmit) => {
-  // 判断是否为超级管理员
-  const isSuper = ref(false)
-  const userStore = useUserStore()
-  userStore.getUser('2').then((data) => {
-    if (Array.isArray(data)) {
-      data.find((item) => {
-        if (item.code === 'super') {
-          isSuper.value = true
-          return true
-        }
-      })
-    }
-  })
-
   // 请求评论列表
   let pageNo = 1
   const pageSize = 10
@@ -209,7 +194,6 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
     }
   }
   return {
-    isSuper,
     total,
     list,
     handleGetList,

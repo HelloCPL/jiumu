@@ -6,18 +6,18 @@
 
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { validateContent } from '@/components/Editor/index'
 import { Confirm, Message } from '@/utils/interaction'
-import { debounce, clone, throttle } from 'lodash-es'
+import { debounce, clone } from 'lodash-es'
 import { addArticle, deleteArticle, getArticleOne, updateArticle } from '@/api/article'
 import { useKeepAliveStore } from '@/store'
 import { getDataDiff } from '@jiumu/utils'
 
 type StatusOption = {
   noBack?: boolean
-  success?: Function
+  success?: (status: number) => void
 }
 
 export const useIndex = () => {
@@ -110,25 +110,6 @@ export const useIndex = () => {
     }
   }
 
-  // 初始化数据
-  const initFormData = () => {
-    form.id = ''
-    form.title = ''
-    form.content = ''
-    form.contentType = '402'
-    form.type = ''
-    form.isDraft = '0'
-    form.coverImg = ''
-    form.attachment = ''
-    form.classify = ''
-    form.isSecret = '0'
-    form.sort = 1
-    form.remarks = ''
-    coverImgList.value = []
-    attachmentList.value = []
-    setOriginData()
-  }
-
   // 获取文章详情
   const _getOne = async (id: string) => {
     form.id = id
@@ -154,9 +135,21 @@ export const useIndex = () => {
       if (data.classify?.length) {
         form.classify = data.classify.map((item) => item.id).join(',')
       }
-      setOriginData()
+      setTimeout(() => {
+        setOriginData()
+      }, 300)
     }
   }
+
+  onMounted(() => {
+    if (route.query?.id) {
+      _getOne(route.query?.id as string)
+    } else {
+      setTimeout(() => {
+        setOriginData()
+      }, 300)
+    }
+  })
 
   // 新增
   const _add = debounce(async (params: ParamsArticleAdd, option?: StatusOption) => {
@@ -201,42 +194,45 @@ export const useIndex = () => {
   // 点击下方按钮
   const changeBtn = (item: FilterButtonList, option?: StatusOption) => {
     switch (item.key) {
-    case 'save':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '0'
-          if (form.id) {
-            _update({ ...form }, option)
-          } else {
-            _add({ ...form }, option)
+      case 'save':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '0'
+            if (form.id) {
+              _update({ ...form }, option)
+            } else {
+              _add({ ...form }, option)
+            }
           }
-        }
-      })
-      break
-    case 'draft':
-      if (!formRef.value) return
-      formRef.value.validate((valid) => {
-        if (valid) {
-          form.isDraft = '1'
-          if (form.id) {
-            _update({ ...form }, option)
-          } else {
-            _add({ ...form }, option)
+        })
+        break
+      case 'draft':
+        if (!formRef.value) return
+        formRef.value.validate((valid) => {
+          if (valid) {
+            form.isDraft = '1'
+            if (form.id) {
+              _update({ ...form }, option)
+            } else {
+              _add({ ...form }, option)
+            }
           }
-        }
-      })
-      break
-    case 'delete':
-      Confirm(`确定${item.name}吗？`).then(() => {
-        if (form.id) {
-          _delete(form.id)
-        } else {
+        })
+        break
+      case 'delete':
+        Confirm(`确定${item.name}吗？`).then(() => {
+          if (form.id) {
+            _delete(form.id)
+          }
+        })
+        break
+      case 'cancel':
+        Confirm(`确定${item.name}吗？`).then(() => {
           setOriginData()
           router.back()
-        }
-      })
-      break
+        })
+        break
     }
   }
 
@@ -272,8 +268,7 @@ export const useIndex = () => {
     originData = clone(form)
     status = 0
   }
-  setOriginData()
-  const handleStatus = () => {
+  const getStatus = () => {
     for (const key in form) {
       if (originData[key] !== form[key]) {
         status = form.id ? 2 : 1
@@ -284,10 +279,10 @@ export const useIndex = () => {
   const handleStatusSave = (msg?: string, option?: StatusOption): Promise<number> => {
     return new Promise((resolve) => {
       if (status) {
-        Confirm({
-          message: msg || (status === 2 ? '内容有修改，是否保存？' : '页面未保存，是否保存为草稿？'),
-          cancelButtonText: '暂不保存',
-          confirmButtonText: '保存'
+        Confirm(msg || (status === 2 ? '文章内容有修改，是否保存并退出？' : '页面未保存，是否保存为草稿？'), {
+          showClose: false,
+          cancelButtonText: '直接退出',
+          confirmButtonText: '保存并退出'
         })
           .then(() => {
             if (status === 2 && form.isDraft === '0') {
@@ -295,6 +290,7 @@ export const useIndex = () => {
             } else {
               changeBtn({ name: '保存草稿', key: 'draft' }, option)
             }
+            // 这里不退出，通过上面发布或保存草稿进行退出
             resolve(status)
           })
           .catch(() => {
@@ -305,46 +301,16 @@ export const useIndex = () => {
   }
 
   onBeforeRouteLeave((to, from, next) => {
-    handleStatus()
-    const cb = (sta: number) => {
-      if (sta === 0) next()
+    getStatus()
+    const cb = (status: number) => {
+      if (status === 0) {
+        next()
+      }
     }
     handleStatusSave('', {
       success: cb
     }).then(cb)
   })
-
-  // 监听逻辑处理
-  const handleLogic = throttle((val: ObjectAny) => {
-    if (val._metaTitle === '文章新增') {
-      if (status === 2) {
-        handleStatusSave(`${form.title}页面内容有修改，是否保存`, {
-          noBack: true,
-          success: (sta: number) => {
-            if (sta === 0) initFormData()
-          }
-        })
-      } else if (form.id) initFormData()
-    } else if (val._metaTitle === '文章编辑' && val.id) {
-      if (status === 0) _getOne(<string>val.id)
-      else if (status === 1 || (status === 2 && val.id !== form.id)) {
-        const msg =
-          status === 1 ? `${form.title}页面未保存，是否保存为草稿？` : `${form.title}页面内容有修改，是否保存`
-        handleStatusSave(msg, { noBack: true }).then(() => {
-          initFormData()
-          _getOne(<string>val.id)
-        })
-      }
-    }
-  }, 300)
-
-  watch(
-    () => route.params,
-    (val) => {
-      handleLogic(val)
-    },
-    { deep: true, immediate: true }
-  )
 
   return {
     formRef,

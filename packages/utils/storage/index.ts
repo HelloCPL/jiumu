@@ -7,22 +7,20 @@ import { isRef, isProxy, toRaw } from 'vue'
 import { isObject, isNaN, isNull, isUndefined, isBoolean, isNumber } from 'lodash-es'
 import { decrypt, encrypt } from '../crypto'
 
+export type StorageType = 'local' | 'session' | 'cookies'
+
 export interface StorageOption {
-  type?: 'local' | 'session' // 缓存类型 默认 local
+  type?: StorageType // 缓存类型 默认 local
   prefix?: string // 缓存key前缀
   expire?: number // 缓存有效期 单位 s 每次获取或设置自动更新有效期
   encrypt?: boolean // 缓存内容是否加密
-}
-
-interface StorageOptionType {
-  type?: 'local' | 'session' // 缓存类型 默认 local
 }
 
 abstract class StroageAbstractClass {
   static setItem: (key: string, value: any, option?: StorageOption) => void
   static getItem: (key: string, option?: StorageOption) => any
   static removeItem: (key: string, option?: StorageOption) => void
-  static clear: (option?: StorageOptionType) => void
+  static clear: (type?: StorageType) => void
 }
 
 // 缓存集合方法类
@@ -35,7 +33,7 @@ export class storage implements StroageAbstractClass {
    * 如果是 ref 或 reactive 会转成普通对象格式存储
    */
   static setItem(key: string, value: any, option?: StorageOption) {
-    const ls: Storage = option?.type === 'session' ? sessionStorage : localStorage
+    const tools = getTools(option?.type)
     key = _getKey(key, option?.prefix ?? '')
     value = _setItemFormat(value)
     if (!value) return null
@@ -44,7 +42,7 @@ export class storage implements StroageAbstractClass {
       value += '__encrypt__'
     }
     value += _getExpire(option?.expire ?? 0)
-    ls.setItem(key, value)
+    tools.setItem(key, value)
   }
 
   /**
@@ -53,16 +51,16 @@ export class storage implements StroageAbstractClass {
    * 如设置了有效期 有效内获取自动延期 过期过后自动清空
    */
   static getItem(key: string, option?: StorageOption): any {
-    const ls: Storage = option?.type === 'session' ? sessionStorage : localStorage
+    const tools = getTools(option?.type)
     const _key = _getKey(key, option?.prefix ?? '')
-    let value = <string>ls.getItem(_key)
+    let value = tools.getItem(_key)
     if (value === null) return null
     // 处理是否过期
     const expire = _checkExpire(value)
     if (expire === 0) {
-      ls.removeItem(_key)
+      tools.removeItem(_key)
       return null
-    } else if (expire > 0) {
+    } else {
       value = value.replace(/__exp.*pxe__/g, '')
     }
     // 处理是否加密
@@ -87,17 +85,25 @@ export class storage implements StroageAbstractClass {
    * 清除某个指定的缓存
    */
   static removeItem(key: string, option?: StorageOption) {
-    const ls: Storage = option?.type === 'session' ? sessionStorage : localStorage
+    const tools = getTools(option?.type)
     key = _getKey(key, option?.prefix ?? '')
-    ls.removeItem(key)
+    tools.removeItem(key)
   }
 
   /**
    * 清空所有缓存 慎用
    */
-  static clear(option?: StorageOptionType) {
-    const ls: Storage = option?.type === 'session' ? sessionStorage : localStorage
-    ls.clear()
+  static clear(type?: StorageType) {
+    const tools = getTools(type)
+    tools.clear()
+  }
+}
+
+function getTools(type?: StorageType): Storage {
+  if (type === 'session') {
+    return sessionStorage
+  } else {
+    return localStorage
   }
 }
 
@@ -149,13 +155,16 @@ function _setItemFormat(value: any): string {
 
 // 解构存储数据格式
 function _getItemFormat(value: any): any {
+  const reg = /^-?\d+(?:\.\d*)?$/
   if (!value) return value
+  if (!value || typeof value === 'object') return value
   else if (value === '__NaN__') return NaN
   else if (value === '__Null__') return null
   else if (value === '__Undefined__') return undefined
   else if (value === '__Boolean__true') return true
   else if (value === '__Boolean__false') return false
   else if (value.startsWith('__Number__')) return Number(value.substring(10))
+  else if (reg.test(value) || value === 'false' || value === 'true') return value
   try {
     value = JSON.parse(value)
   } catch (e) {}

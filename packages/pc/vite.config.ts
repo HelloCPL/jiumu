@@ -17,17 +17,28 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const { VITE_MODE, VITE_PUBLIC_PATH } = env
 
-  const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus(), Components()]
+  const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus({}), Components()]
 
   if (VITE_MODE === 'development') {
     // 本地预加载
     plugins.push(...[PkgConfig(), OptimizationPersist()])
   }
-  if (VITE_MODE === 'test') {
+  if (VITE_MODE !== 'development') {
     // 代码分割
     plugins.push(splitVendorChunkPlugin())
     // 打包压缩
-    plugins.push(viteCompression())
+    plugins.push(
+      viteCompression({
+        filter: (file) => {
+          const flag1 = file.includes('jm-')
+          const flag2 = /\.(js|mjs|json|css|html)$/i.test(file)
+          return flag1 && flag2
+        }
+        // /dist\/assets.*\.(js|mjs|json|css)$/i
+      })
+    )
+  }
+  if (VITE_MODE === 'test') {
     // 生成打包可视化
     plugins.push(visualizer())
   }
@@ -69,7 +80,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "./src/style/css/env.${VITE_MODE}.scss";`
+          api: 'modern-compiler'
         },
         less: {
           javascriptEnabled: true
@@ -93,6 +104,9 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 600,
       rollupOptions: {
         output: {
+          chunkFileNames: 'assets/js/jm-[name]-[hash].js',
+          entryFileNames: 'assets/js/jm-[name]-[hash].js',
+          assetFileNames: 'assets/[ext]/jm-[name]-[hash].[ext]',
           manualChunks
           // manualChunks: {
           //   Echarts: ['echarts']

@@ -112,24 +112,22 @@ export const Loading = (options?: string | LoadingOptions): LoadingReturn => {
  * 重写 Alert 确认提示
  * 配置跟 ElMessageBox.alert 保持一致
  */
-export const Alert = (message?: string | ElMessageBoxOptions): Promise<MessageBoxData> => {
-  let _options: ElMessageBoxOptions = {
+export const Alert = (
+  message: ElMessageBoxOptions['message'] = '',
+  option: ElMessageBoxOptions = {}
+): Promise<MessageBoxData> => {
+  const _options: ElMessageBoxOptions = {
     autofocus: false,
     title: '提示',
     type: 'warning',
     confirmButtonText: '确认',
     closeOnClickModal: false,
     closeOnPressEscape: false,
-    draggable: true
+    draggable: true,
+    ...option
   }
-  let msg: any = ''
-  if (typeof message === 'string') {
-    msg = message
-  } else {
-    msg = message?.message
-    _options = Object.assign(_options, message)
-  }
-  return ElMessageBox.alert(msg, _options)
+  message = message || _options.message || '提示'
+  return ElMessageBox.alert(message, _options)
 }
 
 /**
@@ -137,8 +135,11 @@ export const Alert = (message?: string | ElMessageBoxOptions): Promise<MessageBo
  * 配置跟 ElMessageBox.confirm 保持一致
  */
 
-export const Confirm = (message?: string | ElMessageBoxOptions): Promise<MessageBoxData> => {
-  let _options: ElMessageBoxOptions = {
+export const Confirm = (
+  message: ElMessageBoxOptions['message'] = '',
+  option: ElMessageBoxOptions = {}
+): Promise<MessageBoxData> => {
+  const _options: ElMessageBoxOptions = {
     autofocus: false,
     title: '提示',
     type: 'warning',
@@ -147,23 +148,19 @@ export const Confirm = (message?: string | ElMessageBoxOptions): Promise<Message
     confirmButtonText: '确认',
     closeOnClickModal: false,
     closeOnPressEscape: false,
-    draggable: true
+    draggable: true,
+    ...option
   }
-  let msg: any = ''
-  if (typeof message === 'string') {
-    msg = message
-  } else {
-    msg = message?.message
-    _options = Object.assign(_options, message)
-  }
-  return ElMessageBox.confirm(msg, _options)
+  message = message || _options.message || '提示'
+  return ElMessageBox.confirm(message, _options)
 }
 
 /**
  * 包装加载效果
- * maxTime 最大加载效果时间 默认 10000 ms
+ * @param maxTime 最大加载效果时间 默认 10000 ms
+ * @param options 加载的配置项
  */
-export const useLoading = (maxTime: number = 10000) => {
+export const useLoading = (maxTime: number = 10000, options?: string | LoadingOptions) => {
   let loading: any
   let count = 0
   let timeId: any = null
@@ -174,18 +171,16 @@ export const useLoading = (maxTime: number = 10000) => {
       timeId = null
     }
   }
-
-  const showLoading = () => {
+  const showLoading = (_maxTime?: number) => {
     if (count <= 0 && !loading) {
-      loading = Loading()
+      loading = Loading(options)
     }
     clearTimeId()
     timeId = setTimeout(() => {
       hideLoading()
-    }, maxTime)
+    }, _maxTime || maxTime)
     count++
   }
-
   const hideLoading = () => {
     --count
     if (count <= 0 && loading) {
@@ -194,7 +189,6 @@ export const useLoading = (maxTime: number = 10000) => {
       count = 0
     }
   }
-
   return {
     loading,
     showLoading,

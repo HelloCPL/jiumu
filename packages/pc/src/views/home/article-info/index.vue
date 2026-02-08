@@ -9,7 +9,7 @@
     <div class="w-full bg-white shadow p-6 info-container" v-if="dataInfo">
       <div class="text-xl font-bold">{{ dataInfo.title }}</div>
       <!-- 文章信息 -->
-      <div class="w-full border bg py-3 pl-10 pr-3 relative mt-4">
+      <div class="w-full border bg py-3 pl-10 pr-4 relative mt-4">
         <div class="text-light">
           <span
             class="mr-4 hover:text-primary cursor-pointer"
@@ -18,25 +18,20 @@
             {{ dataInfo.createUserName }}
           </span>
         </div>
-        <div class="w-full mt-3 flex items-center justify-between text-lighter text-sm">
-          <div>
-            <div v-if="dataInfo.classify && dataInfo.classify.length">
-              <span>标签：</span>
-              <ElTag round size="small" class="ml-2" v-for="item in dataInfo.classify" :key="item.id">
-                {{ item.label }}
-              </ElTag>
-            </div>
-          </div>
-          <div class="flex">
-            <span class="flex items-center mr-4">
-              <IconSvg name="time"></IconSvg>
-              <span class="ml-1"> {{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
-            </span>
-            <span class="flex items-center">
-              <IconSvg name="source"></IconSvg>
-              <span class="ml-1">{{ dataInfo.terminal }}</span>
-            </span>
-          </div>
+        <div v-if="dataInfo.classify && dataInfo.classify.length" class="mt-4">
+          <ElTag round size="small" class="mr-2" v-for="item in dataInfo.classify" :key="item.id">
+            {{ item.label }}
+          </ElTag>
+        </div>
+        <div class="w-full mt-4 flex justify-end text-lighter text-sm">
+          <span class="flex items-center mr-4">
+            <IconSvg name="time"></IconSvg>
+            <span class="ml-1"> {{ formatDate(dataInfo.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
+          </span>
+          <span class="flex items-center">
+            <IconSvg name="source"></IconSvg>
+            <span class="ml-1">{{ dataInfo.terminal }}</span>
+          </span>
         </div>
         <img :src="$STATIC_URL + iconType" alt="" class="absolute left-0 -top-1 w-9" />
         <div class="absolute top-0 right-0">
@@ -52,7 +47,7 @@
       <EditorPreview :type="dataInfo.contentType" :value="dataInfo.content" class="mt-4"></EditorPreview>
       <!-- 附件 -->
       <div class="mt-4" v-if="dataInfo.attachment && dataInfo.attachment.length">
-        <div class="text-light mb-2">附件：</div>
+        <div class="text-light mb-4">附件：</div>
         <ShowFile :model-value="dataInfo.attachment"></ShowFile>
       </div>
       <!-- 备注 -->
@@ -68,7 +63,9 @@
       ></Comment>
     </div>
     <!-- 关于我们 -->
-    <AboutUs></AboutUs>
+    <Lasyloader :delay="100">
+      <AboutUs></AboutUs>
+    </Lasyloader>
   </div>
 </template>
 
@@ -80,8 +77,11 @@ import { useIndex } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
 import Comment from '@/components/Comment/index.vue'
-import AboutUs from '@/components/AboutUs/index.vue'
 import IconSvg from '@/components/IconSvg/index'
+import Lasyloader from '@/components/LazyLoader/index.vue'
+import { defineAsyncComponent } from 'vue'
+
+const AboutUs = defineAsyncComponent(() => import('@/components/AboutUs/index.vue'))
 
 defineOptions({
   name: 'ArticleInfo'

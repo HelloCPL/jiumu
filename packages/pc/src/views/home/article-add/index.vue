@@ -5,7 +5,16 @@
 -->
 
 <template>
-  <PageBox @change-btn="changeBtn" :id="form.id" :is-draft="form.isDraft">
+  <PageBox
+    @change-btn="changeBtn"
+    :footer-button-config="{
+      id: form.id,
+      isDraft: form.isDraft,
+      addCode: 'pc:article:me:add:btn',
+      updateCode: 'pc:article:me:update:btn',
+      deleteCode: 'pc:article:me:delete:btn'
+    }"
+  >
     <ElForm label-position="top" :model="form" :rules="rules" ref="formRef">
       <ElFormItem label="文章标题" prop="title">
         <ElInput type="text" placeholder="请输入标题" v-model="form.title"></ElInput>
@@ -18,14 +27,14 @@
           @save="handleSaveContent"
         ></Editor>
       </ElFormItem>
-      <ElRow class="flex">
-        <ElFormItem label="文章类型" prop="type" class="g-w-280 mr-6">
+      <ElRow class="flex flex-wrap gap-x-6">
+        <ElFormItem label="文章类型" prop="type" :class="itemClass">
           <SelectType v-model="form.type" type="type" parent-code="300"></SelectType>
         </ElFormItem>
-        <ElFormItem label="是否公开" prop="isSecret" class="g-w-280 mr-6">
+        <ElFormItem label="是否公开" prop="isSecret" :class="itemClass">
           <SelectType v-model="form.isSecret" type="isSecret"></SelectType>
         </ElFormItem>
-        <ElFormItem label="排序" prop="sort" class="g-w-240">
+        <ElFormItem label="排序" prop="sort" :class="itemClass">
           <InputNumber placeholder="请输入排序" v-model="form.sort"> </InputNumber>
         </ElFormItem>
       </ElRow>
@@ -52,6 +61,7 @@
             type="files"
             :limit="5"
             :limited="attachmentList.length"
+            class="mb-4"
           ></Upload>
           <ShowFile v-model="attachmentList" is-delete @change="handleDeleteAttachment"></ShowFile>
         </ElRow>
@@ -74,6 +84,8 @@ import Upload from '@/components/Upload/index.vue'
 import ShowImage from '@/components/ShowImage/index.vue'
 import ShowFile from '@/components/ShowFile/index.vue'
 import SelectClassify from '@/components/SelectClassify/index.vue'
+import { useWidth } from '@/hooks/use-width'
+import { computed } from 'vue'
 
 defineOptions({
   name: 'ArticleAdd'
@@ -93,4 +105,12 @@ const {
   changeBtn,
   handleSaveContent
 } = useIndex()
+
+const { width } = useWidth()
+const itemClass = computed(() => {
+  if (width.value <= 768) {
+    return 'w-full'
+  }
+  return 'g-w-280'
+})
 </script>

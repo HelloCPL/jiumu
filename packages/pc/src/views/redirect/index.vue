@@ -14,29 +14,24 @@
 -->
 
 <template>
-  <div></div>
+  <LazyLoading text="页面正在刷新"></LazyLoading>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useKeepAliveStore, useNavigationsStore } from '@/store'
+import LazyLoading from '@/components/LazyLoader/components/loading.vue'
+
 const route = useRoute()
 const router = useRouter()
-const ctx = getCurrentInstance()?.ctx
-
-const keepAliveStore = useKeepAliveStore()
-const navigationsStore = useNavigationsStore()
 
 onMounted(() => {
   const __name = <string>route.params.__name || <string>route.query.__name
   const __path = <string>route.query.__path || <string>route.params.__path
-  const item = navigationsStore._find(__name || __path)
-
-  if (item) {
-    keepAliveStore._pop(item)
+  const instance: any = getCurrentInstance()
+  if (instance?.ctx && instance?.ctx?.$forceUpdate instanceof Function) {
+    instance.ctx.$forceUpdate()
   }
-  ctx.$forceUpdate()
   if (__name || __path) {
     const query = { ...route.query }
     const params = { ...route.params }

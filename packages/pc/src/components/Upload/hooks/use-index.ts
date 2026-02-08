@@ -3,12 +3,12 @@
  */
 
 import { UploadProps, UploadEmits } from '../type'
-import { ref, computed, nextTick, watch } from 'vue'
+import { ref, computed, nextTick, watch, reactive } from 'vue'
 import { UploadInstance, UploadRawFile, UploadRequestOptions } from 'element-plus'
 import { Message } from '@/utils/interaction'
 import { getSuffix } from '@jiumu/utils'
 import { uploadFile } from '@/api/file'
-import { isPlainObject } from 'lodash-es'
+import { isFunction, isPlainObject } from 'lodash-es'
 
 // 超过 2 M 使用断点上传方式
 const UPLOAD_BIG_SIZE = 1024 * 1024 * 3
@@ -21,7 +21,7 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const _accept = computed(() => {
     if (props.accept) return props.accept
     else if (props.type === 'files')
-      return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.xlsm,.zip,.rar,.7z,.pptx,.ppt,.md'
+      return '.pdf,.doc,.docx,.txt,.xls,.xlsx,.xlsm,.zip,.rar,.7z,.pptx,.ppt,.md,.json'
     else if (props.type === 'videos') return '.flv,.avi,.mov,.mp4,.wmv'
     else if (props.type === 'files_big') return '*'
     else return 'image/*'
@@ -31,6 +31,15 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
   const onExceed = () => {
     Message(`最多可以再上传${_limit.value}个文件`)
   }
+
+  const cropperState = reactive<any>({
+    show: false,
+    file: null
+  })
+  const confirmCropper = (file: File) => {
+    _upload(file)
+    cropperState.show = false
+  }
   // 上传前校验
   const beforeUpload = (file: UploadRawFile) => {
     const flag = validSuffix(file, _accept.value)
@@ -38,33 +47,47 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     Message(`文件格式不正确，请选择${_accept.value}格式的文件`)
     return false
   }
+  const _uploadBigFile = (file: File) => {
+    refUploadFilesBig.value?.handleFileUpload(file)
+  }
+  const _upload = async (file: File) => {
+    const fileFormData = new FormData()
+    fileFormData.append('file', file)
+    let params: ParamsFileOther = {}
+    if (isPlainObject(props.params)) params = Object.assign(params, props.params)
+    params.staticPlace = props.type as ParamsFileStaticPlace
+    const res = await uploadFile(fileFormData, params)
+    if (res.code === 200) {
+      emit('change', res.data)
+    }
+  }
   // 上传
   const httpRequest = (fileOption: UploadRequestOptions) => {
-    const up1 = async (fileOption: UploadRequestOptions) => {
-      refUploadFilesBig.value?.handleFileUpload(fileOption.file)
+    if (props.isCropper) {
+      const suffix = getSuffix(fileOption.file.name)
+      const suffixs = ['png', 'jpg', 'jpeg']
+      if (suffixs.includes(suffix)) {
+        cropperState.file = fileOption.file
+        cropperState.show = true
+        return
+      }
     }
-    const up2 = async (fileOption: UploadRequestOptions) => {
+    if (props.httpRequest && isFunction(props.httpRequest)) {
       const file = new FormData()
       file.append('file', fileOption.file)
       let params: ParamsFileOther = {}
       if (isPlainObject(props.params)) params = Object.assign(params, props.params)
-      params.staticPlace = props.type
-      const res = await uploadFile(file, params)
-      if (res.code === 200) {
-        emit('change', res.data)
-      } else {
-        Message(res.message)
-      }
-    }
-    if (props.uploadType === 'files_big') {
-      up1(fileOption)
+      params.staticPlace = props.type as ParamsFileStaticPlace
+      props.httpRequest(file, params)
+    } else if (props.uploadType === 'files_big') {
+      _uploadBigFile(fileOption.file)
     } else if (props.uploadType === 'files') {
-      up2(fileOption)
+      _upload(fileOption.file)
     } else {
       if (fileOption.file.size > UPLOAD_BIG_SIZE) {
-        up1(fileOption)
+        _uploadBigFile(fileOption.file)
       } else {
-        up2(fileOption)
+        _upload(fileOption.file)
       }
     }
   }
@@ -103,6 +126,8 @@ export const useIndex = (props: UploadProps, emit: UploadEmits) => {
     refUploadFilesBig,
     _accept,
     _limit,
+    cropperState,
+    confirmCropper,
     onChange,
     onExceed,
     beforeUpload,

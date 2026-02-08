@@ -5,32 +5,31 @@
 -->
 
 <template>
-  <Dialog
-    title="口令code校验"
-    width="500px"
-    top="30vh"
-    class-content="pt-10 pb-4"
-    @close="handleClose"
-    @confirm="confirm"
-  >
+  <Dialog title="口令code校验" :width="500" @close="handleClose" @confirm="confirm">
     <ElForm
       :model="form"
       :rules="rules"
       ref="formRef"
       label-position="top"
       :label-width="getPx(80)"
-      class="mt-4 mx-auto g-w-320"
+      class="pr-4"
       @submit.native.prevent
     >
       <ElFormItem prop="code" label="口令code">
-        <ElInput v-model="form.code" type="password" placeholder="请输入口令code" show-password></ElInput>
+        <ElInput
+          v-model="form.code"
+          type="password"
+          autocomplete="new-password"
+          placeholder="请输入口令code"
+          show-password
+        ></ElInput>
       </ElFormItem>
     </ElForm>
-    <div class="text-sm text-lighter flex pt-4 pl-4">
+    <div class="text-sm text-lighter flex pt-4">
       <span class="text-danger shrink-0">注意：</span>
       <span class="flex flex-col">
         <span>本系统不会以任何形式存储你的口令code；</span>
-        <span>此处仅作口令code校验，并只保留校验状态1小时！</span>
+        <span>此处仅作口令code校验，并只保留校验状态5分钟！</span>
       </span>
     </div>
   </Dialog>
@@ -43,9 +42,9 @@ import { ElForm, ElFormItem, ElInput, FormRules, FormInstance } from 'element-pl
 import { reactive, ref } from 'vue'
 import { getPx } from '@/utils/tools'
 import { checkCipherCodeSelf } from '@/api/cipher'
-import { useCipherStore } from '@/store'
 import { Message } from '@/utils/interaction'
 import { encrypt } from '@jiumu/utils'
+import { cipherStore } from '@/store/cipher/instance'
 
 const emit = defineEmits(cipherCodeAddEmits)
 
@@ -59,11 +58,8 @@ const rules = reactive<FormRules>({
 })
 
 const handleClose = () => {
-  emit('close', {
-    key: 'close'
-  })
+  emit('close')
 }
-const cipherStore = useCipherStore()
 const confirm = () => {
   if (!formRef.value) return
   formRef.value.validate(async (valid) => {
@@ -71,10 +67,10 @@ const confirm = () => {
       const res = await checkCipherCodeSelf(encrypt(form.code))
       if (res.code === 200) {
         if (res.data) {
-          cipherStore.setCode(res.data)
-          emit('close', { key: 'refresh' })
+          cipherStore.setCode(form.code)
+          emit('confirm')
         } else {
-          Message({ message: '口令code错误！' })
+          Message({ message: '口令code校验失败' })
         }
       }
     }

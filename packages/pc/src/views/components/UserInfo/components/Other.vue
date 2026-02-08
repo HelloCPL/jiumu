@@ -5,10 +5,7 @@
 -->
 
 <template>
-  <div class="pt-12 pl-12">
-    <div class="mb-4">
-      <ElButton type="primary" text size="small" @click="toCipher">我的口令</ElButton>
-    </div>
+  <div>
     <div v-if="VITE_MODE !== 'prod'">
       <ElButton type="primary" text size="small" @click="toAPI">API文档</ElButton>
     </div>

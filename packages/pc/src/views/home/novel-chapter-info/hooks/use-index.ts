@@ -6,11 +6,12 @@
 
 import { getNovelChapterList, getNovelChapterOne } from '@/api/novel'
 import { debounce, isPlainObject } from 'lodash-es'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storage } from '@jiumu/utils'
 import { useUserStore } from '@/store'
-
+import { useWidth } from '@/hooks/use-width'
+import gsap from 'gsap'
 export const useIndex = () => {
   const route = useRoute()
   const router = useRouter()
@@ -37,20 +38,20 @@ export const useIndex = () => {
       isConcise: '1'
     })
     if (res.code === 200) {
+      handleTargetIndex(res.data)
       data.value = res.data
-      handleTargetIndex()
     }
   }, 300)
 
+  getDataList()
   onMounted(() => {
     getDataInfo()
-    getDataList()
   })
 
   // 当前章节
   const targetIndex = ref<number>(0)
-  const handleTargetIndex = () => {
-    data.value.find((item, index) => {
+  const handleTargetIndex = (list: DataNovelChapter[]) => {
+    list.find((item, index) => {
       if (item.id === id) {
         targetIndex.value = index
         return true
@@ -108,6 +109,30 @@ export const useIndex = () => {
     chapter.value = _chapter
   }
 
+  const width = ref(0)
+  const { width: screenWidth } = useWidth()
+  const contentWidth = computed(() => {
+    if (screenWidth.value <= 768) return '100%'
+    return `calc(100% - ${width.value}px)`
+  })
+  const previewTitleClass = computed(() => {
+    if (screenWidth.value <= 768) {
+      return 'min-h-full absolute top-0 right-0 shadow-lg'
+    }
+    return ''
+  })
+  const handleClickArrow = () => {
+    if (width.value === 0) {
+      gsap.to(width, {
+        value: 220
+      })
+    } else {
+      gsap.to(width, {
+        value: 0
+      })
+    }
+  }
+
   return {
     dataInfo,
     data,
@@ -115,6 +140,10 @@ export const useIndex = () => {
     id,
     targetIndex,
     handleNext,
-    chapter
+    chapter,
+    width,
+    contentWidth,
+    previewTitleClass,
+    handleClickArrow
   }
 }

@@ -16,11 +16,12 @@
     >
       <!-- 左侧 -->
       <template #left>
-        <div v-for="item in dataList" :key="item.id" class="pl-4">
+        <div v-for="item in dataList" :key="item.id">
           <ElCheckbox
             :model-value="item._checked"
             :label="item.id"
             :checked="item._checked"
+            :disabled="!hasPermission('pc:tag:user:relevant:btn')"
             @update:model-value="changeCheck($event as boolean, item)"
           >
             <GRichText :html="item.username"></GRichText>
@@ -30,14 +31,14 @@
       </template>
       <!-- 右侧 -->
       <template #right>
-        <div class="px-4 pt-3">
+        <div class="pl-4 pt-4">
           <Card
             v-for="item in dataList2"
             :key="item.id"
             :title="item.username"
             :sub-title="item.phone"
             class="mb-3"
-            show-close
+            :show-close="hasPermission('pc:tag:user:relevant:btn')"
             @close="deleteRelevance(item)"
           ></Card>
         </div>
@@ -54,6 +55,7 @@ import { useTagUser } from '../hooks/use-tag-user'
 import { ElCheckbox } from 'element-plus'
 import UsernameShow from '@/components/UsernameShow/index.vue'
 import Card from '@/components/Card/index.vue'
+import { hasPermission } from '@/utils/permission'
 
 const props = defineProps(tagInfoProps)
 

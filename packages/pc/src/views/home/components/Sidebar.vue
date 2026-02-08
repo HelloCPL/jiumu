@@ -6,17 +6,13 @@
 
 <template>
   <div
-    class="h-full bg-white select-none shadow-md overflow-hidden relative pb-10 duration-500 sidebar-container"
-    :class="{ 'sidebar-container-active': isCollapse }"
-    :style="{ width: isCollapse ? '4.57rem' : '15rem' }"
+    class="h-full bg-white select-none shrink-0 pb-14 relative"
+    :class="{ 'sidebar-container-768': width <= 768 }"
   >
-    <div class="h-full g-scroll-y-0">
-      <ElMenu :collapse="isCollapse" :default-active="routerName" @select="select">
-        <SidebarItem :data="userStore.menus" :collapse="isCollapse"></SidebarItem>
-      </ElMenu>
-    </div>
     <div
-      class="w-full h-10 absolute left-0 bottom-0 bg-white border-t border-default border-solid shadow flex items-center justify-center cursor-pointer"
+      class="w-full h-10 absolute left-0 bottom-4 bg-white flex items-center justify-center cursor-pointer border-t-1 sidebar-icon"
+      style="min-width: 4.57rem"
+      :class="{ 'sidebar-icon-768': sidebarWrapperWidth === '0' }"
       @click="switchCollapse"
     >
       <ElIcon
@@ -29,6 +25,15 @@
       </ElIcon>
       <span class="pl-1 text-sm text-lighter">{{ isCollapse ? '展开' : '收起' }}</span>
     </div>
+    <div
+      class="h-full overflow-hidden duration-500 sidebar-wrapper g-scroll-y-0"
+      :class="{ 'sidebar-wrapper-active': isCollapse }"
+      :style="{ width: sidebarWrapperWidth }"
+    >
+      <ElMenu :collapse="isCollapse" :default-active="routerName" @select="select">
+        <SidebarItem :data="userStore.menus" :collapse="isCollapse"></SidebarItem>
+      </ElMenu>
+    </div>
   </div>
 </template>
 
@@ -36,21 +41,20 @@
 import { ElMenu, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue'
-import { useUserStore, useNavigationsStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
-import { onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { isHomeRoutes } from '@/router/routes'
 import { findChildrenFirst } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
+import { userStore } from '@/store/user/instance'
+import { navigationsStore } from '@/store/navigations/instance'
+import { useWidth } from '@/hooks/use-width'
 
 const router = useRouter()
-const userStore = useUserStore()
-const navigationsStore = useNavigationsStore()
 const { isCollapse, routerName } = storeToRefs(navigationsStore)
-// 记录打开状态
-let _isCollapse = isCollapse.value
 
+let _isCollapse = isCollapse.value
 // 切换展开收起
 const switchCollapse = () => {
   isCollapse.value = !isCollapse.value
@@ -76,26 +80,33 @@ const routerPush = (name: string) => {
 
 // 首次进来跳转路由
 const route = useRoute()
-if (!isHomeRoutes(route.name)) {
+if (!isHomeRoutes(route.name, true)) {
   routerPush(<string>routerName.value)
 }
 
-const setCollapse = () => {
-  const w = document.documentElement.clientWidth || window.innerWidth
-  if (w < 768) isCollapse.value = true
-  else isCollapse.value = _isCollapse
-}
-// 监听窗口变化
+const { width } = useWidth()
 onMounted(() => {
-  window.addEventListener('resize', setCollapse)
+  if (width.value <= 768) {
+    isCollapse.value = true
+  }
 })
-onUnmounted(() => {
-  window.removeEventListener('resize', setCollapse)
+watch(
+  () => width.value,
+  () => {
+    if (width.value <= 768) isCollapse.value = true
+    else isCollapse.value = _isCollapse
+  }
+)
+
+const sidebarWrapperWidth = computed(() => {
+  if (!isCollapse.value) return '15rem'
+  else if (width.value <= 768) return '0'
+  return '4.57rem'
 })
 </script>
 
 <style lang="scss">
-.sidebar-container {
+.sidebar-wrapper {
   .el-menu--collapse .el-sub-menu.is-active .el-sub-menu__title,
   .el-menu-item.is-active {
     background: var(--jm-color-primary-50);
@@ -106,11 +117,23 @@ onUnmounted(() => {
   background: var(--jm-color-primary-50);
 }
 
-.sidebar-container-active {
+.sidebar-wrapper-active {
   .el-sub-menu__title,
   .el-menu-item {
     padding-left: 10px;
     padding-right: 4px;
   }
+}
+</style>
+
+<style scoped lang="scss">
+.sidebar-container-768 {
+  @apply z-50 absolute shadow;
+}
+
+.sidebar-icon-768 {
+  border-radius: 0 1.25rem 1.25rem 0;
+  border: 1px solid var(--jm-color-border);
+  @apply z-20 shadow;
 }
 </style>

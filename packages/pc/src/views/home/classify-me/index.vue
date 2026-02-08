@@ -33,17 +33,31 @@
           </span>
         </template>
       </ElTableColumn>
-      <ElTableColumn prop="type" label="类型" :min-width="getPx(120)" />
+      <ElTableColumn prop="type" label="类型" :min-width="getPx(140)" />
       <ElTableColumn label="更新时间" :width="getPx(150)">
         <template #default="{ row }">
           <span>{{ formatDate(row.updateTime, 'YYYY-MM-DD HH:mm') }}</span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="terminal" label="创建终端" :width="getPx(100)" />
-      <ElTableColumn label="操作" :width="getPx(100)" fixed="right">
+      <ElTableColumn label="操作" :width="getPx(100)" :fixed="tableFixed">
         <template #default="{ row }">
-          <ElButton type="primary" text size="small" @click="handleEdit(row)">修改</ElButton>
-          <ElButton type="danger" text size="small" @click="handleDelete(row)">删除</ElButton>
+          <ElButton
+            type="primary"
+            text
+            size="small"
+            @click="handleEdit(row)"
+            v-permission="'pc:classify:me:update:btn'"
+            >修改</ElButton
+          >
+          <ElButton
+            type="danger"
+            text
+            size="small"
+            @click="handleDelete(row)"
+            v-permission="'pc:classify:me:delete:btn'"
+            >删除</ElButton
+          >
         </template>
       </ElTableColumn>
     </Table>
@@ -74,6 +88,7 @@ import { formatDate } from '@jiumu/utils'
 import ClassifyMeAdd from './components/ClassifyMeAdd.vue'
 import ClassifyMeInfo from './components/ClassifyMeInfo.vue'
 import { getIndex, getPx } from '@/utils/tools'
+import { useWidth } from '@/hooks/use-width'
 
 defineOptions({
   name: 'ClassifyMe'
@@ -85,4 +100,5 @@ const { state, btnList, handleBtn, handleEdit, handleDelete, handleConfirm, hand
   getDataList,
   getTypeList
 })
+const { tableFixed } = useWidth()
 </script>

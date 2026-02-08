@@ -7,8 +7,11 @@ import { debounce } from 'lodash-es'
 import { getPermissionList } from '@/api/permission'
 import { addRolePermission, deleteRolePermission, getPermissionByRoleId } from '@/api/role-permission'
 import { getDataDiff, getText } from '@jiumu/utils'
+import { useUserStore } from '@/store'
 
 export const useRolePermission = (props: RoleInfoProps) => {
+  const userStore = useUserStore()
+
   // 权限列表
   const keyword = ref<string>('')
   const total = ref<number>(0)
@@ -59,6 +62,9 @@ export const useRolePermission = (props: RoleInfoProps) => {
     if (res.code === 200) {
       info.checkedRoleId = '1'
       info._checked = true
+      if (userStore.roles.find((item) => item.id === props.id)) {
+        userStore.updateUser('3')
+      }
     }
   }
 
@@ -71,6 +77,9 @@ export const useRolePermission = (props: RoleInfoProps) => {
     if (res.code === 200) {
       info.checkedRoleId = '0'
       info._checked = false
+      if (userStore.roles.find((item) => item.id === props.id)) {
+        userStore.updateUser('3')
+      }
     }
   }
 

@@ -51,24 +51,26 @@ export const useIndex = () => {
     getDataList()
   })
 
-  const btnList: FilterButtonList[] = [{ name: '新增', key: 'add', type: 'primary' }]
+  const btnList: FilterButtonList[] = [
+    { name: '新增', key: 'add', type: 'primary', code: 'pc:novel:chapter:add:btn' }
+  ]
   // 点击按钮
   const handleBtn = (item: FilterButtonList) => {
     switch (item.key) {
-    case 'add':
-      router.push({
-        name: 'NovelChapterAdd',
-        params: { _metaTitle: '章节新增', _refreshOne: '1', novelId: id }
-      })
-      return
+      case 'add':
+        router.push({
+          path: '/novel-chapter-add',
+          query: { _metaTitle: '章节新增', _refreshOne: '1', novelId: id }
+        })
+        return
     }
   }
 
   // 点击编辑
   const handleEdit = (row: DataNovelChapter) => {
     router.push({
-      name: 'NovelChapterAdd',
-      params: { _metaTitle: '章节编辑', _refreshOne: '1', id: row.id, novelId: id }
+      path: '/novel-chapter-add',
+      query: { _metaTitle: '章节编辑', _refreshOne: '1', id: row.id, novelId: id }
     })
   }
 

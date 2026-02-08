@@ -94,5 +94,5 @@ const handleZoomIn = () => {
 </script>
 
 <style lang="scss" scoped>
-@import './PreviewTxt.scss';
+@forward './PreviewTxt.scss';
 </style>

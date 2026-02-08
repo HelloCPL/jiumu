@@ -5,30 +5,32 @@
 -->
 
 <template>
-  <Dialog title="封面图上传" @close="$emit('close')" class-content="p-4 relative cover-img-container">
-    <div class="flex items-center">
-      <span class="text-sm text-lighter mr-4">图片类型</span>
-      <ElRadioGroup v-model="type" :validate-event="false">
-        <ElRadio label="1">本地选择</ElRadio>
-        <ElRadio label="2">外部链接</ElRadio>
-      </ElRadioGroup>
+  <Dialog title="封面图上传" @close="$emit('close')">
+    <div class="relative cover-img-container">
+      <div class="flex items-center mb-2">
+        <span class="text-sm text-lighter mr-4">图片类型</span>
+        <ElRadioGroup v-model="type" :validate-event="false">
+          <ElRadio label="1">本地选择</ElRadio>
+          <ElRadio label="2">外部链接</ElRadio>
+        </ElRadioGroup>
+      </div>
+      <div v-if="type === '1'">
+        <Upload type="images" :limit="2" :limited="_coverImg1.length" @change="handleChange"></Upload>
+        <ShowImage v-model="_coverImg1" is-delete class="mt-4"></ShowImage>
+      </div>
+      <div v-else-if="type === '2'">
+        <ElInput
+          type="text"
+          placeholder="请输入封面图地址"
+          v-model="img2"
+          @blur="handleBlur"
+          :validate-event="false"
+          clearable
+        ></ElInput>
+        <ShowImage v-model="_coverImg2" is-delete class="mt-4" @change="handleChangeImg2"></ShowImage>
+      </div>
+      <div class="text-xs text-lighter absolute left-4 bottom-0">提示：封面图类型只需选择上传一种即可。</div>
     </div>
-    <div v-if="type === '1'">
-      <Upload type="images" :limit="2" :limited="_coverImg1.length" @change="handleChange"></Upload>
-      <ShowImage v-model="_coverImg1" is-delete class="mt-4"></ShowImage>
-    </div>
-    <div v-else-if="type === '2'">
-      <ElInput
-        type="text"
-        placeholder="请输入封面图地址"
-        v-model="img2"
-        @blur="handleBlur"
-        :validate-event="false"
-        clearable
-      ></ElInput>
-      <ShowImage v-model="_coverImg2" is-delete class="mt-4" @change="handleChangeImg2"></ShowImage>
-    </div>
-    <div class="text-xs text-lighter absolute left-4 bottom-2">提示：封面图类型只需选择上传一种即可。</div>
     <template #footer>
       <ElButton type="primary" :disabled="disabled" @click="confirm">确认</ElButton>
     </template>
