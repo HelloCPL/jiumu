@@ -36,7 +36,6 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     show: false,
     id: '',
     parentCode: '',
-    showTagUser: false,
     code: ''
   })
 
@@ -130,13 +129,6 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     if (type === 'update') userStore.updateUser('5')
   }
 
-  // 关联用户
-  const handleShowTagUser = (row: DataTagInfo) => {
-    state.id = row.id
-    state.code = row.code
-    state.showTagUser = true
-  }
-
   return {
     state,
     btnList,
@@ -147,7 +139,6 @@ export const useIndexInfo = ({ getDataList }: ObjectAny) => {
     handleDelete,
     selectionChange,
     handleImport,
-    handleConfirm,
-    handleShowTagUser
+    handleConfirm
   }
 }

@@ -76,16 +76,6 @@
           >
             删除
           </ElButton>
-          <ElButton
-            type="primary"
-            text
-            size="small"
-            v-if="row.parentCode === '8888'"
-            @click="handleShowTagUser(row)"
-            v-permission="'pc:tag:user:relevant:btn'"
-          >
-            用户关联
-          </ElButton>
         </template>
       </ElTableColumn>
     </Table>
@@ -101,13 +91,6 @@
     />
     <!-- 角色信息 -->
     <TagInfo :id="state.id" v-if="state.showInfo" @close="state.showInfo = false"></TagInfo>
-    <!-- 角色-用户关联 -->
-    <TagUser
-      :id="state.id"
-      :code="state.code"
-      v-if="state.showTagUser"
-      @close="state.showTagUser = false"
-    ></TagUser>
   </div>
 </template>
 
@@ -118,7 +101,6 @@ import { ElTableColumn, ElButton } from 'element-plus'
 import { useIndex, useIndexInfo } from './hooks/use-index'
 import TagAdd from './components/TagAdd.vue'
 import TagInfo from './components/TagInfo.vue'
-import TagUser from './components/TagUser.vue'
 import { formatDate } from '@jiumu/utils'
 import { getIndex, getPx } from '@/utils/tools'
 import Upload from '@/components/Upload/index.vue'
@@ -143,8 +125,7 @@ const {
   handleDelete,
   selectionChange,
   handleImport,
-  handleConfirm,
-  handleShowTagUser
+  handleConfirm
 } = useIndexInfo({ getDataList })
 const { tableFixed } = useWidth()
 </script>

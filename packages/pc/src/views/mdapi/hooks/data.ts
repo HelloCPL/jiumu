@@ -75,11 +75,6 @@ export const data: MDAPIOption[] = [
     value: ''
   },
   {
-    title: '特殊标签-用户关联',
-    url: '/users-tags/index.md',
-    value: ''
-  },
-  {
     title: '菜单',
     url: '/menus/index.md',
     value: ''

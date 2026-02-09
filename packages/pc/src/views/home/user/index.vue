@@ -70,14 +70,6 @@
             type="primary"
             text
             size="small"
-            @click="handleShowUserTag(row)"
-            v-permission="'pc:user:view:tag:btn'"
-            >查看标签</ElButton
-          >
-          <ElButton
-            type="primary"
-            text
-            size="small"
             @click="handleShowUserMenu(row)"
             v-permission="'pc:user:view:menu:btn'"
             >查看菜单</ElButton
@@ -111,13 +103,6 @@
       v-if="state.showUserRole"
       @close="state.showUserRole = false"
     ></UserRole>
-    <!-- 查看用户-标签关联 -->
-    <UserTag
-      :id="state.id"
-      :username="state.username"
-      v-if="state.showUserTag"
-      @close="state.showUserTag = false"
-    ></UserTag>
     <!-- 查看用户-菜单关联 -->
     <UserMenu
       :id="state.id"
@@ -144,7 +129,6 @@ import { useIndex, useIndexInfo } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
 import UserInfo from './components/UserInfo.vue'
 import UserRole from './components/UserRole.vue'
-import UserTag from './components/UserTag.vue'
 import UserMenu from './components/UserMenu.vue'
 import UserPermission from './components/UserPermission.vue'
 import { getIndex, getPx } from '@/utils/tools'
@@ -157,14 +141,8 @@ defineOptions({
 const { keyword, pageNo, pageSize, total, data, getDataList } = useIndex()
 
 // 控制查看等逻辑
-const {
-  state,
-  handleShowInfo,
-  handleShowUserRole,
-  handleShowUserTag,
-  handleShowUserMenu,
-  handleShowUserPermission
-} = useIndexInfo()
+const { state, handleShowInfo, handleShowUserRole, handleShowUserMenu, handleShowUserPermission } =
+  useIndexInfo()
 
 const { tableFixed } = useWidth()
 </script>

@@ -73,14 +73,6 @@
         </ElTag>
       </div>
     </template>
-    <template v-if="tags.length">
-      <div class="text-lighter border-b-1 border-lighter py-3 mb-4">标签信息</div>
-      <div>
-        <ElTag size="small" round class="mr-2 mb-2" v-for="item in tags" :key="item.id">
-          {{ item.label }}
-        </ElTag>
-      </div>
-    </template>
     <div class="h-4"></div>
   </Dialog>
 </template>
@@ -89,11 +81,9 @@
 import Dialog from '@/components/Dialog/index.vue'
 import { ref } from 'vue'
 import { getUserOne } from '@/api/user'
-import { ElRow, ElCol, ElTag, ElIcon, ElImage } from 'element-plus'
-import { Calendar } from '@element-plus/icons-vue'
+import { ElTag, ElImage } from 'element-plus'
 import { formatDate } from '@jiumu/utils'
 import { getRoleByUserId } from '@/api/user-role'
-import { getTagByUserId } from '@/api/user-tag'
 import { userInfoProps } from './type'
 import IconSvg from '@/components/IconSvg/index'
 
@@ -110,7 +100,6 @@ const _getOne = async (id: string) => {
 _getOne(props.id)
 
 // 角色信息
-const rolesLabel = ref('')
 const roles = ref<DataRole[]>([])
 const _getRole = async (id: string) => {
   const res = await getRoleByUserId({
@@ -122,18 +111,4 @@ const _getRole = async (id: string) => {
   }
 }
 _getRole(props.id)
-
-// 标签信息
-const tagsLabel = ref('')
-const tags = ref<DataTagInfo[]>([])
-const _getTags = async (id: string) => {
-  const res = await getTagByUserId({
-    userId: id,
-    pageSize: 100
-  })
-  if (res.code === 200) {
-    tags.value = res.data
-  }
-}
-_getTags(props.id)
 </script>

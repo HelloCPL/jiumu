@@ -17,7 +17,7 @@
         <span class="pl-2 text-sm text-lighter">{{ getFileSize(item.fileSize) }}</span>
       </span>
       <!-- 操作按钮 -->
-      <div class="flex show-file-box">
+      <div class="flex" :class="showClass">
         <span
           class="flex items-center cursor-pointer mr-3 text-sm text-lighter hover:text-primary"
           @click="handlePreview(item)"
@@ -87,10 +87,18 @@ import PreviewMd from './components/PreviewMd/index.vue'
 import PreviewPdf from './components/PreviewPdf/index.vue'
 import PreviewTxt from './components/PreviewTxt.vue'
 import PreviewWord from './components/PreviewWord/index.vue'
+import { useWidth } from '@/hooks/use-width'
+import { computed } from 'vue'
 
 const props = defineProps(showFileProps)
 const emit = defineEmits(showFileEmits)
 const { state, handlePreview, handleDelete, showPreView } = useIndex(props, emit)
+
+const { width } = useWidth()
+const showClass = computed(() => {
+  if (width.value <= 768) return ''
+  return 'show-file-box'
+})
 </script>
 
 <style lang="scss" scoped>

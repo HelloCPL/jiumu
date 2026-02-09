@@ -47,14 +47,6 @@
           </span>
         </div>
       </div>
-      <!-- 标签 -->
-      <div class="mt-4 flex flex-wrap" v-if="userStore.tags?.length">
-        <template v-for="item in userStore.tags" :key="item.id">
-          <ElTag size="small" round class="mr-2 mb-2" v-if="item.label">
-            {{ item.label }}
-          </ElTag>
-        </template>
-      </div>
       <!-- 角色  -->
       <div class="mt-2 flex flex-wrap" v-if="userStore.roles?.length">
         <template v-for="item in userStore.roles" :key="item.id">
