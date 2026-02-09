@@ -35,7 +35,7 @@
           </ElTag>
           <ElTag size="small" effect="dark" v-if="target.isTop === '1'">置顶</ElTag>
         </div>
-        <span class="mt-4 leading-normal whitespace-pre">{{ target.content }}</span>
+        <div class="mt-4 leading-normal whitespace-pre-line">{{ target.content }}</div>
         <div class="flex flex-wrap items-center gap-4 mt-4 text-sm">
           <span
             class="flex items-center text-danger cursor-pointer"

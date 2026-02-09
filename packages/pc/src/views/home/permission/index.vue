@@ -32,7 +32,7 @@
         <template #default="{ $index }">{{ getIndex($index, pageNo, pageSize) }}</template>
       </ElTableColumn>
       <ElTableColumn prop="sort" label="排序" :width="getPx(60)" />
-      <ElTableColumn label="code" :min-width="getPx(150)">
+      <ElTableColumn label="code" :min-width="getPx(160)">
         <template #default="{ row }">
           <div class="flex items-center code-box">
             <span class="cursor-pointer hover:text-primary" @click="handleShowInfo(row)">
@@ -44,7 +44,8 @@
               :height="12"
               fill="var(--jm-color-text-lighter)"
               hover-fill="var(--jm-color-primary)"
-              class="ml-2 mt-0.5 code-box-icon"
+              class="ml-2 mt-0.5 code-box-icon11"
+              :class="iconClass"
               @click="copy(row.codeUnhighlight || row.code, true)"
             ></IconSvg>
           </div>
@@ -151,6 +152,7 @@ import IconSvg from '@/components/IconSvg/index.vue'
 import { useClipboardy } from '@/hooks/use-clipboardy'
 import { hasPermission } from '@/utils/permission'
 import { useWidth } from '@/hooks/use-width'
+import { computed } from 'vue'
 
 defineOptions({
   name: 'Permission'
@@ -176,7 +178,11 @@ const {
 } = useIndexInfo({
   getDataList
 })
-const { tableFixed } = useWidth()
+const { tableFixed, width } = useWidth()
+const iconClass = computed(() => {
+  if (width.value <= 768) return ''
+  return 'code-box-icon'
+})
 </script>
 
 <style lang="scss" scoped>

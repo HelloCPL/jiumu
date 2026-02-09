@@ -11,7 +11,6 @@ import { getUserSelf } from '@/api/user'
 import { getRoleListAllSelf } from '@/api/role'
 import { getPermissionListAllSelf } from '@/api/permission'
 import { getMenuAllSelf } from '@/api/menu'
-import { getTagAllSelf } from '@/api/tag'
 const { VITE_HOME_EXPIRE } = import.meta.env
 import { updateHomesMetaByMenus } from '@/router/routes'
 
@@ -26,8 +25,7 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
         // { id: 'xxx', code: 'box2', label: '2', sort: 1, createTime: '', terminal: '' },
         // { id: 'xxx', code: 'box3', label: '3', sort: 1, createTime: '', terminal: '' }
       ],
-      menus: [],
-      tags: []
+      menus: []
     }
   },
   getters: {},
@@ -50,8 +48,8 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
       this.token = token
     },
 
-    // 统一更新用户信息 1 用户信息 2 用户角色 3 用户权限 4 用户拥有菜单 5 用户特殊标签
-    updateUser(type: string = '12345'): Promise<any> {
+    // 统一更新用户信息 1 用户信息 2 用户角色 3 用户权限 4 用户拥有菜单
+    updateUser(type: string = '1234'): Promise<any> {
       return new Promise((resolve) => {
         const promises: Array<Promise<any>> = []
         if (type.includes('1')) {
@@ -99,17 +97,6 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
             })
           )
         }
-        if (type.includes('5')) {
-          promises.push(
-            getTagAllSelf().then((res) => {
-              if (res.code === 200) {
-                this.tags = res.data
-                return res.data
-              }
-              return null
-            })
-          )
-        }
         Promise.all(promises)
           .then(() => {
             resolve(this)
@@ -120,7 +107,7 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
       })
     },
 
-    // 获取用户信息 1 用户信息 2 用户角色 3 用户权限 4 用户拥有菜单 5 用户特殊标签
+    // 获取用户信息 1 用户信息 2 用户角色 3 用户权限 4 用户拥有菜单
     // 避免无法获取信息的情况
     getUser(type: UserInfoType): Promise<any> {
       return new Promise((resolve) => {
@@ -136,9 +123,6 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
         } else if (type === '4') {
           if (this.menus && this.menus.length) resolve(this.menus)
           else this.updateUser('4').then((res) => resolve(res))
-        } else if (type === '5') {
-          if (this.tags && this.tags.length) resolve(this.tags)
-          else this.updateUser('5').then((res) => resolve(res))
         }
       })
     }

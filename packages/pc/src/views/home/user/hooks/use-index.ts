@@ -49,7 +49,6 @@ export const useIndexInfo = () => {
     id: '',
     username: '',
     showUserRole: false,
-    showUserTag: false,
     showUserMenu: false,
     showUserPermission: false
   })
@@ -64,12 +63,6 @@ export const useIndexInfo = () => {
     state.id = row.id
     state.username = row.username
     state.showUserRole = true
-  }
-  // 点击查看标签
-  const handleShowUserTag = (row: DataUserInfo) => {
-    state.id = row.id
-    state.username = row.username
-    state.showUserTag = true
   }
   // 点击查看菜单
   const handleShowUserMenu = (row: DataUserInfo) => {
@@ -88,7 +81,6 @@ export const useIndexInfo = () => {
     state,
     handleShowInfo,
     handleShowUserRole,
-    handleShowUserTag,
     handleShowUserMenu,
     handleShowUserPermission
   }

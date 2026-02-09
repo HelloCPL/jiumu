@@ -36,13 +36,6 @@ export const getTagOne = async (code: string, isloading?: boolean): Promise<Data
 }
 
 /**
- * 获取我的所有特殊标签列表
- */
-export const getTagAllSelf = async (): Promise<DataOptions<DataTagInfo[]>> => {
-  return await post('/pc/tag/get/all/self').catch((err) => err)
-}
-
-/**
  * 获取所有标签（树级结构）
  */
 export const getTagByParentCode = async (

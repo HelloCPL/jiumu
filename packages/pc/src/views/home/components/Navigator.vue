@@ -48,7 +48,8 @@
             fill="var(--jm-color-border-darker)"
             hover-fill="var(--jm-color-danger)"
             :size="themeStore.fontSize + 2"
-            class="right-1 g-center-y z-30 nav-item-icon"
+            class="right-1 g-center-y z-30"
+            :class="iconClass"
             v-if="navigationsStore.navigations.length > 1"
             @click.stop="clickClose(item, index)"
           ></IconSvg>
@@ -89,6 +90,8 @@ import { onMousewheel } from '@jiumu/utils'
 import IconSvg from '@/components/IconSvg/index.vue'
 import { navigationsStore } from '@/store/navigations/instance'
 import { themeStore } from '@/store/theme/instance'
+import { useWidth } from '@/hooks/use-width'
+import { computed } from 'vue'
 
 // 导航栏处理
 const {
@@ -114,6 +117,12 @@ onMousewheel(refContainer, (i) => {
 })
 
 const { dragIndex, draggable, dragstart, dragend, drop, dragover } = useNavigatorDrag()
+
+const { width } = useWidth()
+const iconClass = computed(() => {
+  if (width.value <= 768) return ''
+  return 'nav-item-icon'
+})
 </script>
 
 <style lang="scss" scoped>
