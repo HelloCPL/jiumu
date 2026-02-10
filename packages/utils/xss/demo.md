@@ -2,7 +2,7 @@
 
 ```
 import {xss} from '@jiumu/utils'
-let h = '<p>哈哈</p>'
+let h = '<a href="https://baidu.com/xx">哈哈</p>'
 
 h = xss.process(h)
 ```

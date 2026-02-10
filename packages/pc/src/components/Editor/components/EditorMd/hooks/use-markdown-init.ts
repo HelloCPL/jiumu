@@ -13,7 +13,7 @@ import VMdEditor from '@kangc/v-md-editor'
 import VMdPreview from '@kangc/v-md-editor/lib/preview'
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
 import hljs from 'highlight.js'
-import { onTagAttr } from '@jiumu/utils'
+import { buildTagWhitelist, handleTag, handleTagAttr } from '@jiumu/utils'
 // 引入tip插件
 import createTipPlugin from '@kangc/v-md-editor/lib/plugins/tip/index'
 import '@kangc/v-md-editor/lib/plugins/tip/tip.css'
@@ -80,6 +80,16 @@ const initMarkdown = async (comp: any, createMermaidPlugin?: any) => {
   // 扩展xss规则
   comp.xss.extend({
     css: false,
-    onTagAttr
+    whiteList: buildTagWhitelist(),
+    // 仅过滤配置了的危险标签
+    onTag: handleTag,
+    onIgnoreTag: handleTag,
+
+    // 属性过滤钩子
+    onTagAttr: handleTagAttr,
+    onIgnoreTagAttr: handleTagAttr,
+
+    // html 标签不做转换
+    escapeHtml: (html: string) => html
   })
 }
