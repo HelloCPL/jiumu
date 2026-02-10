@@ -1,9 +1,24 @@
 .table-wrapper {
-  .el-table thead {
-    color: var(--jm-color-text);
+  .el-table {
+    tr {
+      background-color: var(--jm-color-bg-white);
+    }
 
-    th {
-      background-color: var(--jm-color-bg);
+    thead {
+      color: var(--jm-color-text);
+
+      th {
+        background-color: var(--jm-color-bg);
+      }
+    }
+
+    .cell {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .el-table__body .el-table__row .el-table-fixed-column--right {
+      right: -1px !important;
     }
   }
 
@@ -12,13 +27,7 @@
     background-color: var(--jm-color-bg);
   }
 
-
-  .el-table .cell {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0;
   }
 
