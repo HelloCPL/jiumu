@@ -23,13 +23,6 @@ const emit = defineEmits({
 
 const router = useRouter()
 
-const toCipher = () => {
-  emit('close')
-  router.push({
-    name: 'CipherMe'
-  })
-}
-
 const toAPI = () => {
   emit('close')
   const routeUrl = router.resolve({

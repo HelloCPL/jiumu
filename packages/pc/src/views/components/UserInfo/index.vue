@@ -58,12 +58,16 @@ const handleCLose = () => {
 }
 
 const target = ref('0')
-const list: ValueLabel[] = [
-  { label: '账号设置', value: '0' },
-  { label: '设置', value: '1' },
-  { label: '登录日志', value: '2' },
-  { label: '其他', value: '3' }
-]
+const list = ref<ValueLabel[]>([
+  { label: '账号信息', value: '0' },
+  { label: '常规设置', value: '1' },
+  { label: '登录日志', value: '2' }
+])
+const { VITE_MODE } = import.meta.env
+if (VITE_MODE !== 'prod') {
+  list.value.push({ label: '其他设置', value: '3' })
+}
+
 const handleClickItem = (item: ValueLabel) => {
   target.value = item.value
 }
