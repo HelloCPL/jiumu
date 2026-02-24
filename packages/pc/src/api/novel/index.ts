@@ -2,7 +2,7 @@
  * 连载相关接口
  */
 
-import { post } from '@/utils/api-methods'
+import { post, postForm } from '@/utils/api-methods'
 
 /**
  * 新增一个连载
@@ -62,7 +62,7 @@ export const getNovelList = async (params: ParamsNovelList): Promise<DataOptions
  * 新增一个章节
  */
 export const addNovelChapter = async (params: ParamsNovelChapterAdd): Promise<DataOptions<string>> => {
-  return await post('/pc/novel-chapter/add', params).catch((err) => err)
+  return await postForm('/pc/novel-chapter/add', params).catch((err) => err)
 }
 
 /**
@@ -71,7 +71,7 @@ export const addNovelChapter = async (params: ParamsNovelChapterAdd): Promise<Da
 export const updateNovelChapter = async (
   params: ParamsNovelChapterEdit | ParamsNovelChapterEditSaveContent
 ): Promise<DataOptions<null>> => {
-  return await post('/pc/novel-chapter/update', params).catch((err) => err)
+  return await postForm('/pc/novel-chapter/update', params).catch((err) => err)
 }
 
 /**

@@ -2,20 +2,20 @@
  * 笔记相关接口
  */
 
-import { post } from '@/utils/api-methods'
+import { post, postForm } from '@/utils/api-methods'
 
 /**
  * 新增一个笔记
  */
 export const addNote = async (params: ParamsNoteAdd): Promise<DataOptions<string>> => {
-  return await post('/pc/note/add', params).catch((err) => err)
+  return await postForm('/pc/note/add', params).catch((err) => err)
 }
 
 /**
  * 编辑一个笔记
  */
 export const updateNote = async (params: ParamsNoteEdit): Promise<DataOptions<null>> => {
-  return await post('/pc/note/update', params).catch((err) => err)
+  return await postForm('/pc/note/update', params).catch((err) => err)
 }
 
 /**

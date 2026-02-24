@@ -4,13 +4,13 @@
  * @update 2022-07-04 01:07:21
  */
 
-import { post } from '@/utils/api-methods'
+import { post, postForm } from '@/utils/api-methods'
 
 /**
  * 新增一个问答
  */
 export const addQuestion = async (params: ParamsQuestionAdd): Promise<DataOptions<string>> => {
-  return await post('/pc/question/add', params).catch((err) => err)
+  return await postForm('/pc/question/add', params).catch((err) => err)
 }
 
 /**
@@ -19,7 +19,7 @@ export const addQuestion = async (params: ParamsQuestionAdd): Promise<DataOption
 export const updateQuestion = async (
   params: ParamsQuestionAdd | ParamsQuestionAddSaveContent
 ): Promise<DataOptions<null>> => {
-  return await post('/pc/question/update', params).catch((err) => err)
+  return await postForm('/pc/question/update', params).catch((err) => err)
 }
 
 /**
