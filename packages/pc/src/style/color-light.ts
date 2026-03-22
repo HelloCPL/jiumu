@@ -87,8 +87,8 @@ const colors: KeyValue<string, KeyValue<number | string, string>[]>[] = [
       { key: 500, value: '#E6A23C', rgb: '230, 162, 60', default: true, desc: '警告类 warning' },
       { key: 600, value: '#b88230', rgb: '184, 130, 48' },
       { key: 8, value: 'rgba(230, 162, 60, 0.8)' },
-      { key: 4, value: 'rgba(230, 162, 60, 0.6)' },
-      { key: 5, value: 'rgba(230, 162, 60, 0.4)' },
+      { key: 6, value: 'rgba(230, 162, 60, 0.6)' },
+      { key: 4, value: 'rgba(230, 162, 60, 0.4)' },
       { key: 2, value: 'rgba(230, 162, 60, 0.2)' },
       { key: 1, value: 'rgba(230, 162, 60, 0.1)' }
     ],
