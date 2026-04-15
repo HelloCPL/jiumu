@@ -54,7 +54,7 @@ export const addFileChunk = async (
   params: ParamsFileChunkAdd,
   option: AxiosRequestConfig
 ): Promise<DataOptions<200 | 404>> => {
-  const query = _getFileParams(params)
+  const query = getFileParams(params)
   return await postForm(`/pc/file/chunk/add${query}`, file, option).catch((err) => err)
 }
 
