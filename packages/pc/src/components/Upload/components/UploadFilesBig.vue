@@ -6,14 +6,20 @@
 
 <template>
   <div :class="{ 'w-full': task.length }">
-    <div class="flex mt-4 pb-4 border-b-1 border-lighter" v-for="item in task" :key="item.id">
-      <FileIcon :value="item.file.name" class="w-16 h-16 mr-4"></FileIcon>
-      <div class="w-1/2 mr-12 big-content">
+    <div class="flex mt-4 pb-4 border-b-1 border-lighter" v-for="(item, index) in task" :key="item.id">
+      <FileIcon :value="item.file.name" class="mt-2 mr-4 shrink-0"></FileIcon>
+      <div class="flex-1 mr-12 big-content">
         <div>
           <div class="text-light">{{ item.file.name }}</div>
           <div class="text-xs text-lighter mt-1">{{ getFileSize(item.file.size) }}</div>
         </div>
-        <ElProgress :text-inside="false" :stroke-width="4" :percentage="item.percent" class="mt-2">
+        <ElProgress
+          :text-inside="false"
+          :stroke-width="8"
+          :percentage="item.percent"
+          class="mt-2"
+          :status="item.status === '2' ? 'exception' : 'success'"
+        >
           <span class="text-sm text-lighter pl-1">
             <span class="pr-1" v-if="item.status === '0'">已暂停</span>
             <span>{{ item.percent }}%</span>
@@ -21,10 +27,14 @@
         </ElProgress>
       </div>
       <div class="pt-2">
-        <ElButton type="danger" @click="handleCancel(item)">取消</ElButton>
-        <ElButton type="primary" @click="handleUpload(item)">
-          {{ item.status === '1' ? '暂停上传' : '继续上传' }}
+        <ElButton type="danger" @click="handleCancel(task[index])">取消</ElButton>
+        <ElButton type="default" @click="handleUpload(task[index])" v-if="item.status === '1'">
+          {{ '暂停上传' }}
         </ElButton>
+        <ElButton type="primary" @click="handleUpload(task[index])" v-if="item.status === '2'">
+          {{ '继续上传' }}
+        </ElButton>
+        <span v-if="item.status === '0'" class="text-lighter ml-4">等待上传</span>
       </div>
     </div>
   </div>

@@ -42,7 +42,7 @@
         <SelectClassify v-model="form.classify" type="articleClassify"></SelectClassify>
       </ElFormItem>
       <ElFormItem label="封面图" prop="coverImg">
-        <ElRow>
+        <ElRow class="w-full">
           <Upload
             v-model="coverImgList"
             @change="handleChangeCoverImg"
@@ -54,7 +54,7 @@
         </ElRow>
       </ElFormItem>
       <ElFormItem label="附件" prop="attachment">
-        <ElRow>
+        <ElRow class="w-full">
           <Upload
             v-model="attachmentList"
             @change="handleChangeAttachment"

@@ -37,7 +37,7 @@ export function downloadFile<T extends ParamsFile = DataBaseFile>(file: T): Prom
       })
     } else {
       getFileBlod(file.filePath, {}).then((data) => {
-        if (!data) {
+        if (data) {
           _saveFile(data, file.fileName).then(resolve)
         } else {
           resolve(false)
