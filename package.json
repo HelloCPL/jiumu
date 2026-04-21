@@ -90,6 +90,7 @@
         "vite-plugin-compression": "^0.5.1",
         "vite-plugin-optimize-persist": "^0.1.2",
         "vite-plugin-package-config": "^0.1.1",
+        "vue-cookies": "^1.8.6",
         "vue-eslint-parser": "^9.4.3"
     },
     "lint-staged": {

@@ -3,11 +3,11 @@
   // Specifies a list of type declarations to be included in auto type acquisition. Ex. ["jquery", "lodash"]
   "include": [
     "src/**/*.ts",
-    "src/**/*.d.ts",
-     "src/**/*.tsx",
-     "src/**/*.vue",
-     "src/typings/env.d.ts",
-     "src/typings/custom-type.d.ts"
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "../style/**/*.ts",
+    "../utils/**/*.ts",
+    "../utils/**/*.tsx",
     ],
   "compilerOptions": {
     // "types": ["element-plus/global"],

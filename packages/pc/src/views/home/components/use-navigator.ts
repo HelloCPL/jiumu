@@ -1,7 +1,7 @@
 import { useNavigationsStore } from '@/store'
 import { ref, nextTick, watch, onMounted, onUnmounted, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { onClickOutside } from '@jiumu/utils'
+import { useClickOutside } from '@jiumu/utils'
 import { getPx } from '@/utils/tools'
 
 /**
@@ -111,7 +111,7 @@ export const useNavigator = () => {
     left: 0,
     top: 0
   })
-  const { isShow } = onClickOutside('.navigator-right')
+  const { isShow } = useClickOutside('.navigator-right')
 
   // 右击导航菜单
   const clickItemRight = (e: MouseEvent, item: KeepAliveOption, index: number) => {

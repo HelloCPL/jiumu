@@ -86,7 +86,7 @@ import { ElIcon } from 'element-plus'
 import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
 import NavigatorRight from './NavigatorRight.vue'
 import { useNavigator, useNavigatorDrag } from './use-navigator'
-import { onMousewheel } from '@jiumu/utils'
+import { useMousewheel } from '@jiumu/utils'
 import IconSvg from '@/components/IconSvg/index.vue'
 import { navigationsStore } from '@/store/navigations/instance'
 import { themeStore } from '@/store/theme/instance'
@@ -111,7 +111,7 @@ const {
 } = useNavigator()
 
 // 导航栏鼠标滚轮处理
-onMousewheel(refContainer, (i) => {
+useMousewheel(refContainer, (i) => {
   isShow.value = false
   changeLeft(i * 30)
 })

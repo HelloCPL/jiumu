@@ -51,7 +51,7 @@
     // Enable experimental support for TC39 stage 2 draft decorators.
     "experimentalDecorators": true
   },
-  "include": ["./**/*.vue", "./**/typings/*.ts"],
+  "include": ["./**/*.vue", "./**/typings/*.ts", "./packages/**/src/**/*.ts"],
   "exclude": ["./**/dist", "./**/node_modules"],
   // Referenced projects. Requires TypeScript version 3.0 or later.
   "references": [{ "path": "./tsconfig.node.json" }]
