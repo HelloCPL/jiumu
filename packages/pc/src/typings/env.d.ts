@@ -39,6 +39,8 @@ declare global {
     _initMarkdown_: any
     mermaid: any
     LuckyExcel: any
+    $: JQueryStatic
+    jQuery: JQueryStatic
   }
 }
 
