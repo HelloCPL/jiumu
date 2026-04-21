@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 
 interface ImportMetaEnv {
   readonly VITE_DIR: string
+  readonly VITE_PORT: numer
   readonly VITE_MODE: string
   readonly VITE_PUBLIC_PATH: string
   readonly VITE_API_URL: string

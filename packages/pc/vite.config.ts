@@ -15,7 +15,7 @@ const pathSrc = path.resolve(__dirname, 'src')
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const { VITE_MODE, VITE_PUBLIC_PATH } = env
+  const { VITE_MODE, VITE_PORT, VITE_PUBLIC_PATH } = env
 
   const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus({}), Components()]
 
@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => {
     base: VITE_PUBLIC_PATH,
     // publicDir: VITE_PUBLIC_PATH,
     server: {
-      port: 8002,
+      port: VITE_PORT,
       proxy: {
         '/jiumu-koa2-ts-test/': {
           target: 'https://www.jiumublog.cn/',
@@ -61,7 +61,7 @@ export default defineConfig(({ mode }) => {
         },
         // 使用本地服务
         // '/jiumu-koa2-ts-test/': {
-        //   target: 'http://localhost:3030/',
+        //   target: 'http://localhost:7100/',
         //   changeOrigin: true,
         //   rewrite: (path) => path.replace(/^\/jiumu-koa2-ts-test/g, '')
         // },
