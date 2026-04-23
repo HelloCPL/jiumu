@@ -44,7 +44,7 @@ import { showImageProps, showImageEmits } from './type'
 import { ref, watch } from 'vue'
 import { isArray, isObject } from 'lodash-es'
 import PreviewImage from '@/components/ShowFile/components/PreviewImage/index.vue'
-import { Confirm } from '@/utils/interaction'
+import { Confirm } from '@jiumu/utils'
 import { deleteFile } from '@/api/file'
 
 const props = defineProps(showImageProps)

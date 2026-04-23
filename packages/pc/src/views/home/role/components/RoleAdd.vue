@@ -38,7 +38,7 @@ import { ElForm, ElFormItem, ElInput, ElButton } from 'element-plus'
 import { useRoleAdd } from '../hooks/use-role-add'
 import InputNumber from '@/components/InputNumber/index.vue'
 import { roleAddEmits } from './type'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 
 const emit = defineEmits(roleAddEmits)
 type Props = {

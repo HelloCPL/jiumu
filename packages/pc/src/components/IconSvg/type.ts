@@ -2,10 +2,9 @@
  * 参数
  */
 
-import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 
-export const iconSvgProps = buildProps({
+export const iconSvgBaseProps = {
   name: {
     type: String,
     required: true
@@ -21,10 +20,16 @@ export const iconSvgProps = buildProps({
   },
   fill: {
     type: String
-  },
+  }
+}
+
+export type IconSvgBaseProps = ExtractPropTypes<typeof iconSvgBaseProps>
+
+export const iconSvgVueProps = {
+  ...iconSvgBaseProps,
   hoverFill: {
     type: String
   }
-} as const)
+}
 
-export type IconSvgProps = ExtractPropTypes<typeof iconSvgProps>
+export type IconSvgVueProps = ExtractPropTypes<typeof iconSvgVueProps>

@@ -11,7 +11,7 @@
         <span v-if="data.length">第{{ targetIndex + 1 }}章</span>
         <span class="ml-2">{{ dataInfo.title }}</span>
         <img
-          :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
+          src="@/assets/icons/icon_caogao.png"
           alt=""
           class="absolute right-0 top-1 w-9"
           v-if="dataInfo.isDraft === '1'"

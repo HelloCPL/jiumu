@@ -5,7 +5,7 @@
 import { addTop, deleteTop } from '@/api/do-top'
 import { getNovelListSelf, deleteNovel } from '@/api/novel'
 import { FilterButtonList } from '@/components/FilterButton/type'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { debounce } from 'lodash-es'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'

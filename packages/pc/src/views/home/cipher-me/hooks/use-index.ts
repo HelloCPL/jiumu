@@ -5,7 +5,7 @@
  */
 import { deleteCipher, existCipherCodeSelf, getCipherListSelf } from '@/api/cipher'
 import { FilterButtonList } from '@/components/FilterButton/type'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { decrypt } from '@jiumu/utils'
 import { debounce } from 'lodash-es'
 import { ref, reactive } from 'vue'

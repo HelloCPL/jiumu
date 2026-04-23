@@ -4,12 +4,11 @@
  * @update 2022-07-07 21:43:45
  */
 
-import { FontFamilyValue, FontSizeValue, ThemeValue } from '@/enumerations'
+import { FontFamilyValue, FontSizeValue, ThemeValue } from '@jiumu/utils'
 import { defineStore } from 'pinia'
 import { StoreNames } from '../store-name'
 import { storage } from '@jiumu/utils'
-import colorDrak from '@/style/color-drak'
-import colorLight from '@/style/color-light'
+import { colorDrak, colorLight } from '@jiumu/style'
 
 const Colors = {
   drak: colorDrak,

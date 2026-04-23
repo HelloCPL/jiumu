@@ -5,7 +5,7 @@
 import { UploadProps, UploadEmits } from '../type'
 import { ref, computed, nextTick, watch, reactive } from 'vue'
 import { UploadInstance, UploadRawFile, UploadRequestOptions } from 'element-plus'
-import { Message } from '@/utils/interaction'
+import { Message } from '@jiumu/utils'
 import { getSuffix } from '@jiumu/utils'
 import { uploadFile } from '@/api/file'
 import { isFunction, isPlainObject } from 'lodash-es'

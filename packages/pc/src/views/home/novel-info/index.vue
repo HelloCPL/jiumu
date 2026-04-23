@@ -14,7 +14,7 @@
           <span class="ml-1">{{ dataInfo.author }}</span>
         </span>
         <img
-          :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
+          src="@/assets/icons/icon_caogao.png"
           alt=""
           class="absolute right-0 top-1 w-9"
           v-if="dataInfo.isDraft === '1'"
@@ -125,7 +125,7 @@ import { formatDate } from '@jiumu/utils'
 import Interation from '@/components/Interation/index.vue'
 import Comment from '@/components/Comment/index.vue'
 import IconSvg from '@/components/IconSvg/index'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed, defineAsyncComponent } from 'vue'
 import Lasyloader from '@/components/LazyLoader/index.vue'
 

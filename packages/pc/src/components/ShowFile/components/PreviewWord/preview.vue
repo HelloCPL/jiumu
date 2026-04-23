@@ -44,10 +44,10 @@
 import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { reactive, ref, nextTick } from 'vue'
-import { getFileBlod } from '@/utils/download-file'
+import { getFileBlod } from '@jiumu/utils'
 import { renderAsync } from 'docx-preview'
-import { useLoading } from '@/utils/interaction'
-import { useBodyLocked } from '@/hooks/use-body-locked'
+import { useLoading } from '@jiumu/utils'
+import { useBodyLocked } from '@jiumu/utils'
 import { previewWordEmits, previewWordProps } from './type'
 
 useBodyLocked()

@@ -1,4 +1,4 @@
-import { ThemeValue, FontFamilyValue, FontSizeValue } from '@/enumerations'
+import { ThemeValue, FontFamilyValue, FontSizeValue } from '@jiumu/utils'
 
 declare global {
   interface ThemeState {

@@ -4,9 +4,7 @@
 
 import { Boot, IModuleConf } from '@wangeditor/editor'
 import { MyMenuButton } from './editor-wang-custom-menus-button'
-import { previewSvg } from '@/assets/svg/index'
-import { titleSvg } from '@/assets/svg/index'
-import { fullScreenSvg } from '@/assets/svg/index'
+import { previewSvg, titleSvg, fullScreenSvg } from '@jiumu/utils'
 
 export const initEditorWangCustomMenus = () => {
   if (window._initEditorWangCustomMenus_) return

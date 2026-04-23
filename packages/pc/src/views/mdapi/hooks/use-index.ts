@@ -7,8 +7,8 @@
 import { ref } from 'vue'
 
 import { MDAPIOption, data } from './data'
-import { getFileText } from '@/utils/download-file'
-import { useLoading } from '@/utils/interaction'
+import { getFileText } from '@jiumu/utils'
+import { useLoading } from '@jiumu/utils'
 const { VITE_API_URL } = import.meta.env
 
 export const useIndex = () => {

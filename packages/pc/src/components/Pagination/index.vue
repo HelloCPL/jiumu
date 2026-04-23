@@ -30,7 +30,7 @@
 import { ElPagination } from 'element-plus'
 import { paginationProps, paginationEmits } from './type'
 import { computed } from 'vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   inheritAttrs: false

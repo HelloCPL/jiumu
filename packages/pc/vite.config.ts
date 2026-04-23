@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
@@ -24,8 +24,6 @@ export default defineConfig(({ mode }) => {
     plugins.push(...[PkgConfig(), OptimizationPersist()])
   }
   if (VITE_MODE !== 'development') {
-    // 代码分割
-    plugins.push(splitVendorChunkPlugin())
     // 打包压缩
     plugins.push(
       viteCompression({

@@ -4,7 +4,7 @@
  * @create: 2022-10-16 20:32:00
  */
 import { addTagCustom, getTagCustomListSelf } from '@/api/classify'
-import { Message } from '@/utils/interaction'
+import { Message } from '@jiumu/utils'
 import { InputInstance } from 'element-plus'
 import { debounce } from 'lodash-es'
 import { nextTick, ref, watch } from 'vue'

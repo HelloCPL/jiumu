@@ -97,9 +97,9 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@jiumu/utils'
 import { isSuper } from '@/utils/permission'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'Article'

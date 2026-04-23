@@ -25,8 +25,8 @@
 import { computed, PropType } from 'vue'
 import { ElIcon } from 'element-plus'
 import { Download } from '@element-plus/icons-vue'
-import { downloadFile } from '@/utils/download-file'
-import { useWidth } from '@/hooks/use-width'
+import { downloadFile } from '@jiumu/utils'
+import { useWidth } from '@jiumu/utils'
 
 defineProps({
   data: {

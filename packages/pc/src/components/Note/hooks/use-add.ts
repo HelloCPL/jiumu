@@ -3,7 +3,7 @@
  */
 
 import { FilterButtonList } from '@/components/FilterButton/type'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { FormInstance, FormRules } from 'element-plus'
 import { debounce } from 'lodash-es'
 import { ref, reactive, onMounted } from 'vue'

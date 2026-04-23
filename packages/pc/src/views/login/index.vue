@@ -8,7 +8,7 @@
   <div class="relative w-full h-full">
     <img
       class="w-full h-full object-cover opacity-90 select-none g-center"
-      :src="$STATIC_URL + 'pc/images/login_bg.jpg'"
+      src="@/assets/images/login_bg.jpg"
       alt=""
     />
     <!-- 容器盒子 -->
@@ -65,7 +65,7 @@ import Register from './components/Register.vue'
 import { useIndex } from './hooks/use-index'
 import { defineAsyncComponent, reactive, watch } from 'vue'
 import Lasyloader from '@/components/LazyLoader/index.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 const Particle = defineAsyncComponent(() => import('@/components/Particle/index.vue'))
 const AboutUs = defineAsyncComponent(() => import('@/components/AboutUs/index.vue'))

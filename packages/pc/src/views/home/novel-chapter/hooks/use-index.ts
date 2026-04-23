@@ -4,7 +4,7 @@
 
 import { getNovelOne, getNovelChapterList, deleteNovelChapter } from '@/api/novel'
 import { FilterButtonList } from '@/components/FilterButton/type'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { debounce } from 'lodash-es'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

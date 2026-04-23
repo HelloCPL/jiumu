@@ -2,7 +2,7 @@ import { useNavigationsStore } from '@/store'
 import { ref, nextTick, watch, onMounted, onUnmounted, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useClickOutside } from '@jiumu/utils'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 
 /**
  * 导航栏点击、移动、右击等处理

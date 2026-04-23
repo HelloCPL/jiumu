@@ -7,7 +7,7 @@
 <template>
   <div class="w-full flex justify-between items-center pl-2 pr-5 select-none header" :class="headerClass">
     <div class="flex items-center">
-      <img :src="$STATIC_URL + 'pc/images/jiumu.png'" class="w-10" alt="" />
+      <img src="@/assets/images/jiumu.png" class="w-10" alt="" />
       <span class="pl-2 md:text-lg text-sm">
         <span>管理系统平台</span>
         <span v-if="VITE_MODE !== 'prod'">（测试环境）</span>
@@ -24,7 +24,7 @@
         v-if="userStore.userInfo?.avatar"
       >
       </ElImage>
-      <img :src="$STATIC_URL + '/pc/images/avatar2.png'" alt="" class="w-8 h-8 rounded-md" v-else />
+      <img src="@/assets/images/avatar2.png" alt="" class="w-8 h-8 rounded-md" v-else />
     </div>
   </div>
 </template>

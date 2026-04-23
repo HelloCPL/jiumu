@@ -74,7 +74,7 @@ import { ElIcon, ElInput } from 'element-plus'
 import { RemoveFilled, Top, Bottom, CirclePlusFilled } from '@element-plus/icons-vue'
 import { uploadSourceProps, uploadSourceEmit } from './type'
 import { useUploadSource } from '../hooks/use-upload-source'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 
 const props = defineProps(uploadSourceProps)

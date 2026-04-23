@@ -34,8 +34,8 @@ import Dialog from '@/components/Dialog/index.vue'
 import { ElForm, ElFormItem, ElInput, FormRules, FormInstance } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { updatePasswordSelf } from '@/api/user'
-import { Message } from '@/utils/interaction'
-import { getPx } from '@/utils/tools'
+import { Message } from '@jiumu/utils'
+import { getPx } from '@jiumu/utils'
 
 const emit = defineEmits(['close'])
 

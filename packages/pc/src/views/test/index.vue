@@ -1,6 +1,6 @@
 <template>
   <div class=" box">
-    <button @click="handleClick" style="z-index: 99999">安安</button>
+    <!-- <button @click="handleClick" style="z-index: 99999">安安</button> -->
     <!-- <BaseEcharts :option="option"></BaseEcharts> -->
 
     <div class="wrapp bg-danger" id="box1" @click="handle1"> 一推文字</div>

@@ -60,7 +60,7 @@ import { ElForm, ElFormItem, ElInput, ElButton } from 'element-plus'
 import { usePermissionAdd, usePermissionTip } from '../hooks/use-permission-add'
 import InputNumber from '@/components/InputNumber/index.vue'
 import { permissionAddEmits } from './type'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 
 const emit = defineEmits(permissionAddEmits)
 type Props = {

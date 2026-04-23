@@ -6,7 +6,7 @@ import { ref, computed } from 'vue'
 import { debounce } from 'lodash-es'
 import { getUserList } from '@/api/user'
 import { addUserRole, deleteUserRole, getUserByRoleId } from '@/api/user-role'
-import { pushRelevance, popRelevance, findRevelance, relevanceData } from '@/hooks/use-relevance'
+import { pushRelevance, popRelevance, findRevelance, relevanceData } from '@jiumu/utils'
 import { getDataDiff, getText } from '@jiumu/utils'
 import { useUserStore } from '@/store'
 

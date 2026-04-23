@@ -133,10 +133,10 @@ import MenuInfo from './components/MenuInfo.vue'
 import MenuUser from './components/MenuUser.vue'
 import MenuRole from './components/MenuRole.vue'
 import { formatDate } from '@jiumu/utils'
-import { getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@jiumu/utils'
 import Upload from '@/components/Upload/index.vue'
 import { hasPermission, isSuper } from '@/utils/permission'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'Menu'

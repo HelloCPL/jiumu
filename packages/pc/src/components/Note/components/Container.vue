@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import IconSvg from '@/components/IconSvg/index.vue'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 defineProps({

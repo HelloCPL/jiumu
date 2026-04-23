@@ -102,11 +102,11 @@ import { useIndex, useIndexInfo } from './hooks/use-index'
 import TagAdd from './components/TagAdd.vue'
 import TagInfo from './components/TagInfo.vue'
 import { formatDate } from '@jiumu/utils'
-import { getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@jiumu/utils'
 import Upload from '@/components/Upload/index.vue'
 import { hasPermission } from '@/utils/permission'
 import { userStore } from '@/store/user/instance'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'Tag'

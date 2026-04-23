@@ -5,7 +5,7 @@
  */
 
 import { addRole, getRoleOne, updateRole } from '@/api/role'
-import { Message } from '@/utils/interaction'
+import { Message } from '@jiumu/utils'
 import { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { debounce } from 'lodash-es'

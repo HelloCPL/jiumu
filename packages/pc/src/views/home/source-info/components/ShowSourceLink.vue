@@ -29,7 +29,7 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
 import IconSvg from '@/components/IconSvg'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineProps({
   data: {

@@ -147,12 +147,12 @@ import { ElFormItem, ElInput, ElTableColumn, ElButton, ElIcon, ElTag } from 'ele
 import { View, Hide } from '@element-plus/icons-vue'
 import { useIndex, formatAccount } from './hooks/use-index'
 import { formatDate } from '@jiumu/utils'
-import { getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
 import CipherAdd from './components/CipherAdd.vue'
 import CipherCodeAdd from './components/CipherCodeAdd.vue'
 import CipherCodeCheck from './components/CipherCodeCheck.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'CipherMe'

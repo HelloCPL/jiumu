@@ -3,7 +3,7 @@
  */
 
 import { ref, reactive, nextTick, watch } from 'vue'
-import { useLoading } from '@/utils/interaction'
+import { useLoading } from '@jiumu/utils'
 import { PreviewPdfProps } from './type'
 import * as pdfjs from 'pdfjs-dist'
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'

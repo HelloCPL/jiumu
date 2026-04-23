@@ -8,7 +8,7 @@ import { ref, reactive } from 'vue'
 import { debounce } from 'lodash-es'
 import { getTagCustomListTypeSelf, getTagCustomListSelf, deleteTagCustom } from '@/api/classify'
 import { FilterButtonList } from '@/components/FilterButton/type'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 
 export const useIndex = () => {
   const keyword = ref<string>('')

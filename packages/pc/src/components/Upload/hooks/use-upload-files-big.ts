@@ -7,7 +7,7 @@
 import { ref } from 'vue'
 import sparkMD5 from 'spark-md5'
 import axios, { CancelTokenSource } from 'axios'
-import { Message, useLoading } from '@/utils/interaction'
+import { Message, useLoading } from '@jiumu/utils'
 import { addFileChunk, mergeFileChunk, verifyFileChunk, deleteFileChunk } from '@/api/file'
 import { UploadFilesBigProps, UploadEmits } from '../type'
 import { getRandomId } from '@jiumu/utils'

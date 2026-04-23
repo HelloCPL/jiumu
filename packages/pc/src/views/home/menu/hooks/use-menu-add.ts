@@ -5,7 +5,7 @@
  */
 
 import { addMenu, getMenuOne, updateMenu } from '@/api/menu'
-import { Message } from '@/utils/interaction'
+import { Message } from '@jiumu/utils'
 import { FormInstance, FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { debounce } from 'lodash-es'

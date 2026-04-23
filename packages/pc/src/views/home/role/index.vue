@@ -147,10 +147,10 @@ import RoleUser from './components/RoleUser.vue'
 import RoleMenu from './components/RoleMenu.vue'
 import RolePermission from './components/RolePermission.vue'
 import { formatDate } from '@jiumu/utils'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 import Upload from '@/components/Upload/index.vue'
 import { hasPermission, isSuper } from '@/utils/permission'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'Role'

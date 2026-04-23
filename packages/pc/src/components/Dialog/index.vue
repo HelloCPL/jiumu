@@ -46,7 +46,7 @@
 import { ElDialog, ElButton } from 'element-plus'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { dialogProps, dialogEmit } from './type'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 const isShow = ref<boolean>(false)
 onMounted(() => {

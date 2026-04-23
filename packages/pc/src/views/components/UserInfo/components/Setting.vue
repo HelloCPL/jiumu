@@ -53,7 +53,7 @@
 import IconSvg from '@/components/IconSvg/index'
 import SelectType from '@/components/SelectType/index.vue'
 import { ref } from 'vue'
-import { ThemeValue, FontSizeValue } from '@/enumerations'
+import { ThemeValue, FontSizeValue } from '@jiumu/utils'
 import { themeStore } from '@/store/theme/instance'
 
 // 主题

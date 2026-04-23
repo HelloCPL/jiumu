@@ -133,7 +133,7 @@ export const getFileName = (url: string, includeSuffix = true) => {
  * @param prefix 前缀
  * @param len 随机长度
  */
-export const getRandomId = (prefix = 'yfs', len = 6): string => {
+export const getRandomId = (prefix = 'jiumu', len = 6): string => {
   const str = 'abcdefghijklmnopqrstuvwxzy'
   let id: string = prefix
   id += new Date().valueOf()

@@ -90,7 +90,7 @@ import { useMousewheel } from '@jiumu/utils'
 import IconSvg from '@/components/IconSvg/index.vue'
 import { navigationsStore } from '@/store/navigations/instance'
 import { themeStore } from '@/store/theme/instance'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 
 // 导航栏处理

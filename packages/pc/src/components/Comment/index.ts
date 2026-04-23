@@ -12,8 +12,8 @@ import {
   deleteCommentById,
   getCommentList
 } from '@/api/interaction'
-import { mergeArray } from '@/utils/tools'
-import { Confirm, Message } from '@/utils/interaction'
+import { mergeArray } from '@jiumu/utils'
+import { Confirm, Message } from '@jiumu/utils'
 
 export const useIndex = (props: CommentProps, emit: CommentEmit) => {
   // 请求评论列表

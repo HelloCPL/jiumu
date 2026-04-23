@@ -130,8 +130,8 @@ import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { getPx } from '@/utils/tools'
-import { useWidth } from '@/hooks/use-width'
+import { getPx } from '@jiumu/utils'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'NovelMe'

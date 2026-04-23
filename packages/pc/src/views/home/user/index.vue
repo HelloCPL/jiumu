@@ -131,8 +131,8 @@ import UserInfo from './components/UserInfo.vue'
 import UserRole from './components/UserRole.vue'
 import UserMenu from './components/UserMenu.vue'
 import UserPermission from './components/UserPermission.vue'
-import { getIndex, getPx } from '@/utils/tools'
-import { useWidth } from '@/hooks/use-width'
+import { getIndex, getPx } from '@jiumu/utils'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'User'

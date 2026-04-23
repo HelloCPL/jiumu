@@ -53,7 +53,7 @@ import { getPermissionOne } from '@/api/permission'
 import { ElRow, ElCol } from 'element-plus'
 import { permissionInfoProps } from './type'
 import PermissionLabel from './PermissionLabel.vue'
-import { useClipboardy } from '@/hooks/use-clipboardy'
+import { useClipboardy } from '@jiumu/utils'
 
 const props = defineProps(permissionInfoProps)
 

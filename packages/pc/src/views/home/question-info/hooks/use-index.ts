@@ -4,6 +4,7 @@
 import { getQuestionOne } from '@/api/question'
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import IconCaogao from '@/assets/icons/icon_caogao.png'
 
 export const useIndex = () => {
   const route = useRoute()
@@ -22,7 +23,7 @@ export const useIndex = () => {
 
   // 状态
   const iconType = computed(() => {
-    if (dataInfo.value?.isDraft === '1') return '/pc/icons/icon_caogao.png'
+    if (dataInfo.value?.isDraft === '1') return IconCaogao
     return ''
   })
 

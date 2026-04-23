@@ -11,7 +11,7 @@ import {
 } from '@/api/permission'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { useUserStore } from '@/store'
 
 export const useIndex = () => {

@@ -22,19 +22,19 @@
               <span class="text-xl">{{ userInfo.username }}</span>
               <img
                 class="absolute top-0 w-4 icon-sex"
-                :src="$STATIC_URL + 'pc/icons/icon_male.png'"
+                src="@/assets/icons/icon_male.png"
                 alt=""
                 v-if="userInfo.sex === '201'"
               />
               <img
                 class="absolute top-0 w-4 icon-sex"
-                :src="$STATIC_URL + 'pc/icons/icon_female.png'"
+                src="@/assets/icons/icon_female.png"
                 alt=""
                 v-else-if="userInfo.sex === '202'"
               />
               <img
                 class="absolute top-0 w-4 icon-sex"
-                :src="$STATIC_URL + 'pc/icons/icon_sex_no.png'"
+                src="@/assets/icons/icon_sex_no.png"
                 alt=""
                 v-else
               />

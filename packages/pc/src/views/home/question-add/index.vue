@@ -49,7 +49,7 @@ import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
 import SelectClassify from '@/components/SelectClassify/index.vue'
 import EditorMd from '@/components/Editor/components/EditorMd/index.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 
 defineOptions({

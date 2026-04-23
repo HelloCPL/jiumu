@@ -10,8 +10,32 @@
 
 <script lang="ts" setup>
 import { getSuffix } from '@jiumu/utils'
-import { ref, getCurrentInstance, onMounted } from 'vue'
-import { getFileType } from '../hooks/use-index'
+import { ref, onMounted } from 'vue'
+import { getIconType } from '../hooks/utils'
+import pdfIcon from '@/assets/icons/icon_file_pdf.png'
+import wordIcon from '@/assets/icons/icon_file_word.png'
+import imgIcon from '@/assets/icons/icon_file_img.png'
+import pptIcon from '@/assets/icons/icon_file_p.png'
+import rarIcon from '@/assets/icons/icon_file_rar.png'
+import txtIcon from '@/assets/icons/icon_file_txt.png'
+import excelIcon from '@/assets/icons/icon_file_xls.png'
+import zipIcon from '@/assets/icons/icon_file_zip.png'
+import videoIcon from '@/assets/icons/icon_file_video.png'
+import mdIcon from '@/assets/icons/icon_file_md.png'
+import fileIcon from '@/assets/icons/icon_file.png'
+
+const icons: any = {
+  image: imgIcon,
+  pdf: pdfIcon,
+  word: wordIcon,
+  excel: excelIcon,
+  ppt: pptIcon,
+  markdown: mdIcon,
+  text: txtIcon,
+  rar: rarIcon,
+  zip: zipIcon,
+  video: videoIcon
+}
 
 const props = defineProps({
   value: {
@@ -19,43 +43,10 @@ const props = defineProps({
     default: ''
   }
 })
-const { $STATIC_URL } = getCurrentInstance()?.appContext?.config?.globalProperties as any
 const icon = ref<any>()
 const getIcon = () => {
-  const suffix = getFileType(getSuffix(props.value))
-  switch (suffix) {
-    case 'pdf':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_pdf.png`
-      break
-    case 'word':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_word.png`
-      break
-    case 'image':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_img.png`
-      break
-    case 'ppt':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_p.png`
-      break
-    case 'rar':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_rar.png`
-      break
-    case 'txt':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_txt.png`
-      break
-    case 'excel':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_xls.png`
-      break
-    case 'zip':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_zip.png`
-      break
-    case 'video':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_video.png`
-    case 'md':
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_md.png`
-      break
-    default:
-      icon.value = `${$STATIC_URL}pc/icons/icon_file_why.png`
-  }
+  const suffix = getIconType(getSuffix(props.value))
+  icon.value = icons[suffix] || fileIcon
 }
 onMounted(getIcon)
 </script>

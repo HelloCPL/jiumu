@@ -46,9 +46,9 @@ import { reactive, ref } from 'vue'
 import { FormInstance } from 'element-plus'
 import { debounce } from 'lodash-es'
 import { updateUserBaseSelf } from '@/api/user'
-import { Message } from '@/utils/interaction'
+import { Message } from '@jiumu/utils'
 import SelectType from '@/components/SelectType/index.vue'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 import { userStore } from '@/store/user/instance'
 
 const emit = defineEmits({

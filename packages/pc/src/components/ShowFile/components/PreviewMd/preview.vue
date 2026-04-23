@@ -51,10 +51,10 @@
 import { ElIcon } from 'element-plus'
 import { Close, ZoomOut, ZoomIn, FullScreen } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
-import { getFileText } from '@/utils/download-file'
-import { useLoading } from '@/utils/interaction'
+import { getFileText } from '@jiumu/utils'
+import { useLoading } from '@jiumu/utils'
 import EditorMdPreview from '@/components/EditorPreview/components/EditorMdPreview/index.vue'
-import { useBodyLocked } from '@/hooks/use-body-locked'
+import { useBodyLocked } from '@jiumu/utils'
 import { previewMdEmits, previewMdProps } from './type'
 
 useBodyLocked()

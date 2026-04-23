@@ -39,7 +39,7 @@ import BaseInfo from './components/BaseInfo.vue'
 import Logs from './components/Logs.vue'
 import Other from './components/Other.vue'
 import Setting from './components/Setting.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 const emit = defineEmits({
   close: () => true

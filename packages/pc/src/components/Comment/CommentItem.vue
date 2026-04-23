@@ -12,7 +12,7 @@
       class="w-12 h-12 object-cover rounded-full mr-4"
     />
     <img
-      :src="$STATIC_URL + '/pc/images/avatar2.png'"
+      src="@/assets/images/avatar2.png"
       class="w-12 h-12 object-cover rounded-full mr-4"
       alt=""
       v-else

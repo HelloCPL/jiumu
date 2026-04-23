@@ -7,12 +7,12 @@
 import axios, { AxiosInstance, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { toPath, toStringify } from '@jiumu/utils'
 import { useUserStore, useTokenRefreshStore, useResetStore } from '@/store'
-import { Code } from '@/enumerations'
+import { Code } from '@jiumu/utils'
 import { isArray } from 'lodash-es'
 import { updateToken } from '@/api/user'
 import router from '@/router'
-import { Message, useLoading } from '@/utils/interaction'
-import { _saveFile } from '@/utils/download-file'
+import { Message, useLoading } from '@jiumu/utils'
+import { _saveFile } from '@jiumu/utils'
 const { VITE_TIME_OUT, VITE_API_URL } = import.meta.env
 
 // 创建axios实例
@@ -82,7 +82,7 @@ service.interceptors.response.use(
         return Promise.resolve(data)
       } else if (data.code === Code.authRefresh && !configHeaders['retransmission']) {
         // token 重新刷新
-        return _retransmit(response)
+        return handleRetransmit(response)
       } else {
         // 判断是否为文件
         if (disposition && disposition.includes('attachment;')) {
@@ -91,7 +91,7 @@ service.interceptors.response.use(
           }
           return Promise.resolve(response)
         }
-        return _handleError(data, showErrorMessage, data.message)
+        return handleRejectError(data, showErrorMessage, data.message)
       }
     } else {
       // 非项目内置api不做拦截处理
@@ -110,25 +110,21 @@ service.interceptors.response.use(
     let showErrorMessage = true
     if (error && error.code === 'ERR_CANCELED') showErrorMessage = false
     else if (error && error.config && error.config) showErrorMessage = error.config.showErrorMessage
-    return _handleError(error, showErrorMessage)
+    return handleRejectError(error, showErrorMessage)
   }
 )
 
 /**
  * 处理错误
  */
-function _handleError(data: any, showErrorMessage?: boolean, message?: string | string[]): Promise<any> {
+function handleRejectError(data: any, showErrorMessage?: boolean, message?: string | string[]): Promise<any> {
   if (showErrorMessage) {
-    let msg: string
-    if (message) {
-      if (typeof message === 'string') msg = message
-      else msg = message.join(',')
-    } else msg = '请求发生错误'
-    if (message && typeof message === 'string') msg
-    if (isArray(message)) message = message.join(',')
+    let msg: string = ''
+    if (message && typeof message === 'string') msg = message
+    if (isArray(message)) msg = message.join(',')
     Message({
       type: 'error',
-      message: <string>message || '请求发生错误'
+      message: msg || '请求发生错误'
     })
   }
   if (!(data && data.code === 'ERR_CANCELED')) console.error(data)
@@ -138,7 +134,7 @@ function _handleError(data: any, showErrorMessage?: boolean, message?: string | 
 /**
  * 重发刷新token
  */
-async function _retransmit(response: AxiosResponse): Promise<any> {
+async function handleRetransmit(response: AxiosResponse): Promise<any> {
   const { config, data } = response
   const tokenRefreshStore = useTokenRefreshStore()
   const res = await updateToken(tokenRefreshStore.tokenRefresh)
@@ -149,16 +145,20 @@ async function _retransmit(response: AxiosResponse): Promise<any> {
     return service({
       ...config
     })
-  } else return _handleError(data, config.showErrorMessage)
+  } else return handleRejectError(data, config.showErrorMessage)
 }
-
-export default service
 
 /**
  * 文件下载处理
  */
 function handleFileDownload(response: AxiosResponse) {
-  const text = toStringify(response.data)
+  let blob: Blob
+  if (response.data instanceof Blob) {
+    blob = response.data
+  } else {
+    const text = toStringify(response.data)
+    blob = new Blob([text])
+  }
   // 从 content-disposition 头中提取文件名
   let filename = 'download-file'
   const disposition = response.headers['content-disposition']
@@ -166,21 +166,33 @@ function handleFileDownload(response: AxiosResponse) {
     const filenameMatch = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)
     if (filenameMatch && filenameMatch[1]) {
       filename = filenameMatch[1].replace(/['"]/g, '')
+      try {
+        filename = decodeURIComponent(filename)
+      } catch {}
     }
   }
-  _saveFile(new Blob([text]), filename)
+  _saveFile(blob, filename)
 }
 
+let isRelogging = false
 /**
  * 重新登录
  */
 function relogin() {
+  if (isRelogging) return
+  isRelogging = true
   const resetStore = useResetStore()
   resetStore.reset()
-  router.replace({
-    path: '/login',
-    query: {
-      redirect: location.pathname + location.search
-    }
-  })
+  router
+    .replace({
+      path: '/login',
+      query: {
+        redirect: location.pathname + location.search
+      }
+    })
+    .finally(() => {
+      isRelogging = false
+    })
 }
+
+export default service

@@ -1,5 +1,3 @@
-// import {Code} from '@/enumerations/index'
-
 // 常用类型
 interface ObjectAny {
   [x:string]: any

@@ -9,7 +9,7 @@
     <!-- 头部信息 -->
     <div class="w-full px-6 py-4 border-b-1 relative" v-if="dataInfo">
       <img
-        :src="$STATIC_URL + '/pc/icons/icon_caogao.png'"
+        src="@/assets/icons/icon_caogao.png"
         class="absolute top-0 right-0 w-8"
         alt=""
         v-if="dataInfo.isDraft === '1'"
@@ -106,8 +106,8 @@ import { ElTableColumn, ElButton, ElTag } from 'element-plus'
 import Table from '@/components/Table/index.vue'
 import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
-import { getIndex, getPx } from '@/utils/tools'
-import { useWidth } from '@/hooks/use-width'
+import { getIndex, getPx } from '@jiumu/utils'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'NovelChapter'

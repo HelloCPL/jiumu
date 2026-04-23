@@ -1,0 +1,105 @@
+body,
+html {
+  font-size: var(--jm-font-size);
+  font-family: var(--jm-font-family);
+  color: var(--jm-color-text);
+  min-width: 375px;
+}
+
+// 提高权重
+html {
+  .g-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .g-center-x {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .g-center-y {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+// 滚动条样式
+.g-scroll-y,
+.g-scroll-y-0,
+.g-scroll-y-visible {
+  overflow-y: auto !important;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background: var(--jm-color-black-2);
+  }
+
+  &:hover::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.g-scroll-y,
+.g-scroll-y-visible {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+}
+
+.g-scroll-y-visible {
+  &::-webkit-scrollbar-thumb {
+    background: var(--jm-color-black-2);
+  }
+}
+
+// 1-2行显示，多出部分以省略号...显示
+.g-line {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+@for $i from 1 through 12 {
+  .g-line-#{$i} {
+    @extend .g-line;
+    /* autoprefixer: on */
+    -webkit-line-clamp: $i;
+  }
+}
+
+// 横向label长输入框宽度
+.g-w-360 {
+  width: 360px;
+}
+
+// 横向label普通输入框宽度
+.g-w-320 {
+  width: 320px;
+}
+
+// home页面筛选框横向输入框宽度
+// 或新页面竖向label输入框宽度
+.g-w-280 {
+  width: 280px;
+}
+
+// 弹框添加或编辑页面竖向label输入框宽度
+.g-w-240 {
+  width: 240px;
+}

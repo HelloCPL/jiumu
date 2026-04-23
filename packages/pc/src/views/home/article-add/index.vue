@@ -84,7 +84,7 @@ import Upload from '@/components/Upload/index.vue'
 import ShowImage from '@/components/ShowImage/index.vue'
 import ShowFile from '@/components/ShowFile/index.vue'
 import SelectClassify from '@/components/SelectClassify/index.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 
 defineOptions({

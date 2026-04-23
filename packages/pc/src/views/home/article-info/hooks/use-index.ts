@@ -7,6 +7,11 @@
 import { getArticleOne } from '@/api/article'
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import caogaoIcon from '@/assets/icons/icon_caogao.png'
+import yuanchuangIcon from '@/assets/icons/icon_yuanchuang.png'
+import zhuanzaiIcon from '@/assets/icons/icon_zhuanzai.png'
+import fanyiIcon from '@/assets/icons/icon_fanyi.png'
+import qitaIcon from '@/assets/icons/icon_qita.png'
 
 export const useIndex = () => {
   const route = useRoute()
@@ -25,11 +30,11 @@ export const useIndex = () => {
 
   // 状态
   const iconType = computed(() => {
-    if (dataInfo.value?.isDraft === '1') return '/pc/icons/icon_caogao.png'
-    else if (dataInfo.value?.type === '301') return '/pc/icons/icon_yuanchuang.png'
-    else if (dataInfo.value?.type === '302') return '/pc/icons/icon_zhuanzai.png'
-    else if (dataInfo.value?.type === '303') return '/pc/icons/icon_fanyi.png'
-    else return '/pc/icons/icon_qita.png'
+    if (dataInfo.value?.isDraft === '1') return caogaoIcon
+    else if (dataInfo.value?.type === '301') return yuanchuangIcon
+    else if (dataInfo.value?.type === '302') return zhuanzaiIcon
+    else if (dataInfo.value?.type === '303') return fanyiIcon
+    else return qitaIcon
   })
 
   // 是否热门

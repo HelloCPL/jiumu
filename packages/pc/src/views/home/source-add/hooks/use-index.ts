@@ -7,7 +7,7 @@
 import { addSource, deleteSource, getSourceOne, updateSource } from '@/api/source'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { useKeepAliveStore } from '@/store'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { getDataDiff } from '@jiumu/utils'
 import { FormInstance, FormRules } from 'element-plus'
 import { debounce } from 'lodash-es'

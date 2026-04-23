@@ -10,7 +10,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storage } from '@jiumu/utils'
 import { useUserStore } from '@/store'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import gsap from 'gsap'
 export const useIndex = () => {
   const route = useRoute()

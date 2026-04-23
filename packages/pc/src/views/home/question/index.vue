@@ -77,9 +77,9 @@ import { formatDate } from '@jiumu/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import { useIndex } from './hooks/use-index'
 import { useIndexInfo } from '../question-me/hooks/use-index'
-import { getIndex, getPx } from '@/utils/tools'
+import { getIndex, getPx } from '@jiumu/utils'
 import { isSuper } from '@/utils/permission'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'Question'

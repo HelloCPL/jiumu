@@ -8,8 +8,8 @@ import { ref, computed, watch } from 'vue'
 import { xss } from '@jiumu/utils'
 import { EditorMdPreviewProps } from './type'
 import gsap from 'gsap'
-import { Message } from '@/utils/interaction'
-import { useWidth } from '@/hooks/use-width'
+import { Message } from '@jiumu/utils'
+import { useWidth } from '@jiumu/utils'
 
 export const useIndex = (props: EditorMdPreviewProps) => {
   const refPreview = ref<any>(null)

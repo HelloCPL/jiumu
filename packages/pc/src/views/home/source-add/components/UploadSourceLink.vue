@@ -116,7 +116,7 @@ import { Plus, RemoveFilled, Top, Bottom, CirclePlusFilled } from '@element-plus
 import { uploadSourceProps, uploadSourceEmit } from './type'
 import { useUploadSourceLink } from '../hooks/use-upload-source-link'
 import CoverImg from './CoverImg.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 
 const props = defineProps(uploadSourceProps)

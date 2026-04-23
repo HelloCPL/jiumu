@@ -47,7 +47,7 @@ import { ElForm, ElFormItem, ElInput, ElButton, ElCascader } from 'element-plus'
 import { useTagAdd } from '../hooks/use-tag-add'
 import InputNumber from '@/components/InputNumber/index.vue'
 import { tagAddProps, tagAddEmits } from './type'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 
 const emit = defineEmits(tagAddEmits)
 const props = defineProps(tagAddProps)

@@ -51,7 +51,7 @@ import { ElForm, ElFormItem, ElInput, ElButton, ElCascader } from 'element-plus'
 import { useMenuAdd } from '../hooks/use-menu-add'
 import InputNumber from '@/components/InputNumber/index.vue'
 import { menuAddProps, menuAddEmits } from './type'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 
 const emit = defineEmits(menuAddEmits)
 const props = defineProps(menuAddProps)

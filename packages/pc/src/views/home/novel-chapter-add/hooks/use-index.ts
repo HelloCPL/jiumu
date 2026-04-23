@@ -13,7 +13,7 @@ import {
 } from '@/api/novel'
 import { debounce } from 'lodash-es'
 import { useKeepAliveStore } from '@/store'
-import { Message, Confirm } from '@/utils/interaction'
+import { Message, Confirm } from '@jiumu/utils'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { validateContent } from '@/components/Editor'
 

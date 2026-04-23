@@ -37,10 +37,10 @@
 <script setup lang="ts">
 import { ref, onBeforeUpdate } from 'vue'
 import IconSvg from './index'
-import { iconSvgProps } from './type'
+import { iconSvgVueProps } from './type'
 import { getRandomId } from '@jiumu/utils'
 
-const props = defineProps(iconSvgProps)
+const props = defineProps(iconSvgVueProps)
 
 const key1 = ref(getRandomId())
 const key2 = ref(getRandomId())

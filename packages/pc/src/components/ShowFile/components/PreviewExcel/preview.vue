@@ -30,8 +30,8 @@
 import { ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
-import { Message, useLoading } from '@/utils/interaction'
-import { useBodyLocked } from '@/hooks/use-body-locked'
+import { Message, useLoading } from '@jiumu/utils'
+import { useBodyLocked } from '@jiumu/utils'
 import { previewExcelEmits, previewExcelProps } from './type'
 
 useBodyLocked()

@@ -3,7 +3,7 @@
  * @author cpl
  * @create 2023-04-23 09:28:55
  */
-import { useClipboardy } from '@/hooks/use-clipboardy'
+import { useClipboardy } from '@jiumu/utils'
 import {
   getMatchReg,
   getParagraphContext,
@@ -15,8 +15,9 @@ import {
   formatMarkdownText,
   getParagraphLines
 } from './keydown-tools'
+import { uploadFile } from '../../../../../api/file'
 
-const { copy, paste } = useClipboardy()
+const { copy, paste } = useClipboardy({ uploadFileApi: uploadFile })
 
 type UOption = {
   editorEgine: any

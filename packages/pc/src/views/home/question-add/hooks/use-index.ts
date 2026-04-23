@@ -8,7 +8,7 @@ import { validateContent } from '@/components/Editor'
 import { getQuestionOne, addQuestion, updateQuestion, deleteQuestion } from '@/api/question'
 import { debounce } from 'lodash-es'
 import { useKeepAliveStore } from '@/store'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { FilterButtonList } from '@/components/FilterButton/type'
 
 export const useIndex = () => {

@@ -8,7 +8,7 @@ import { ref, reactive } from 'vue'
 import { getMenuByParentCode, deleteMenu, exportMenuApi, importMenuApi } from '@/api/menu'
 import { FilterButtonList } from '@/components/FilterButton/type'
 import { debounce } from 'lodash-es'
-import { Confirm, Message } from '@/utils/interaction'
+import { Confirm, Message } from '@jiumu/utils'
 import { useUserStore } from '@/store'
 
 export const useIndex = () => {

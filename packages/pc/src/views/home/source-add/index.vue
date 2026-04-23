@@ -76,7 +76,7 @@ import Upload from '@/components/Upload/index.vue'
 import ShowFile from '@/components/ShowFile/index.vue'
 import UploadSource from './components/UploadSource.vue'
 import UploadSourceLink from './components/UploadSourceLink.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 
 defineOptions({

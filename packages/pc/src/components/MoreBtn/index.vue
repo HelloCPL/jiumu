@@ -21,7 +21,7 @@ import { ElIcon } from 'element-plus'
 import { CaretBottom } from '@element-plus/icons-vue'
 import { moreBtnProps, moreBtnEmits } from './type'
 import { ref } from 'vue'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 
 defineProps(moreBtnProps)
 

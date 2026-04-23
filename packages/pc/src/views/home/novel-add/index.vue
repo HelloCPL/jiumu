@@ -61,7 +61,7 @@ import { useIndex } from './hooks/use-index'
 import SelectType from '@/components/SelectType/index.vue'
 import InputNumber from '@/components/InputNumber/index.vue'
 import SelectClassify from '@/components/SelectClassify/index.vue'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 import Note from '@/components/Note/index.vue'
 

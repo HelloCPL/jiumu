@@ -4,7 +4,7 @@
 
 import { ShowFileProps, ShowFileEmits } from '../type'
 import { deleteFile } from '@/api/file'
-import { Confirm } from '@/utils/interaction'
+import { Confirm } from '@jiumu/utils'
 import { reactive } from 'vue'
 
 export const useIndex = (props: ShowFileProps, emit: ShowFileEmits) => {

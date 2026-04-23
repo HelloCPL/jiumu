@@ -38,7 +38,7 @@
             </span>
           </div>
         </div>
-        <img :src="$STATIC_URL + iconType" alt="" class="absolute left-0 -top-1 w-9" v-if="iconType" />
+        <img :src="iconType" alt="" class="absolute left-0 -top-1 w-9" v-if="iconType" />
         <div class="absolute top-0 right-0">
           <ElTag effect="dark" size="small" disable-transitions type="danger" v-if="isHot">热门</ElTag>
           <ElTag effect="dark" size="small" disable-transitions class="ml-2" v-if="dataInfo.isTop === '1'">

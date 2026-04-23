@@ -128,7 +128,7 @@ import NoteAdd from './NoteAdd.vue'
 import { formatDate } from '@jiumu/utils'
 import Pagination from '@/components/Pagination/index.vue'
 import IconSvg from '@/components/IconSvg/index'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
 
 const props = defineProps(noteProps)

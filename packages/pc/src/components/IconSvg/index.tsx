@@ -1,19 +1,13 @@
-import { ref } from 'vue'
-import { getSvg } from '@/assets/svg'
+import { ref, VNode } from 'vue'
+import { getSvg } from '@jiumu/utils'
+import { getPx } from '@jiumu/utils'
+import { IconSvgBaseProps } from './type'
 
-type Props = {
-  name: string
-  width?: number | string
-  height?: number | string
-  size?: number | string
-  fill?: string
-}
-
-const render = (props: Props) => {
-  const iconSvg = ref<any>(null)
-  iconSvg.value = getSvg(props.name, {
-    width: props.width || props.size,
-    height: props.height || props.size,
+const render = (props: IconSvgBaseProps) => {
+  const iconSvg = ref<VNode | null>(null)
+  iconSvg.value = getSvg(props.name!, {
+    width: props.width || props.size || getPx(14),
+    height: props.height || props.size || getPx(14),
     fill: props.fill
   })
   return iconSvg.value

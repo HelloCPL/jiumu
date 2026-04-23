@@ -41,7 +41,7 @@ import { useClassifyMeAdd } from '../hooks/use-classify-me-add'
 import { classifyMeAddProps, classifyMeAddEmits } from './type'
 import { ElForm, ElFormItem, ElInput, ElAutocomplete, ElButton } from 'element-plus'
 import InputNumber from '@/components/InputNumber/index.vue'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 
 const props = defineProps(classifyMeAddProps)
 const emit = defineEmits(classifyMeAddEmits)

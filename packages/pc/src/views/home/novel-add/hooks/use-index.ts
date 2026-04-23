@@ -7,7 +7,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { getNovelOne, addNovel, updateNovel, deleteNovel } from '@/api/novel'
 import { debounce } from 'lodash-es'
 import { useKeepAliveStore } from '@/store'
-import { Message, Confirm } from '@/utils/interaction'
+import { Message, Confirm } from '@jiumu/utils'
 import { FilterButtonList } from '@/components/FilterButton/type'
 
 export const useIndex = () => {

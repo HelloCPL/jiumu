@@ -87,8 +87,8 @@ import Pagination from '@/components/Pagination/index.vue'
 import { formatDate } from '@jiumu/utils'
 import ClassifyMeAdd from './components/ClassifyMeAdd.vue'
 import ClassifyMeInfo from './components/ClassifyMeInfo.vue'
-import { getIndex, getPx } from '@/utils/tools'
-import { useWidth } from '@/hooks/use-width'
+import { getIndex, getPx } from '@jiumu/utils'
+import { useWidth } from '@jiumu/utils'
 
 defineOptions({
   name: 'ClassifyMe'

@@ -1,4 +1,4 @@
-import { findIndex, toPath } from '@jiumu/utils'
+import { toPath } from '@jiumu/utils'
 import { RouteRecordName, RouteRecordRaw } from 'vue-router'
 import homeChildrenRoutes from './modules/home-children'
 import primaryRoutes from './modules/primary'
@@ -81,7 +81,7 @@ export const updateHomesMetaByMenus = (menus: DataMenu[]) => {
     if (isArray(menus)) {
       for (let i = 0; i < menus.length; i++) {
         const menu = menus[i]
-        const index = findIndex(list, (item) => item.code === menu.code)
+        const index = list.findIndex((item) => item.code === menu.code)
         if (index == -1) {
           list.push({
             code: menu.code,
@@ -98,7 +98,7 @@ export const updateHomesMetaByMenus = (menus: DataMenu[]) => {
   getMenus(list, menus)
   const handleRoutes = (list: CodeLabel[], routes: Array<RouteRecordRaw | KeepAliveOption>) => {
     list.forEach((item) => {
-      const index = findIndex(routes, (row) => row.name === item.code)
+      const index = routes.findIndex((row) => row.name === item.code)
       if (index !== -1 && routes[index].meta) {
         routes[index].meta.title = item.label
       }

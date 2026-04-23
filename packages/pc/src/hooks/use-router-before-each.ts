@@ -9,15 +9,18 @@ import { hasPermission } from '@/utils/permission'
  */
 export const beforeEach = (router: Router) => {
   router.beforeEach(
-    (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+    async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+      let hasQueryRefreshOne = false
+      const newQuery = { ...to.query }
       // 处理目标页面是否仅更新一次
       const navigationsStore = useNavigationsStore()
       if (to.params._refreshOne === '1') {
         navigationsStore.refreshNavigations(<string>to.name)
         delete to.params._refreshOne
-      } else if (to.query._refreshOne === '1') {
+      } else if (newQuery._refreshOne === '1') {
         navigationsStore.refreshNavigations(<string>to.name)
-        delete to.query._refreshOne
+        hasQueryRefreshOne = true
+        delete newQuery._refreshOne
       }
 
       const userStore = useUserStore()
@@ -28,6 +31,11 @@ export const beforeEach = (router: Router) => {
           path: '/login',
           query: { redirect: to.path }
         })
+      }
+      // 页面路由权限校验
+      if (userStore.token) {
+        await userStore.getUser('2')
+        await userStore.getUser('3')
       }
       // 页面路由权限校验
       const code = to?.meta?.code
@@ -41,7 +49,14 @@ export const beforeEach = (router: Router) => {
           })
         }
       }
-      next()
+      if (hasQueryRefreshOne) {
+        next({
+          path: to.path,
+          query: newQuery
+        })
+      } else {
+        next()
+      }
     }
   )
 }

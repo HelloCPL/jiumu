@@ -10,7 +10,7 @@ import { FormInstance, FormRules } from 'element-plus'
 import { addCipher, getCipherOneSelf, updateCipher } from '@/api/cipher'
 import { decrypt, encrypt } from '@jiumu/utils'
 import { debounce } from 'lodash-es'
-import { Message } from '@/utils/interaction'
+import { Message } from '@jiumu/utils'
 import { useCipherStore } from '@/store'
 import { useCheckCipherCode } from './use-index'
 

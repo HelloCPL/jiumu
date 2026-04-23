@@ -15,7 +15,7 @@
         <Upload upload-type="files" @change="handleUploadAvatar">
           <img :src="avatar?.filePath" v-if="avatar" class="w-12 h-12 rounded-md mr-2" />
           <img
-            :src="$STATIC_URL + '/pc/images/avatar2.png'"
+            src="@/assets/images/avatar2.png"
             alt=""
             class="w-12 h-12 rounded-md mr-2"
             v-else
@@ -26,13 +26,13 @@
             <span class="text-xl">{{ userStore.userInfo?.username || '昵称' }}</span>
             <img
               class="absolute top-1 w-4 icon-sex"
-              :src="$STATIC_URL + 'pc/icons/icon_male.png'"
+              src="@/assets/icons/icon_male.png"
               alt=""
               v-if="userStore?.userInfo?.sex === '201'"
             />
             <img
               class="absolute top-1 w-4 icon-sex"
-              :src="$STATIC_URL + 'pc/icons/icon_female.png'"
+              src="@/assets/icons/icon_female.png"
               alt=""
               v-else-if="userStore?.userInfo?.sex === '202'"
             />
@@ -113,7 +113,7 @@ import Upload from '@/components/Upload/index.vue'
 import IconSvg from '@/components/IconSvg/index'
 import { useResetStore } from '@/store'
 import { formatDate } from '@jiumu/utils'
-import { Confirm } from '@/utils/interaction'
+import { Confirm } from '@jiumu/utils'
 import { exitUser, updateUserBaseSelf } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'

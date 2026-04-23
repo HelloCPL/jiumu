@@ -46,10 +46,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { computed, onMounted, watch } from 'vue'
 import { isHomeRoutes } from '@/router/routes'
 import { findChildrenFirst } from '@jiumu/utils'
-import { getPx } from '@/utils/tools'
+import { getPx } from '@jiumu/utils'
 import { userStore } from '@/store/user/instance'
 import { navigationsStore } from '@/store/navigations/instance'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 const router = useRouter()
 const { isCollapse, routerName } = storeToRefs(navigationsStore)

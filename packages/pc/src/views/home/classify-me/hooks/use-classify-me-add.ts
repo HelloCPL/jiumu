@@ -12,7 +12,7 @@ import {
   updateTagCustom
 } from '@/api/classify'
 import { debounce } from 'lodash-es'
-import { Message } from '@/utils/interaction'
+import { Message } from '@jiumu/utils'
 
 export const useClassifyMeAdd = (props: ClassifyMeAddProps, emit: ClassifyMeAddEmits) => {
   const title = ref<string>('自定义标签新增')

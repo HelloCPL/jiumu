@@ -12,7 +12,7 @@ import { TitleCatalogType } from '@/components/Editor/components/EditorWang/comp
 import { getTitleData } from '@/components/Editor/components/EditorWang/hooks/use-title-catalog'
 import gsap from 'gsap'
 import $ from 'jquery'
-import { useWidth } from '@/hooks/use-width'
+import { useWidth } from '@jiumu/utils'
 
 export const useIndex = (props: EditorWangPreviewProps) => {
   let editor: IDomEditor | null = null

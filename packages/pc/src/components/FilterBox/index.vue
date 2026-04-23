@@ -58,8 +58,8 @@ import { ElForm, ElButton, ElIcon } from 'element-plus'
 import { Search, Brush, More, MoreFilled } from '@element-plus/icons-vue'
 import { ref, nextTick, onMounted, onUpdated, onUnmounted, computed } from 'vue'
 import { filterBoxProps, filterBoxEmits } from './type'
-import { useWidth } from '@/hooks/use-width'
-import { getPx } from '@/utils/tools'
+import { useWidth } from '@jiumu/utils'
+import { getPx } from '@jiumu/utils'
 
 const props = defineProps(filterBoxProps)
 defineEmits(filterBoxEmits)
