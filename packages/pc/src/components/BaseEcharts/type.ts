@@ -2,10 +2,9 @@
  * echarts组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes } from 'vue'
 
-export const baseEchartsProps = buildProps({
+export const baseEchartsProps = {
   // 宽度
   width: {
     type: [String, Number],
@@ -19,7 +18,7 @@ export const baseEchartsProps = buildProps({
     type: Object,
     default: () => ({})
   }
-} as const)
+} as const
 
 export type BaseEchartsProps = ExtractPropTypes<typeof baseEchartsProps>
 

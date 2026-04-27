@@ -2,11 +2,11 @@
  * 弹窗左右两侧组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
 import { isString } from 'lodash-es'
+import { EmitFn } from 'vue'
 import { ExtractPropTypes } from 'vue'
 
-export const popupTwoProps = buildProps({
+export const popupTwoProps = {
   keyword: {
     // 左侧搜索关键字
     type: String,
@@ -71,7 +71,7 @@ export const popupTwoProps = buildProps({
     type: Boolean,
     default: true
   }
-} as const)
+} as const
 
 export type PopupTwoProps = ExtractPropTypes<typeof popupTwoProps>
 

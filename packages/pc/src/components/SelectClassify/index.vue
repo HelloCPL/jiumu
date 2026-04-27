@@ -10,25 +10,33 @@
       v-for="item in classifyList"
       :key="item.id"
       round
-      :type="item.checked ? '' : 'info'"
-      class="cursor-pointer bg-danger select-none"
+      :type="item.checked ? undefined : 'info'"
+      class="bg-danger select-none"
+      :class="{ 'cursor-pointer': !disabled, 'custom-classify-enable': !disabled }"
       @click="handleClick(item)"
     >
       {{ item.label }}
     </ElTag>
     <!-- 新增标签 -->
-    <ElButton class="select-classify-btn" size="small" @click="handleShowInput" v-if="!showInput">
-      + 新建
-    </ElButton>
-    <ElInput
-      v-model="inputValue"
-      class="select-classify-input"
-      ref="inputRef"
-      size="small"
-      @keyup.enter="handleInputConfirm"
-      @blur="handleInputConfirm"
-      v-else
-    ></ElInput>
+    <template v-if="!disabled">
+      <ElButton
+        class="select-classify-btn"
+        size="small"
+        @click="handleShowInput"
+        v-if="!showInput && !disabled"
+      >
+        + 新建
+      </ElButton>
+      <ElInput
+        v-model="inputValue"
+        class="select-classify-input"
+        ref="inputRef"
+        size="small"
+        @keyup.enter="handleInputConfirm"
+        @blur="handleInputConfirm"
+        v-else
+      ></ElInput>
+    </template>
   </div>
 </template>
 
@@ -36,6 +44,10 @@
 import { selectClassifyProps, selectClassifyEmits } from './type'
 import { useIndex } from './index'
 import { ElTag, ElButton, ElInput } from 'element-plus'
+
+defineOptions({
+  name: 'SelectClassifyComponent'
+})
 
 const props = defineProps(selectClassifyProps)
 const emit = defineEmits(selectClassifyEmits)
@@ -45,10 +57,12 @@ const { classifyList, handleClick, showInput, handleShowInput, inputValue, input
 
 <style lang="scss">
 .select-classify-container {
-  .el-tag:hover {
-    background-color: var(--jm-color-primary-50);
-    border-color: var(--jm-color-primary-100);
-    color: var(--jm-color-primary);
+  .custom-classify-enable.el-tag {
+    &:hover {
+      background-color: var(--jm-color-primary-50);
+      border-color: var(--jm-color-primary-100);
+      color: var(--jm-color-primary);
+    }
   }
 
   .select-classify-btn {

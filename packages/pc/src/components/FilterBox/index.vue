@@ -61,6 +61,10 @@ import { filterBoxProps, filterBoxEmits } from './type'
 import { useWidth } from '@jiumu/utils'
 import { getPx } from '@jiumu/utils'
 
+defineOptions({
+  name: 'FilterBoxComponent'
+})
+
 const props = defineProps(filterBoxProps)
 defineEmits(filterBoxEmits)
 

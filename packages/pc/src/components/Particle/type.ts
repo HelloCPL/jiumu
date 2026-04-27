@@ -1,7 +1,6 @@
-import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 
-export const particleProps = buildProps({
+export const particleProps = {
   width: {
     type: Number,
     default: 540
@@ -25,6 +24,6 @@ export const particleProps = buildProps({
     type: Number,
     default: 2
   }
-} as const)
+} as const
 
 export type ParticleProps = ExtractPropTypes<typeof particleProps>

@@ -2,8 +2,7 @@
  * 卡片参数类型
  */
 
-import { EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes } from 'vue'
 
 export const cardProps = {
   title: String,

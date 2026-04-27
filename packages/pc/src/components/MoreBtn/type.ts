@@ -2,17 +2,16 @@
  * 是否还有更多按钮组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes } from 'vue'
 
-export const moreBtnProps = buildProps({
+export const moreBtnProps = {
   // 是否显示更多
   show: Boolean,
   text: {
     type: String,
     default: '更多'
   }
-} as const)
+} as const
 
 export type MoreBtnProps = ExtractPropTypes<typeof moreBtnProps>
 

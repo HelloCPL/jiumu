@@ -2,10 +2,10 @@
  * 用户选择组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes, PropType } from 'vue'
+import { getUserList } from '../../api/user'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 
-export const selectUserProps = buildProps({
+export const selectUserProps = {
   modelValue: {
     type: Array as PropType<DataUserInfo[]>,
     default: () => []
@@ -28,8 +28,15 @@ export const selectUserProps = buildProps({
     // 是否可删除
     type: Boolean,
     default: true
+  },
+  /**
+   * 获取所有用户列表
+   * pc 端有默认接口
+   */
+  getUserListApi: {
+    type: Function as PropType<typeof getUserList>
   }
-} as const)
+} as const
 
 export type SelectUserProps = ExtractPropTypes<typeof selectUserProps>
 

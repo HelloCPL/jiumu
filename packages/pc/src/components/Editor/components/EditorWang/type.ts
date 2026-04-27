@@ -2,23 +2,22 @@
  * 富文本参数
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
+import { deleteFile, uploadFile } from '../../../../api/file'
 import { IDomEditor, IToolbarConfig } from '@wangeditor/editor'
-import { isString } from 'lodash-es'
-import { ExtractPropTypes, PropType } from 'vue'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 
-export const editorWangProps = buildProps({
+export const editorWangProps = {
   modelValue: {
     type: String,
     default: ''
   },
-  placeholder: {
-    type: String,
-    default: '请输入...'
-  },
   height: {
     type: Number,
     default: 520
+  },
+  placeholder: {
+    type: String,
+    default: '请输入...'
   },
   config: {
     // 富文本配置
@@ -33,17 +32,31 @@ export const editorWangProps = buildProps({
   isEmitMounted: {
     type: Boolean,
     default: true
+  },
+  /**
+   * 上传文件
+   * pc 端有默认接口
+   */
+  uploadFileApi: {
+    type: Function as PropType<typeof uploadFile>
+  },
+  /**
+   *  删除文件
+   * pc 端有默认接口
+   */
+  deleteFileApi: {
+    type: Function as PropType<typeof deleteFile>
   }
-} as const)
+} as const
 
 export type EditorWangProps = ExtractPropTypes<typeof editorWangProps>
 
 export const editorWangEmits = {
-  'update:modelValue': (name: string) => isString(name),
-  change: (name: string) => isString(name),
-  blur: (name: string) => isString(name),
-  focus: (name: string) => isString(name),
-  save: (name: string) => isString(name)
+  'update:modelValue': (name: string) => true,
+  change: (name: string, editor: IDomEditor) => true,
+  blur: (name: string, editor: IDomEditor) => true,
+  focus: (name: string, editor: IDomEditor) => true,
+  save: (name: string) => true
 }
 
 export type EditorWangEmits = EmitFn<typeof editorWangEmits>

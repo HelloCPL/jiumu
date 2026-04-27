@@ -4,10 +4,11 @@
  * @create 2023-03-13 12:07:34
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes, PropType } from 'vue'
+import { getTagByParentCode } from '../../api/tag'
+import { getTagCustomListSelf } from '../../api/classify'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 
-export const selectTypeProps = buildProps({
+export const selectTypeProps = {
   modelValue: {
     type: [String, Number, Boolean],
     default: ''
@@ -46,8 +47,22 @@ export const selectTypeProps = buildProps({
   data: {
     type: Array as PropType<ValueLabel[]>,
     default: () => []
+  },
+  /**
+   * 获取我的自定义标签列表
+   * pc 端有默认接口
+   */
+  getTagCustomListSelfApi: {
+    type: Function as PropType<typeof getTagCustomListSelf>
+  },
+  /**
+   * 获取所有标签（树级结构）
+   * pc 端有默认接口
+   */
+  getTagByParentCodeApi: {
+    type: Function as PropType<typeof getTagByParentCode>
   }
-} as const)
+} as const
 
 export type SelectTypeProps = ExtractPropTypes<typeof selectTypeProps>
 

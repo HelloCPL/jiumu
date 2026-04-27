@@ -7,7 +7,7 @@
 import { defineStore } from 'pinia'
 import { StoreNames } from '../store-name'
 import { isHomeRoutes } from '@/router/routes'
-import { storage } from '@jiumu/utils'
+import { getHistoryState, storage } from '@jiumu/utils'
 import { RouteRecordName } from 'vue-router'
 
 export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGetters, KeepAliveActions>(
@@ -31,22 +31,10 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
       _push(to: KeepAliveOption) {
         if (!to) return
         // include入栈
-        let i1 = -1
-        this.includes.find((item, index) => {
-          if (item.name === to.name && item.path === to.path) {
-            i1 = index
-            return true
-          }
-        })
+        const i1 = this.includes.findIndex((item) => item.name === to.name && item.path === to.path)
         if (i1 === -1) this.includes.push(to)
         // exclude出栈
-        let i2 = -1
-        this.excludes.find((item, index) => {
-          if (item.name === to.name && item.path === to.path) {
-            i2 = index
-            return true
-          }
-        })
+        const i2 = this.excludes.findIndex((item) => item.name === to.name && item.path === to.path)
         if (i2 !== -1) this.excludes.splice(i2, 1)
       },
 
@@ -54,22 +42,10 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
       _pop(to: KeepAliveOption) {
         // include出栈
         if (!to) return
-        let i1 = -1
-        this.includes.find((item, index) => {
-          if (item.name === to.name && item.path === to.path) {
-            i1 = index
-            return true
-          }
-        })
+        const i1 = this.includes.findIndex((item) => item.name === to.name && item.path === to.path)
         if (i1 !== -1) this.includes.splice(i1, 1)
         // exclude入栈
-        let i2 = -1
-        this.excludes.find((item, index) => {
-          if (item.name === to.name && item.path === to.path) {
-            i2 = index
-            return true
-          }
-        })
+        const i2 = this.excludes.findIndex((item) => item.name === to.name && item.path === to.path)
         if (i2 === -1) this.excludes.push(to)
       },
 
@@ -84,7 +60,7 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
         this.excludes = []
         // 清除缓存
         storage.removeItem(StoreNames.KEEP_ALIVE, {
-          type: 'local',
+          type: 'session',
           prefix: 'pinia'
         })
       },
@@ -93,11 +69,12 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
       handleKeepAlive(to: KeepAliveOption, from: KeepAliveOption) {
         const flagTo = isHomeRoutes(to.name)
         const flagFrom = isHomeRoutes(from.name)
+        const replaced = getHistoryState('replaced')
         if (flagTo && flagFrom) {
           // to from 都属于home
-          if (to.params.__routerType === 'push' || to.query.__routerType === 'push') {
+          if (replaced === false) {
             this._push(to)
-          } else if (to.params.__routerType === 'replace' || to.query.__routerType === 'replace') {
+          } else if (replaced === true) {
             this._push(to)
             this._pop(from)
           } else {
@@ -110,19 +87,13 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
           else if (from.meta.keepAlive === false) this._pop(from)
         } else if (flagTo) {
           // 仅 to 属于home
-          const flag =
-            to.params.__routerType === 'push' ||
-            to.query.__routerType === 'push' ||
-            to.params.__routerType === 'replace' ||
-            to.query.__routerType === 'replace'
-          if (flag) this._push(to)
+          if (replaced === true || replaced === false) this._push(to)
           // 单独处理 meta.keepAlive 参数
           if (to.meta.keepAlive === true) this._push(to)
           else if (to.meta.keepAlive === false) this._pop(to)
         } else if (flagFrom) {
           // 仅 from 属于home
-          const flag = !(to.params.__routerType === 'push' || to.query.__routerType === 'push')
-          if (flag) this._pop(from)
+          if (replaced === true) this._pop(from)
           // 单独处理 meta.keepAlive 参数
           if (to.meta.keepAlive === true) this._push(from)
           else if (to.meta.keepAlive === false) this._pop(from)
@@ -144,7 +115,7 @@ export const useKeepAliveStore = defineStore<string, KeepAliveState, KeepAliveGe
       }
     },
     storage: {
-      type: 'local',
+      type: 'session',
       enabled: true,
       keys: ['includes', 'excludes']
     }

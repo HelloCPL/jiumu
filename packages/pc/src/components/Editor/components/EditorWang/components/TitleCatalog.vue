@@ -25,6 +25,10 @@
 import { titleCatalogProps, titleCatalogEmit } from './type'
 import { useTitleCatalog } from '../hooks/use-title-catalog'
 
+defineOptions({
+  name: 'EditorWangTitleCatalogComponent'
+})
+
 const props = defineProps(titleCatalogProps)
 defineEmits(titleCatalogEmit)
 

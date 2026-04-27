@@ -2,10 +2,10 @@
  * 用户选择弹窗盒子组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes, PropType } from 'vue'
+import { getUserList } from '../../../api/user'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 
-export const selectUserBoxProps = buildProps({
+export const selectUserBoxProps = {
   data: {
     type: Array as PropType<DataUserInfo[]>,
     default: () => []
@@ -13,8 +13,15 @@ export const selectUserBoxProps = buildProps({
   multiple: {
     type: Boolean,
     default: true
+  },
+  /**
+   * 获取所有用户列表
+   * pc 端有默认接口
+   */
+  getUserListApi: {
+    type: Function as PropType<typeof getUserList>
   }
-} as const)
+} as const
 
 export type SelectUserBoxProps = ExtractPropTypes<typeof selectUserBoxProps>
 

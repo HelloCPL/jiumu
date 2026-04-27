@@ -11,6 +11,7 @@
     destroy-on-close
     class="dialog-wrapper shadow-lg"
     :draggable="draggable"
+    :top="top"
     :width="getWidth"
     :open-delay="50"
     :close-on-click-modal="false"
@@ -46,7 +47,11 @@
 import { ElDialog, ElButton } from 'element-plus'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { dialogProps, dialogEmit } from './type'
-import { useWidth } from '@jiumu/utils'
+import { getPx, useWidth } from '@jiumu/utils'
+
+defineOptions({
+  name: 'DialogComponent'
+})
 
 const isShow = ref<boolean>(false)
 onMounted(() => {
@@ -78,13 +83,15 @@ const getWidth = computed(() => {
 })
 
 const getcontentHeight = computed(() => {
+  let text = `max-height: calc(100vh - ${getPx(45)}px - ${props.top} - ${props.top});`
   if (props.contentHeight) {
     if (props.showFooter) {
-      return `height: calc(${props.contentHeight} - 58px)`
+      text += `height: calc(${props.contentHeight} - ${getPx(50)}px);`
+    } else {
+      text += `height: ${props.contentHeight};`
     }
-    return `height: ${props.contentHeight}`
   }
-  return ''
+  return text
 })
 </script>
 

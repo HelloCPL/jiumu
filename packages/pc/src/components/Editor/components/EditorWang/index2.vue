@@ -42,14 +42,33 @@ import { editorWangProps, editorWangEmits } from './type'
 import TitleCatalog from './components/TitleCatalog.vue'
 import { getRandomId } from '@jiumu/utils'
 
+defineOptions({
+  name: 'EditorWangIndex2Component'
+})
+
 initEditorWangCustomMenus()
 
 const props = defineProps(editorWangProps)
 const emit = defineEmits(editorWangEmits)
 
 const id = getRandomId()
-const { editorId, showCatalog, catalogHeaders, catalogStyle, handleChangeTitle, previewStyle, isFullScreen } =
-  useEditorWang(props, emit, id)
+
+const {
+  refEditor,
+  editorId,
+  showCatalog,
+  catalogHeaders,
+  catalogStyle,
+  handleChangeTitle,
+  previewStyle,
+  isFullScreen
+} = useEditorWang(props, emit, id)
+
+defineExpose({
+  get refEditor() {
+    return refEditor.value as unknown as any
+  }
+})
 </script>
 
 <style lang="scss">

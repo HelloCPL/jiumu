@@ -5,13 +5,13 @@
 -->
 
 <template>
-  <div :class="{ 'w-full': task.length }">
-    <div class="flex mt-4 pb-4 border-b-1 border-lighter" v-for="(item, index) in task" :key="item.id">
+  <div :class="{ 'w-full': task.length }" class="mb-4">
+    <div class="w-full flex py-4 border-b-1 border-lighter" v-for="(item, index) in task" :key="item.id">
       <FileIcon :value="item.file.name" class="mt-2 mr-4 shrink-0"></FileIcon>
       <div class="flex-1 mr-12 big-content">
         <div>
           <div class="text-light">{{ item.file.name }}</div>
-          <div class="text-xs text-lighter mt-1">{{ getFileSize(item.file.size) }}</div>
+          <div class="text-xs text-lighter mt-1">{{ formatFileSize(item.file.size) }}</div>
         </div>
         <ElProgress
           :text-inside="false"
@@ -21,7 +21,7 @@
           :status="item.status === '2' ? 'exception' : 'success'"
         >
           <span class="text-sm text-lighter pl-1">
-            <span class="pr-1" v-if="item.status === '0'">已暂停</span>
+            <span class="pr-1" v-if="item.status === '2'">已暂停</span>
             <span>{{ item.percent }}%</span>
           </span>
         </ElProgress>
@@ -41,11 +41,15 @@
 </template>
 
 <script lang="ts" setup>
-import FileIcon from '@/components/ShowFile/components/FileIcon.vue'
+import FileIcon from '../../ShowFile/components/FileIcon/index.vue'
 import { ElButton, ElProgress } from 'element-plus'
 import { useUploadFilesBig } from '../hooks/use-upload-files-big'
 import { uploadFilesBigProps, uploadEmits } from '../type'
-import { getFileSize } from '@/components/ShowFile/hooks/use-index'
+import { formatFileSize } from '@jiumu/utils'
+
+defineOptions({
+  name: 'UploadFilesBigComponent'
+})
 
 const props = defineProps(uploadFilesBigProps)
 const emit = defineEmits(uploadEmits)

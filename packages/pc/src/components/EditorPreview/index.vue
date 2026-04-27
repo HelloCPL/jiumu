@@ -6,30 +6,36 @@
 
 <template>
   <div class="w-full">
-    <LazyLoader>
-      <EditorWangPreview
-        :value="value"
-        :is-show-title="isShowTitle"
-        v-bind="$attrs"
-        v-if="type === '401'"
-      ></EditorWangPreview>
-      <EditorMdPreview
-        :text="value"
-        :is-show-title="isShowTitle"
-        v-bind="$attrs"
-        v-else-if="type === '402'"
-      ></EditorMdPreview>
-    </LazyLoader>
+    <EditorWangPreview
+      :value="value"
+      :is-show-title="isShowTitle"
+      v-bind="$attrs"
+      v-if="type === '401'"
+    ></EditorWangPreview>
+    <EditorMdPreview
+      :text="value"
+      :is-show-title="isShowTitle"
+      v-bind="$attrs"
+      v-else-if="type === '402'"
+    ></EditorMdPreview>
+    <EditorAcePreview
+      :value="value"
+      :is-show-title="isShowTitle"
+      v-bind="$attrs"
+      v-else-if="type === '403'"
+    ></EditorAcePreview>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { editorPreviewProps } from './type'
-import { defineAsyncComponent } from 'vue'
-import LazyLoader from '@/components/LazyLoader/index.vue'
+import EditorMdPreview from './components/EditorMdPreview/index.vue'
+import EditorWangPreview from './components/EditorWangPreview/index.vue'
+import EditorAcePreview from './components/EditorAcePreview/index.vue'
 
-const EditorMdPreview = defineAsyncComponent(() => import('./components/EditorMdPreview/index.vue'))
-const EditorWangPreview = defineAsyncComponent(() => import('./components/EditorWangPreview/index.vue'))
+defineOptions({
+  name: 'EditorPreviewComponent'
+})
 
 defineProps(editorPreviewProps)
 </script>

@@ -12,6 +12,10 @@
 import { usernameShowProps } from './type'
 import { ref, watch } from 'vue'
 
+defineOptions({
+  name: 'UsernameShowComponent'
+})
+
 const props = defineProps(usernameShowProps)
 const _text = ref<string>('')
 const calculate = () => {

@@ -2,16 +2,15 @@
  * 筛选容器参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes } from 'vue'
 
-export const filterBoxProps = buildProps({
+export const filterBoxProps = {
   // 元素数量为最小值时判断是否显示更多
   minLength: {
     type: Number,
     default: 1
   }
-} as const)
+} as const
 
 export type FilterBoxProps = ExtractPropTypes<typeof filterBoxProps>
 

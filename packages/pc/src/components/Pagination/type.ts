@@ -2,12 +2,11 @@
  * 分页组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes, PropType } from 'vue'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 import { paginationProps as _paginationProps } from 'element-plus'
 import { isNumber } from 'lodash-es'
 
-export const paginationProps = buildProps({
+export const paginationProps = {
   ..._paginationProps, // 其他参数跟官网保持一致
   // 页码
   pageNo: {
@@ -34,7 +33,7 @@ export const paginationProps = buildProps({
     type: Array as PropType<number[]>,
     default: () => [2, 5, 10, 20, 30, 50, 100]
   }
-} as const)
+} as const
 
 export type PaginationProps = ExtractPropTypes<typeof paginationProps>
 

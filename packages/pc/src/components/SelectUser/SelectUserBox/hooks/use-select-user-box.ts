@@ -1,12 +1,14 @@
 /**
  * 处理弹窗选择用户逻辑
  */
-import { ref, onMounted } from 'vue'
-import { getUserList } from '@/api/user'
+import { ref, onMounted, computed } from 'vue'
+import { getUserList } from '../../../../api/user'
 import { debounce, isArray } from 'lodash-es'
 import { SelectUserBoxProps, SelectUserBoxEmits } from '../type'
 
 export const useSelectUserBox = (props: SelectUserBoxProps, emit: SelectUserBoxEmits) => {
+  const computedGetUserListApi = computed(() => props.getUserListApi || getUserList)
+
   // 获取用户信息
   let pageNo = 1
   const total = ref<number>(0)
@@ -14,7 +16,7 @@ export const useSelectUserBox = (props: SelectUserBoxProps, emit: SelectUserBoxE
   const dataList = ref<DataUserInfo[]>([])
   const getDataList = debounce(async () => {
     if (pageNo === 1) dataList.value = []
-    const res = await getUserList({
+    const res = await computedGetUserListApi.value({
       pageNo,
       keyword: keyword.value,
       simple: '1'

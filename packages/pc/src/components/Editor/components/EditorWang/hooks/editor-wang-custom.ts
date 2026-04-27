@@ -1,12 +1,14 @@
 /*
  * wangEditor 自定义上传
  */
-import { uploadFile } from '@/api/file'
+import { uploadFile } from '../../../../../api/file'
+import { EditorWangProps } from '../type'
 
 type InsertFnType = (url: string, alt: string, href?: string | null) => void
 type InsertFnVideoType = (url: string, poster?: string) => void
 
-export const editorWangCustom = () => {
+export const editorWangCustom = (uploadFileApi: EditorWangProps['uploadFileApi']) => {
+  const uploadFileApiFn = uploadFileApi || uploadFile
   // 原始图片数据
   const originFiles: DataBaseFile[] = []
 
@@ -14,7 +16,7 @@ export const editorWangCustom = () => {
   const customUploadImage = async (file: File, insertFn: InsertFnType) => {
     const params: FormData = new FormData()
     params.append('file', file)
-    const res = await uploadFile(params, {
+    const res = await uploadFileApiFn(params, {
       staticPlace: 'editors'
     })
     if (res.code === 200) {
@@ -29,7 +31,7 @@ export const editorWangCustom = () => {
   const customUploadVideo = async (file: File, insertFn: InsertFnVideoType) => {
     const params: FormData = new FormData()
     params.append('file', file)
-    const res = await uploadFile(params, {
+    const res = await uploadFileApiFn(params, {
       staticPlace: 'editors'
     })
     if (res.code === 200) {

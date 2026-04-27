@@ -11,12 +11,11 @@
     :height="height + 'px'"
     :placeholder="placeholder"
     :toc-nav-position-right="true"
-    :include-level="includeLevel"
     :left-toolbar="leftToolbar"
     :right-toolbar="rightToolbar"
     :toolbar="toolbar"
-    :disabled-menus="disabledMenus"
-    ref="refVMdEditor"
+    ref="refEditor"
+    v-bind="customConfig"
     @change="handleChange"
     @upload-image="handleUploadImage"
     @save="handleSave"
@@ -27,13 +26,34 @@
 import { useMarkdownInit } from './hooks/use-markdown-init'
 import { editorMarkdownProps, editorMarkdownEmits } from './type'
 import { useMarkdownIndex } from './hooks/use-markdown-index'
+import { computed } from 'vue'
+import { app } from '@/app'
 
-useMarkdownInit()
+defineOptions({
+  name: 'EditorMdIndex2Component'
+})
+
+useMarkdownInit(app)
 
 const props = defineProps(editorMarkdownProps)
 const emit = defineEmits(editorMarkdownEmits)
 
-const { value, refVMdEditor, handleChange, handleSave, handleUploadImage } = useMarkdownIndex(props, emit)
+const { value, refEditor, handleChange, handleSave, handleUploadImage } = useMarkdownIndex(props, emit)
+
+const customConfig = computed(() => {
+  const obj = {
+    includeLevel: [1, 2, 3, 4, 5],
+    disabledMenus: []
+  }
+  if (props.config) {
+    Object.assign(obj, props.config)
+  }
+  return obj
+})
+
+defineExpose({
+  refEditor
+})
 </script>
 
 <style lang="scss">

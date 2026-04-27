@@ -14,6 +14,10 @@ export const dialogProps = buildProps({
     type: String,
     default: ''
   },
+  top: {
+    type: [Number, String],
+    default: '15vh'
+  },
   // 是否可拖拽
   draggable: {
     type: Boolean,

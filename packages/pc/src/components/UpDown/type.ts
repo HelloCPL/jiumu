@@ -2,11 +2,10 @@
  * 展开收起组件props传参
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
 import { isBoolean } from 'lodash-es'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes } from 'vue'
 
-export const upDownProps = buildProps({
+export const upDownProps = {
   modelValue: {
     // 是否展开
     type: Boolean,
@@ -17,7 +16,7 @@ export const upDownProps = buildProps({
     type: Number,
     default: 150
   }
-} as const)
+} as const
 
 export type UpDownProps = ExtractPropTypes<typeof upDownProps>
 

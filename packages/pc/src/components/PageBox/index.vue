@@ -29,6 +29,10 @@ import { FilterButtonList } from '../FilterButton/type'
 import { computed } from 'vue'
 import { isArray } from 'lodash-es'
 
+defineOptions({
+  name: 'PageBoxComponent'
+})
+
 const props = defineProps(pageBoxProps)
 
 const emit = defineEmits(pageBoxEmits)

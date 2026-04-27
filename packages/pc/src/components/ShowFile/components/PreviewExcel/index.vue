@@ -1,31 +1,28 @@
 <!--
   @cpl
-  @create 2026-01-28 21:44:52
-  @description excel 预览
+  @create 2026-04-12 14:03:22
+  @description excel预览 入口
 -->
 
 <template>
-  <LazyLoader :preload-resources="preload">
-    <Preview v-bind="mergeAttrs" @close="(...args) => emit('close', ...args)"></Preview>
-  </LazyLoader>
+  <lazy-loader :preload-resources="getJQuery">
+    <Preview v-bind="mergeAttrs" />
+  </lazy-loader>
 </template>
 
 <script setup lang="ts">
 import { computed, defineAsyncComponent, useAttrs } from 'vue'
-import LazyLoader from '@/components/LazyLoader/index.vue'
-import { loadLuckyexcel, loadLuckysheetLinks, loadLuckysheetScripts } from '@/utils/scripts'
-import { previewExcelEmits, previewExcelProps } from './type'
+import LazyLoader from '../../../LazyLoader/index.vue'
+import { getJQuery } from './load-jquery'
+import { previewProps } from '../type'
+
+defineOptions({
+  name: 'ShowFilePreviewExcelComponent'
+})
 
 const Preview = defineAsyncComponent(() => import('./preview.vue'))
 
-const preload = async () => {
-  await loadLuckysheetLinks()
-  await loadLuckysheetScripts()
-  await loadLuckyexcel()
-}
-
-const emit = defineEmits(previewExcelEmits)
-const props = defineProps(previewExcelProps)
+const props = defineProps(previewProps)
 
 const attrs = useAttrs()
 const mergeAttrs = computed(() => {

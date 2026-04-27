@@ -61,12 +61,16 @@
 </template>
 
 <script setup lang="ts">
-import Dialog from '@/components/Dialog/index.vue'
+import Dialog from '../../Dialog/index.vue'
 import { isNumber, isObject } from 'lodash-es'
 import { onMounted, PropType, reactive, ref } from 'vue'
 import { VueCropper } from 'vue-cropper'
 import 'vue-cropper/dist/index.css'
 import { ElButton, ElCheckbox, ElSelect } from 'element-plus'
+
+defineOptions({
+  name: 'UploadCropperComponent'
+})
 
 const props = defineProps({
   file: {

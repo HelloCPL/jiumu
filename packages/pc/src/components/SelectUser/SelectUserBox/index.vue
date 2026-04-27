@@ -64,14 +64,18 @@
 </template>
 
 <script lang="ts" setup>
-import Dialog from '@/components/Dialog/index.vue'
-import UsernameShow from '@/components/UsernameShow/index.vue'
+import Dialog from '../../Dialog/index.vue'
+import UsernameShow from '../../UsernameShow/index.vue'
 import { ElCheckbox, ElRadio, ElIcon } from 'element-plus'
 import { Close } from '@element-plus/icons-vue'
-import PopupTwo from '@/components/PopupTwo/index.vue'
+import PopupTwo from '../../PopupTwo/index.vue'
 import { useSelectUserBox } from './hooks/use-select-user-box'
 import { PropType } from 'vue'
 import { selectUserBoxProps, selectUserBoxEmits } from './type'
+
+defineOptions({
+  name: 'SelectUserBoxComponent'
+})
 
 const props = defineProps(selectUserBoxProps)
 

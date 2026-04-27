@@ -2,10 +2,11 @@
  * 懒加载组件参数类型
  */
 
-import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes, PropType } from 'vue'
 
-export const lazyLoaderProps = buildProps({
+type PreloadFn = (...args: any[]) => void
+
+export const lazyLoaderProps = {
   // 监听配置
   observerOptions: {
     type: Object as PropType<IntersectionObserverInit>,
@@ -18,13 +19,13 @@ export const lazyLoaderProps = buildProps({
   },
   // 自定义预加载资源
   preloadResources: {
-    type: Function
+    type: Function as PropType<PreloadFn>
   },
   // 自定义延迟加载时间，单位 ms
   delay: {
     type: Number,
     default: 0
   }
-} as const)
+} as const
 
 export type LazyLoaderProps = ExtractPropTypes<typeof lazyLoaderProps>

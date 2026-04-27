@@ -25,6 +25,10 @@ import { ElInput, ElButton } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
 import { searchProps, searchEmits } from './type'
 
+defineOptions({
+  name: 'SearchComponent'
+})
+
 defineProps(searchProps)
 defineEmits(searchEmits)
 </script>

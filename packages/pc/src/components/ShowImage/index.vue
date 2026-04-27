@@ -26,14 +26,6 @@
         </ElIcon>
       </div>
     </div>
-
-    <!-- 图片预览 -->
-    <PreviewImage
-      :url-list="list"
-      :initial-index="targetIndex"
-      v-if="isShow"
-      @close="isShow = false"
-    ></PreviewImage>
   </div>
 </template>
 
@@ -41,14 +33,20 @@
 import { ElImage, ElIcon } from 'element-plus'
 import { View, Delete } from '@element-plus/icons-vue'
 import { showImageProps, showImageEmits } from './type'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { isArray, isObject } from 'lodash-es'
-import PreviewImage from '@/components/ShowFile/components/PreviewImage/index.vue'
 import { Confirm } from '@jiumu/utils'
-import { deleteFile } from '@/api/file'
+import { deleteFile } from '../../api/file'
+import PreviewImage from '../ShowFile/components/PreviewImage'
+
+defineOptions({
+  name: 'ShowImageComponent'
+})
 
 const props = defineProps(showImageProps)
 const emit = defineEmits(showImageEmits)
+
+const computedDeleteFileApi = computed(() => props.deleteFileApi || deleteFile)
 
 const list = ref<string[]>([])
 watch(
@@ -66,13 +64,11 @@ watch(
     immediate: true
   }
 )
-
-const isShow = ref(false)
-const targetIndex = ref(0)
 // 预览
 const handlePreview = (index: number) => {
-  targetIndex.value = index
-  isShow.value = true
+  PreviewImage({
+    url: list.value[index]
+  })
 }
 // 删除
 const handleDelete = (index: number) => {
@@ -80,7 +76,7 @@ const handleDelete = (index: number) => {
     const file = props.modelValue[index]
     if (isObject(file)) {
       // const res =
-      await deleteFile(file.id, false)
+      await computedDeleteFileApi.value(file.id, false)
       // if (res.code === 200) {
       const arr = props.modelValue
       const item = arr.splice(index, 1)

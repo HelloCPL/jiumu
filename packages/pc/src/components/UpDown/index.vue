@@ -38,6 +38,10 @@ import { useElementSize } from '@vueuse/core'
 import { ElIcon } from 'element-plus'
 import { ArrowDownBold } from '@element-plus/icons-vue'
 
+defineOptions({
+  name: 'UpDownComponent'
+})
+
 const props = defineProps(upDownProps)
 const emit = defineEmits(upDownEmits)
 

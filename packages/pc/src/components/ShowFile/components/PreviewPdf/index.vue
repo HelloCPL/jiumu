@@ -6,19 +6,22 @@
 
 <template>
   <LazyLoader>
-    <Preview v-bind="mergeAttrs" @close="(...args) => emit('close', ...args)"></Preview>
+    <Preview v-bind="mergeAttrs"></Preview>
   </LazyLoader>
 </template>
 
 <script setup lang="ts">
 import { computed, defineAsyncComponent, useAttrs } from 'vue'
-import LazyLoader from '@/components/LazyLoader/index.vue'
-import { previewPdfEmit, previewPdfProps } from './type'
+import LazyLoader from '../../../LazyLoader/index.vue'
+import { previewProps } from '../type'
+
+defineOptions({
+  name: 'ShowFilePreviewPdfComponent'
+})
 
 const Preview = defineAsyncComponent(() => import('./preview.vue'))
 
-const emit = defineEmits(previewPdfEmit)
-const props = defineProps(previewPdfProps)
+const props = defineProps(previewProps)
 
 const attrs = useAttrs()
 const mergeAttrs = computed(() => {

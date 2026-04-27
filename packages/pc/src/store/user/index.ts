@@ -22,8 +22,6 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
       roles: [],
       permissions: [
         // { id: 'xx', code: 'box1', label: '1', sort: 1, createTime: '', terminal: '' },
-        // { id: 'xxx', code: 'box2', label: '2', sort: 1, createTime: '', terminal: '' },
-        // { id: 'xxx', code: 'box3', label: '3', sort: 1, createTime: '', terminal: '' }
       ],
       menus: []
     }
@@ -39,7 +37,6 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
       this.tags = []
       // 清除缓存
       storage.removeItem(StoreNames.USER, {
-        type: 'local',
         prefix: 'pinia'
       })
     },
@@ -113,23 +110,23 @@ export const useUserStore = defineStore<string, UserState, ObjectAny, UserAction
       return new Promise((resolve) => {
         if (type === '1') {
           if (this.userInfo) resolve(this.userInfo)
-          else this.updateUser('1').then((res) => resolve(res))
+          else this.updateUser('1').then(() => resolve(this.userInfo))
         } else if (type === '2') {
           if (this.roles && this.roles.length) resolve(this.roles)
-          else this.updateUser('2').then((res) => resolve(res))
+          else this.updateUser('2').then(() => resolve(this.roles))
         } else if (type === '3') {
           if (this.permissions && this.permissions.length) resolve(this.permissions)
-          else this.updateUser('3').then((res) => resolve(res))
+          else this.updateUser('3').then(() => resolve(this.permissions))
         } else if (type === '4') {
           if (this.menus && this.menus.length) resolve(this.menus)
-          else this.updateUser('4').then((res) => resolve(res))
+          else this.updateUser('4').then(() => resolve(this.menus))
         }
       })
     }
   },
   storage: {
     enabled: true,
-    type: 'local',
-    expire: VITE_HOME_EXPIRE * 2
+    encrypt: true,
+    keys: ['token', 'userInfo']
   }
 })

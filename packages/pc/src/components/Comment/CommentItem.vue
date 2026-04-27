@@ -11,12 +11,7 @@
       v-if="target.createUserAvatar"
       class="w-12 h-12 object-cover rounded-full mr-4"
     />
-    <img
-      src="@/assets/images/avatar2.png"
-      class="w-12 h-12 object-cover rounded-full mr-4"
-      alt=""
-      v-else
-    />
+    <img src="@/assets/images/avatar2.png" class="w-12 h-12 object-cover rounded-full mr-4" alt="" v-else />
     <div class="flex-1 bg-white-4">
       <div class="flex flex-col">
         <div class="flex flex-wrap items-center gap-4 text-light">
@@ -92,8 +87,12 @@ import { PropType, ref } from 'vue'
 import { formatDate } from '@jiumu/utils'
 import { ElInput, ElButton, ElTag } from 'element-plus'
 import { useRouter } from 'vue-router'
-import IconSvg from '@/components/IconSvg'
+import IconSvg from '../IconSvg'
 import { isSuper } from '@/utils/permission'
+
+defineOptions({
+  name: 'CommentItemComponent'
+})
 
 defineProps({
   target: {

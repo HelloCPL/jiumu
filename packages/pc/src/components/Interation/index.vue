@@ -52,24 +52,23 @@
 </template>
 
 <script lang="ts" setup>
-import { watch } from 'vue'
-import { addLike, deleteLike, addCollection, deleteCollection } from '@/api/interaction'
-import IconSvg from '@/components/IconSvg'
+import { computed, watch } from 'vue'
+import { addLike, deleteLike, addCollection, deleteCollection } from '../../api/interaction'
+import IconSvg from '../IconSvg'
+import { InterationProps } from './type'
 
-type Props = {
-  modelValue: {
-    id: string
-    isLike: DataBaseStatus
-    isCollection: DataBaseStatus
-    isDraft?: DataBaseStatus
-    likeCount: number
-    collectionCount: number
-    [x: string]: any
-  }
-  type: string
-}
-const props = defineProps<Props>()
+defineOptions({
+  name: 'InterationComponent'
+})
+
+const props = defineProps<InterationProps>()
 const emit = defineEmits(['change', 'update:modelValue'])
+
+const computedAddLikeApi = computed(() => props.addLikeApi || addLike)
+const computedDeleteLikeApi = computed(() => props.deleteLikeApi || deleteLike)
+const computedAddCollectionApi = computed(() => props.addCollectionApi || addCollection)
+const computedDeleteCollectionApi = computed(() => props.deleteCollectionApi || deleteCollection)
+
 watch(
   () => props.modelValue,
   () => {},
@@ -81,7 +80,7 @@ const handleClick = async (type: string) => {
   if (type === 'like') {
     const isLike = props.modelValue.isLike === '1' ? '0' : '1'
     if (props.modelValue.isLike === '1') {
-      const res = await deleteLike(props.modelValue.id)
+      const res = await computedDeleteLikeApi.value(props.modelValue.id)
       if (res.code === 200) {
         const info = {
           ...props.modelValue,
@@ -92,7 +91,7 @@ const handleClick = async (type: string) => {
         emit('change', info)
       }
     } else {
-      const res = await addLike({ targetId: props.modelValue.id, type: props.type })
+      const res = await computedAddLikeApi.value({ targetId: props.modelValue.id, type: props.type })
       if (res.code === 200) {
         const info = {
           ...props.modelValue,
@@ -106,7 +105,7 @@ const handleClick = async (type: string) => {
   } else if (type === 'collection') {
     const isCollection = props.modelValue.isCollection === '1' ? '0' : '1'
     if (props.modelValue.isCollection === '1') {
-      const res = await deleteCollection(props.modelValue.id)
+      const res = await computedDeleteCollectionApi.value(props.modelValue.id)
       if (res.code === 200) {
         const info = {
           ...props.modelValue,
@@ -117,7 +116,7 @@ const handleClick = async (type: string) => {
         emit('change', info)
       }
     } else {
-      const res = await addCollection({ targetId: props.modelValue.id, type: props.type })
+      const res = await computedAddCollectionApi.value({ targetId: props.modelValue.id, type: props.type })
       if (res.code === 200) {
         const info = {
           ...props.modelValue,

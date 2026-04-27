@@ -28,9 +28,13 @@
 </template>
 
 <script setup lang="ts">
-import IconSvg from '@/components/IconSvg/index.vue'
+import IconSvg from '../../IconSvg/index.vue'
 import { getPx } from '@jiumu/utils'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
+
+defineOptions({
+  name: 'NoteContainerComponent'
+})
 
 defineProps({
   total: {

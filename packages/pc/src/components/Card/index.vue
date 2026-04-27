@@ -40,6 +40,10 @@ import { cardProps, cardEmits } from './type'
 import IconSvg from '../IconSvg/index.vue'
 import { ElCheckbox } from 'element-plus'
 
+defineOptions({
+  name: 'CardComponent'
+})
+
 defineProps(cardProps)
 const emit = defineEmits(cardEmits)
 

@@ -23,6 +23,10 @@ import { moreBtnProps, moreBtnEmits } from './type'
 import { ref } from 'vue'
 import { getPx } from '@jiumu/utils'
 
+defineOptions({
+  name: 'MoreBtnComponent'
+})
+
 defineProps(moreBtnProps)
 
 defineEmits(moreBtnEmits)

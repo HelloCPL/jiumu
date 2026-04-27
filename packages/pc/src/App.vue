@@ -15,3 +15,10 @@ themeStore.toggleTheme()
 themeStore.toggleFontFamily()
 themeStore.toggleFontSize()
 </script>
+
+<style>
+body,
+html {
+  background: var(--jm-color-bg);
+}
+</style>

@@ -121,15 +121,19 @@
 import { ElDrawer, ElFormItem, ElInput, ElButton, ElTag, ElEmpty } from 'element-plus'
 import { noteEmit, noteProps } from '../type'
 import { useList } from '../hooks/use-list'
-import FilterBox from '@/components/FilterBox/index.vue'
-import FilterButton from '@/components/FilterButton/index.vue'
-import SelectType from '@/components/SelectType/index.vue'
+import FilterBox from '../../FilterBox/index.vue'
+import FilterButton from '../../FilterButton/index.vue'
+import SelectType from '../../SelectType/index.vue'
 import NoteAdd from './NoteAdd.vue'
 import { formatDate } from '@jiumu/utils'
-import Pagination from '@/components/Pagination/index.vue'
-import IconSvg from '@/components/IconSvg/index'
+import Pagination from '../../Pagination/index.vue'
+import IconSvg from '../../IconSvg/index'
 import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
+
+defineOptions({
+  name: 'NoteListComponent'
+})
 
 const props = defineProps(noteProps)
 const emit = defineEmits(noteEmit)

@@ -65,10 +65,14 @@
 
 <script lang="ts" setup>
 import { ElRow, ElCol } from 'element-plus'
-import Search from '@/components/Search/index.vue'
+import Search from '../Search/index.vue'
 import { popupTwoProps, popupTwoEmits } from './type'
 import { onMounted } from 'vue'
-import MoreBtn from '@/components/MoreBtn/index.vue'
+import MoreBtn from '../MoreBtn/index.vue'
+
+defineOptions({
+  name: 'PopupTwoComponent'
+})
 
 const props = defineProps(popupTwoProps)
 const emit = defineEmits(popupTwoEmits)

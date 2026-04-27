@@ -62,12 +62,16 @@
 import { ElDrawer, ElForm, ElFormItem, ElInput, ElRow } from 'element-plus'
 import { noteAddProps, noteAddEmit } from '../type'
 import { useAdd } from '../hooks/use-add'
-import PageBox from '@/components/PageBox/index.vue'
-import SelectClassify from '@/components/SelectClassify/index.vue'
-import InputNumber from '@/components/InputNumber/index.vue'
-import SelectType from '@/components/SelectType/index.vue'
+import PageBox from '../../PageBox/index.vue'
+import SelectClassify from '../../SelectClassify/index.vue'
+import InputNumber from '../../InputNumber/index.vue'
+import SelectType from '../../SelectType/index.vue'
 import { useWidth } from '@jiumu/utils'
 import { computed } from 'vue'
+
+defineOptions({
+  name: 'NoteAddComponent'
+})
 
 const props = defineProps(noteAddProps)
 const emit = defineEmits(noteAddEmit)

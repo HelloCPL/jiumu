@@ -11,20 +11,22 @@
 7. 增加预览显示
 */
 
-import { IDomEditor, Toolbar, createEditor, createToolbar } from '@wangeditor/editor'
-import { onMounted, nextTick, watch, onUnmounted, ref } from 'vue'
+import { IDomEditor, IToolbarConfig, Toolbar, createEditor, createToolbar } from '@wangeditor/editor'
+import { onMounted, nextTick, watch, onUnmounted, ref, computed } from 'vue'
 import { EditorWangProps, EditorWangEmits } from '../type'
 import { getToolbarConfig, getEditorConfig } from './handle-editor-wang-config'
-import { deleteFile } from '@/api/file'
+import { deleteFile } from '../../../../../api/file'
 import { debounce } from 'lodash-es'
 import gsap from 'gsap'
+import { useBodyLocked } from '@jiumu/utils'
 
 export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id: string) => {
+  const computedDeleteFileApi = computed(() => props.deleteFileApi || deleteFile)
   // 获取配置
-  const toolbarConfig = getToolbarConfig(props.toolbarConfig)
+  const toolbarConfig = getToolbarConfig(props.toolbarConfig as IToolbarConfig)
   const { originFiles, editorConfig } = getEditorConfig(props)
 
-  let editor: IDomEditor | null = null
+  const refEditor = ref<IDomEditor | null>(null)
   let toolbar: Toolbar | null = null
   let value: string = ''
   const editorId = ref('')
@@ -38,29 +40,29 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
     editor.setHtml(props.modelValue)
     handleEditorEmit(editor)
     if (props.isEmitMounted) {
-      emit('change', props.modelValue)
+      emit('change', props.modelValue, refEditor.value as IDomEditor)
     }
     _isLoaded = true
   }
   const onChange = (editor: IDomEditor) => {
     value = editor.getHtml()
     emit('update:modelValue', value)
-    emit('change', value)
+    emit('change', value, refEditor.value as IDomEditor)
     handleTitle(editor)
   }
   const onFocus = () => {
     _isFocus = true
-    emit('focus', value)
+    emit('focus', value, refEditor.value as IDomEditor)
   }
   const onBlur = () => {
     _isFocus = false
-    emit('blur', value)
+    emit('blur', value, refEditor.value as IDomEditor)
   }
 
   // 初始化编辑器
   const initEditor = () => {
     nextTick(() => {
-      editor = createEditor({
+      refEditor.value = createEditor({
         selector: `#editor-${id}`,
         html: '',
         config: {
@@ -72,7 +74,7 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
         }
       })
       toolbar = createToolbar({
-        editor,
+        editor: refEditor.value,
         selector: `#toolbar-${id}`,
         config: toolbarConfig
       })
@@ -82,15 +84,15 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
   // 初始化和销毁操作
   onMounted(initEditor)
   onUnmounted(() => {
-    if (editor) editor.destroy()
+    if (refEditor.value) refEditor.value.destroy()
   })
 
   // 监听modelValue 同时做防抖处理
   const debounceValue = debounce(() => {
     nextTick(() => {
-      if (editor) {
+      if (refEditor.value) {
         try {
-          editor.setHtml(value)
+          refEditor.value.setHtml(value)
         } catch (e) {}
       }
     })
@@ -105,8 +107,8 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
 
   // 销毁时删除富文本已删除的在线图片或视频
   const removeFile = () => {
-    const imageList = editor?.getElemsByType('image') || []
-    const videoList = editor?.getElemsByType('video') || []
+    const imageList = refEditor.value?.getElemsByType('image') || []
+    const videoList = refEditor.value?.getElemsByType('video') || []
     const arr = [...imageList, ...videoList]
     const idsList: string[] = []
     originFiles.forEach((file) => {
@@ -115,7 +117,7 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
       }
     })
     const ids = idsList.join(',')
-    if (ids) deleteFile(ids)
+    if (ids) computedDeleteFileApi.value(ids)
   }
   onUnmounted(removeFile)
 
@@ -130,14 +132,16 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
     catalogHeaders.value = editor.getElemsByTypePrefix('header')
   }
   const handleChangeTitle = (item: any) => {
-    editor?.scrollToElem(item.id)
+    refEditor.value?.scrollToElem(item.id)
   }
   const isPreview = ref<boolean>(false)
   const previewStyle = ref({
     width: 0,
     opacity: 0
   })
+
   const isFullScreen = ref<boolean>(false)
+  const { lockScroll, unlockScroll } = useBodyLocked()
 
   // 监听自定义按钮事件
   const handleEditorEmit = (editor: IDomEditor) => {
@@ -178,6 +182,11 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
     // 监听全屏
     editor.on('wang-editor-fullScreen', (active: boolean) => {
       isFullScreen.value = active
+      if (active) {
+        lockScroll()
+      } else {
+        unlockScroll()
+      }
     })
   }
 
@@ -196,6 +205,7 @@ export const useEditorWang = (props: EditorWangProps, emit: EditorWangEmits, id:
   })
 
   return {
+    refEditor,
     editorId,
     showCatalog,
     catalogHeaders,

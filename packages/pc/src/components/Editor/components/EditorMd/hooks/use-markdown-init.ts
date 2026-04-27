@@ -2,9 +2,6 @@
  * 初始化注册markdown
  */
 
-// import { App } from 'vue'
-import { app } from '@/app'
-// import 'mermaid'
 import '@kangc/v-md-editor/lib/theme/style/github.css'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
 import '@kangc/v-md-editor/lib/style/preview-html.css'
@@ -33,18 +30,34 @@ import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
 // 内容定位
 import createAlignPlugin from '@kangc/v-md-editor/lib/plugins/align'
+import { App } from 'vue'
 
-export const useMarkdownInit = () => {
-  if (window._initMarkdown_) return
+export type VMdEditorInstance = InstanceType<typeof VMdEditor>
 
-  initMarkdown(VMdEditor, createMermaidPlugin)
-  app.use(VMdEditor)
-  initMarkdown(VMdPreview, createMermaidPlugin)
-  app.use(VMdPreview)
-  window._initMarkdown_ = '1'
+/**
+ * 编辑器初始化
+ */
+export const useMarkdownInit = (app: App) => {
+  if (!window._initMarkdown_) {
+    initMarkdown(VMdEditor, createMermaidPlugin)
+    app.use(VMdEditor)
+    window._initMarkdown_ = '1'
+  }
+  useMarkdownPreviewInit(app)
 }
 
-const initMarkdown = async (comp: any, createMermaidPlugin?: any) => {
+/**
+ * 预览初始化
+ */
+export const useMarkdownPreviewInit = (app: App) => {
+  if (!window._initMarkdownPreview_) {
+    initMarkdown(VMdPreview, createMermaidPlugin)
+    app.use(VMdPreview)
+    window._initMarkdownPreview_ = '1'
+  }
+}
+
+export const initMarkdown = async (comp: any, createMermaidPlugin?: any) => {
   comp.use(githubTheme, {
     Hljs: hljs,
     codeHighlightExtensionMap: {

@@ -4,8 +4,7 @@
  * @create: 2022-10-16 01:42:03
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes, PropType } from 'vue'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 import { FilterButtonList } from '../FilterButton/type'
 
 export type FooterButtonConfig = {
@@ -20,7 +19,7 @@ export type FooterButtonConfig = {
   deleteCode?: string // 使用默认按钮列表时，所需的删除按钮权限标识
 }
 
-export const pageBoxProps = buildProps({
+export const pageBoxProps = {
   // 是否展示底部
   showFooter: {
     type: Boolean,
@@ -61,7 +60,7 @@ export const pageBoxProps = buildProps({
     type: String,
     default: ''
   }
-} as const)
+} as const
 
 export type PageBoxProps = ExtractPropTypes<typeof pageBoxProps>
 

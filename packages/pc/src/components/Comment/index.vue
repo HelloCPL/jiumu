@@ -72,21 +72,15 @@
 <script lang="ts" setup>
 import { ElInput, ElButton, ElIcon } from 'element-plus'
 import { ArrowDownBold } from '@element-plus/icons-vue'
-import { commentEmit } from './type'
+import { commentEmit, commentProps } from './type'
 import { useIndex } from './index'
 import CommentItem from './CommentItem.vue'
-import IconSvg from '@/components/IconSvg'
 
-type CommentProps = {
-  modelValue: {
-    id: string
-    isDraft?: DataBaseStatus
-    commentCount: number
-    [x: string]: any
-  }
-  type: string
-}
-const props = defineProps<CommentProps>()
+defineOptions({
+  name: 'CommentComponent'
+})
+
+const props = defineProps(commentProps)
 const emit = defineEmits(commentEmit)
 
 const {

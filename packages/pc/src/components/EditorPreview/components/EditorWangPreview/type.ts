@@ -1,7 +1,6 @@
-import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes } from 'vue'
 
-export const editorWangPreviewProps = buildProps({
+export const editorWangPreviewProps = {
   value: {
     type: String,
     default: ''
@@ -11,6 +10,6 @@ export const editorWangPreviewProps = buildProps({
     type: Boolean,
     default: true
   }
-} as const)
+} as const
 
 export type EditorWangPreviewProps = ExtractPropTypes<typeof editorWangPreviewProps>

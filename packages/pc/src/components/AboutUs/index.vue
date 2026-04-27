@@ -27,7 +27,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import IconSvg from '@/components/IconSvg'
+import IconSvg from '../IconSvg'
+
+defineOptions({
+  name: 'AboutUsComponent'
+})
 
 type Info = {
   name: string

@@ -79,7 +79,7 @@ type EditorConfigReturn = {
 }
 // 编辑器配置
 export const getEditorConfig = (props: EditorWangProps): EditorConfigReturn => {
-  const { originFiles, customUploadImage, customUploadVideo } = editorWangCustom()
+  const { originFiles, customUploadImage, customUploadVideo } = editorWangCustom(props.uploadFileApi)
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: '请输入...',
     scroll: true,

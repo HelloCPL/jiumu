@@ -2,14 +2,17 @@
  * 笔记逻辑处理
  */
 
-import { FilterButtonList } from '@/components/FilterButton/type'
+import { FilterButtonList } from '../../FilterButton/type'
 import { Confirm, Message } from '@jiumu/utils'
 import { debounce } from 'lodash-es'
 import { ref, computed } from 'vue'
 import { NoteProps, NoteEmit } from '../type'
-import { deleteNote, getNoteList } from '@/api/note'
+import { deleteNote, getNoteList } from '../../../api/note'
 
 export const useList = (props: NoteProps, emit: NoteEmit) => {
+  const computedDeleteNoteApi = computed(() => props.deleteNoteApi || deleteNote)
+  const computedGetNoteListApi = computed(() => props.getNoteListApi || getNoteList)
+
   // 控制显隐
   const beforeClose = () => {
     emit('close')
@@ -51,7 +54,7 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
     } else {
       params.targetId = props.targetId
     }
-    const res = await getNoteList(params)
+    const res = await computedGetNoteListApi.value(params)
     if (res.code === 200) {
       data.value = res.data
       total.value = res.total
@@ -99,7 +102,7 @@ export const useList = (props: NoteProps, emit: NoteEmit) => {
   // 删除
   const handleDelete = (row: DataNote) => {
     Confirm('确定删除这项数据吗？').then(async () => {
-      const res = await deleteNote(row.id)
+      const res = await computedDeleteNoteApi.value(row.id)
       if (res.code === 200) {
         Message({
           message: res.message,

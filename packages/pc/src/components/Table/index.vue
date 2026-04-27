@@ -35,6 +35,7 @@ import { tableProps, tableEmits } from './type'
 import { useIndex } from './hooks/use-index'
 
 defineOptions({
+  name: 'TableComponent',
   inheritAttrs: false
 })
 

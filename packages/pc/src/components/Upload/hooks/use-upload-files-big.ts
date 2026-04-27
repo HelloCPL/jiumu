@@ -4,11 +4,11 @@
  * @create 2023-02-24 09:55:58
  */
 
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import sparkMD5 from 'spark-md5'
 import axios, { CancelTokenSource } from 'axios'
 import { Message, useLoading } from '@jiumu/utils'
-import { addFileChunk, mergeFileChunk, verifyFileChunk, deleteFileChunk } from '@/api/file'
+import { addFileChunk, mergeFileChunk, verifyFileChunk, deleteFileChunk } from '../../../api/file'
 import { UploadFilesBigProps, UploadEmits } from '../type'
 import { getRandomId } from '@jiumu/utils'
 
@@ -43,6 +43,11 @@ const MAX_RETRY_COUNT = 10
 const MAX_TASK_COUNT = 6
 
 export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits) => {
+  const computedAddFileChunkApi = computed(() => props.addFileChunkApi || addFileChunk)
+  const computedMergeFileChunkApi = computed(() => props.mergeFileChunkApi || mergeFileChunk)
+  const computedVerifyFileChunkApi = computed(() => props.verifyFileChunkApi || verifyFileChunk)
+  const computedDeleteFileChunkApi = computed(() => props.deleteFileChunkApi || deleteFileChunk)
+
   const { showLoading, hideLoading } = useLoading()
 
   const task = ref<TaskOption[]>([])
@@ -72,7 +77,7 @@ export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits)
       }
     })
     // 校验是否已上传
-    const res = await verifyFileChunk({
+    const res = await computedVerifyFileChunkApi.value({
       fileName: file.name,
       fileHash: fileHash
     })
@@ -129,7 +134,7 @@ export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits)
   const mergeTask = async (target: TaskOption) => {
     const flag = target.chunkFormData.every((item) => item.status === '2')
     if (flag) {
-      const res = await mergeFileChunk({
+      const res = await computedMergeFileChunkApi.value({
         fileName: target.file.name,
         fileHash: target.fileHash,
         chunkSize: CHUNK_SIZE,
@@ -165,11 +170,12 @@ export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits)
       ) {
         const chunk = pendingChunks[0]
         chunk.status = '1'
-        addFileChunk(
-          chunk.formData,
-          { fileHash: target.fileHash, chunkIndex: chunk.chunkIndex },
-          { cancelToken: chunk.cancelToken.token, showErrorMessage: false }
-        )
+        computedAddFileChunkApi
+          .value(
+            chunk.formData,
+            { fileHash: target.fileHash, chunkIndex: chunk.chunkIndex },
+            { cancelToken: chunk.cancelToken.token, showErrorMessage: false }
+          )
           .then((res) => {
             if (res?.code === 200) {
               chunk.status = '2'
@@ -225,7 +231,7 @@ export const useUploadFilesBig = (props: UploadFilesBigProps, emit: UploadEmits)
    */
   const handleCancel = async (target: TaskOption) => {
     stopUpload(target)
-    await deleteFileChunk(target.fileHash).catch(() => {})
+    await computedDeleteFileChunkApi.value(target.fileHash).catch(() => {})
     deleteTask(target)
     startTask()
   }

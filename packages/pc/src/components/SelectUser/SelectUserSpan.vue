@@ -21,6 +21,10 @@
 import { ElIcon } from 'element-plus'
 import { CircleClose } from '@element-plus/icons-vue'
 
+defineOptions({
+  name: 'SelectUserSpanComponent'
+})
+
 defineProps({
   isDelete: {
     // 是否可删除

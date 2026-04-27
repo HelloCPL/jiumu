@@ -42,7 +42,6 @@ export const useThemeStore = defineStore<string, ThemeState, ObjectAny, ThemeAct
       this.fontFamily = 'PingFang'
       // 清除缓存
       storage.removeItem(StoreNames.THEME, {
-        type: 'local',
         prefix: 'pinia'
       })
     }, // 不做数据清除
@@ -135,7 +134,8 @@ export const useThemeStore = defineStore<string, ThemeState, ObjectAny, ThemeAct
   },
   storage: {
     enabled: true,
-    type: 'local',
+    encrypt: true,
+    expire: 0,
     keys: ['theme', 'fontSize', 'fontFamily']
   }
 })

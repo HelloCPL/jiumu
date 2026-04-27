@@ -2,15 +2,20 @@
  * 笔记新增或编辑逻辑处理
  */
 
-import { FilterButtonList } from '@/components/FilterButton/type'
+import { FilterButtonList } from '../../FilterButton/type'
 import { Confirm, Message } from '@jiumu/utils'
 import { FormInstance, FormRules } from 'element-plus'
 import { debounce } from 'lodash-es'
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { NoteAddProps, NoteAddEmit } from '../type'
-import { addNote, deleteNote, getNoteOne, updateNote } from '@/api/note'
+import { addNote, deleteNote, getNoteOne, updateNote } from '../../../api/note'
 
 export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
+  const computedAddNoteApi = computed(() => props.addNoteApi || addNote)
+  const computedUpdateNoteApi = computed(() => props.updateNoteApi || updateNote)
+  const computedDeleteNoteApi = computed(() => props.deleteNoteApi || deleteNote)
+  const computedGetNoteOneApi = computed(() => props.getNoteOneApi || getNoteOne)
+
   // 表单
   const formRef = ref<FormInstance>()
   const form = reactive<ParamsNoteAdd>({
@@ -33,7 +38,7 @@ export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
   // 获取笔记详情
   const _getOne = async () => {
     if (!props.id) return
-    const res = await getNoteOne({ id: props.id })
+    const res = await computedGetNoteOneApi.value({ id: props.id })
     if (res.code === 200) {
       const data = res.data
       form.title = data.title
@@ -56,19 +61,19 @@ export const useAdd = (props: NoteAddProps, emit: NoteAddEmit) => {
 
   // 新增
   const _add = debounce(async (params: ParamsNoteAdd) => {
-    const res = await addNote(params)
+    const res = await computedAddNoteApi.value(params)
     handleFinish(res)
   }, 300)
 
   // 编辑
   const _update = debounce(async (params: ParamsNoteEdit) => {
-    const res = await updateNote(params)
+    const res = await computedUpdateNoteApi.value(params)
     handleFinish(res)
   }, 300)
 
   // 删除
   const _delete = debounce(async (id: string) => {
-    const res = await deleteNote(id)
+    const res = await computedDeleteNoteApi.value(id)
     handleFinish(res)
   }, 300)
 

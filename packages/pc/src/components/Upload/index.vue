@@ -6,9 +6,14 @@
 
 <template>
   <ElUpload
+    v-bind="mergeProps($attrs, props)"
     ref="refUpload"
-    class="inline-block"
-    :class="{ 'upload-container-disabled': disabled || _limit <= 0 }"
+    class="custom-upload-container"
+    :class="{
+      'upload-container-disabled': disabled || _limit <= 0,
+      'inline-block': !drag,
+      'w-full': drag
+    }"
     action="/"
     :accept="_accept"
     :show-file-list="false"
@@ -19,10 +24,16 @@
     :on-exceed="onExceed"
     :before-upload="beforeUpload"
     :http-request="httpRequest"
-    v-bind="$attrs"
   >
     <slot>
-      <template v-if="type === 'images'">
+      <template v-if="drag">
+        <div class="w-full h-28 flex flex-col items-center justify-center text-lighter hover:text-primary">
+          <el-icon size="var(--jm-font-size-large)"><UploadFilled /></el-icon>
+          <span class="mt-2 text-xs">拖拽或点击上传</span>
+          <span class="mt-2 text-xs text-lighter g-line-2" v-if="placeholder">{{ placeholder }}</span>
+        </div>
+      </template>
+      <template v-else-if="type === 'images'">
         <div
           class="flex flex-col justify-center items-center text-lighter w-28 h-28 border border-dashed rounded-sm"
           :class="{
@@ -34,6 +45,7 @@
             <Plus />
           </ElIcon>
           <span class="mt-2 text-xs">点击上传</span>
+          <span class="mt-2 text-xs text-lighter g-line-1" v-if="placeholder">{{ placeholder }}</span>
         </div>
       </template>
       <template v-else>
@@ -49,6 +61,10 @@
   <UploadFilesBig
     ref="refUploadFilesBig"
     :type="type"
+    :add-file-chunk-api="props.addFileChunkApi"
+    :merge-file-chunk-api="props.mergeFileChunkApi"
+    :verify-file-chunk-api="props.verifyFileChunkApi"
+    :delete-file-chunk-api="props.deleteFileChunkApi"
     @change="handleChangeFilesBig"
     v-if="uploadType === 'files_big' || uploadType === 'auto'"
   ></UploadFilesBig>
@@ -65,16 +81,17 @@
 
 <script lang="ts" setup>
 import { ElUpload, ElButton, ElIcon } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, UploadFilled } from '@element-plus/icons-vue'
 import { uploadProps, uploadEmits } from './type'
 import { useIndex } from './hooks/use-index'
 import UploadFilesBig from './components/UploadFilesBig.vue'
-import { defineAsyncComponent } from 'vue'
-import LazyLoader from '@/components/LazyLoader/index.vue'
+import { defineAsyncComponent, mergeProps } from 'vue'
+import LazyLoader from '../LazyLoader/index.vue'
 
 const Cropper = defineAsyncComponent(() => import('./components/Cropper.vue'))
 
 defineOptions({
+  name: 'UploadComponent',
   inheritAttrs: false
 })
 
@@ -102,6 +119,12 @@ const handleChangeFilesBig = (files: DataBaseFile[]) => {
 .upload-container-disabled {
   .el-upload {
     cursor: not-allowed;
+  }
+}
+
+.custom-upload-container {
+  .el-upload-dragger {
+    padding: 0;
   }
 }
 </style>

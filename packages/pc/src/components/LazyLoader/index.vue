@@ -17,6 +17,10 @@ import { lazyLoaderProps } from './type'
 import { useIndex } from './index'
 import LazyLoading from './components/loading.vue'
 
+defineOptions({
+  name: 'LazyLoaderComponent'
+})
+
 const props = defineProps(lazyLoaderProps)
 
 const { isLoaded, isLoading, observerRef, loadContent, reload } = useIndex(props)

@@ -33,6 +33,7 @@ import { computed } from 'vue'
 import { useWidth } from '@jiumu/utils'
 
 defineOptions({
+  name: 'PaginationComponent',
   inheritAttrs: false
 })
 

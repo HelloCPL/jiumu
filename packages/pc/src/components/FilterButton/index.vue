@@ -27,6 +27,10 @@
 import { ElButton } from 'element-plus'
 import { filterButtonProps, FilterButtonList, filterButtonEmits } from './type'
 
+defineOptions({
+  name: 'FilterButtonComponent'
+})
+
 const emit = defineEmits(filterButtonEmits)
 const handleClick = (item: FilterButtonList) => {
   if (item.click) item.click(item)

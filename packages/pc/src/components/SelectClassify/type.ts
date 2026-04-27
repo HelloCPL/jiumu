@@ -4,11 +4,11 @@
  * @create: 2022-10-16 20:17:34
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
+import { addTagCustom, getTagCustomListSelf } from '../../api/classify'
 import { isArray, isString } from 'lodash-es'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 
-export const selectClassifyProps = buildProps({
+export const selectClassifyProps = {
   modelValue: {
     type: String,
     default: ''
@@ -27,8 +27,26 @@ export const selectClassifyProps = buildProps({
   sort: {
     type: Number,
     default: 1
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * 添加自定义标签
+   * pc 端有默认接口
+   */
+  addTagCustomApi: {
+    type: Function as PropType<typeof addTagCustom>
+  },
+  /**
+   * 获取我的自定义标签列表
+   * pc 端有默认接口
+   */
+  getTagCustomListSelfApi: {
+    type: Function as PropType<typeof getTagCustomListSelf>
   }
-} as const)
+} as const
 
 export type SelectClassifyProps = ExtractPropTypes<typeof selectClassifyProps>
 

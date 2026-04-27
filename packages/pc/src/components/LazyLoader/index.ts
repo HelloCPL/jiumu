@@ -53,7 +53,7 @@ export const useIndex = (props: LazyLoaderProps) => {
       setTimeout(() => {
         isLoaded.value = true
         isLoading.value = false
-      }, props.delay)
+      }, props.delay || 0)
     }
   }
 

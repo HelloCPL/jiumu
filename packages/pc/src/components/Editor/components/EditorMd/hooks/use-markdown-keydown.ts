@@ -15,9 +15,8 @@ import {
   formatMarkdownText,
   getParagraphLines
 } from './keydown-tools'
+import { EditorMarkdownProps } from '../type'
 import { uploadFile } from '../../../../../api/file'
-
-const { copy, paste } = useClipboardy({ uploadFileApi: uploadFile })
 
 type UOption = {
   editorEgine: any
@@ -26,7 +25,13 @@ type UOption = {
   end: number
 }
 
-export const useMarkdownKeydown = () => {
+type KeyDownOptions = {
+  uploadFileApi: EditorMarkdownProps['uploadFileApi']
+}
+
+export const useMarkdownKeydown = (options: KeyDownOptions) => {
+  const uploadFileApiFn = options.uploadFileApi || uploadFile
+  const { copy, paste } = useClipboardy({ uploadFileApi: uploadFileApiFn })
   let lock = false
 
   const updateValue = (option: UOption) => {
@@ -176,7 +181,7 @@ export const useMarkdownKeydown = () => {
       let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
       copyText += '\n'
-      copy(copyText)
+      copy(copyText, false)
     }
   }
 
@@ -195,7 +200,7 @@ export const useMarkdownKeydown = () => {
       let copyText = p.value
       copyText = copyText.replace(/\n/g, '') || ''
       copyText += '\n'
-      copy(copyText)
+      copy(copyText, false)
     }
   }
 

@@ -2,7 +2,7 @@
  * 评论组件逻辑处理
  */
 import { CommentEmit, CommentProps } from './type'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import {
   addLike,
   deleteLike,
@@ -11,11 +11,19 @@ import {
   deleteCommentSelf,
   deleteCommentById,
   getCommentList
-} from '@/api/interaction'
+} from '../../api/interaction'
 import { mergeArray } from '@jiumu/utils'
 import { Confirm, Message } from '@jiumu/utils'
 
 export const useIndex = (props: CommentProps, emit: CommentEmit) => {
+  const computedAddLikeApi = computed(() => props.addLikeApi || addLike)
+  const computedDeleteLikeApi = computed(() => props.deleteLikeApi || deleteLike)
+  const computedAddCommentApi = computed(() => props.addCommentApi || addComment)
+  const computedGetCommentOneApi = computed(() => props.getCommentOneApi || getCommentOne)
+  const computedDeleteCommentSelfApi = computed(() => props.deleteCommentSelfApi || deleteCommentSelf)
+  const computedDeleteCommentByIdApi = computed(() => props.deleteCommentByIdApi || deleteCommentById)
+  const computedGetCommentListApi = computed(() => props.getCommentListApi || getCommentList)
+
   // 请求评论列表
   let pageNo = 1
   const pageSize = 10
@@ -23,11 +31,11 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
   const list = ref<DataCommentList[]>([])
   const handleGetList = async () => {
     if (pageNo === 1) list.value = []
-    const res = await getCommentList({
+    const res = await computedGetCommentListApi.value({
       pageNo,
       pageSize,
-      targetId: props.modelValue.id,
-      type: props.type
+      targetId: props.modelValue!.id,
+      type: props.type!
     })
     if (res.code === 200) {
       // 处理返回数据
@@ -52,7 +60,7 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
   const handleGetChildrenList = async (index: number, pageSize = 10) => {
     const info = list.value[index]
     if (info._pageNo === 1) info.children = []
-    const res = await getCommentList({
+    const res = await computedGetCommentListApi.value({
       pageNo: info._pageNo,
       pageSize,
       targetId: info.id,
@@ -74,21 +82,21 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
       Message('请输入评论内容!')
       return
     }
-    const res = await addComment({
-      targetId: props.modelValue.id,
-      type: props.type,
+    const res = await computedAddCommentApi.value({
+      targetId: props.modelValue!.id,
+      type: props.type!,
       content: value.value
     })
     if (res.code === 200) {
       total.value += 1
       const info = {
-        ...props.modelValue,
-        commentCount: props.modelValue.commentCount + 1
+        ...props.modelValue!,
+        commentCount: props.modelValue!.commentCount + 1
       }
       emit('update:modelValue', info)
       emit('change', info)
       value.value = ''
-      const res1 = await getCommentOne({ id: res.data })
+      const res1 = await computedGetCommentOneApi.value({ id: res.data })
       if (res1.code === 200 && res1.data) {
         list.value.unshift(res1.data)
       }
@@ -101,14 +109,14 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
       const item = parentIndex === -1 ? list.value[index] : list.value[parentIndex].children[index]
       let res
       if (item.isSelf === '1') {
-        res = await deleteCommentSelf(item.id)
+        res = await computedDeleteCommentSelfApi.value(item.id)
       } else {
-        res = await deleteCommentById(item.id)
+        res = await computedDeleteCommentByIdApi.value(item.id)
       }
       if (res && res.code === 200) {
         const info = {
-          ...props.modelValue,
-          commentCount: props.modelValue.commentCount - 1
+          ...props.modelValue!,
+          commentCount: props.modelValue!.commentCount - 1
         }
         emit('update:modelValue', info)
         emit('change', info)
@@ -127,7 +135,7 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
   const handleLike = async (index: number, parentIndex: number) => {
     const item = parentIndex === -1 ? list.value[index] : list.value[parentIndex].children[index]
     if (item.isLike === '1') {
-      const res = await deleteLike(item.id)
+      const res = await computedDeleteLikeApi.value(item.id)
       if (res.code === 200) {
         if (parentIndex === -1) {
           list.value[index].isLike = '0'
@@ -138,7 +146,7 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
         }
       }
     } else {
-      const res = await addLike({
+      const res = await computedAddLikeApi.value({
         targetId: item.id,
         type: '501'
       })
@@ -165,7 +173,7 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
   }
   const handleReply = async (value: string, index: number, parentIndex: number) => {
     const item = parentIndex === -1 ? list.value[index] : list.value[parentIndex].children[index]
-    const res = await addComment({
+    const res = await computedAddCommentApi.value({
       targetId: item.id,
       type: '501',
       content: value
@@ -173,20 +181,20 @@ export const useIndex = (props: CommentProps, emit: CommentEmit) => {
     if (res.code === 200) {
       item._showComment = false
       const info = {
-        ...props.modelValue,
-        commentCount: props.modelValue.commentCount + 1
+        ...props.modelValue!,
+        commentCount: props.modelValue!.commentCount + 1
       }
       emit('update:modelValue', info)
       emit('change', info)
       if (parentIndex === -1) {
         item.commentCount += 1
-        const res1 = await getCommentOne({ id: res.data })
+        const res1 = await computedGetCommentOneApi.value({ id: res.data })
         if (res1.code === 200 && res1.data) {
           item.children.unshift(res1.data)
         }
       } else {
         list.value[parentIndex].commentCount += 1
-        const res1 = await getCommentOne({ id: res.data })
+        const res1 = await computedGetCommentOneApi.value({ id: res.data })
         if (res1.code === 200 && res1.data) {
           list.value[parentIndex].children.splice(index + 1, 0, res1.data)
         }

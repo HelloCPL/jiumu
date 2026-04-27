@@ -7,7 +7,7 @@
 import { defineStore } from 'pinia'
 import { StoreNames } from '../store-name'
 import { isHomeRoutes } from '@/router/routes'
-import { storage } from '@jiumu/utils'
+import { getHistoryState, storage } from '@jiumu/utils'
 import { useKeepAliveStore } from '../keep-alive'
 
 export const useNavigationsStore = defineStore<string, NavigationState, NavigaitonGetters, NavigaitonActions>(
@@ -22,37 +22,18 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
     },
     getters: {
       routerNameIndex(state: NavigationState): number {
-        let i = 0
-        state.navigations.find((item, index) => {
-          if (item.name === state.routerName) {
-            i = index
-            return true
-          }
-        })
-        return i
+        return state.navigations.findIndex((item) => item.name === state.routerName)
       }
     },
     actions: {
       // 导航栏入栈
       _push(to: KeepAliveOption, routerName?: string) {
         if (!to) return
-        let i1 = -1
-        this.navigations.find((item, index) => {
-          if (item.name === to.name && item.path === to.path) {
-            i1 = index
-            return true
-          }
-        })
+        const i1 = this.navigations.findIndex((item) => item.name === to.name && item.path === to.path)
         // 新导航栏入栈规则 默认在当前路由右侧
         if (i1 === -1) {
           if (routerName) {
-            let i2 = -1
-            this.navigations.find((item, index) => {
-              if (item.name === routerName) {
-                i2 = index
-                return true
-              }
-            })
+            const i2 = this.navigations.findIndex((item) => item.name === routerName)
             if (i2 !== -1) {
               this.navigations.splice(i2 + 1, 0, to)
               return
@@ -67,13 +48,7 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
       // 导航栏出栈
       _pop(to: KeepAliveOption) {
         if (!to) return
-        let i1 = -1
-        this.navigations.find((item, index) => {
-          if (item.name === to.name && item.path === to.path) {
-            i1 = index
-            return true
-          }
-        })
+        const i1 = this.navigations.findIndex((item) => item.name === to.name && item.path === to.path)
         if (i1 !== -1) this.navigations.splice(i1, 1)
         // 清除缓存
         const keepAliveStore = useKeepAliveStore()
@@ -91,7 +66,7 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
         this.routerName = ''
         // 清除缓存
         storage.removeItem(StoreNames.NAVIGATIONS, {
-          type: 'local',
+          type: 'session',
           prefix: 'pinia'
         })
       },
@@ -105,13 +80,14 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
 
         keepAliveStore.handleKeepAlive(to, from)
         if (flagFrom) {
-          if (!(to.params.__routerType === 'push' || to.query.__routerType === 'push')) {
+          const replaced = getHistoryState('replaced')
+          if (replaced === true) {
             this._pop(from)
           }
         }
         if (flagTo) {
           this.routerName = to.name
-          this._push(to, <string>this.routerName)
+          this._push(to, this.routerName as string)
         }
       },
 
@@ -128,9 +104,8 @@ export const useNavigationsStore = defineStore<string, NavigationState, Navigait
       }
     },
     storage: {
-      type: 'local',
       enabled: true,
-      expire: 60 * 60 * 1
+      type: 'session'
     }
   }
 )

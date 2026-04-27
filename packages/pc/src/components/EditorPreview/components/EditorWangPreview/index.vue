@@ -6,9 +6,13 @@
 
 <script setup lang="ts">
 import { computed, defineAsyncComponent, useAttrs } from 'vue'
-import LazyLoader from '@/components/LazyLoader/index.vue'
+import LazyLoader from '../../../LazyLoader/index.vue'
 import { editorWangPreviewProps } from './type'
 const IndexEditorWangPreview = defineAsyncComponent(() => import('./index2.vue'))
+
+defineOptions({
+  name: 'EditorWangPreviewComponent'
+})
 
 const props = defineProps(editorWangPreviewProps)
 

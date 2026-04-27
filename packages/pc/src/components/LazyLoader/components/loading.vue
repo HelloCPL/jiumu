@@ -24,6 +24,10 @@
 import { themeStore } from '@/store/theme/instance'
 import { ref } from 'vue'
 
+defineOptions({
+  name: 'LazyLoaderLoadingComponent'
+})
+
 defineProps({
   text: {
     type: String,

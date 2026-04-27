@@ -7,70 +7,49 @@
 <template>
   <div class="w-full">
     <div
-      class="w-full flex items-center mb-4 show-file-wrapper"
+      class="w-full flex items-center py-2 mb-4 hover:bg show-file-wrapper"
       v-for="(item, index) in modelValue"
       :key="item.id"
     >
-      <span class="flex items-center mr-3 text-light">
+      <span class="flex items-center">
         <FileIcon :value="item.filePath" />
-        <span class="pl-2">{{ item.fileName }}</span>
-        <span class="pl-2 text-sm text-lighter">{{ getFileSize(item.fileSize) }}</span>
+        <span class="pl-4">{{ item.fileName }}</span>
+        <span class="pl-4 text-sm text-lighter pt-0.5">{{ formatFileSize(item.fileSize) }}</span>
       </span>
       <!-- 操作按钮 -->
-      <div class="flex" :class="showClass">
+      <div class="flex gap-x-4 ml-8" :class="showClass">
         <span
-          class="flex items-center cursor-pointer mr-3 text-sm text-lighter hover:text-primary"
-          @click="handlePreview(item)"
+          class="flex items-center cursor-pointer text-sm text-lighter hover:text-primary"
+          @click="previewFile({ file: item })"
           v-if="showPreView(item.suffix)"
         >
           <ElIcon>
             <View />
           </ElIcon>
-          <span>预览</span>
+          <span class="pl-1">预览</span>
         </span>
         <span
-          class="flex items-center cursor-pointer mr-3 text-sm text-lighter hover:text-primary"
+          class="flex items-center cursor-pointer text-sm text-lighter hover:text-primary"
           @click="downloadFile(item)"
           v-if="isDownload"
         >
           <ElIcon>
             <Download />
           </ElIcon>
-          <span>下载</span>
+          <span class="pl-1">下载</span>
         </span>
         <span
-          class="flex items-center cursor-pointer mr-3 text-sm text-lighter hover:text-primary"
+          class="flex items-center cursor-pointer text-sm text-lighter hover:text-primary"
           @click="handleDelete(item, index)"
           v-if="isDelete"
         >
           <ElIcon>
             <Delete />
           </ElIcon>
-          <span>删除</span>
+          <span class="pl-1">删除</span>
         </span>
       </div>
     </div>
-    <!-- 图片预览 -->
-    <PreviewImage
-      :url-list="[state.urlImage]"
-      v-if="state.showImage"
-      @close="state.showImage = false"
-    ></PreviewImage>
-    <!-- pdf 预览 -->
-    <PreviewPdf :url="state.urlPdf" v-if="state.showPdf" @close="state.showPdf = false"></PreviewPdf>
-    <!-- txt 预览 -->
-    <PreviewTxt :url="state.urlTxt" v-if="state.showTxt" @close="state.showTxt = false"></PreviewTxt>
-    <!-- word 预览 -->
-    <PreviewWord :url="state.urlWord" v-if="state.showWord" @close="state.showWord = false"></PreviewWord>
-    <!-- excel 预览 -->
-    <PreviewExcel
-      :url="state.urlExcel"
-      v-if="state.showExcel"
-      @close="state.showExcel = false"
-    ></PreviewExcel>
-    <!-- md 文件预览 -->
-    <PreviewMd :url="state.urlMd" v-if="state.showMd" @close="state.showMd = false"></PreviewMd>
-    <!-- 视频预览/播放 -->
   </div>
 </template>
 
@@ -78,27 +57,41 @@
 import { showFileProps, showFileEmits } from './type'
 import { ElIcon } from 'element-plus'
 import { View, Download, Delete } from '@element-plus/icons-vue'
-import FileIcon from './components/FileIcon.vue'
-import { useIndex, getFileSize } from './hooks/use-index'
-import { downloadFile } from '@jiumu/utils'
-import PreviewExcel from './components/PreviewExcel/index.vue'
-import PreviewImage from './components/PreviewImage/index.vue'
-import PreviewMd from './components/PreviewMd/index.vue'
-import PreviewPdf from './components/PreviewPdf/index.vue'
-import PreviewTxt from './components/PreviewTxt.vue'
-import PreviewWord from './components/PreviewWord/index.vue'
-import { useWidth } from '@jiumu/utils'
+import FileIcon from './components/FileIcon/index.vue'
+import { Confirm, downloadFile } from '@jiumu/utils'
+import { useWidth, formatFileSize } from '@jiumu/utils'
 import { computed } from 'vue'
+import { getPreviewFileType } from './hooks/utils'
+import { previewFile } from './hooks/preview-file'
+import { deleteFile } from '../../api/file'
+
+defineOptions({
+  name: 'ShowFileComponent'
+})
 
 const props = defineProps(showFileProps)
 const emit = defineEmits(showFileEmits)
-const { state, handlePreview, handleDelete, showPreView } = useIndex(props, emit)
+
+const computedDeleteFileApi = computed(() => props.deleteFileApi || deleteFile)
+const handleDelete = (file: DataBaseFile, index: number) => {
+  Confirm('确定删除这个文件吗？').then(async () => {
+    await computedDeleteFileApi.value(file.id, false)
+    const arr = props.modelValue
+    const item = arr.splice(index, 1)
+    emit('update:modelValue', arr)
+    emit('change', arr, item)
+  })
+}
 
 const { width } = useWidth()
 const showClass = computed(() => {
   if (width.value <= 768) return ''
   return 'show-file-box'
 })
+
+const showPreView = (suffix: string) => {
+  return !!getPreviewFileType(suffix)
+}
 </script>
 
 <style lang="scss" scoped>

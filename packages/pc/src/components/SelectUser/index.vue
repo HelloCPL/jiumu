@@ -47,6 +47,7 @@
       @close="isShow = false"
       :data="modelValue"
       :multiple="multiple"
+      :get-user-list-api="props.getUserListApi"
       @change="change"
     ></SelectUserBox>
   </div>
@@ -59,7 +60,11 @@ import { ref } from 'vue'
 import { selectUserProps, selectUserEmits } from './type'
 import SelectUserBox from './SelectUserBox/index.vue'
 import SelectUserSpan from './SelectUserSpan.vue'
-import UsernameShow from '@/components/UsernameShow/index.vue'
+import UsernameShow from '../UsernameShow/index.vue'
+
+defineOptions({
+  name: 'SelectUserComponent'
+})
 
 const props = defineProps(selectUserProps)
 const emit = defineEmits(selectUserEmits)

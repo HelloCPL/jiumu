@@ -14,16 +14,22 @@
 import { noteProps } from './type'
 import Container from './components/Container.vue'
 import NoteList from './components/NoteList.vue'
-import { onMounted, ref } from 'vue'
-import { getNoteList } from '@/api/note'
+import { computed, onMounted, ref } from 'vue'
+import { getNoteList } from '../../api/note'
+
+defineOptions({
+  name: 'NoteComponent'
+})
 
 const props = defineProps(noteProps)
+
+const computedGetNoteListApi = computed(() => props.getNoteListApi || getNoteList)
 
 const isShow = ref(false)
 
 const total = ref(0)
 const getTotal = async () => {
-  const res = await getNoteList({
+  const res = await computedGetNoteListApi.value({
     pageNo: 1,
     pageSize: 1,
     targetId: props.targetId as string

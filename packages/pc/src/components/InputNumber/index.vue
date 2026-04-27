@@ -24,6 +24,10 @@
 import { ElInputNumber } from 'element-plus'
 import { inputNumberProps, inputNumberEmits } from './type'
 
+defineOptions({
+  name: 'InputNumberComponent'
+})
+
 const props = defineProps(inputNumberProps)
 const emit = defineEmits(inputNumberEmits)
 

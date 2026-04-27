@@ -3,23 +3,27 @@
  * @author: cpl
  * @create: 2022-10-16 20:32:00
  */
-import { addTagCustom, getTagCustomListSelf } from '@/api/classify'
-import { Message } from '@jiumu/utils'
+import { addTagCustom, getTagCustomListSelf } from '../../api/classify'
 import { InputInstance } from 'element-plus'
 import { debounce } from 'lodash-es'
-import { nextTick, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { SelectClassifyEmits, SelectClassifyProps } from './type'
 
 export const useIndex = (props: SelectClassifyProps, emit: SelectClassifyEmits) => {
+  const computedAddTagCustomApi = computed(() => props.addTagCustomApi || addTagCustom)
+  const computedGetTagCustomListSelfApi = computed(
+    () => props.getTagCustomListSelfApi || getTagCustomListSelf
+  )
+
   const classifyList = ref<DataTagCustom[]>([])
   const getClassifyList = async (label?: string) => {
-    const res = await getTagCustomListSelf({
+    const res = await computedGetTagCustomListSelfApi.value({
       type: props.type,
       pageSize: 100
     })
     if (res.code === 200) {
       classifyList.value = res.data
-      handleRelevance(label ? 1000 : 0)
+      handleRelevance()
       if (label) {
         classifyList.value.find((item) => {
           if (item.label === label) {
@@ -30,44 +34,30 @@ export const useIndex = (props: SelectClassifyProps, emit: SelectClassifyEmits) 
       }
     }
   }
-  let timeId: any = null
-  const clearTimeId = () => {
-    if (timeId) {
-      clearTimeout(timeId)
-      timeId = null
-    }
-  }
+
   // 对数据进行关联
-  const handleRelevance = (time: number = 0) => {
+  const handleRelevance = () => {
     classifyList.value.forEach((item) => {
       if (props.modelValue.includes(item.id)) item.checked = true
       else item.checked = false
     })
-    if (classifyList.value.length > 1) {
-      clearTimeId()
-      timeId = setTimeout(() => {
-        classifyList.value.sort((a, b) => b.checked - a.checked)
-      }, time)
-    }
   }
   getClassifyList()
   watch(
     () => props.modelValue,
     () => {
-      handleRelevance(1000)
+      handleRelevance()
     }
   )
 
   const handleClick = (item: DataTagCustom) => {
-    item.checked = !item.checked
-    const ids = classifyList.value.filter((item) => item.checked).map((item) => item.id)
-    if (item.checked && ids.length > props.maxLength) {
-      item.checked = false
-      Message({
-        message: `最多可选择${props.maxLength}个标签`,
-        type: 'warning'
-      })
-      return
+    if (props.disabled) return
+    const ids = classifyList.value.filter((row) => row.checked && row.id !== item.id).map((row) => row.id)
+    if (!item.checked) {
+      ids.push(item.id)
+    }
+    if (ids.length > props.maxLength) {
+      ids.shift()
     }
     const classify = ids.join(',')
     emit('update:modelValue', classify)
@@ -87,7 +77,7 @@ export const useIndex = (props: SelectClassifyProps, emit: SelectClassifyEmits) 
 
   // 新增一个标签
   const getClassifyOne = debounce(async (label: string) => {
-    const res = await addTagCustom({
+    const res = await computedAddTagCustomApi.value({
       label,
       type: props.type,
       sort: getClassifySort()
@@ -102,8 +92,7 @@ export const useIndex = (props: SelectClassifyProps, emit: SelectClassifyEmits) 
     articleClassify: 1000,
     questionClassify: 2000,
     sourceClassify: 3000,
-    novelClassify: 4000,
-    cipherClassify: 5000
+    novelClassify: 4000
   }
   const getClassifySort = (): number => {
     let sort = sortList[props.type] || props.sort

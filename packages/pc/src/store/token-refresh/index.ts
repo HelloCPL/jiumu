@@ -22,7 +22,6 @@ export const useTokenRefreshStore = defineStore<string, TokenRefreshState, Objec
         this.tokenRefresh = ''
         // 清除缓存
         storage.removeItem(StoreNames.TOKEN_REFRESH, {
-          type: 'local',
           prefix: 'pinia'
         })
       },
@@ -32,8 +31,8 @@ export const useTokenRefreshStore = defineStore<string, TokenRefreshState, Objec
     },
     storage: {
       enabled: true,
-      type: 'local',
-      expire: VITE_HOME_EXPIRE * 3
+      encrypt: true,
+      expire: VITE_HOME_EXPIRE * 2
     }
   }
 )

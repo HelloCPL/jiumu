@@ -2,10 +2,11 @@
  * markdown 编辑器逻辑处理
  */
 import { debounce, isArray } from 'lodash-es'
-import { nextTick, ref, watch, onMounted, onUnmounted } from 'vue'
+import { nextTick, ref, watch, onMounted, onUnmounted, computed } from 'vue'
 import { EditorMarkdownProps, EditorMarkdownEmits } from '../type'
-import { uploadFile, deleteFile } from '@/api/file'
+import { uploadFile, deleteFile } from '../../../../../api/file'
 import { useMarkdownKeydown } from './use-markdown-keydown'
+import { VMdEditorInstance } from './use-markdown-init'
 
 type insertFnParams = {
   url: string
@@ -16,17 +17,20 @@ type insertFnParams = {
 type insertFn = (obj: insertFnParams) => void
 
 export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdownEmits) => {
+  const computedUploadFileApi = computed(() => props.uploadFileApi || uploadFile)
+  const computedDeleteFileApi = computed(() => props.deleteFileApi || deleteFile)
+
   let _isLoaded = false
 
   const value = ref<string>('')
-  const refVMdEditor = ref<any>()
+  const refEditor = ref<VMdEditorInstance | null>(null)
 
   // 改变
   const handleChange = (text: string) => {
     if (!_isLoaded) return
     value.value = text
     emit('update:modelValue', text)
-    emit('change', text)
+    emit('change', text, refEditor.value as VMdEditorInstance)
   }
 
   // 自定义上传图片
@@ -36,7 +40,7 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
       for (let i = 0, len = files.length; i < len; i++) {
         const params: FormData = new FormData()
         params.append('file', files[i])
-        const res = await uploadFile(params, {
+        const res = await computedUploadFileApi.value(params, {
           staticPlace: 'editors'
         })
         if (res.code === 200) {
@@ -60,7 +64,7 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
         else ids = item.id
       }
     })
-    if (ids) deleteFile(ids)
+    if (ids) computedDeleteFileApi.value(ids)
   }
   onUnmounted(removeFile)
 
@@ -84,7 +88,7 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
       value.value = props.modelValue.replace(/<\/p><p>/g, '</p>\n<p>')
       if (props.isEmitMounted) {
         setTimeout(() => {
-          emit('change', value.value)
+          emit('change', value.value, refEditor.value as VMdEditorInstance)
         }, 1000)
       }
     }
@@ -95,25 +99,27 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
     emit('save', text)
   }
   // 处理键盘快捷键
-  const { ctrlEnter, ctrlX, ctrlC, ctrlV, _tab, _enter, shiftTab } = useMarkdownKeydown()
+  const { ctrlEnter, ctrlX, ctrlC, ctrlV, _tab, _enter, shiftTab } = useMarkdownKeydown({
+    uploadFileApi: computedUploadFileApi.value
+  })
   const keydown = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.keyCode === 83) {
       // ctrl + s
       e.preventDefault()
     } else if (e.ctrlKey && e.keyCode === 13) {
-      ctrlEnter(e, refVMdEditor, value.value)
+      ctrlEnter(e, refEditor, value.value)
     } else if (e.ctrlKey && e.keyCode === 88) {
-      ctrlX(e, refVMdEditor, value.value)
+      ctrlX(e, refEditor, value.value)
     } else if (e.ctrlKey && e.keyCode === 67) {
-      ctrlC(e, refVMdEditor, value.value)
+      ctrlC(e, refEditor, value.value)
     } else if (e.ctrlKey && e.keyCode === 86) {
-      ctrlV(e, refVMdEditor, value.value)
+      ctrlV(e, refEditor, value.value)
     } else if (e.shiftKey && e.keyCode === 9) {
-      shiftTab(e, refVMdEditor, value.value)
+      shiftTab(e, refEditor, value.value)
     } else if (e.keyCode === 9) {
-      _tab(e, refVMdEditor, value.value)
+      _tab(e, refEditor, value.value)
     } else if (e.keyCode === 13) {
-      _enter(e, refVMdEditor, value.value)
+      _enter(e, refEditor, value.value)
     }
   }
   onMounted(() => {
@@ -125,7 +131,7 @@ export const useMarkdownIndex = (props: EditorMarkdownProps, emit: EditorMarkdow
 
   return {
     value,
-    refVMdEditor,
+    refEditor,
     handleChange,
     handleSave,
     handleUploadImage

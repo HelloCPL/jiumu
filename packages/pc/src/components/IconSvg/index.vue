@@ -40,6 +40,10 @@ import IconSvg from './index'
 import { iconSvgVueProps } from './type'
 import { getRandomId } from '@jiumu/utils'
 
+defineOptions({
+  name: 'IconSvgComponent'
+})
+
 const props = defineProps(iconSvgVueProps)
 
 const key1 = ref(getRandomId())

@@ -12,6 +12,10 @@
 import { baseEchartsProps, baseEchartsEmit } from './type'
 import { useIndex } from './index'
 
+defineOptions({
+  name: 'BaseEchartsComponent'
+})
+
 const props = defineProps(baseEchartsProps)
 const emit = defineEmits(baseEchartsEmit)
 

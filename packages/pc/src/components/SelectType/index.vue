@@ -57,14 +57,21 @@
 </template>
 
 <script lang="ts" setup>
-import { getTagCustomListSelf } from '@/api/classify'
-import { getTagByParentCode } from '@/api/tag'
+import { getTagCustomListSelf } from '../../api/classify'
+import { getTagByParentCode } from '../../api/tag'
 import { ElRadioGroup, ElRadio, ElSelect, ElOption } from 'element-plus'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { selectTypeProps, selectTypeEmit } from './type'
+
+defineOptions({
+  name: 'SelectTypeComponent'
+})
 
 const props = defineProps(selectTypeProps)
 const emit = defineEmits(selectTypeEmit)
+
+const computedGetTagCustomListSelfApi = computed(() => props.getTagCustomListSelfApi || getTagCustomListSelf)
+const computedGetTagByParentCodeApi = computed(() => props.getTagByParentCodeApi || getTagByParentCode)
 
 const updateModelValue = (val: any) => {
   emit('update:modelValue', val)
@@ -75,7 +82,7 @@ const updateModelValue = (val: any) => {
 const typeList = ref<DataTag[]>([])
 const getTypeList = async () => {
   const type = props.parentCode || '300'
-  const res = await getTagByParentCode(type)
+  const res = await computedGetTagByParentCodeApi.value(type)
   if (res.code === 200) {
     typeList.value = handleFilterCodes(res.data)
   }
@@ -102,7 +109,7 @@ const handleFilterCodes = (data: DataTag[]): DataTag[] => {
 const classifyList = ref<DataTagCustom[]>([])
 const getClassifyList = async () => {
   const type = props.parentCode || 'articleClassify'
-  const res = await getTagCustomListSelf({
+  const res = await computedGetTagCustomListSelfApi.value({
     type,
     pageSize: 100
   })
@@ -122,18 +129,18 @@ const _placeholder = ref('')
 onMounted(() => {
   if (props.data.length) return
   switch (props.type) {
-  case 'type':
-    getTypeList()
-    _placeholder.value = props.placeholder || '请选择类型'
-    break
-  case 'classify':
-    getClassifyList()
-    _placeholder.value = props.placeholder || '请选择标签'
-    break
-  case 'isSecret':
-    getIsSecretList()
-    _placeholder.value = props.placeholder || '请选择是否公开'
-    break
+    case 'type':
+      getTypeList()
+      _placeholder.value = props.placeholder || '请选择类型'
+      break
+    case 'classify':
+      getClassifyList()
+      _placeholder.value = props.placeholder || '请选择标签'
+      break
+    case 'isSecret':
+      getIsSecretList()
+      _placeholder.value = props.placeholder || '请选择是否公开'
+      break
   }
 })
 </script>

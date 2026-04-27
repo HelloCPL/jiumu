@@ -2,12 +2,12 @@
  * markdown 编辑器参数
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { isString } from 'lodash-es'
-import { ExtractPropTypes, PropType } from 'vue'
+import { EmitFn, ExtractPropTypes, PropType } from 'vue'
 import { handleTooltip } from './hooks/handle-tooltip'
+import { VMdEditorInstance } from './hooks/use-markdown-init'
+import { uploadFile, deleteFile } from '../../../../api/file'
 
-export const editorMarkdownProps = buildProps({
+export const editorMarkdownProps = {
   // 其余参数看 v-md-editor Props 参数
   modelValue: {
     type: String,
@@ -21,10 +21,10 @@ export const editorMarkdownProps = buildProps({
     type: String,
     default: '请输入...'
   },
-  // 标题导航级别
-  includeLevel: {
-    type: Array as PropType<number[]>,
-    default: () => [1, 2, 3, 4, 5]
+  // v-md-editor 自定义配置
+  config: {
+    type: Object,
+    default: () => ({})
   },
   leftToolbar: {
     type: String,
@@ -42,24 +42,33 @@ export const editorMarkdownProps = buildProps({
       return handleTooltip()
     }
   },
-  // 禁止选择的菜单
-  disabledMenus: {
-    type: Array as PropType<string[]>,
-    default: () => []
-  },
   // 初始化完成是否回调 change
   isEmitMounted: {
     type: Boolean,
     default: true
+  },
+  /**
+   * 上传文件
+   * pc 端有默认接口
+   */
+  uploadFileApi: {
+    type: Function as PropType<typeof uploadFile>
+  },
+  /**
+   *  删除文件
+   * pc 端有默认接口
+   */
+  deleteFileApi: {
+    type: Function as PropType<typeof deleteFile>
   }
-} as const)
+} as const
 
 export type EditorMarkdownProps = ExtractPropTypes<typeof editorMarkdownProps>
 
 export const editorMarkdownEmits = {
-  'update:modelValue': (name: string) => isString(name),
-  change: (name: string) => isString(name),
-  save: (name: string) => isString(name)
+  'update:modelValue': (name: string) => true,
+  change: (name: string, editor: VMdEditorInstance) => true,
+  save: (name: string) => true
 }
 
 export type EditorMarkdownEmits = EmitFn<typeof editorMarkdownEmits>

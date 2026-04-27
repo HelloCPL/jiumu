@@ -12,6 +12,10 @@
 import { particleProps } from './type'
 import { useIndex } from './hooks/index'
 
+defineOptions({
+  name: 'ParticleComponent'
+})
+
 const props = defineProps(particleProps)
 
 const { box } = useIndex(props)

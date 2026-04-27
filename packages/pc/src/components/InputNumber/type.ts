@@ -2,12 +2,11 @@
  * 数字输入框组件参数类型
  */
 
-import { buildProps, EmitFn } from '@jiumu/utils'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes } from 'vue'
 import { inputNumberProps as _inputNumberProps } from 'element-plus'
 import { isNumber } from 'lodash-es'
 
-export const inputNumberProps = buildProps({
+export const inputNumberProps = {
   // 其他参数与elementPlus inputNumber 组件参数保持一致
   ..._inputNumberProps,
   // 最小值
@@ -40,7 +39,7 @@ export const inputNumberProps = buildProps({
     default: '请输入'
   },
   isFloat: Boolean // 是否允许小数
-} as const)
+} as const
 
 export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>
 

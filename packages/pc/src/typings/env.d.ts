@@ -35,11 +35,10 @@ declare global {
   const defineOptions: typeof defineComponent
 
   interface Window {
-    luckysheet: any
     _initEditorWangCustomMenus_: any
     _initMarkdown_: any
+    _initMarkdownPreview_: any
     mermaid: any
-    LuckyExcel: any
     $: JQueryStatic
     jQuery: JQueryStatic
   }

@@ -28,6 +28,7 @@ export const useCipherStore = defineStore<string, CipherState, ObjectAny, Cipher
     }
   },
   storage: {
+    type: 'session',
     enabled: true,
     encrypt: true,
     keys: ['code'],

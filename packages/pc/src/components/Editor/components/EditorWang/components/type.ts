@@ -1,6 +1,5 @@
-import { EmitFn, buildProps } from '@jiumu/utils'
 import { isObject } from 'lodash-es'
-import { ExtractPropTypes } from 'vue'
+import { EmitFn, ExtractPropTypes } from 'vue'
 
 export type TitleCatalogType = {
   text: string
@@ -10,13 +9,13 @@ export type TitleCatalogType = {
   indent: number
 }
 
-export const titleCatalogProps = buildProps({
+export const titleCatalogProps = {
   headers: {
     // 标题列表
     type: Array,
     default: () => []
   }
-} as const)
+} as const
 
 export type TitleCatalogProps = ExtractPropTypes<typeof titleCatalogProps>
 

@@ -58,6 +58,10 @@ import { useIndex } from './index'
 import { ElAffix, ElIcon } from 'element-plus'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 
+defineOptions({
+  name: 'EditorWangPreviewIndex2Component'
+})
+
 const props = defineProps(editorWangPreviewProps)
 
 const { id, width, contentWidth, previewTitleClass, isReload, titleData, handleTitleItem, handleClickArrow } =
@@ -65,7 +69,7 @@ const { id, width, contentWidth, previewTitleClass, isReload, titleData, handleT
 </script>
 
 <style lang="scss">
-@forward '@/components/Editor/components/EditorWang/index.scss';
+@forward '../../../Editor/components/EditorWang/index.scss';
 .editor-wang-preiview-container {
   .el-affix {
     width: auto !important;

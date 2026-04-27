@@ -2,14 +2,15 @@
  * 预览组件参数
  */
 
-import { buildProps } from '@jiumu/utils'
 import { ExtractPropTypes, PropType } from 'vue'
 
-export const editorPreviewProps = buildProps({
+type EditorType = '401' | '402' | '403'
+
+export const editorPreviewProps = {
   // 其余参数看对应富文本编辑组件参数
   type: {
-    // 编辑器类型 401 富文本编辑器 402 Markdown 编辑器
-    type: String as PropType<'401' | '402' | '403'>,
+    // 编辑器类型 401 富文本编辑器 402 Markdown 编辑器 403 AceBuilds 代码编辑器
+    type: String as PropType<EditorType>,
     default: '401'
   },
   value: {
@@ -21,6 +22,6 @@ export const editorPreviewProps = buildProps({
     type: Boolean,
     default: true
   }
-} as const)
+} as const
 
 export type EditorPreviewProps = ExtractPropTypes<typeof editorPreviewProps>
