@@ -12,14 +12,14 @@
     >
       <!-- 头像 昵称 性别 账号  -->
       <div class="flex flex-wrap">
-        <Upload upload-type="files" @change="handleUploadAvatar">
+        <Upload
+          upload-type="files"
+          :is-cropper="true"
+          :cropper-config="{ width: '60vw', contentHeight: '600px', fixed: true, fixedNumber: [1, 1] }"
+          @change="handleUploadAvatar"
+        >
           <img :src="avatar?.filePath" v-if="avatar" class="w-12 h-12 rounded-md mr-2" />
-          <img
-            src="@/assets/images/avatar2.png"
-            alt=""
-            class="w-12 h-12 rounded-md mr-2"
-            v-else
-          />
+          <img src="@/assets/images/avatar2.png" alt="" class="w-12 h-12 rounded-md mr-2" v-else />
         </Upload>
         <div class="flex flex-col text">
           <span class="relative">
