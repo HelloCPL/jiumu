@@ -1,13 +1,26 @@
 {
   "extends": "../../tsconfig.json",
   // Specifies a list of type declarations to be included in auto type acquisition. Ex. ["jquery", "lodash"]
-  "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "../style/**/*.ts",
+    "../utils/**/*.ts",
+    "../utils/**/*.tsx",
+    "../pc/src/**/*.ts",
+    "../pc/src/**/*.tsx",
+    "../pc/src/**/*.vue"
+  ],
   "compilerOptions": {
-    "baseUrl": ".",
+    "composite": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@": ["./src"],
+      "@/*": ["./src/*"],
+      "@pc": ["../pc/src"],
+      "@pc/*": ["../pc/src/*"]
     }
   }
 }

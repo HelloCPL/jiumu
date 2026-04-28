@@ -1,12 +1,9 @@
 import { defineConfig, loadEnv } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import DefineOptions from 'unplugin-vue-define-options/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
-import OptimizationPersist from 'vite-plugin-optimize-persist'
-import PkgConfig from 'vite-plugin-package-config'
 import Components from 'unplugin-vue-components/vite'
 
 const path = require('path')
@@ -17,12 +14,21 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const { VITE_MODE, VITE_PORT, VITE_PUBLIC_PATH } = env
 
-  const plugins: any[] = [Vue(), DefineOptions(), VueJsx(), ElementPlus({}), Components()]
+  const plugins: any[] = [
+    Vue(),
+    VueJsx(),
+    ElementPlus({}),
+    Components({
+      resolvers: [
+        (componentName: string) => {
+          if (componentName.startsWith('El')) {
+            return { name: componentName, from: 'element-plus' }
+          }
+        }
+      ]
+    })
+  ]
 
-  if (VITE_MODE === 'development') {
-    // 本地预加载
-    plugins.push(...[PkgConfig(), OptimizationPersist()])
-  }
   if (VITE_MODE !== 'development') {
     // 打包压缩
     plugins.push(
@@ -51,7 +57,7 @@ export default defineConfig(({ mode }) => {
     base: VITE_PUBLIC_PATH,
     // publicDir: VITE_PUBLIC_PATH,
     server: {
-      port: VITE_PORT,
+      port: Number(VITE_PORT),
       proxy: {
         '/jiumu-koa2-ts-test/': {
           target: 'https://www.jiumublog.cn/',
@@ -78,7 +84,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler'
+          // api: 'modern-compiler'
         },
         less: {
           javascriptEnabled: true
@@ -125,13 +131,28 @@ export default defineConfig(({ mode }) => {
   }
 })
 
-function manualChunks(id) {
+const pkgs = [
+  { name: 'echarts', path: 'echarts' },
+  { name: 'mermaid', path: 'mermaid' },
+  { name: 'docx-preview', path: 'docx-preview' },
+  { name: '@kangc/v-md-editor', path: 'kangc-v-md-editor' },
+  { name: '@wangeditor/editor', path: 'wangeditor-editor' },
+  { name: 'vue3-ace-editor', path: 'vue3-ace-editor' },
+  { name: 'ace-builds', path: 'ace-builds' },
+  { name: 'gsap', path: 'gsap' },
+  { name: 'highlight', path: 'highlight' },
+  { name: 'luckyexcel', path: 'luckyexcel' },
+  { name: 'luckysheet', path: 'luckysheet' },
+  { name: 'pdfjs-dist', path: 'pdfjs-dist' },
+  { name: 'jquery', path: 'jquery' }
+]
+
+function manualChunks(id: string) {
   if (id.includes('node_modules')) {
-    if (id.includes('echarts')) {
-      return 'vendor-echarts'
-    }
-    if (id.includes('mermaid')) {
-      return 'vendor-mermaid'
+    for (const pkg of pkgs) {
+      if (id.includes(pkg.name)) {
+        return `vendor-${pkg.path}`
+      }
     }
     // return 'vendor-other';
   }

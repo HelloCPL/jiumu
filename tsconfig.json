@@ -11,7 +11,7 @@
     // enum: ["CommonJS","AMD","System","UMD","ES6","ES2015","ES2020","ESNext","None","ES2022","Node16","NodeNext"]
     "module": "esnext",
     // Specify how TypeScript looks up a file from a given module specifier.
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     // Enable all strict type checking options.
     "strict": true,
     // Specify what JSX code is generated.
@@ -42,17 +42,23 @@
     "declaration": true,
     // Specify type package names to be included without being referenced in a source file.  vue3 setup 语法糖使用 defineOptions
     "types": [
-      "vite/client",
+      "vite/client"
       // "vite-plugin-vue-component-preview/client",
-      "unplugin-vue-define-options"
     ],
     // Enable constraints that allow a TypeScript project to be used with project references.
     // "composite": true,
     // Enable experimental support for TC39 stage 2 draft decorators.
     "experimentalDecorators": true
   },
-  "include": ["./**/*.vue", "./**/typings/*.ts", "./packages/**/src/**/*.ts"],
-  "exclude": ["./**/dist", "./**/node_modules"],
+  "include": ["packages/**/*.ts", "packages/**/*.vue", "config/**/*.ts", "**/typings/**/*.ts"],
+  "exclude": ["**/dist", "**/node_modules"],
   // Referenced projects. Requires TypeScript version 3.0 or later.
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    {
+      "path": "./packages/pc/tsconfig.json"
+    },
+    {
+      "path": "./packages/web/tsconfig.json"
+    }
+  ]
 }
